@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Reignite Group — Why Brands Spend Millions</title>
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2"); }
+
+      :root {
+        --orange: #ff4d1a;
+        --charcoal: #1a1a1a;
+        --paper: #f5f1ea;
+        --gold: #ffb000;
+        --paper-60: rgba(245, 241, 234, 0.6);
+        --paper-40: rgba(245, 241, 234, 0.4);
+        --paper-14: rgba(245, 241, 234, 0.14);
+        --m: 96px; /* side margin */
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1080px; height: 1920px; overflow: hidden;
+        background: var(--charcoal);
+      }
+      #root {
+        position: relative; width: 100%; height: 100%; overflow: hidden;
+        background: var(--charcoal); color: var(--paper);
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .clip { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+      .or { color: var(--orange); }
+
+      /* --- type --- */
+      .d { font-weight: 800; letter-spacing: -0.045em; line-height: 0.92; text-transform: uppercase; white-space: nowrap; }
+      .lab {
+        font-weight: 500; font-size: 24px; letter-spacing: 0.22em; text-transform: uppercase;
+        color: var(--paper-60); white-space: nowrap;
+      }
+      .mask { overflow: hidden; display: block; padding-bottom: 0.06em; }
+      .mask > * { display: block; }
+      .num { font-feature-settings: "tnum" 0, "ss01" 1; }
+      .tilde { font-weight: 600; color: var(--orange); letter-spacing: 0; }
+
+      /* --- editorial header row --- */
+      .hdr {
+        position: absolute; left: var(--m); right: var(--m); top: 236px; height: 44px;
+        display: flex; justify-content: space-between; align-items: flex-start;
+      }
+      .hdr .hl { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--paper-14); }
+      .hdr .lab { display: block; }
+      .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); margin-right: 14px; vertical-align: 2px; }
+
+      /* --- evidence cards (real brand assets) --- */
+      .ex {
+        position: absolute; background: var(--paper); overflow: hidden;
+      }
+      .ex .media { position: absolute; inset: 44px 48px 56px 48px; }
+      .ex img { width: 100%; height: 100%; object-fit: contain; display: block; }
+      .ex.plate .media { inset: 18px; }
+      .ex.plate img { object-fit: contain; }
+      .ex .tag {
+        position: absolute; left: 20px; bottom: 16px; font-size: 18px; font-weight: 600;
+        letter-spacing: 0.2em; color: rgba(26, 26, 26, 0.78); text-transform: uppercase; white-space: nowrap;
+      }
+      .ex .fig {
+        position: absolute; right: 20px; bottom: 16px; font-size: 18px; font-weight: 500;
+        letter-spacing: 0.2em; color: rgba(26, 26, 26, 0.62); text-transform: uppercase; white-space: nowrap;
+      }
+      /* Shown only if a supplied asset file is not present yet. Never a substitute logo. */
+      .ex .slot {
+        position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
+        flex-direction: column; gap: 12px; text-align: center;
+        color: rgba(26, 26, 26, 0.45); font-size: 20px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+        border: 2px dashed rgba(26, 26, 26, 0.18); margin: 14px;
+      }
+      .ex .slot b { font-weight: 800; font-size: 26px; letter-spacing: 0.08em; color: rgba(26, 26, 26, 0.7); }
+      .ex.missing .slot { display: flex; }
+      .ex.missing img { visibility: hidden; }
+
+      .caps { position: absolute; display: flex; justify-content: space-between; align-items: center; }
+      .arrow-h { display: block; height: 2px; background: var(--orange); }
+
+      .foot { position: absolute; left: var(--m); top: 1548px; font-size: 20px; letter-spacing: 0.18em; color: var(--paper-60); text-transform: uppercase; font-weight: 500; }
+
+      /* --- chrome --- */
+      #chrome { z-index: 50; pointer-events: none; }
+      #prog { position: absolute; left: var(--m); right: var(--m); top: 176px; height: 2px; background: var(--paper-14); }
+      #prog i { position: absolute; inset: 0; background: var(--orange); transform-origin: 0 50%; display: block; }
+      #vig {
+        position: absolute; inset: 0; z-index: 60; pointer-events: none;
+        background: radial-gradient(120% 80% at 50% 45%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.32) 100%);
+      }
+
+      /* --- system diagrams --- */
+      svg.wire { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: visible; }
+      svg.wire path, svg.wire line, svg.wire circle { fill: none; stroke: var(--orange); stroke-width: 2; }
+      .node { position: absolute; white-space: nowrap; font-weight: 800; letter-spacing: -0.01em; text-transform: uppercase; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="65" data-width="1080" data-height="1920">
+
+      <!-- ============ 01 SHOCK ============ -->
+      <section id="s1" class="clip" data-start="0" data-duration="3.8" data-track-index="0">
+        <div class="abs" style="left: var(--m); top: 600px; width: 888px">
+          <span class="mask"><span id="s1a" class="d" style="font-size: 118px">Some brands</span></span>
+          <span class="mask"><span id="s1b" class="d" style="font-size: 118px">spent</span></span>
+          <span class="mask"><span id="s1c" class="d or" style="font-size: 168px">millions.</span></span>
+          <div id="s1rule" style="width: 120px; height: 3px; background: var(--orange); margin: 40px 0 34px; transform-origin: 0 50%"></div>
+          <span class="mask"><span id="s1d" class="d" style="font-size: 118px">Changing</span></span>
+          <span class="mask"><span id="s1e" class="d" style="font-size: 118px">this.</span></span>
+        </div>
+      </section>
+
+      <!-- ============ 02 PEPSI ============ -->
+      <section id="s2" class="clip" data-start="3.8" data-duration="6" data-track-index="0">
+        <div class="hdr"><span class="lab">Case 01</span><span class="lab">Logo redesign</span><i class="hl"></i></div>
+        <div class="abs" style="left: var(--m); top: 318px"><span class="mask"><span id="s2t" class="d" style="font-size: 196px">Pepsi</span></span></div>
+        <figure id="s2old" class="ex" style="left: 96px; top: 560px; width: 888px; height: 440px">
+          <div class="media"><img src="assets/brands/01_Pepsi/Pepsi_2006.svg" alt="" /></div>
+          <div class="slot"><b>Pepsi_2006.svg</b><span>supplied asset pending</span></div>
+          <span class="tag">Old · 2006</span><span class="fig">Fig. 1a</span>
+        </figure>
+        <figure id="s2new" class="ex" style="left: 560px; top: 560px; width: 424px; height: 440px">
+          <div class="media"><img src="assets/brands/01_Pepsi/Pepsi_2008.svg" alt="" /></div>
+          <div class="slot"><b>Pepsi_2008.svg</b><span>supplied asset pending</span></div>
+          <span class="tag">New · 2008</span><span class="fig">Fig. 1b</span>
+        </figure>
+        <div id="s2arrow" class="abs" style="left: 520px; top: 776px; width: 40px; height: 8px"><i class="arrow-h" style="width: 40px; margin-top: 3px"></i></div>
+        <div class="abs" style="left: var(--m); top: 1112px"><span class="mask"><span id="s2l" class="lab"><i class="dot"></i>2008 redesign · reported cost</span></span></div>
+        <div class="abs" style="left: var(--m); top: 1170px; display: flex; align-items: flex-start">
+          <span class="mask"><span id="s2n" class="d num" style="font-size: 236px"><span class="tilde" style="font-size: 110px; vertical-align: 92px">~</span>$1M</span></span>
+        </div>
+        <div id="s2f" class="foot">Publicly reported figure · approximate</div>
+      </section>
+
+      <!-- ============ 03 BBC ============ -->
+      <section id="s3" class="clip" data-start="9.8" data-duration="10.15" data-track-index="0">
+        <div class="hdr"><span class="lab">Case 02</span><span class="lab">Identity change</span><i class="hl"></i></div>
+        <div class="abs" style="left: var(--m); top: 318px"><span class="mask"><span id="s3t" class="d" style="font-size: 196px">BBC</span></span></div>
+        <figure id="s3old" class="ex" style="left: 96px; top: 560px; width: 888px; height: 400px">
+          <div class="media"><img src="assets/brands/02_BBC/BBC_pre_1997.svg" alt="" /></div>
+          <div class="slot"><b>BBC_pre_1997.svg</b><span>supplied asset pending</span></div>
+          <span class="tag">Old</span><span class="fig">Fig. 2a</span>
+        </figure>
+        <figure id="s3new" class="ex" style="left: 560px; top: 560px; width: 424px; height: 400px">
+          <div class="media"><img src="assets/brands/02_BBC/BBC_1997.svg" alt="" /></div>
+          <div class="slot"><b>BBC_1997.svg</b><span>supplied asset pending</span></div>
+          <span class="tag">1997 identity</span><span class="fig">Fig. 2b</span>
+        </figure>
+        <div id="s3arrow" class="abs" style="left: 520px; top: 756px; width: 40px; height: 8px"><i class="arrow-h" style="width: 40px; margin-top: 3px"></i></div>
+        <div class="abs" style="left: var(--m); top: 1052px"><span class="mask"><span id="s3l" class="lab"><i class="dot"></i>Identity implementation</span></span></div>
+        <div class="abs" style="left: var(--m); top: 1106px">
+          <span class="mask"><span id="s3n" class="d num" style="font-size: 262px"><span class="tilde" style="font-size: 120px; vertical-align: 104px">~</span>£1.7M</span></span>
+        </div>
+        <div class="abs" style="left: var(--m); top: 1352px"><span class="mask"><span id="s3y" class="d" style="font-size: 92px; color: var(--paper-60)">/ Year</span></span></div>
+        <!-- recurring-cost ruler: one tick per year, unlabeled (no invented duration) -->
+        <div id="s3ruler" class="abs" style="left: 500px; top: 1404px; width: 484px; height: 40px">
+          <i id="s3base" style="position: absolute; left: 0; right: 0; top: 19px; height: 2px; background: var(--paper-14); display: block; transform-origin: 0 50%"></i>
+          <i class="s3tk" style="position: absolute; left: 0; top: 6px; width: 3px; height: 28px; background: var(--orange); display: block"></i>
+          <i class="s3tk" style="position: absolute; left: 120px; top: 6px; width: 3px; height: 28px; background: var(--orange); display: block"></i>
+          <i class="s3tk" style="position: absolute; left: 240px; top: 6px; width: 3px; height: 28px; background: var(--orange); display: block"></i>
+          <i class="s3tk" style="position: absolute; left: 360px; top: 6px; width: 3px; height: 28px; background: var(--orange); display: block"></i>
+          <i class="s3tk" style="position: absolute; left: 480px; top: 6px; width: 3px; height: 28px; background: var(--orange); display: block"></i>
+        </div>
+        <div id="s3f" class="foot">Estimated per year over the implementation period</div>
+      </section>
+
+      <!-- ============ 04 ARTHUR ANDERSEN → ACCENTURE ============ -->
+      <section id="s4" class="clip" data-start="19.95" data-duration="7.35" data-track-index="0">
+        <div class="hdr"><span class="lab">Case 03</span><span class="lab">Transformation</span><i class="hl"></i></div>
+        <div id="s4stage" class="abs" style="inset: 0">
+          <div id="s4top" class="abs" style="left: 0; top: 0; width: 1080px; height: 760px">
+            <div class="abs" style="left: var(--m); top: 318px"><span class="mask"><span id="s4t1" class="d" style="font-size: 96px">Arthur Andersen</span></span></div>
+            <figure id="s4aa" class="ex" style="left: 96px; top: 440px; width: 888px; height: 300px">
+              <div class="media"><img src="assets/brands/03_Arthur_Andersen_Accenture/Arthur_Andersen_old.svg" alt="" /></div>
+              <div class="slot"><b>Arthur_Andersen_old.svg</b><span>supplied asset pending</span></div>
+              <span class="tag">Before</span><span class="fig">Fig. 3a</span>
+            </figure>
+          </div>
+          <!-- vertical arrow -->
+          <div class="abs" style="left: 538px; top: 772px; width: 4px; height: 118px">
+            <i id="s4ar" style="position: absolute; left: 1px; top: 0; width: 2px; height: 100px; background: var(--orange); display: block; transform-origin: 50% 0"></i>
+            <svg id="s4ah" class="abs" style="left: -14px; top: 92px; width: 32px; height: 24px; overflow: visible" viewBox="0 0 32 24"><path d="M2 2 L16 20 L30 2" fill="none" stroke="#FF4D1A" stroke-width="2.5" /></svg>
+          </div>
+          <div class="abs" style="left: var(--m); top: 908px"><span class="mask"><span id="s4t2" class="d" style="font-size: 96px">Accenture</span></span></div>
+          <figure id="s4ac" class="ex" style="left: 96px; top: 1030px; width: 888px; height: 300px">
+            <div class="media"><img src="assets/brands/03_Arthur_Andersen_Accenture/Accenture.svg" alt="" /></div>
+            <div class="slot"><b>Accenture.svg</b><span>supplied asset pending</span></div>
+            <span class="tag">After</span><span class="fig">Fig. 3b</span>
+          </figure>
+        </div>
+        <div id="s4big" class="abs" style="left: 0; top: 0; width: 1080px; height: 1920px">
+          <div class="abs" style="left: var(--m); top: 640px"><span class="mask"><span id="s4l" class="lab"><i class="dot"></i>Reported transformation cost</span></span></div>
+          <div class="abs" style="left: 72px; top: 700px">
+            <span class="mask"><span id="s4n" class="d num or" style="font-size: 268px"><span class="tilde" style="font-size: 120px; vertical-align: 104px">~</span><span id="s4v">$100M</span></span></span>
+          </div>
+          <div class="abs" style="left: var(--m); top: 1040px"><span class="mask"><span id="s4s" class="lab">Arthur Andersen → Accenture</span></span></div>
+        </div>
+        <div id="s4f" class="foot">Publicly reported figure · approximate</div>
+      </section>
+
+      <!-- ============ 05 RECAP ============ -->
+      <section id="s5" class="clip" data-start="27.3" data-duration="2.2" data-track-index="0">
+        <div id="s5wrap" class="abs" style="left: var(--m); top: 520px; width: 888px">
+          <span class="mask"><span id="s5a" class="d num" style="font-size: 96px; color: var(--paper-60)"><span class="tilde" style="font-size: 56px; vertical-align: 30px">~</span>$1M</span></span>
+          <div id="s5x" style="width: 2px; height: 56px; background: var(--orange); margin: 22px 0 22px 8px; transform-origin: 50% 0"></div>
+          <span class="mask"><span id="s5b" class="d num" style="font-size: 116px; color: var(--paper)"><span class="tilde" style="font-size: 64px; vertical-align: 40px">~</span>£1.7M <span style="font-size: 64px; color: var(--paper-60); letter-spacing: -0.02em">/ Year</span></span></span>
+          <div id="s5y" style="width: 2px; height: 56px; background: var(--orange); margin: 22px 0 22px 8px; transform-origin: 50% 0"></div>
+          <span class="mask"><span id="s5c" class="d num or" style="font-size: 236px"><span class="tilde" style="font-size: 110px; vertical-align: 92px">~</span>$100M</span></span>
+        </div>
+      </section>
+
+      <!-- ============ 06 WHY? ============ -->
+      <section id="s6" class="clip" data-start="29.5" data-duration="5" data-track-index="0">
+        <div class="abs" style="left: 0; top: 700px; width: 1080px; text-align: center">
+          <span class="mask"><span id="s6w" class="d or" style="font-size: 310px; display: inline-block">Why?</span></span>
+        </div>
+        <div class="abs" style="left: 140px; top: 1080px; width: 800px; text-align: center">
+          <span class="mask"><span id="s6q1" style="font-size: 40px; font-weight: 500; letter-spacing: 0.02em; color: var(--paper-60); text-transform: uppercase">Why spend that much</span></span>
+          <span class="mask"><span id="s6q2" style="font-size: 40px; font-weight: 500; letter-spacing: 0.02em; color: var(--paper); text-transform: uppercase">just to change how it looks?</span></span>
+        </div>
+      </section>
+
+      <!-- ============ 07 LOGO → SYSTEM ============ -->
+      <section id="s7" class="clip" data-start="34.5" data-duration="6.7" data-track-index="0">
+        <svg class="wire" viewBox="0 0 1080 1920">
+          <path class="s7p" d="M352 935 H392 V675 H430" />
+          <path class="s7p" d="M352 935 H392 V805 H430" />
+          <path class="s7p" d="M352 935 H392 V935 H430" />
+          <path class="s7p" d="M352 935 H392 V1065 H430" />
+          <path class="s7p" d="M352 935 H392 V1195 H430" />
+        </svg>
+        <div id="s7logo" data-layout-allow-overlap class="abs" style="left: 0; top: 800px; width: 1080px; height: 270px; text-align: center">
+          <span id="s7lt" data-layout-allow-overlap class="d" style="font-size: 270px; display: inline-block">Logo</span>
+        </div>
+        <div id="s7box" class="abs" style="left: 84px; top: 885px; width: 268px; height: 100px; border: 1px solid var(--orange)"></div>
+        <div class="abs" style="left: 446px; top: 640px">
+          <span class="mask"><span data-layout-allow-overlap class="s7w d" style="font-size: 62px; letter-spacing: -0.03em">Identity</span></span>
+          <span class="mask" style="margin-top: 66px"><span data-layout-allow-overlap class="s7w d" style="font-size: 62px; letter-spacing: -0.03em">Positioning</span></span>
+          <span class="mask" style="margin-top: 66px"><span data-layout-allow-overlap class="s7w d" style="font-size: 62px; letter-spacing: -0.03em">Recognition</span></span>
+          <span class="mask" style="margin-top: 66px"><span data-layout-allow-overlap class="s7w d" style="font-size: 62px; letter-spacing: -0.03em">Perception</span></span>
+          <span class="mask" style="margin-top: 66px"><span data-layout-allow-overlap class="s7w d" style="font-size: 62px; letter-spacing: -0.03em">Experience</span></span>
+        </div>
+        <div class="abs" style="left: var(--m); top: 1400px"><span class="mask"><span id="s7k" class="lab">Not just a logo</span></span></div>
+      </section>
+
+      <!-- ============ 08 COCA-COLA ============ -->
+      <section id="s8" class="clip" data-start="41.2" data-duration="3.8" data-track-index="0">
+        <div class="hdr"><span class="lab">Proof 01 · Coca-Cola</span><span class="lab">Evolution</span><i class="hl"></i></div>
+        <div class="abs" style="left: var(--m); top: 318px; width: 888px"><span class="mask"><span id="s8k" class="d" style="font-size: 48px; letter-spacing: -0.03em">The world's strongest brands</span></span></div>
+        <figure id="s8plate" class="ex plate" style="left: 96px; top: 430px; width: 888px; height: 560px">
+          <div class="media"><img id="s8pi" src="assets/brands/04_Coca_Cola/Coca_Cola_evolution_reference.jpg" alt="" /></div>
+          <div class="slot"><b>Coca_Cola_evolution_reference.jpg</b><span>supplied asset pending</span></div>
+        </figure>
+        <figure id="s8logo" class="ex" style="left: 96px; top: 430px; width: 888px; height: 560px">
+          <div class="media" style="inset: 90px 90px 100px 90px"><img src="assets/brands/04_Coca_Cola/Coca_Cola_1946.svg" alt="" /></div>
+          <div class="slot"><b>Coca_Cola_1946.svg</b><span>supplied asset pending</span></div>
+          <span class="tag">The script, carried forward</span><span class="fig">Fig. 4</span>
+        </figure>
+        <!-- evolution track -->
+        <div class="abs" style="left: 96px; top: 1030px; width: 888px; height: 60px">
+          <i style="position: absolute; left: 0; right: 0; top: 10px; height: 2px; background: var(--paper-14); display: block"></i>
+          <i id="s8fill" style="position: absolute; left: 0; right: 0; top: 10px; height: 2px; background: var(--orange); display: block; transform-origin: 0 50%"></i>
+          <span class="s8lab lab" style="position: absolute; left: 0; top: 30px">Old</span>
+          <span class="s8lab lab" style="position: absolute; left: 0; width: 888px; text-align: center; top: 30px">Classic</span>
+          <span class="s8lab lab" style="position: absolute; right: 0; top: 30px">Modern</span>
+        </div>
+        <div class="abs" style="left: var(--m); top: 1170px">
+          <span class="mask"><span class="s8w d" style="font-size: 76px"><span class="lab" style="font-size: 22px; color: var(--orange); vertical-align: 40px; margin-right: 22px">01</span>Simplify</span></span>
+          <span class="mask"><span class="s8w d" style="font-size: 76px"><span class="lab" style="font-size: 22px; color: var(--orange); vertical-align: 40px; margin-right: 22px">02</span>Recognize</span></span>
+          <span class="mask"><span class="s8w d" style="font-size: 76px"><span class="lab" style="font-size: 22px; color: var(--orange); vertical-align: 40px; margin-right: 22px">03</span>Remember</span></span>
+        </div>
+      </section>
+
+      <!-- ============ 09 GOOGLE ============ -->
+      <section id="s9" class="clip" data-start="45" data-duration="4.6" data-track-index="0">
+        <div class="hdr"><span class="lab">Proof 02 · Google</span><span class="lab">Simplification</span><i class="hl"></i></div>
+        <div class="abs" style="left: var(--m); top: 318px; width: 888px; height: 80px">
+          <span class="mask abs" style="left: 0; top: 0" data-layout-allow-overlap><span id="s9a" data-layout-allow-overlap class="d" style="font-size: 72px; letter-spacing: -0.03em">Identity <span class="or" data-layout-allow-overlap>≠</span> decoration</span></span>
+          <span class="mask abs" style="left: 0; top: 0" data-layout-allow-overlap><span id="s9b" data-layout-allow-overlap class="d" style="font-size: 72px; letter-spacing: -0.03em">Identity <span class="or" data-layout-allow-overlap>=</span> asset</span></span>
+        </div>
+        <figure id="s9plate" class="ex plate" style="left: 96px; top: 450px; width: 888px; height: 540px">
+          <div class="media"><img id="s9pi" src="assets/brands/05_Google/Google_evolution_reference.jpg" alt="" /></div>
+          <div class="slot"><b>Google_evolution_reference.jpg</b><span>supplied asset pending</span></div>
+        </figure>
+        <figure id="s9logo" class="ex" style="left: 96px; top: 450px; width: 888px; height: 540px">
+          <div class="media" style="inset: 140px 120px 150px 120px"><img src="assets/brands/05_Google/Google_2015.svg" alt="" /></div>
+          <div class="slot"><b>Google_2015.svg</b><span>supplied asset pending</span></div>
+          <span class="tag">Modern · 2015</span><span class="fig">Fig. 5</span>
+        </figure>
+        <div class="abs" style="left: 96px; top: 1030px; width: 888px; height: 60px">
+          <i style="position: absolute; left: 0; right: 0; top: 10px; height: 2px; background: var(--paper-14); display: block"></i>
+          <i id="s9fill" style="position: absolute; left: 0; right: 0; top: 10px; height: 2px; background: var(--orange); display: block; transform-origin: 0 50%"></i>
+          <span id="s9l1" class="lab" style="position: absolute; left: 0; top: 30px">Early</span>
+          <span id="s9l2" class="lab" style="position: absolute; right: 0; top: 30px">Modern</span>
+        </div>
+        <div class="abs" style="left: var(--m); top: 1170px; width: 888px">
+          <span class="mask"><span id="s9c" class="lab" style="font-size: 26px; color: var(--paper)">Fewer details. Stronger recall.</span></span>
+        </div>
+      </section>
+
+      <!-- ============ 10 THE SYSTEM ============ -->
+      <section id="s10" class="clip" data-start="49.6" data-duration="6.35" data-track-index="0">
+        <div id="s10g" class="abs" style="inset: 0">
+          <svg class="wire" viewBox="0 0 1080 1920">
+            <circle id="s10ring" cx="540" cy="960" r="300" style="stroke-width: 1.5; opacity: 0.55" />
+            <g id="s10lines"></g>
+          </svg>
+          <div id="s10core" class="abs" style="left: 360px; top: 885px; width: 360px; height: 150px; border: 1px solid var(--paper-40); background: var(--charcoal); display: flex; flex-direction: column; align-items: center; justify-content: center">
+            <span class="d" style="font-size: 50px; letter-spacing: -0.02em; line-height: 1">Brand</span>
+            <span class="d" style="font-size: 50px; letter-spacing: -0.02em; line-height: 1">Identity</span>
+          </div>
+          <div id="s10nodes"></div>
+        </div>
+        <div class="abs" style="left: var(--m); top: 1480px"><span class="mask"><span id="s10k" class="lab">A brand is a system</span></span></div>
+      </section>
+
+      <!-- ============ 11 PAYOFF ============ -->
+      <section id="s11" class="clip" data-start="55.95" data-duration="6.05" data-track-index="0">
+        <div class="abs" style="left: var(--m); top: 700px; width: 888px; height: 420px">
+          <div id="s11a" class="abs" style="left: 0; top: 0" data-layout-allow-overlap>
+            <span class="mask"><span data-layout-allow-overlap class="d s11l" style="font-size: 120px; color: var(--paper-60)">The logo</span></span>
+            <span class="mask"><span data-layout-allow-overlap class="d s11l" style="font-size: 120px">is what</span></span>
+            <span class="mask"><span data-layout-allow-overlap class="d s11l" style="font-size: 120px">they see.</span></span>
+          </div>
+          <div id="s11b" class="abs" style="left: 0; top: 0" data-layout-allow-overlap>
+            <span class="mask"><span data-layout-allow-overlap class="d s11l" style="font-size: 120px; color: var(--paper-60)">The identity</span></span>
+            <span class="mask"><span data-layout-allow-overlap class="d s11l" style="font-size: 120px">is the</span></span>
+            <span class="mask"><span data-layout-allow-overlap class="d s11l" style="font-size: 120px">system.</span></span>
+          </div>
+          <div id="s11c" class="abs" style="left: 0; top: 0" data-layout-allow-overlap>
+            <span class="mask"><span data-layout-allow-overlap class="d s11l" style="font-size: 120px; color: var(--paper-60)">The brand</span></span>
+            <span class="mask"><span data-layout-allow-overlap class="d s11l" style="font-size: 120px">is what they</span></span>
+            <span class="mask"><span data-layout-allow-overlap class="d s11l" style="font-size: 120px"><span id="s11rem" data-layout-allow-overlap>remember.</span></span></span>
+          </div>
+        </div>
+        <div class="abs" style="left: var(--m); top: 1170px; width: 888px; height: 30px">
+          <span class="s11i lab" style="position: absolute; left: 0">01 See</span>
+          <span class="s11i lab" style="position: absolute; left: 0; width: 888px; text-align: center">02 System</span>
+          <span class="s11i lab" style="position: absolute; right: 0">03 Remember</span>
+        </div>
+      </section>
+
+      <!-- ============ 12 REIGNITE ============ -->
+      <section id="s12" class="clip" data-start="62" data-duration="3" data-track-index="0">
+        <!-- Official Reignite Group logo, used exactly as supplied.
+             Only cropped by a frame (no pixels altered); `lighten` lets its black field sit on charcoal. -->
+        <div id="s12logo" class="abs" style="left: 160px; top: 560px; width: 760px; height: 447px; overflow: hidden; background: var(--charcoal)">
+          <img src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" style="position: absolute; left: -297px; top: -145px; width: 1351px; height: 760px; max-width: none; mix-blend-mode: lighten" />
+        </div>
+        <div class="abs" style="left: 0; top: 1080px; width: 1080px; text-align: center">
+          <span class="mask"><span id="s12s" class="lab" style="font-size: 28px; letter-spacing: 0.34em; color: var(--paper-60); font-weight: 600">Web &nbsp;•&nbsp; Marketing &nbsp;•&nbsp; Design</span></span>
+        </div>
+        <div class="abs" style="left: 0; top: 1220px; width: 1080px; text-align: center">
+          <span class="mask"><span id="s12b" class="d" style="font-size: 76px; letter-spacing: -0.035em; color: var(--paper)">Build with purpose.</span></span>
+        </div>
+        <div class="abs" style="left: 470px; top: 1338px; width: 140px; height: 3px"><i id="s12line" style="display: block; width: 140px; height: 3px; background: var(--orange); transform-origin: 50% 50%"></i></div>
+      </section>
+
+      <!-- ============ CHROME ============ -->
+      <div id="chrome" class="clip" data-start="3.8" data-duration="58.2" data-track-index="5">
+        <div id="prog"><i id="progfill"></i></div>
+      </div>
+      <div id="vig"></div>
+
+      <!-- ============ AUDIO ============ -->
+      <audio id="a-music" src="audio/music.wav" data-start="0" data-duration="65" data-track-index="3" data-volume="1"></audio>
+      <audio id="a-sfx" src="audio/sfx.wav" data-start="0" data-duration="65" data-track-index="4" data-volume="0.8"></audio>
+      <audio id="vo-01a" src="audio/vo/vo_01a.wav" data-start="0.3" data-duration="1.48" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-01b" src="audio/vo/vo_01b.wav" data-start="2.45" data-duration="0.90" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-02" src="audio/vo/vo_02.wav" data-start="4.05" data-duration="5.50" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-03" src="audio/vo/vo_03.wav" data-start="10.0" data-duration="9.73" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-04" src="audio/vo/vo_04.wav" data-start="20.1" data-duration="7.08" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-06a" src="audio/vo/vo_06a.wav" data-start="29.7" data-duration="0.63" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-06b" src="audio/vo/vo_06b.wav" data-start="31.05" data-duration="3.22" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-07a" src="audio/vo/vo_07a.wav" data-start="34.65" data-duration="2.12" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-07b" src="audio/vo/vo_07b.wav" data-start="37.05" data-duration="3.95" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-08" src="audio/vo/vo_08.wav" data-start="41.4" data-duration="1.70" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-09a" src="audio/vo/vo_09a.wav" data-start="45.15" data-duration="2.43" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-09b" src="audio/vo/vo_09b.wav" data-start="47.85" data-duration="1.59" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-10a" src="audio/vo/vo_10a.wav" data-start="49.75" data-duration="1.93" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-10b" src="audio/vo/vo_10b.wav" data-start="51.95" data-duration="3.64" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-11a" src="audio/vo/vo_11a.wav" data-start="56.1" data-duration="1.68" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-11b" src="audio/vo/vo_11b.wav" data-start="57.95" data-duration="1.77" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-11c" src="audio/vo/vo_11c.wav" data-start="59.9" data-duration="1.92" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-12" src="audio/vo/vo_12.wav" data-start="62.15" data-duration="2.36" data-track-index="2" data-volume="1"></audio>
+    </div>
+
+    <script>
+      // Flag any supplied brand asset that is not on disk yet (shows a labelled slot, never a substitute).
+      document.querySelectorAll(".ex img").forEach((img) => {
+        const mark = () => img.closest(".ex").classList.add("missing");
+        if (img.complete && img.naturalWidth === 0) mark();
+        img.addEventListener("error", mark);
+      });
+
+      // ---- build the brand-system diagram (scene 10) ----
+      const NODES = ["Logo", "Color", "Typography", "Voice", "Imagery", "Packaging", "Website", "Experience"];
+      const CX = 540, CY = 960;
+      const svgNS = "http://www.w3.org/2000/svg";
+      const linesG = document.getElementById("s10lines");
+      const nodesEl = document.getElementById("s10nodes");
+      NODES.forEach((name, i) => {
+        const a = (-90 + i * 45) * (Math.PI / 180);
+        const cos = Math.cos(a), sin = Math.sin(a);
+        // line from the core box edge out to the ring
+        const r0 = Math.abs(cos) > 0.01 ? Math.min(186 / Math.abs(cos), 82 / Math.max(Math.abs(sin), 0.01)) : 82;
+        const ln = document.createElementNS(svgNS, "line");
+        ln.setAttribute("x1", (CX + cos * (r0 + 6)).toFixed(1));
+        ln.setAttribute("y1", (CY + sin * (r0 + 6)).toFixed(1));
+        ln.setAttribute("x2", (CX + cos * 300).toFixed(1));
+        ln.setAttribute("y2", (CY + sin * 300).toFixed(1));
+        ln.setAttribute("class", "s10l");
+        linesG.appendChild(ln);
+        const dot = document.createElementNS(svgNS, "circle");
+        dot.setAttribute("cx", (CX + cos * 300).toFixed(1));
+        dot.setAttribute("cy", (CY + sin * 300).toFixed(1));
+        dot.setAttribute("r", "7");
+        dot.setAttribute("class", "s10d");
+        dot.style.fill = "#FF4D1A";
+        dot.style.stroke = "none";
+        linesG.appendChild(dot);
+        // label just outside the ring, anchored away from the centre
+        const lab = document.createElement("div");
+        lab.className = "node s10n";
+        lab.textContent = name;
+        lab.style.fontSize = "34px";
+        const lx = CX + cos * 336, ly = CY + sin * 336;
+        const w = 300;
+        let left = lx - w / 2, align = "center";
+        if (cos > 0.3 && Math.abs(sin) > 0.3) { left = lx - 10; align = "left"; }
+        if (cos < -0.3 && Math.abs(sin) > 0.3) { left = lx - w + 10; align = "right"; }
+        let top = ly - 20;
+        if (Math.abs(cos) < 0.3) top = sin < 0 ? ly - 44 : ly;
+        if (Math.abs(sin) < 0.3) { left = CX + cos * 300 - w / 2; top = CY - 66; }
+        Object.assign(lab.style, { left: left + "px", top: top + "px", width: w + "px", textAlign: align });
+        nodesEl.appendChild(lab);
+      });
+
+      // ---- helpers ----
+      const tl = gsap.timeline({ paused: true });
+      const E = "expo.out";
+      const up = (sel, t, d = 0.75, extra = {}) =>
+        tl.fromTo(sel, { yPercent: 110 }, { yPercent: 0, duration: d, ease: E, ...extra }, t);
+      const outUp = (sel, t, d = 0.45, extra = {}) =>
+        tl.to(sel, { yPercent: -110, duration: d, ease: "power3.in", ...extra }, t);
+      const wipe = (sel, t, d = 0.9, from = "inset(100% 0% 0% 0%)") =>
+        tl.fromTo(sel, { clipPath: from }, { clipPath: "inset(0% 0% 0% 0%)", duration: d, ease: "expo.inOut" }, t);
+      const grow = (sel, t, d = 0.6, axis = "scaleX") =>
+        tl.fromTo(sel, { [axis]: 0 }, { [axis]: 1, duration: d, ease: "expo.out" }, t);
+      const fadeTo = (sel, t, o, d = 0.5) => tl.to(sel, { opacity: o, duration: d, ease: "power2.out" }, t);
+      const draw = (els, t, d = 0.6, stagger = 0) => {
+        els = gsap.utils.toArray(els);
+        els.forEach((el, i) => {
+          const L = el.getTotalLength();
+          tl.fromTo(el, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: d, ease: "power3.inOut" }, t + i * stagger);
+        });
+      };
+
+      // ===== 01 SHOCK (0 – 3.8) =====
+      up("#s1a", 0.3);
+      up("#s1b", 0.75);
+      up("#s1c", 1.18, 0.6);
+      tl.fromTo("#s1c", { scale: 1.06, transformOrigin: "0% 100%" }, { scale: 1, duration: 1.2, ease: "power2.out" }, 1.18);
+      fadeTo(["#s1a", "#s1b"], 2.35, 0.28, 0.5);
+      fadeTo("#s1c", 2.35, 0.55, 0.5);
+      grow("#s1rule", 2.35, 0.5);
+      up("#s1d", 2.45);
+      up("#s1e", 2.62);
+
+      // ===== 02 PEPSI (3.8 – 9.8) =====
+      wipe("#s2old", 3.82, 0.9);
+      tl.fromTo("#s2old img", { scale: 1.08 }, { scale: 1, duration: 2.2, ease: "power2.out" }, 3.82);
+      tl.fromTo("#s2new", { clipPath: "inset(0% 0% 0% 100%)" }, { clipPath: "inset(0% 0% 0% 100%)", duration: 0.01 }, 3.8);
+      up("#s2t", 4.1, 0.8);
+      // old -> new split
+      tl.fromTo("#s2old", { width: 888 }, { width: 424, duration: 0.8, ease: "expo.inOut" }, 5.95);
+      tl.to("#s2new", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "expo.inOut" }, 6.05);
+      grow("#s2arrow i", 6.55, 0.5);
+      tl.fromTo("#s2old", { opacity: 1 }, { opacity: 0.55, duration: 0.6 }, 6.6);
+      up("#s2l", 7.55, 0.6);
+      up("#s2n", 7.85, 0.8);
+      tl.fromTo("#s2n", { scale: 0.94, transformOrigin: "0% 100%" }, { scale: 1, duration: 1.4, ease: "power2.out" }, 7.85);
+      tl.fromTo("#s2f", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 8.2);
+
+      // ===== 03 BBC (9.8 – 19.95) =====
+      wipe("#s3old", 9.82, 0.9);
+      tl.fromTo("#s3old img", { scale: 1.08 }, { scale: 1, duration: 2.2, ease: "power2.out" }, 9.82);
+      tl.fromTo("#s3new", { clipPath: "inset(0% 0% 0% 100%)" }, { clipPath: "inset(0% 0% 0% 100%)", duration: 0.01 }, 9.8);
+      up("#s3t", 10.05, 0.8);
+      tl.fromTo("#s3old", { width: 888 }, { width: 424, duration: 0.8, ease: "expo.inOut" }, 11.55);
+      tl.to("#s3new", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "expo.inOut" }, 11.65);
+      grow("#s3arrow i", 12.15, 0.5);
+      tl.fromTo("#s3old", { opacity: 1 }, { opacity: 0.55, duration: 0.6 }, 12.2);
+      up("#s3l", 14.2, 0.6);
+      up("#s3n", 14.55, 0.85);
+      tl.fromTo("#s3n", { scale: 0.94, transformOrigin: "0% 100%" }, { scale: 1, duration: 1.6, ease: "power2.out" }, 14.55);
+      up("#s3y", 15.55, 0.7);
+      grow("#s3base", 16.8, 2.0);
+      gsap.utils.toArray(".s3tk").forEach((el, i) => {
+        tl.fromTo(el, { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.3, ease: "back.out(2)" }, 17.0 + i * 0.4);
+      });
+      tl.fromTo("#s3f", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 17.2);
+      // slow editorial drift on the cards while the long line plays
+      tl.fromTo(["#s3old", "#s3new"], { y: 0 }, { y: -14, duration: 7, ease: "none" }, 12.8);
+
+      // ===== 04 ARTHUR ANDERSEN → ACCENTURE (19.95 – 27.3) =====
+      up("#s4t1", 20.0, 0.8);
+      wipe("#s4aa", 20.15, 0.9);
+      tl.fromTo("#s4ac", { clipPath: "inset(0% 0% 100% 0%)" }, { clipPath: "inset(0% 0% 100% 0%)", duration: 0.01 }, 19.95);
+      tl.fromTo("#s4ah", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 19.95);
+      fadeTo("#s4top", 22.3, 0.35, 0.6);
+      grow("#s4ar", 22.35, 0.55, "scaleY");
+      tl.to("#s4ah", { opacity: 1, duration: 0.2 }, 22.75);
+      up("#s4t2", 22.65, 0.8);
+      tl.to("#s4ac", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.9, ease: "expo.inOut" }, 22.8);
+      fadeTo("#s4top", 23.9, 0.35, 0.1);
+      // clear the evidence, make room for the number
+      tl.to("#s4stage", { y: -90, opacity: 0, duration: 0.45, ease: "power3.in" }, 24.95);
+      tl.fromTo("#s4big", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 25.1);
+      up("#s4l", 25.15, 0.5);
+      up("#s4n", 25.15, 0.45, { ease: "power3.out" });
+      const counter = { v: 1 };
+      const s4v = document.getElementById("s4v");
+      tl.fromTo(counter, { v: 1 }, {
+        v: 100, duration: 0.45, ease: "power2.in",
+        onUpdate: () => { s4v.textContent = "$" + Math.round(counter.v) + "M"; },
+      }, 25.15);
+      tl.fromTo("#s4n", { scale: 1.07, transformOrigin: "0% 100%" }, { scale: 1, duration: 1.5, ease: "expo.out" }, 25.6);
+      up("#s4s", 25.8, 0.6);
+      tl.fromTo("#s4f", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 26.0);
+
+      // ===== 05 RECAP (27.3 – 29.5) =====
+      up("#s5a", 27.33, 0.5);
+      grow("#s5x", 27.55, 0.35, "scaleY");
+      up("#s5b", 27.68, 0.5);
+      grow("#s5y", 27.9, 0.35, "scaleY");
+      up("#s5c", 28.03, 0.55);
+      tl.to("#s5wrap", { opacity: 0, y: -30, duration: 0.22, ease: "power2.in" }, 28.83);
+
+      // ===== 06 WHY? (29.5 – 34.5) =====
+      tl.fromTo("#s6w", { yPercent: 0, scale: 1.0, opacity: 0 }, { opacity: 1, duration: 0.08 }, 29.5);
+      tl.fromTo("#s6w", { scale: 0.96, transformOrigin: "50% 60%" }, { scale: 1.04, duration: 5, ease: "power1.out" }, 29.5);
+      up("#s6q1", 31.05, 0.7);
+      up("#s6q2", 31.85, 0.7);
+
+      // ===== 07 LOGO → SYSTEM (34.5 – 41.2) =====
+      tl.fromTo("#s7lt", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 34.55);
+      tl.fromTo("#s7box", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 34.5);
+      // "not just a logo": LOGO steps aside and becomes one node
+      tl.to("#s7lt", { x: -322, y: 0, scale: 0.3, duration: 0.85, ease: "expo.inOut" }, 36.9);
+      tl.to("#s7box", { opacity: 1, duration: 0.4 }, 37.5);
+      const s7p = gsap.utils.toArray(".s7p");
+      const s7w = gsap.utils.toArray(".s7w");
+      [37.3, 37.85, 38.4, 38.95, 39.5].forEach((t, i) => {
+        draw(s7p[i], t, 0.5);
+        up(s7w[i], t + 0.2, 0.6);
+      });
+      up("#s7k", 39.9, 0.6);
+
+      // ===== 08 COCA-COLA (41.2 – 45.0) =====
+      up("#s8k", 41.3, 0.7);
+      wipe("#s8plate", 41.22, 0.8);
+      tl.fromTo("#s8pi", { scale: 1 }, { scale: 1.06, duration: 2.2, ease: "none" }, 41.22);
+      tl.fromTo("#s8logo", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 100% 0% 0%)", duration: 0.01 }, 41.2);
+      tl.fromTo("#s8fill", { scaleX: 0 }, { scaleX: 1, duration: 1.3, ease: "power1.inOut" }, 41.55);
+      gsap.utils.toArray(".s8lab").forEach((el, i) => {
+        tl.fromTo(el, { color: "rgba(245,241,234,0.3)" }, { color: "#F5F1EA", duration: 0.25 }, 41.6 + i * 0.6);
+      });
+      tl.to("#s8logo", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "expo.inOut" }, 42.85);
+      tl.fromTo("#s8logo img", { scale: 0.96 }, { scale: 1, duration: 2, ease: "power2.out" }, 42.85);
+      gsap.utils.toArray(".s8w").forEach((el, i) => up(el, 43.35 + i * 0.5, 0.6));
+
+      // ===== 09 GOOGLE (45.0 – 49.6) =====
+      up("#s9a", 45.1, 0.7);
+      tl.fromTo("#s9b", { yPercent: 110 }, { yPercent: 110, duration: 0.01 }, 45.0);
+      wipe("#s9plate", 45.02, 0.8);
+      tl.fromTo("#s9pi", { scale: 1 }, { scale: 1.07, duration: 2.8, ease: "none" }, 45.02);
+      tl.fromTo("#s9logo", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 100% 0% 0%)", duration: 0.01 }, 45.0);
+      tl.fromTo("#s9fill", { scaleX: 0 }, { scaleX: 1, duration: 2.6, ease: "power1.inOut" }, 45.3);
+      tl.fromTo("#s9l2", { color: "rgba(245,241,234,0.3)" }, { color: "#F5F1EA", duration: 0.3 }, 47.8);
+      outUp("#s9a", 47.6, 0.35);
+      up("#s9b", 47.85, 0.7);
+      tl.to("#s9logo", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "expo.inOut" }, 47.8);
+      tl.fromTo("#s9logo img", { scale: 0.96 }, { scale: 1, duration: 1.8, ease: "power2.out" }, 47.8);
+      up("#s9c", 48.4, 0.6);
+
+      // ===== 10 THE SYSTEM (49.6 – 55.95) =====
+      tl.fromTo("#s10core", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 49.7);
+      const s10l = gsap.utils.toArray(".s10l"), s10d = gsap.utils.toArray(".s10d"), s10n = gsap.utils.toArray(".s10n");
+      s10l.forEach((el, i) => {
+        const t = 50.2 + i * 0.55;
+        draw(el, t - 0.1, 0.45);
+        tl.fromTo(s10d[i], { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.35, ease: "back.out(2.5)" }, t + 0.25);
+        tl.fromTo(s10n[i], { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, t + 0.2);
+      });
+      draw("#s10ring", 54.4, 0.9);
+      up("#s10k", 54.5, 0.6);
+      // collapse
+      tl.to("#s10g", { scale: 0.12, opacity: 0, duration: 0.4, ease: "power3.in", transformOrigin: "540px 960px" }, 55.5);
+      tl.to("#s10k", { opacity: 0, duration: 0.25 }, 55.5);
+
+      // ===== 11 PAYOFF (55.95 – 62.0) =====
+      const lines = (id) => gsap.utils.toArray(`#${id} .s11l`);
+      const s11i = gsap.utils.toArray(".s11i");
+      s11i.forEach((el) => tl.fromTo(el, { color: "rgba(245,241,234,0.22)" }, { color: "rgba(245,241,234,0.22)", duration: 0.01 }, 55.95));
+      [["s11a", 56.0, 57.75], ["s11b", 57.9, 59.7], ["s11c", 59.85, null]].forEach(([id, tin, tout], k) => {
+        lines(id).forEach((el, i) => up(el, tin + i * 0.09, 0.7));
+        tl.to(s11i[k], { color: k === 2 ? "#FF4D1A" : "#F5F1EA", duration: 0.3 }, tin);
+        if (k > 0) tl.to(s11i[k - 1], { color: "rgba(245,241,234,0.22)", duration: 0.3 }, tin);
+        if (tout) lines(id).forEach((el, i) => outUp(el, tout + i * 0.04, 0.35));
+      });
+      tl.fromTo("#s11rem", { color: "#F5F1EA" }, { color: "#FF4D1A", duration: 0.35, ease: "power2.out" }, 61.05);
+
+      // ===== 12 REIGNITE (62.0 – 65.0) =====
+      tl.fromTo("#s12logo", { opacity: 0, scale: 0.975 }, { opacity: 1, scale: 1, duration: 1.0, ease: "power2.out" }, 62.02);
+      up("#s12s", 62.75, 0.7);
+      up("#s12b", 63.25, 0.8);
+      grow("#s12line", 63.6, 0.7);
+
+      // ===== chrome: reading-progress hairline across the essay =====
+      tl.fromTo("#progfill", { scaleX: 0 }, { scaleX: 1, duration: 58.2, ease: "none" }, 3.8);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
