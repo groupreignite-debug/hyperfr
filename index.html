@@ -74,6 +74,12 @@
         letter-spacing: 0.2em; color: rgba(26, 26, 26, 0.62); text-transform: uppercase; white-space: nowrap;
       }
       /* Shown only if a supplied asset file is not present yet. Never a substitute logo. */
+      .ex.dark { background: #000; box-shadow: inset 0 0 0 1px var(--paper-14); }
+      .ex.dark .tag { color: rgba(245, 241, 234, 0.72); }
+      .ex.dark .fig { color: rgba(245, 241, 234, 0.5); }
+      .ex.plate .media.fill { inset: 0; }
+      .ex.plate .media.fill img { object-fit: fill; }
+      .hl-box { position: absolute; border: 3px solid var(--orange); }
       .ex .slot {
         position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
         flex-direction: column; gap: 12px; text-align: center;
@@ -123,14 +129,14 @@
       <section id="s2" class="clip" data-start="3.8" data-duration="6" data-track-index="0">
         <div class="hdr"><span class="lab">Case 01</span><span class="lab">Logo redesign</span><i class="hl"></i></div>
         <div class="abs" style="left: var(--m); top: 318px"><span class="mask"><span id="s2t" class="d" style="font-size: 196px">Pepsi</span></span></div>
-        <figure id="s2old" class="ex" style="left: 96px; top: 560px; width: 888px; height: 440px">
-          <div class="media"><img src="assets/brands/01_Pepsi/Pepsi_2006.svg" alt="" /></div>
-          <div class="slot"><b>Pepsi_2006.svg</b><span>supplied asset pending</span></div>
-          <span class="tag">Old · 2006</span><span class="fig">Fig. 1a</span>
+        <figure id="s2old" class="ex dark" style="left: 96px; top: 560px; width: 888px; height: 440px">
+          <div class="media" style="inset: 60px 40px 70px 40px"><img src="assets/brands/from-video/pepsi_old.png" alt="" /></div>
+          <div class="slot"><b>pepsi_old.png</b><span>supplied asset pending</span></div>
+          <span class="tag">Old</span><span class="fig">Fig. 1a</span>
         </figure>
-        <figure id="s2new" class="ex" style="left: 560px; top: 560px; width: 424px; height: 440px">
-          <div class="media"><img src="assets/brands/01_Pepsi/Pepsi_2008.svg" alt="" /></div>
-          <div class="slot"><b>Pepsi_2008.svg</b><span>supplied asset pending</span></div>
+        <figure id="s2new" class="ex dark" style="left: 560px; top: 560px; width: 424px; height: 440px">
+          <div class="media" style="inset: 60px 40px 70px 40px"><img src="assets/brands/from-video/pepsi_new.png" alt="" /></div>
+          <div class="slot"><b>pepsi_new.png</b><span>supplied asset pending</span></div>
           <span class="tag">New · 2008</span><span class="fig">Fig. 1b</span>
         </figure>
         <div id="s2arrow" class="abs" style="left: 520px; top: 776px; width: 40px; height: 8px"><i class="arrow-h" style="width: 40px; margin-top: 3px"></i></div>
@@ -145,14 +151,14 @@
       <section id="s3" class="clip" data-start="9.8" data-duration="10.15" data-track-index="0">
         <div class="hdr"><span class="lab">Case 02</span><span class="lab">Identity change</span><i class="hl"></i></div>
         <div class="abs" style="left: var(--m); top: 318px"><span class="mask"><span id="s3t" class="d" style="font-size: 196px">BBC</span></span></div>
-        <figure id="s3old" class="ex" style="left: 96px; top: 560px; width: 888px; height: 400px">
-          <div class="media"><img src="assets/brands/02_BBC/BBC_pre_1997.svg" alt="" /></div>
-          <div class="slot"><b>BBC_pre_1997.svg</b><span>supplied asset pending</span></div>
+        <figure id="s3old" class="ex dark" style="left: 96px; top: 560px; width: 888px; height: 400px">
+          <div class="media" style="inset: 110px 50px 120px 50px"><img src="assets/brands/from-video/bbc_old.png" alt="" /></div>
+          <div class="slot"><b>bbc_old.png</b><span>supplied asset pending</span></div>
           <span class="tag">Old</span><span class="fig">Fig. 2a</span>
         </figure>
-        <figure id="s3new" class="ex" style="left: 560px; top: 560px; width: 424px; height: 400px">
-          <div class="media"><img src="assets/brands/02_BBC/BBC_1997.svg" alt="" /></div>
-          <div class="slot"><b>BBC_1997.svg</b><span>supplied asset pending</span></div>
+        <figure id="s3new" class="ex dark" style="left: 560px; top: 560px; width: 424px; height: 400px">
+          <div class="media" style="inset: 110px 50px 120px 50px"><img src="assets/brands/from-video/bbc_1997.png" alt="" /></div>
+          <div class="slot"><b>bbc_1997.png</b><span>supplied asset pending</span></div>
           <span class="tag">1997 identity</span><span class="fig">Fig. 2b</span>
         </figure>
         <div id="s3arrow" class="abs" style="left: 520px; top: 756px; width: 40px; height: 8px"><i class="arrow-h" style="width: 40px; margin-top: 3px"></i></div>
@@ -178,10 +184,10 @@
         <div class="hdr"><span class="lab">Case 03</span><span class="lab">Transformation</span><i class="hl"></i></div>
         <div id="s4stage" class="abs" style="inset: 0">
           <div id="s4top" class="abs" style="left: 0; top: 0; width: 1080px; height: 760px">
-            <div class="abs" style="left: var(--m); top: 318px"><span class="mask"><span id="s4t1" class="d" style="font-size: 96px">Arthur Andersen</span></span></div>
-            <figure id="s4aa" class="ex" style="left: 96px; top: 440px; width: 888px; height: 300px">
-              <div class="media"><img src="assets/brands/03_Arthur_Andersen_Accenture/Arthur_Andersen_old.svg" alt="" /></div>
-              <div class="slot"><b>Arthur_Andersen_old.svg</b><span>supplied asset pending</span></div>
+            <div class="abs" style="left: var(--m); top: 318px"><span class="mask"><span id="s4t1" class="d" style="font-size: 70px">Andersen Consulting</span></span></div>
+            <figure id="s4aa" class="ex dark" style="left: 96px; top: 440px; width: 888px; height: 300px">
+              <div class="media" style="inset: 80px 120px 80px 120px"><img src="assets/brands/from-video/andersen_consulting.png" alt="" /></div>
+              <div class="slot"><b>andersen_consulting.png</b><span>supplied asset pending</span></div>
               <span class="tag">Before</span><span class="fig">Fig. 3a</span>
             </figure>
           </div>
@@ -191,9 +197,9 @@
             <svg id="s4ah" class="abs" style="left: -14px; top: 92px; width: 32px; height: 24px; overflow: visible" viewBox="0 0 32 24"><path d="M2 2 L16 20 L30 2" fill="none" stroke="#FF4D1A" stroke-width="2.5" /></svg>
           </div>
           <div class="abs" style="left: var(--m); top: 908px"><span class="mask"><span id="s4t2" class="d" style="font-size: 96px">Accenture</span></span></div>
-          <figure id="s4ac" class="ex" style="left: 96px; top: 1030px; width: 888px; height: 300px">
-            <div class="media"><img src="assets/brands/03_Arthur_Andersen_Accenture/Accenture.svg" alt="" /></div>
-            <div class="slot"><b>Accenture.svg</b><span>supplied asset pending</span></div>
+          <figure id="s4ac" class="ex dark" style="left: 96px; top: 1030px; width: 888px; height: 300px">
+            <div class="media" style="inset: 80px 120px 80px 120px"><img src="assets/brands/from-video/accenture.png" alt="" /></div>
+            <div class="slot"><b>accenture.png</b><span>supplied asset pending</span></div>
             <span class="tag">After</span><span class="fig">Fig. 3b</span>
           </figure>
         </div>
@@ -202,7 +208,7 @@
           <div class="abs" style="left: 72px; top: 700px">
             <span class="mask"><span id="s4n" class="d num or" style="font-size: 268px"><span class="tilde" style="font-size: 120px; vertical-align: 104px">~</span><span id="s4v">$100M</span></span></span>
           </div>
-          <div class="abs" style="left: var(--m); top: 1040px"><span class="mask"><span id="s4s" class="lab">Arthur Andersen → Accenture</span></span></div>
+          <div class="abs" style="left: var(--m); top: 1040px"><span class="mask"><span id="s4s" class="lab">Andersen Consulting → Accenture</span></span></div>
         </div>
         <div id="s4f" class="foot">Publicly reported figure · approximate</div>
       </section>
@@ -256,14 +262,13 @@
       <section id="s8" class="clip" data-start="41.2" data-duration="3.8" data-track-index="0">
         <div class="hdr"><span class="lab">Proof 01 · Coca-Cola</span><span class="lab">Evolution</span><i class="hl"></i></div>
         <div class="abs" style="left: var(--m); top: 318px; width: 888px"><span class="mask"><span id="s8k" class="d" style="font-size: 48px; letter-spacing: -0.03em">The world's strongest brands</span></span></div>
-        <figure id="s8plate" class="ex plate" style="left: 96px; top: 430px; width: 888px; height: 560px">
-          <div class="media"><img id="s8pi" src="assets/brands/04_Coca_Cola/Coca_Cola_evolution_reference.jpg" alt="" /></div>
-          <div class="slot"><b>Coca_Cola_evolution_reference.jpg</b><span>supplied asset pending</span></div>
-        </figure>
-        <figure id="s8logo" class="ex" style="left: 96px; top: 430px; width: 888px; height: 560px">
-          <div class="media" style="inset: 90px 90px 100px 90px"><img src="assets/brands/04_Coca_Cola/Coca_Cola_1946.svg" alt="" /></div>
-          <div class="slot"><b>Coca_Cola_1946.svg</b><span>supplied asset pending</span></div>
-          <span class="tag">The script, carried forward</span><span class="fig">Fig. 4</span>
+        <figure id="s8plate" class="ex plate" style="left: 96px; top: 430px; width: 888px; height: 507px">
+          <div id="s8z" class="media fill" style="transform-origin: 0 0"><img id="s8pi" src="assets/brands/from-video/coca_cola_evolution_plate.png" alt="" style="width: 888px; height: 507px" />
+          <i class="hl-box s8hb" style="left: 10px; top: 69px; width: 143px; height: 142px"></i>
+          <i class="hl-box s8hb" style="left: 590px; top: 69px; width: 142px; height: 142px"></i>
+          <i class="hl-box s8hb" style="left: 735px; top: 274px; width: 142px; height: 142px"></i>
+          </div>
+          <div class="slot"><b>coca_cola_evolution_plate.png</b><span>supplied asset pending</span></div>
         </figure>
         <!-- evolution track -->
         <div class="abs" style="left: 96px; top: 1030px; width: 888px; height: 60px">
@@ -287,22 +292,20 @@
           <span class="mask abs" style="left: 0; top: 0" data-layout-allow-overlap><span id="s9a" data-layout-allow-overlap class="d" style="font-size: 72px; letter-spacing: -0.03em">Identity <span class="or" data-layout-allow-overlap>≠</span> decoration</span></span>
           <span class="mask abs" style="left: 0; top: 0" data-layout-allow-overlap><span id="s9b" data-layout-allow-overlap class="d" style="font-size: 72px; letter-spacing: -0.03em">Identity <span class="or" data-layout-allow-overlap>=</span> asset</span></span>
         </div>
-        <figure id="s9plate" class="ex plate" style="left: 96px; top: 450px; width: 888px; height: 540px">
-          <div class="media"><img id="s9pi" src="assets/brands/05_Google/Google_evolution_reference.jpg" alt="" /></div>
-          <div class="slot"><b>Google_evolution_reference.jpg</b><span>supplied asset pending</span></div>
+        <figure id="s9plate" class="ex plate" style="left: 190px; top: 410px; width: 700px; height: 668px">
+          <div id="s9z" class="media fill" style="transform-origin: 0 0"><img id="s9pi" src="assets/brands/from-video/google_evolution_plate.png" alt="" style="width: 700px; height: 668px" />
+          <i id="s9h1" class="hl-box" style="left: 468px; top: 42px; width: 222px; height: 162px"></i>
+          <i id="s9h2" class="hl-box" style="left: 466px; top: 474px; width: 224px; height: 168px"></i>
+          </div>
+          <div class="slot"><b>google_evolution_plate.png</b><span>supplied asset pending</span></div>
         </figure>
-        <figure id="s9logo" class="ex" style="left: 96px; top: 450px; width: 888px; height: 540px">
-          <div class="media" style="inset: 140px 120px 150px 120px"><img src="assets/brands/05_Google/Google_2015.svg" alt="" /></div>
-          <div class="slot"><b>Google_2015.svg</b><span>supplied asset pending</span></div>
-          <span class="tag">Modern · 2015</span><span class="fig">Fig. 5</span>
-        </figure>
-        <div class="abs" style="left: 96px; top: 1030px; width: 888px; height: 60px">
+        <div class="abs" style="left: 96px; top: 1118px; width: 888px; height: 60px">
           <i style="position: absolute; left: 0; right: 0; top: 10px; height: 2px; background: var(--paper-14); display: block"></i>
           <i id="s9fill" style="position: absolute; left: 0; right: 0; top: 10px; height: 2px; background: var(--orange); display: block; transform-origin: 0 50%"></i>
           <span id="s9l1" class="lab" style="position: absolute; left: 0; top: 30px">Early</span>
           <span id="s9l2" class="lab" style="position: absolute; right: 0; top: 30px">Modern</span>
         </div>
-        <div class="abs" style="left: var(--m); top: 1170px; width: 888px">
+        <div class="abs" style="left: var(--m); top: 1230px; width: 888px">
           <span class="mask"><span id="s9c" class="lab" style="font-size: 26px; color: var(--paper)">Fewer details. Stronger recall.</span></span>
         </div>
       </section>
@@ -378,7 +381,7 @@
       <audio id="vo-01b" src="audio/vo/vo_01b.wav" data-start="2.45" data-duration="0.90" data-track-index="2" data-volume="1"></audio>
       <audio id="vo-02" src="audio/vo/vo_02.wav" data-start="4.05" data-duration="5.50" data-track-index="2" data-volume="1"></audio>
       <audio id="vo-03" src="audio/vo/vo_03.wav" data-start="10.0" data-duration="9.73" data-track-index="2" data-volume="1"></audio>
-      <audio id="vo-04" src="audio/vo/vo_04.wav" data-start="20.1" data-duration="7.08" data-track-index="2" data-volume="1"></audio>
+      <audio id="vo-04" src="audio/vo/vo_04.wav" data-start="19.98" data-duration="7.30" data-track-index="2" data-volume="1"></audio>
       <audio id="vo-06a" src="audio/vo/vo_06a.wav" data-start="29.7" data-duration="0.63" data-track-index="2" data-volume="1"></audio>
       <audio id="vo-06b" src="audio/vo/vo_06b.wav" data-start="31.05" data-duration="3.22" data-track-index="2" data-volume="1"></audio>
       <audio id="vo-07a" src="audio/vo/vo_07a.wav" data-start="34.65" data-duration="2.12" data-track-index="2" data-volume="1"></audio>
@@ -569,28 +572,36 @@
       // ===== 08 COCA-COLA (41.2 – 45.0) =====
       up("#s8k", 41.3, 0.7);
       wipe("#s8plate", 41.22, 0.8);
-      tl.fromTo("#s8pi", { scale: 1 }, { scale: 1.06, duration: 2.2, ease: "none" }, 41.22);
-      tl.fromTo("#s8logo", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 100% 0% 0%)", duration: 0.01 }, 41.2);
       tl.fromTo("#s8fill", { scaleX: 0 }, { scaleX: 1, duration: 1.3, ease: "power1.inOut" }, 41.55);
+      const s8hb = gsap.utils.toArray(".s8hb");
       gsap.utils.toArray(".s8lab").forEach((el, i) => {
-        tl.fromTo(el, { color: "rgba(245,241,234,0.3)" }, { color: "#F5F1EA", duration: 0.25 }, 41.6 + i * 0.6);
+        const t = 41.6 + i * 0.6;
+        tl.fromTo(el, { color: "rgba(245,241,234,0.3)" }, { color: "#F5F1EA", duration: 0.25 }, t);
+        tl.fromTo(s8hb[i], { opacity: 0, scale: 1.12, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.35, ease: E }, t);
+        if (i > 0) tl.to(s8hb[i - 1], { opacity: 0.3, duration: 0.3 }, t);
       });
-      tl.to("#s8logo", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "expo.inOut" }, 42.85);
-      tl.fromTo("#s8logo img", { scale: 0.96 }, { scale: 1, duration: 2, ease: "power2.out" }, 42.85);
+      // push in on the modern mark: same script, simplified field
+      tl.fromTo("#s8z", { scale: 1, x: 0, y: 0 }, { scale: 1.45, x: -400, y: -228, duration: 1.6, ease: "power2.inOut" }, 43.05);
+      tl.to([s8hb[0], s8hb[1]], { opacity: 0, duration: 0.3 }, 43.05);
       gsap.utils.toArray(".s8w").forEach((el, i) => up(el, 43.35 + i * 0.5, 0.6));
 
       // ===== 09 GOOGLE (45.0 – 49.6) =====
       up("#s9a", 45.1, 0.7);
       tl.fromTo("#s9b", { yPercent: 110 }, { yPercent: 110, duration: 0.01 }, 45.0);
       wipe("#s9plate", 45.02, 0.8);
-      tl.fromTo("#s9pi", { scale: 1 }, { scale: 1.07, duration: 2.8, ease: "none" }, 45.02);
-      tl.fromTo("#s9logo", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 100% 0% 0%)", duration: 0.01 }, 45.0);
-      tl.fromTo("#s9fill", { scaleX: 0 }, { scaleX: 1, duration: 2.6, ease: "power1.inOut" }, 45.3);
+      tl.fromTo("#s9pi", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.03, duration: 2.6, ease: "none" }, 45.02);
+      tl.fromTo("#s9h1", { opacity: 0, scale: 1.12, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.35, ease: E }, 45.5);
+      tl.fromTo("#s9h2", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 45.0);
+      tl.fromTo("#s9fill", { scaleX: 0 }, { scaleX: 1, duration: 2.3, ease: "power1.inOut" }, 45.5);
+      tl.fromTo("#s9l1", { color: "rgba(245,241,234,0.3)" }, { color: "#F5F1EA", duration: 0.3 }, 45.5);
       tl.fromTo("#s9l2", { color: "rgba(245,241,234,0.3)" }, { color: "#F5F1EA", duration: 0.3 }, 47.8);
+      tl.to("#s9h1", { opacity: 0.3, duration: 0.3 }, 47.6);
+      tl.to("#s9h2", { opacity: 1, duration: 0.3 }, 47.6);
       outUp("#s9a", 47.6, 0.35);
       up("#s9b", 47.85, 0.7);
-      tl.to("#s9logo", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "expo.inOut" }, 47.8);
-      tl.fromTo("#s9logo img", { scale: 0.96 }, { scale: 1, duration: 1.8, ease: "power2.out" }, 47.8);
+      // finish on the modern identity
+      tl.fromTo("#s9z", { scale: 1, x: 0, y: 0 }, { scale: 1.55, x: -385, y: -367, duration: 1.4, ease: "power2.inOut" }, 47.9);
+      tl.to("#s9h1", { opacity: 0, duration: 0.3 }, 47.9);
       up("#s9c", 48.4, 0.6);
 
       // ===== 10 THE SYSTEM (49.6 – 55.95) =====
