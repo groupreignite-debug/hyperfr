@@ -15,10 +15,10 @@ A chapter tracker (01 Hook / 02 مشكلة العميل / 03 CTA) stays on scree
 - `dir="rtl"` must NOT be set on `<html>` (HyperFrames renders a black video). RTL is scoped to text containers.
 
 ## Audio
-- `audio/vo/` is an offline TTS placeholder: Piper `ar_JO-kareem-medium` via sherpa-onnx, run by
-  `scripts/build_vo.py <model_dir>`. `lines.tsv` holds the diacritized text the TTS reads, with an optional
-  speed per line. The accent is Levantine/Jordanian, not Lebanese. **For the final ad, record a Lebanese
-  voiceover** with the same filenames, then retime `data-start` in `index.html` and `scripts/cues.json` if the lengths change.
+- `audio/vo/vo_01..11.wav`: ElevenLabs voiceover (voice "Laloosh – Engaging & Confident E-Comm", female,
+  Levantine; model `eleven_v3`), one file per line of `audio/vo/script.tsv`, trimmed and peak-normalised.
+  The line starts live in `index.html` and `scripts/cues.json`, and the music is ducked under them, so after
+  replacing a line run `python3 scripts/build_audio.py`.
 - `audio/music.wav`, `audio/sfx.wav` are a procedural 100 BPM electronic bed and UI SFX from
   `scripts/build_audio.py`, driven by `scripts/cues.json`. The music is pre-ducked under each VO line. Rebuild with `python3 scripts/build_audio.py`.
 
