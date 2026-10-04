@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="ar" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>3 أخطاء بتقتل إعلاناتك</title>
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+      /* Display: Alexandria (Arabic + Latin subsets). UI: IBM Plex Sans Arabic. */
+      @font-face { font-family: "Alexandria"; font-weight: 500; src: url("assets/fonts/alexandria-arabic-500-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("assets/fonts/alexandria-arabic-700-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("assets/fonts/alexandria-arabic-800-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("assets/fonts/alexandria-arabic-900-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("assets/fonts/alexandria-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2212; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("assets/fonts/alexandria-latin-800-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2212; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("assets/fonts/alexandria-latin-900-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2212; }
+      @font-face { font-family: "Plex Arabic"; font-weight: 500; src: url("assets/fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Plex Arabic"; font-weight: 600; src: url("assets/fonts/ibm-plex-sans-arabic-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2212; }
+      @font-face { font-family: "Plex Arabic"; font-weight: 700; src: url("assets/fonts/ibm-plex-sans-arabic-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2212; }
+
+      :root {
+        --orange: #ff4d1a;
+        --charcoal: #1a1a1a;
+        --paper: #f5f1ea;
+        --gold: #ffb000;
+        --panel: #222120;
+        --panel-2: #2a2826;
+        --line: rgba(245, 241, 234, 0.1);
+        --p70: rgba(245, 241, 234, 0.72);
+        --p50: rgba(245, 241, 234, 0.5);
+        --p30: rgba(245, 241, 234, 0.3);
+        --p12: rgba(245, 241, 234, 0.12);
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--charcoal); }
+      #root {
+        position: relative; width: 100%; height: 100%; overflow: hidden;
+        background: var(--charcoal); color: var(--paper);
+        font-family: "Plex Arabic", sans-serif; -webkit-font-smoothing: antialiased;
+      }
+      .clip { position: absolute; inset: 0; }
+      .rtl, .hd, .dash, .screen, #trk, #s1chips { direction: rtl; }
+      .abs { position: absolute; }
+      .full { position: absolute; inset: 0; }
+      .or { color: var(--orange); }
+      .gd { color: var(--gold); }
+      .lat { font-family: "Alexandria", sans-serif; direction: ltr; unicode-bidi: isolate; }
+
+      /* ---------- background world ---------- */
+      #bgfill { background: var(--charcoal); }
+      #grid {
+        position: absolute; left: -120px; top: -120px; width: 1320px; height: 2160px;
+        background-image: radial-gradient(rgba(245, 241, 234, 0.07) 1.6px, transparent 1.7px);
+        background-size: 48px 48px;
+      }
+      #glow {
+        position: absolute; width: 1300px; height: 1300px; left: -110px; top: 420px; border-radius: 50%;
+        background: radial-gradient(closest-side, rgba(255, 77, 26, 0.16), rgba(255, 77, 26, 0) 100%);
+      }
+      #vig { background: radial-gradient(130% 90% at 50% 45%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.45) 100%); }
+
+      /* ---------- headline type ---------- */
+      .hd { position: absolute; left: 70px; right: 70px; text-align: center; }
+      .lab {
+        display: inline-flex; align-items: center; gap: 14px; height: 52px; padding: 0 24px;
+        border-radius: 26px; border: 1.5px solid rgba(255, 77, 26, 0.55); color: var(--orange);
+        font-family: "Alexandria", sans-serif; font-weight: 700; font-size: 26px; white-space: nowrap;
+      }
+      .lab .n { font-family: "Alexandria", sans-serif; font-weight: 800; direction: ltr; }
+      .line { display: block; overflow: hidden; padding: 6px 0 24px; }
+      .t1 { font-family: "Alexandria", sans-serif; font-weight: 900; font-size: 92px; line-height: 1.22; white-space: nowrap; }
+      .t2 { font-family: "Alexandria", sans-serif; font-weight: 800; font-size: 74px; line-height: 1.25; white-space: nowrap; }
+      .w { display: inline-block; }
+      .uline { position: absolute; height: 8px; border-radius: 4px; background: var(--orange); transform-origin: 100% 50%; }
+
+      /* ---------- dashboard ---------- */
+      .dash {
+        position: absolute; left: 80px; width: 920px; height: 780px; border-radius: 40px;
+        background: var(--panel); border: 1.5px solid var(--line);
+        box-shadow: 0 50px 120px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(245, 241, 234, 0.05);
+        overflow: hidden;
+      }
+      .dash .top { position: absolute; left: 44px; right: 44px; top: 36px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+      .dash .ttl { font-family: "Alexandria", sans-serif; font-weight: 700; font-size: 30px; color: var(--paper); white-space: nowrap; }
+      .chipx { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px; border-radius: 22px; background: var(--panel-2); font-weight: 600; font-size: 22px; color: var(--p70); white-space: nowrap; }
+      .chipx i { width: 10px; height: 10px; border-radius: 5px; background: var(--gold); display: block; }
+      .kpis { position: absolute; left: 44px; right: 44px; top: 120px; height: 200px; display: flex; gap: 22px; }
+      .kpi { flex: 1; position: relative; border-radius: 26px; background: var(--panel-2); padding: 24px 26px; }
+      .kpi .k { font-weight: 600; font-size: 24px; color: var(--p50); white-space: nowrap; }
+      .kpi .v { margin-top: 8px; font-family: "Alexandria", sans-serif; font-weight: 800; font-size: 76px; line-height: 1.05; direction: ltr; text-align: right; white-space: nowrap; }
+      .kpi .d { position: absolute; left: 26px; top: 26px; font-family: "Alexandria", sans-serif; font-weight: 700; font-size: 22px; direction: ltr; white-space: nowrap; }
+      .chart { position: absolute; left: 44px; right: 44px; top: 350px; height: 300px; border-radius: 26px; background: var(--panel-2); overflow: hidden; }
+      .chart svg { position: absolute; inset: 0; width: 832px; height: 300px; }
+      .chart .gl { stroke: rgba(245, 241, 234, 0.07); stroke-width: 1.5; fill: none; }
+      .legend { position: absolute; left: 44px; right: 44px; top: 676px; height: 60px; display: flex; gap: 28px; align-items: center; justify-content: flex-start; }
+      .legend span { display: inline-flex; align-items: center; gap: 12px; font-weight: 600; font-size: 24px; color: var(--p70); white-space: nowrap; }
+      .legend b { display: block; width: 30px; height: 6px; border-radius: 3px; }
+
+      /* ---------- tracker (chapter pills) ---------- */
+      #trk { position: absolute; left: 0; right: 0; top: 190px; display: flex; justify-content: center; gap: 16px; }
+      .pill {
+        display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 24px; border-radius: 30px;
+        background: var(--panel); border: 1.5px solid var(--p12); color: var(--p50); white-space: nowrap;
+        font-weight: 700; font-size: 24px;
+      }
+      .pill .n { font-family: "Alexandria", sans-serif; font-weight: 800; font-size: 22px; direction: ltr; }
+      .pill svg { width: 24px; height: 24px; display: block; }
+
+      /* ---------- phone ---------- */
+      #phone { position: absolute; left: 255px; top: 600px; width: 570px; height: 920px; }
+      .frame {
+        position: absolute; inset: 0; border-radius: 74px; background: #0f0f0f;
+        border: 2px solid rgba(245, 241, 234, 0.16);
+        box-shadow: 0 60px 140px rgba(0, 0, 0, 0.6), 0 0 0 10px #161616, 0 0 0 11.5px rgba(245, 241, 234, 0.08);
+      }
+      .screen { position: absolute; left: 14px; top: 14px; right: 14px; bottom: 14px; border-radius: 60px; overflow: hidden; background: #141414; }
+      .sbar { position: absolute; left: 40px; right: 40px; top: 22px; height: 30px; display: flex; justify-content: space-between; align-items: center; font-family: "Alexandria", sans-serif; font-weight: 700; font-size: 20px; color: var(--p70); direction: ltr; }
+      .notch { position: absolute; left: 50%; top: 18px; width: 150px; height: 38px; margin-left: -75px; border-radius: 19px; background: #000; }
+      .apphdr { position: absolute; left: 30px; right: 30px; top: 74px; height: 48px; display: flex; align-items: center; justify-content: space-between; }
+      .apphdr .lg { font-family: "Alexandria", sans-serif; font-weight: 800; font-size: 28px; color: var(--paper); }
+      .apphdr .ic { display: flex; gap: 18px; }
+      .apphdr .ic i { display: block; width: 30px; height: 30px; border-radius: 9px; border: 2.5px solid var(--p50); }
+      .feed { position: absolute; left: 0; right: 0; top: 136px; bottom: 0; overflow: hidden; }
+
+      .post { position: absolute; left: 0; right: 0; top: 0; height: 760px; }
+      .ph { position: absolute; left: 26px; right: 26px; top: 6px; height: 64px; display: flex; align-items: center; gap: 14px; }
+      .av { width: 56px; height: 56px; border-radius: 28px; background: #3a3633; flex: none; }
+      .pn { font-weight: 700; font-size: 22px; color: var(--paper); white-space: nowrap; line-height: 1.3; }
+      .ps { font-weight: 500; font-size: 18px; color: rgba(245, 241, 234, 0.62); white-space: nowrap; line-height: 1.3; }
+      .media { position: absolute; left: 0; right: 0; top: 82px; height: 520px; background: #262422; overflow: hidden; }
+      .acts { position: absolute; left: 26px; right: 26px; top: 620px; height: 44px; display: flex; gap: 22px; }
+      .acts svg { width: 40px; height: 40px; display: block; }
+      .acts svg path { fill: none; stroke: var(--p70); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .skel { position: absolute; right: 26px; height: 16px; border-radius: 8px; background: rgba(245, 241, 234, 0.1); }
+
+      .ghost { position: absolute; left: 0; right: 0; height: 640px; }
+      .ghost .media { background: #1f1e1d; }
+
+      .thumb { position: absolute; width: 96px; height: 96px; border-radius: 48px; background: rgba(245, 241, 234, 0.32); border: 3px solid rgba(245, 241, 234, 0.75); box-shadow: 0 0 0 14px rgba(245, 241, 234, 0.08); }
+      .badge {
+        position: absolute; display: inline-flex; align-items: center; gap: 10px; height: 56px; padding: 0 22px; border-radius: 28px;
+        font-family: "Alexandria", sans-serif; font-weight: 800; font-size: 24px; white-space: nowrap;
+      }
+      .b-or { background: var(--orange); color: var(--charcoal); }
+      .b-dk { background: rgba(20, 20, 20, 0.92); color: var(--p70); border: 1.5px solid var(--p12); }
+      .badge svg { width: 26px; height: 26px; display: block; }
+
+      /* meter */
+      .meter { position: absolute; left: 22px; right: 22px; bottom: 26px; height: 118px; border-radius: 30px; background: rgba(22, 22, 22, 0.94); border: 1.5px solid var(--p12); padding: 18px 24px; }
+      .meter .mk { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 22px; color: var(--p70); white-space: nowrap; }
+      .meter .mv { font-family: "Alexandria", sans-serif; font-weight: 800; font-size: 26px; direction: ltr; }
+      .meter .tr { position: absolute; left: 24px; right: 24px; bottom: 24px; height: 16px; border-radius: 8px; background: rgba(245, 241, 234, 0.1); overflow: hidden; }
+      .meter .tr i { position: absolute; right: 0; top: 0; bottom: 0; width: 100%; border-radius: 8px; display: block; transform-origin: 100% 50%; }
+
+      /* end card */
+      #logo { position: absolute; left: 340px; top: 1395px; width: 400px; height: 225px; mix-blend-mode: lighten; }
+      #logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="41.5" data-width="1080" data-height="1920">
+
+      <!-- ============ BACKGROUND WORLD (0 – 41.5) ============ -->
+      <section id="bg" class="clip" data-start="0" data-duration="41.5" data-track-index="0">
+        <div id="bgfill" class="full"></div>
+        <div id="grid"></div>
+        <div id="glow"></div>
+        <div id="vig" class="full"></div>
+      </section>
+
+      <!-- ============ 01 HOOK — money out, nothing back (0 – 7.8) ============ -->
+      <section id="s1" class="clip" data-start="0" data-duration="7.8" data-track-index="1">
+        <div id="s1cam" class="full">
+          <div id="s1dash" class="dash" style="top: 640px"></div>
+          <div class="hd" style="top: 300px">
+            <span class="line"><span id="s1l1" class="t1 split" style="font-size: 80px">عم تدفع على الإعلانات</span></span>
+            <span class="line"><span id="s1l2" class="t1 split" style="font-size: 80px">وما عم تجيب <span class="or">نتائج؟</span></span></span>
+          </div>
+        </div>
+        <!-- title: 3 mistakes -->
+        <div id="s1title" class="full">
+          <div class="hd" style="top: 560px">
+            <span class="line"><span id="s1k" class="t2 split" style="color: var(--p70); font-weight: 700; font-size: 60px">ممكن تكون عم تعمل واحد من</span></span>
+          </div>
+          <div class="abs" style="left: 0; right: 0; top: 700px; height: 420px; display: flex; justify-content: center; align-items: center; gap: 36px">
+            <span id="s1three" class="lat" style="display: block; font-weight: 900; font-size: 400px; line-height: 1; color: var(--orange)">3</span>
+            <span id="s1akhta" style="display: block; font-family: 'Alexandria'; font-weight: 900; font-size: 170px; line-height: 1.2; white-space: nowrap">أخطاء</span>
+          </div>
+          <div class="hd" style="top: 1130px">
+            <span class="line"><span id="s1kill" class="t2 split">بتقتل <span class="or">إعلاناتك</span></span></span>
+          </div>
+          <div id="s1chips" class="abs" style="left: 0; right: 0; top: 1330px; display: flex; justify-content: center; gap: 16px">
+            <span class="pill s1c"><span class="n">01</span>Hook</span>
+            <span class="pill s1c"><span class="n">02</span>مشكلة العميل</span>
+            <span class="pill s1c"><span class="n">03</span>CTA</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CHAPTER TRACKER (7.4 – 41.5) ============ -->
+      <section id="chrome" class="clip" data-start="7.4" data-duration="34.1" data-track-index="5">
+        <div id="trk">
+          <span class="pill" id="pk1"><span class="n">01</span><span class="pl">Hook</span><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#FFB000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="pill" id="pk2"><span class="n">02</span><span class="pl">مشكلة العميل</span><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#FFB000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="pill" id="pk3"><span class="n">03</span><span class="pl">CTA</span><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#FFB000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </section>
+
+      <!-- ============ THE PHONE — one world for all three mistakes (7.8 – 35.3) ============ -->
+      <section id="ph" class="clip" data-start="7.8" data-duration="27.5" data-track-index="2">
+        <div id="phone">
+          <div class="frame"></div>
+          <div class="screen">
+            <div class="sbar"><span>9:41</span><span>5G</span></div>
+            <div class="notch"></div>
+            <div class="apphdr"><span class="lg">الرئيسية</span><span class="ic"><i></i><i></i></span></div>
+            <div class="feed" id="feed">
+
+              <!-- M1: bland ad that gets skipped -->
+              <div class="post" id="p1" data-layout-allow-overflow>
+                <div class="ph"><div class="av"></div><div><div class="pn">متجر النخبة</div><div class="ps">إعلان ممول</div></div></div>
+                <div class="media">
+                  <div class="abs" style="left: 0; right: 0; top: 120px; display: flex; flex-direction: column; align-items: center; gap: 22px">
+                    <svg width="120" height="120" viewBox="0 0 120 120"><path d="M60 14l40 20v52L60 106 20 86V34z M20 34l40 20 40-20 M60 54v52" fill="none" stroke="rgba(245,241,234,0.35)" stroke-width="4" stroke-linejoin="round"/></svg>
+                    <div style="font-weight: 600; font-size: 34px; color: var(--p50); white-space: nowrap">منتجنا الجديد متوفر الآن</div>
+                    <div style="font-weight: 500; font-size: 24px; color: rgba(245, 241, 234, 0.5); white-space: nowrap">زوروا موقعنا للمزيد من المعلومات</div>
+                  </div>
+                  <!-- 2-second timer -->
+                  <div id="p1tm" class="abs" style="left: 24px; top: 24px; width: 132px; height: 132px">
+                    <svg width="132" height="132" viewBox="0 0 132 132" style="position: absolute; inset: 0">
+                      <circle cx="66" cy="66" r="56" fill="rgba(20,20,20,0.85)" stroke="rgba(245,241,234,0.14)" stroke-width="8"/>
+                      <circle id="p1ring" cx="66" cy="66" r="56" fill="none" stroke="#FF4D1A" stroke-width="8" stroke-linecap="round" transform="rotate(-90 66 66)"/>
+                    </svg>
+                    <div id="p1sec" class="abs lat" style="left: 0; right: 0; top: 40px; text-align: center; font-weight: 800; font-size: 40px; color: var(--paper)">0.0</div>
+                    <div class="abs" style="left: 0; right: 0; top: 86px; text-align: center; font-weight: 600; font-size: 17px; color: var(--p50)">ثانية</div>
+                  </div>
+                </div>
+                <div class="acts">
+                  <svg viewBox="0 0 40 40"><path d="M20 33s-12-7.5-12-16a6.5 6.5 0 0 1 12-3.5A6.5 6.5 0 0 1 32 17c0 8.5-12 16-12 16z"/></svg>
+                  <svg viewBox="0 0 40 40"><path d="M33 19a13 13 0 0 1-19 11.5L7 33l2.5-6.5A13 13 0 1 1 33 19z"/></svg>
+                  <svg viewBox="0 0 40 40"><path d="M34 7L17 22 M34 7l-10 27-7-12-11-5z"/></svg>
+                </div>
+                <div class="skel" style="top: 690px; width: 380px"></div>
+                <div class="skel" style="top: 720px; width: 250px"></div>
+              </div>
+              <!-- feed that streams past after the skip -->
+              <div id="p1feed" data-layout-allow-overflow class="abs" style="left: 0; right: 0; top: 780px; height: 2600px">
+                <div class="ghost" style="top: 0"><div class="ph"><div class="av"></div><div><div class="skel" style="position: relative; right: 0; width: 160px"></div></div></div><div class="media"></div></div>
+                <div class="ghost" style="top: 650px"><div class="ph"><div class="av"></div><div><div class="skel" style="position: relative; right: 0; width: 200px"></div></div></div><div class="media"></div></div>
+                <div class="ghost" style="top: 1300px"><div class="ph"><div class="av"></div><div><div class="skel" style="position: relative; right: 0; width: 140px"></div></div></div><div class="media"></div></div>
+                <div class="ghost" style="top: 1950px"><div class="ph"><div class="av"></div><div><div class="skel" style="position: relative; right: 0; width: 180px"></div></div></div><div class="media"></div></div>
+              </div>
+
+              <!-- M2 card A: product talk -->
+              <div class="post" id="p2a" data-layout-allow-overflow>
+                <div class="ph"><div class="av"></div><div><div class="pn">متجر النخبة</div><div class="ps">إعلان ممول</div></div></div>
+                <div class="media" id="p2am">
+                  <div class="abs" style="right: 40px; left: 40px; top: 64px">
+                    <div style="display: inline-block; padding: 6px 18px; border-radius: 18px; background: rgba(245,241,234,0.1); font-weight: 600; font-size: 20px; color: var(--p70)">جديد</div>
+                    <div style="margin-top: 26px; font-family: 'Alexandria'; font-weight: 800; font-size: 46px; line-height: 1.35; color: var(--paper)">منتجنا الأفضل<br>بالسوق</div>
+                    <div style="margin-top: 26px; font-weight: 600; font-size: 26px; line-height: 1.9; color: var(--p50)">
+                      <div>• جودة عالية</div><div>• أسعار منافسة</div><div>• خبرة سنين طويلة</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="acts">
+                  <svg viewBox="0 0 40 40"><path d="M20 33s-12-7.5-12-16a6.5 6.5 0 0 1 12-3.5A6.5 6.5 0 0 1 32 17c0 8.5-12 16-12 16z"/></svg>
+                  <svg viewBox="0 0 40 40"><path d="M33 19a13 13 0 0 1-19 11.5L7 33l2.5-6.5A13 13 0 1 1 33 19z"/></svg>
+                  <svg viewBox="0 0 40 40"><path d="M34 7L17 22 M34 7l-10 27-7-12-11-5z"/></svg>
+                </div>
+              </div>
+              <!-- M2 card B: speaks to the problem -->
+              <div class="post" id="p2b" data-layout-allow-overflow>
+                <div class="ph"><div class="av" style="background: #4a3328"></div><div><div class="pn">متجر النخبة</div><div class="ps">إعلان ممول</div></div></div>
+                <div class="media" id="p2bm" style="background: #2b211c">
+                  <div class="abs" style="right: 40px; left: 40px; top: 70px">
+                    <div style="font-family: 'Alexandria'; font-weight: 800; font-size: 50px; line-height: 1.4; color: var(--paper)">زباينك عم<br>يسألوا نفس<br>السؤال <span class="or">كل يوم؟</span></div>
+                    <div style="margin-top: 28px; font-weight: 600; font-size: 26px; line-height: 1.6; color: var(--p70)">هيك بتوفّر وقتك<br>وبتجاوبهم بثواني.</div>
+                  </div>
+                </div>
+                <div class="acts">
+                  <svg viewBox="0 0 40 40" id="p2heart"><path id="p2heartp" d="M20 33s-12-7.5-12-16a6.5 6.5 0 0 1 12-3.5A6.5 6.5 0 0 1 32 17c0 8.5-12 16-12 16z"/></svg>
+                  <svg viewBox="0 0 40 40"><path d="M33 19a13 13 0 0 1-19 11.5L7 33l2.5-6.5A13 13 0 1 1 33 19z"/></svg>
+                  <svg viewBox="0 0 40 40"><path d="M34 7L17 22 M34 7l-10 27-7-12-11-5z"/></svg>
+                </div>
+              </div>
+
+              <!-- M3: video ad that ends with no clear action -->
+              <div class="post" id="p3" data-layout-allow-overflow>
+                <div class="ph"><div class="av"></div><div><div class="pn">متجر النخبة</div><div class="ps">إعلان ممول</div></div></div>
+                <div class="media" id="p3m" style="height: 600px; background: #24201d">
+                  <div id="p3orb" class="abs" style="left: 152px; top: 120px; width: 240px; height: 240px; border-radius: 50%; background: rgba(255, 77, 26, 0.85)"></div>
+                  <div id="p3orb2" data-layout-allow-overflow class="abs" style="left: 112px; top: 80px; width: 320px; height: 320px; border-radius: 50%; border: 3px solid rgba(255, 176, 0, 0.5)"></div>
+                  <div id="p3sub" class="abs" style="left: 0; right: 0; top: 440px; text-align: center; font-weight: 600; font-size: 28px; color: var(--p70)">جودة بتستاهلها.</div>
+                  <!-- progress bar -->
+                  <div class="abs" style="left: 24px; right: 24px; bottom: 26px; height: 8px; border-radius: 4px; background: rgba(245,241,234,0.18); overflow: hidden">
+                    <i id="p3prog" style="position: absolute; inset: 0; display: block; background: var(--orange); transform-origin: 0 50%"></i>
+                  </div>
+                  <div id="p3time" class="abs lat" style="left: 24px; bottom: 46px; font-weight: 700; font-size: 20px; color: var(--p70)">0:11 / 0:15</div>
+                  <!-- end screen: the weak CTA -->
+                  <div id="p3end" class="full" style="background: rgba(16, 16, 16, 0.9)">
+                    <div class="abs" style="left: 0; right: 0; top: 150px; text-align: center; font-family: 'Alexandria'; font-weight: 700; font-size: 38px; color: var(--p70)">شكراً على المشاهدة</div>
+                    <div id="p3btn" class="abs" style="left: 112px; right: 112px; top: 250px; height: 92px; border-radius: 46px; border: 3px dashed rgba(245,241,234,0.45); display: flex; align-items: center; justify-content: center; font-family: 'Alexandria'; font-weight: 700; font-size: 30px; color: rgba(245,241,234,0.55)">للمزيد…</div>
+                    <div id="p3q1" class="abs lat" style="left: 90px; top: 380px; font-weight: 900; font-size: 64px; color: var(--gold)">?</div>
+                    <div id="p3q2" class="abs lat" style="left: 250px; top: 410px; font-weight: 900; font-size: 84px; color: var(--paper)">?</div>
+                    <div id="p3q3" class="abs lat" style="left: 410px; top: 372px; font-weight: 900; font-size: 58px; color: var(--gold)">?</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- overlays on the screen -->
+            <div id="thumb" class="thumb" style="left: 223px; top: 640px"></div>
+            <div id="skipb" class="badge b-or" style="left: 50%; top: 330px; margin-left: -118px">
+              <svg viewBox="0 0 26 26"><path d="M7 7l12 12 M19 7L7 19" stroke="#1A1A1A" stroke-width="3.4" stroke-linecap="round"/></svg>تمّ التخطّي</div>
+
+            <div class="meter" id="meter">
+              <div class="mk"><span>انتباه العميل</span><span id="mval" class="mv">12%</span></div>
+              <div class="tr"><i id="mbar" style="background: var(--p30)"></i></div>
+            </div>
+            <div id="ignb" class="badge b-dk" style="left: 24px; top: 232px">
+              <svg viewBox="0 0 26 26"><path d="M3 13s4-7 10-7 10 7 10 7-4 7-10 7S3 13 3 13z M5 21L21 5" fill="none" stroke="rgba(245,241,234,0.72)" stroke-width="2.4" stroke-linecap="round"/></svg>تجاهل</div>
+            <div id="engb" class="badge b-or" style="left: 24px; top: 232px">
+              <svg viewBox="0 0 26 26"><path d="M5 13.5l5 5L21 7" fill="none" stroke="#1A1A1A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>وقف وتفاعل</div>
+            <div id="clkb" class="badge b-dk" style="left: 50%; top: 170px; margin-left: -100px; height: 64px; font-size: 26px">نقرات: <span id="clkn" class="lat or" style="font-size: 32px">0</span></div>
+            <div id="dim" class="full" style="background: rgba(10, 10, 10, 0.55)"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ M1 headline (7.8 – 15.2) ============ -->
+      <section id="s2" class="clip" data-start="7.8" data-duration="7.4" data-track-index="3">
+        <div class="hd" style="top: 300px">
+          <span class="line" style="padding-bottom: 8px"><span id="s2lab" class="lab">الخطأ <span class="n">01</span></span></span>
+          <span class="line"><span id="s2h" class="t1 split" style="font-size: 80px">إعلان بدون <span class="lat or" id="s2hook">Hook</span> قوي</span></span>
+        </div>
+      </section>
+
+      <!-- ============ M2 headline (15.2 – 25.05) ============ -->
+      <section id="s3" class="clip" data-start="15.2" data-duration="9.85" data-track-index="3">
+        <div class="hd" style="top: 300px">
+          <span class="line" style="padding-bottom: 8px"><span id="s3lab" class="lab">الخطأ <span class="n">02</span></span></span>
+        </div>
+        <div id="s3a" class="hd" style="top: 372px">
+          <span class="line"><span id="s3h1" class="t2 split">بتحكي عن منتجك</span></span>
+          <span class="line" style="margin-top: -18px"><span id="s3h2" class="t2 split">بدل <span class="or">مشكلة العميل</span></span></span>
+        </div>
+        <div id="s3b" class="hd" style="top: 372px">
+          <span class="line"><span id="s3b1" class="t2 split" style="color: var(--p70)">الناس ما بهمها بس</span></span>
+          <span class="line" style="margin-top: -18px"><span id="s3b2" class="t2 split">شو بتبيع…</span></span>
+        </div>
+        <div id="s3c" class="hd" style="top: 372px">
+          <span class="line"><span id="s3c1" class="t2 split" style="color: var(--p70)">بهمها كيف رح تحل</span></span>
+          <span class="line" style="margin-top: -18px"><span id="s3c2" class="t2 split"><span class="or">مشكلتها.</span></span></span>
+        </div>
+      </section>
+
+      <!-- ============ M3 headline (25.05 – 35.3) ============ -->
+      <section id="s4" class="clip" data-start="25.05" data-duration="10.25" data-track-index="3">
+        <div class="hd" style="top: 300px">
+          <span class="line" style="padding-bottom: 8px"><span id="s4lab" class="lab">الخطأ <span class="n">03</span></span></span>
+        </div>
+        <div id="s4a" class="hd" style="top: 372px">
+          <span class="line"><span id="s4h1" class="t2 split"><span class="lat or">CTA</span> ضعيف</span></span>
+          <span class="line" style="margin-top: -18px"><span id="s4h2" class="t2 split">أو مش واضح</span></span>
+        </div>
+        <div id="s4b" class="hd" style="top: 372px">
+          <span class="line"><span id="s4b1" class="t2 split" style="color: var(--p70)">إذا ما عرف شو</span></span>
+          <span class="line" style="margin-top: -18px"><span id="s4b2" class="t2 split">لازم يعمل بعدها…</span></span>
+        </div>
+        <div id="s4c" class="hd" style="top: 372px">
+          <span class="line"><span id="s4c1" class="t2 split" style="color: var(--p70)">غالباً</span></span>
+          <span class="line" style="margin-top: -18px"><span id="s4c2" class="t2 split"><span class="or">ما رح يعمل شي.</span></span></span>
+        </div>
+      </section>
+
+      <!-- ============ ENDING — reach vs. action (35.3 – 41.5) ============ -->
+      <section id="s5" class="clip" data-start="35.3" data-duration="6.2" data-track-index="1">
+        <div id="s5cam" class="full">
+          <div id="s5dash" class="dash" style="top: 640px"></div>
+        </div>
+        <div id="s5a" class="hd" style="top: 330px">
+          <span class="line"><span id="s5a1" class="t2 split" style="color: var(--p70)">الإعلان الناجح مش بس</span></span>
+          <span class="line" style="margin-top: -18px"><span id="s5a2" class="t2 split">يوصل للناس…</span></span>
+        </div>
+        <div id="s5b" class="hd" style="top: 650px">
+          <span class="line"><span id="s5b1" class="t1 split" style="font-size: 132px">بيخليهم</span></span>
+          <span class="line" style="margin-top: -10px"><span id="s5b2" class="t1" style="font-size: 160px; display: inline-block"><span class="or">يتحركوا.</span></span></span>
+          <div id="s5ul" class="uline" style="left: 230px; right: 230px; top: 470px"></div>
+        </div>
+        <div id="logo"><img src="assets/brand/reignite-group-logo.png" alt="Reignite Group" /></div>
+      </section>
+
+      <!-- ============ AUDIO ============ -->
+      <audio id="a-music" src="audio/music.wav" data-start="0" data-duration="41.5" data-track-index="7" data-volume="1"></audio>
+      <audio id="a-sfx" src="audio/sfx.wav" data-start="0" data-duration="41.5" data-track-index="8" data-volume="0.85"></audio>
+      <audio id="vo-01" src="audio/vo/vo_01.wav" data-start="0.1" data-duration="3.75" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-02" src="audio/vo/vo_02.wav" data-start="3.95" data-duration="3.755" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-03" src="audio/vo/vo_03.wav" data-start="7.95" data-duration="2.453" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-04" src="audio/vo/vo_04.wav" data-start="10.5" data-duration="4.558" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-05" src="audio/vo/vo_05.wav" data-start="15.35" data-duration="4.139" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-06" src="audio/vo/vo_06.wav" data-start="19.6" data-duration="2.681" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-07" src="audio/vo/vo_07.wav" data-start="22.4" data-duration="2.53" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-08" src="audio/vo/vo_08.wav" data-start="25.2" data-duration="3.202" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-09" src="audio/vo/vo_09.wav" data-start="28.5" data-duration="6.47" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-10" src="audio/vo/vo_10.wav" data-start="35.3" data-duration="3.334" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-11" src="audio/vo/vo_11.wav" data-start="38.75" data-duration="1.776" data-track-index="6" data-volume="1"></audio>
+    </div>
+
+    <script>
+      // ---------- build both dashboards from one template (opening + ending stay identical) ----------
+      const GRID = [60, 120, 180, 240].map((y) => `<line class="gl" x1="0" y1="${y}" x2="832" y2="${y}"/>`).join("");
+      function dashHTML(p, spend, spd, results, cpr, resultsPath) {
+        return `
+          <div class="top"><span class="ttl">مدير الإعلانات</span><span class="chipx"><i></i>الحملة شغّالة · آخر 30 يوم</span></div>
+          <div class="kpis">
+            <div class="kpi"><div class="k">المبلغ المصروف</div><div class="v" id="${p}spend">${spend}</div><div class="d gd" id="${p}spd">${spd}</div></div>
+            <div class="kpi"><div class="k">النتائج</div><div class="v" id="${p}res">${results}</div><div class="d" id="${p}resd" style="color: var(--p50)">تكلفة النتيجة <span class="lat" id="${p}cpr" style="display: inline-block">${cpr}</span></div></div>
+          </div>
+          <div class="chart"><svg viewBox="0 0 832 300">${GRID}
+            <path id="${p}lsp" d="M24 262 C 160 250, 250 214, 360 176 S 600 92, 808 34" fill="none" stroke="#FF4D1A" stroke-width="7" stroke-linecap="round"/>
+            <path id="${p}lrs" d="${resultsPath}" fill="none" stroke="${p === "s5" ? "#FFB000" : "rgba(245,241,234,0.42)"}" stroke-width="7" stroke-linecap="round"/>
+            <circle id="${p}dot" cx="808" cy="34" r="12" fill="#FF4D1A"/>
+          </svg></div>
+          <div class="legend"><span><b style="background: #FF4D1A"></b>المصروف</span><span><b style="background: ${p === "s5" ? "#FFB000" : "rgba(245,241,234,0.42)"}"></b>النتائج</span></div>`;
+      }
+      document.getElementById("s1dash").innerHTML = dashHTML("s1", "$1,240", "+41%", "3", "$1,623", "M24 270 C 200 268, 400 266, 560 262 S 740 258, 808 258");
+      document.getElementById("s5dash").innerHTML = dashHTML("s5", "$4,870", "+312%", "3", "$1,623", "M24 270 C 200 262, 380 236, 520 176 S 700 70, 808 46");
+
+      // ---------- word splitter (keeps highlighted spans as one unit; never splits inside an Arabic word) ----------
+      document.querySelectorAll(".split").forEach((el) => {
+        const out = [];
+        el.childNodes.forEach((n) => {
+          if (n.nodeType === 3) {
+            n.textContent.split(/\s+/).filter(Boolean).forEach((t) => {
+              const s = document.createElement("span");
+              s.className = "w";
+              s.textContent = t;
+              out.push(s);
+            });
+          } else {
+            n.classList.add("w");
+            out.push(n);
+          }
+        });
+        el.textContent = "";
+        out.forEach((s, i) => {
+          if (i) el.appendChild(document.createTextNode(" "));
+          el.appendChild(s);
+        });
+      });
+
+      // ---------- helpers ----------
+      const tl = gsap.timeline({ paused: true });
+      const E = "expo.out";
+      const W = (sel) => gsap.utils.toArray(document.querySelectorAll(sel + " .w"));
+      // word-by-word rise inside a masked line
+      const words = (sel, t, st = 0.07, d = 0.55) =>
+        tl.fromTo(W(sel), { yPercent: 115, opacity: 0 }, { yPercent: 0, opacity: 1, duration: d, ease: E, stagger: st }, t);
+      const wordsOut = (sel, t, d = 0.32) =>
+        tl.to(W(sel), { yPercent: -115, opacity: 0, duration: d, ease: "power3.in", stagger: 0.03 }, t);
+      const show = (sel, t, d = 0.4, from = { opacity: 0, y: 24 }) =>
+        tl.fromTo(sel, from, { opacity: 1, y: 0, x: 0, scale: 1, duration: d, ease: E }, t);
+      const hide = (sel, t, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, t);
+      const count = (el, t, d, from, to, fmt, ease = "power2.out") => {
+        const o = { v: from };
+        const node = document.getElementById(el);
+        tl.fromTo(o, { v: from }, { v: to, duration: d, ease, onUpdate: () => (node.textContent = fmt(o.v)) }, t);
+      };
+      const money = (v) => "$" + Math.round(v).toLocaleString("en-US");
+      const draw = (id, t, d, from = 1, to = 0, ease = "power2.inOut") => {
+        const el = document.getElementById(id);
+        const L = el.getTotalLength();
+        tl.fromTo(el, { strokeDasharray: L, strokeDashoffset: L * from }, { strokeDashoffset: L * to, duration: d, ease }, t);
+      };
+
+      // ---------- background drift (subtle camera) ----------
+      tl.fromTo("#grid", { x: 0, y: 0 }, { x: 48, y: -96, duration: 41.5, ease: "none" }, 0);
+      tl.fromTo("#glow", { x: 0, y: 0, scale: 1 }, { x: 0, y: -260, scale: 1.12, duration: 15, ease: "sine.inOut" }, 0);
+      tl.to("#glow", { y: 160, scale: 0.95, duration: 12, ease: "sine.inOut" }, 15);
+      tl.to("#glow", { y: -60, scale: 1.18, duration: 14.5, ease: "sine.inOut" }, 27);
+
+      // =====================================================================
+      // 01 HOOK (0 – 7.8): spend climbs, results flat. Problem is on screen at frame 0.
+      // =====================================================================
+      tl.fromTo("#s1cam", { scale: 1.0 }, { scale: 1.04, duration: 3.9, ease: "sine.out", transformOrigin: "50% 60%" }, 0);
+      count("s1spend", 0, 3.6, 1240, 4870, money, "power1.out");
+      count("s1spd", 0, 3.6, 41, 312, (v) => "+" + Math.round(v) + "%", "power1.out");
+      draw("s1lsp", 0, 3.4, 0.62, 0, "power1.out");
+      draw("s1lrs", 0, 3.4, 0.62, 0, "power1.out");
+      tl.fromTo("#s1dot", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.4, ease: "back.out(3)" }, 3.2);
+      words("#s1l1", 0.04, 0.06, 0.5);
+      words("#s1l2", 1.85, 0.12, 0.55);
+      // "results" lands: the tile shakes, flat
+      tl.fromTo("#s1res", { x: 0 }, { keyframes: [{ x: -10 }, { x: 9 }, { x: -6 }, { x: 0 }], duration: 0.4, ease: "none", immediateRender: false }, 2.75);
+      tl.fromTo("#s1resd", { color: "rgba(245,241,234,0.5)" }, { color: "#FF4D1A", duration: 0.3 }, 2.8);
+
+      // to the title
+      wordsOut("#s1l1", 3.9);
+      wordsOut("#s1l2", 3.95);
+      tl.to("#s1cam", { scale: 0.9, opacity: 0.16, filter: "blur(10px)", duration: 0.7, ease: "power2.inOut" }, 3.95);
+      words("#s1k", 4.05, 0.07, 0.5);
+      tl.fromTo("#s1three", { scale: 1.6, opacity: 0, filter: "blur(16px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.7, ease: "expo.out" }, 5.4);
+      tl.fromTo("#s1akhta", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: E }, 5.55);
+      words("#s1kill", 6.0, 0.1, 0.55);
+      tl.fromTo(".s1c", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: E, stagger: 0.09 }, 6.3);
+      // chips rise into the tracker position; the title clears
+      tl.to(["#s1k", "#s1three", "#s1akhta", "#s1kill"], { opacity: 0, y: -50, duration: 0.35, ease: "power2.in" }, 7.3);
+      tl.to("#s1chips", { y: -1140, scale: 0.92, duration: 0.5, ease: "expo.inOut" }, 7.2);
+      tl.to("#s1chips", { opacity: 0, duration: 0.12 }, 7.65);
+
+      // =====================================================================
+      // TRACKER
+      // =====================================================================
+      tl.fromTo("#trk", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: E }, 7.45);
+      tl.set(".pill .ck", { display: "none" }, 0);
+      const pillOn = (id, t) => tl.to(id, { backgroundColor: "#FF4D1A", borderColor: "#FF4D1A", color: "#1A1A1A", duration: 0.3 }, t);
+      const pillDone = (id, t) => tl.to(id, { backgroundColor: "#222120", borderColor: "rgba(245,241,234,0.12)", color: "rgba(245,241,234,0.5)", duration: 0.3 }, t);
+      pillOn("#pk1", 7.8);
+      pillDone("#pk1", 15.2);
+      pillOn("#pk2", 15.25);
+      pillDone("#pk2", 25.05);
+      pillOn("#pk3", 25.1);
+      pillDone("#pk3", 35.0);
+      // ending: every chapter ticked
+      [["#pk1", 35.5], ["#pk2", 35.62], ["#pk3", 35.74]].forEach(([id, t]) => {
+        tl.set(id + " .ck", { display: "block" }, t);
+        tl.set(id + " .n", { display: "none" }, t);
+        tl.to(id, { borderColor: "rgba(255,176,0,0.6)", color: "#F5F1EA", duration: 0.25 }, t);
+        tl.fromTo(id, { scale: 1 }, { keyframes: [{ scale: 1.1 }, { scale: 1 }], duration: 0.35, ease: "power2.out", immediateRender: false }, t);
+      });
+
+      // =====================================================================
+      // PHONE: enters once, persists through all three mistakes
+      // =====================================================================
+      tl.fromTo("#phone", { y: 520, rotation: -4, opacity: 0 }, { y: 0, rotation: 0, opacity: 1, duration: 0.75, ease: "expo.out" }, 7.8);
+      tl.fromTo("#phone", { scale: 1 }, { scale: 1.03, duration: 6.6, ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, 8.3);
+      // everything that is not the first post starts parked
+      tl.set(["#p2a", "#p2b", "#p3"], { y: 900 }, 0);
+      tl.set(["#thumb", "#skipb", "#meter", "#ignb", "#engb", "#clkb", "#dim", "#p3end"], { opacity: 0 }, 0);
+      tl.set("#p1feed", { y: 0 }, 0);
+
+      // ---- M1 headline ----
+      tl.fromTo("#s2lab", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 7.9);
+      words("#s2h", 8.05, 0.12, 0.6);
+      tl.fromTo("#s2hook", { scale: 1 }, { keyframes: [{ scale: 1.14 }, { scale: 1 }], duration: 0.5, ease: "power2.out", immediateRender: false }, 9.3);
+
+      // ---- M1: two seconds to earn attention ----
+      draw("p1ring", 10.55, 2.0, 1, 0, "none");
+      count("p1sec", 10.55, 2.0, 0, 2, (v) => v.toFixed(1), "none");
+      tl.fromTo("#p1tm", { scale: 1 }, { keyframes: [{ scale: 1.12 }, { scale: 1 }], duration: 0.35, immediateRender: false }, 12.55);
+      // thumb arrives and flicks the ad away
+      tl.fromTo("#thumb", { opacity: 0, scale: 0.6, x: 0, y: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: E }, 12.7);
+      tl.to("#thumb", { y: -430, duration: 0.42, ease: "power3.in" }, 13.05);
+      tl.to("#thumb", { opacity: 0, duration: 0.18 }, 13.4);
+      tl.to("#p1", { y: -1200, duration: 0.55, ease: "power3.in" }, 13.1);
+      tl.to("#p1feed", { y: -1400, duration: 1.6, ease: "power2.out" }, 13.2);
+      tl.fromTo("#skipb", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.4)" }, 13.55);
+      tl.to("#skipb", { opacity: 0, y: -20, duration: 0.25 }, 14.85);
+      // M1 headline out
+      tl.to(["#s2lab", "#s2h"], { opacity: 0, y: -40, duration: 0.3, ease: "power2.in" }, 14.85);
+
+      // =====================================================================
+      // M2 (15.2 – 25.05): product-talk vs. the customer's problem
+      // =====================================================================
+      tl.to("#phone", { scale: 1, duration: 0.5, ease: "power2.inOut" }, 15.0);
+      tl.fromTo("#p2a", { y: 900 }, { y: 0, duration: 0.6, ease: "back.out(1.1)" }, 15.2);
+      tl.to("#p1feed", { y: -2700, duration: 0.6, ease: "power3.out" }, 15.2);
+      tl.fromTo("#s3lab", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 15.3);
+      words("#s3h1", 15.4, 0.1, 0.55);
+      words("#s3h2", 16.6, 0.1, 0.55);
+      // attention meter: low
+      tl.fromTo("#meter", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 16.2);
+      tl.fromTo("#mbar", { scaleX: 0 }, { scaleX: 0.18, duration: 0.8, ease: "power2.out" }, 16.5);
+      count("mval", 16.5, 0.8, 0, 18, (v) => Math.round(v) + "%");
+      // "people don't care what you sell": card A gets ignored
+      wordsOut("#s3h1", 19.45);
+      wordsOut("#s3h2", 19.5);
+      words("#s3b1", 19.65, 0.08, 0.5);
+      words("#s3b2", 20.55, 0.1, 0.5);
+      tl.to("#mbar", { scaleX: 0.06, duration: 0.6, ease: "power2.inOut" }, 20.6);
+      count("mval", 20.6, 0.6, 18, 6, (v) => Math.round(v) + "%");
+      tl.to("#p2am", { opacity: 0.4, filter: "grayscale(1)", duration: 0.6 }, 20.7);
+      tl.fromTo("#ignb", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.4)" }, 20.9);
+      // thumb scrolls past A, stops on B
+      tl.fromTo("#thumb", { opacity: 0, scale: 0.6, y: 0 }, { opacity: 1, scale: 1, duration: 0.2, ease: E, immediateRender: false }, 21.8);
+      tl.to("#thumb", { y: -380, duration: 0.4, ease: "power3.in" }, 22.0);
+      tl.to("#thumb", { opacity: 0, duration: 0.15 }, 22.35);
+      tl.to("#ignb", { opacity: 0, duration: 0.2 }, 22.0);
+      tl.to("#p2a", { y: -1000, duration: 0.5, ease: "power3.in" }, 22.0);
+      tl.fromTo("#p2b", { y: 900 }, { y: 0, duration: 0.65, ease: "back.out(1.3)" }, 22.2);
+      wordsOut("#s3b1", 22.3);
+      wordsOut("#s3b2", 22.35);
+      words("#s3c1", 22.5, 0.08, 0.5);
+      words("#s3c2", 23.65, 0.1, 0.6);
+      // attention jumps
+      tl.to("#mbar", { scaleX: 0.94, backgroundColor: "#FF4D1A", duration: 0.7, ease: "expo.out" }, 22.9);
+      count("mval", 22.9, 0.7, 6, 94, (v) => Math.round(v) + "%", "expo.out");
+      tl.to("#mval", { color: "#FF4D1A", duration: 0.2 }, 22.9);
+      tl.to("#p2heartp", { fill: "#FF4D1A", stroke: "#FF4D1A", duration: 0.15 }, 23.4);
+      tl.fromTo("#p2heart", { scale: 1, transformOrigin: "50% 50%" }, { keyframes: [{ scale: 1.5 }, { scale: 1 }], duration: 0.4, ease: "power2.out", immediateRender: false }, 23.4);
+      tl.fromTo("#engb", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.4)" }, 23.5);
+      tl.fromTo("#phone", { scale: 1 }, { scale: 1.035, duration: 1.5, ease: "sine.out", immediateRender: false }, 23.0);
+      // M2 out
+      tl.to(["#s3lab"], { opacity: 0, y: -40, duration: 0.3, ease: "power2.in" }, 24.75);
+      wordsOut("#s3c1", 24.7);
+      wordsOut("#s3c2", 24.75);
+      tl.to(["#engb", "#meter"], { opacity: 0, duration: 0.25 }, 24.75);
+
+      // =====================================================================
+      // M3 (25.05 – 35.3): the video ends, and there is nothing to do
+      // =====================================================================
+      tl.to("#phone", { scale: 1, duration: 0.5, ease: "power2.inOut" }, 24.9);
+      tl.to("#p2b", { y: -1000, duration: 0.5, ease: "power3.in" }, 24.95);
+      tl.fromTo("#p3", { y: 900 }, { y: 0, duration: 0.6, ease: "back.out(1.1)" }, 25.15);
+      tl.fromTo("#s4lab", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 25.2);
+      words("#s4h1", 25.3, 0.1, 0.55);
+      words("#s4h2", 26.75, 0.1, 0.55);
+      // the ad plays to the end
+      tl.fromTo("#p3prog", { scaleX: 0.68 }, { scaleX: 1, duration: 3.1, ease: "none" }, 25.3);
+      count("p3time", 25.3, 3.1, 11, 15, (v) => "0:" + String(Math.floor(v)).padStart(2, "0") + " / 0:15", "none");
+      tl.fromTo("#p3orb", { scale: 0.85, transformOrigin: "50% 50%" }, { scale: 1.08, duration: 1.55, ease: "sine.inOut", yoyo: true, repeat: 1 }, 25.3);
+      tl.fromTo("#p3orb2", { scale: 0.9, rotation: 0, transformOrigin: "50% 50%" }, { scale: 1.1, rotation: 40, duration: 3.1, ease: "sine.inOut" }, 25.3);
+      tl.fromTo("#p3end", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, 28.45);
+      tl.to(["#p3sub", "#p3time", "#p3orb", "#p3orb2"], { opacity: 0, duration: 0.3 }, 28.45);
+      tl.fromTo("#p3btn", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: E }, 28.75);
+      // thumb hesitates
+      wordsOut("#s4h1", 28.4);
+      wordsOut("#s4h2", 28.45);
+      words("#s4b1", 28.6, 0.09, 0.5);
+      words("#s4b2", 29.6, 0.09, 0.5);
+      tl.fromTo("#thumb", { opacity: 0, scale: 0.6, x: 0, y: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: E, immediateRender: false }, 29.4);
+      tl.to("#thumb", { keyframes: [{ x: -120, y: -150, duration: 0.7 }, { x: 110, y: -110, duration: 0.8 }, { x: -40, y: -190, duration: 0.7 }, { x: 60, y: -130, duration: 0.6 }], ease: "sine.inOut" }, 29.7);
+      tl.fromTo(["#p3q1", "#p3q2", "#p3q3"], { opacity: 0, y: 30, scale: 0.6 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2.5)", stagger: 0.25 }, 30.0);
+      tl.to(["#p3q1", "#p3q3"], { y: -14, duration: 0.8, ease: "sine.inOut", yoyo: true, repeat: 2 }, 30.6);
+      // ...and leaves without doing anything
+      tl.to("#thumb", { y: 300, opacity: 0, duration: 0.5, ease: "power2.in" }, 32.55);
+      wordsOut("#s4b1", 32.5);
+      wordsOut("#s4b2", 32.55);
+      words("#s4c1", 32.7, 0.08, 0.45);
+      words("#s4c2", 33.3, 0.1, 0.55);
+      tl.to(["#p3q1", "#p3q2", "#p3q3"], { opacity: 0, duration: 0.3 }, 32.7);
+      tl.fromTo("#dim", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 32.9);
+      tl.fromTo("#clkb", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 33.1);
+      tl.fromTo("#clkn", { scale: 1 }, { keyframes: [{ scale: 1.4 }, { scale: 1 }], duration: 0.4, immediateRender: false }, 33.5);
+      // phone exits; scene 4 clears
+      tl.to("#phone", { y: 260, scale: 0.86, opacity: 0, duration: 0.4, ease: "power3.in" }, 34.9);
+      tl.to(["#s4lab", "#s4c1", "#s4c2"], { opacity: 0, y: -40, duration: 0.3, ease: "power2.in" }, 34.95);
+
+      // =====================================================================
+      // ENDING (35.3 – 41.5): reach is not results. Same dashboard, results now move.
+      // =====================================================================
+      tl.fromTo("#s5cam", { y: 160, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "expo.out", transformOrigin: "50% 60%" }, 35.3);
+      words("#s5a1", 35.35, 0.08, 0.5);
+      words("#s5a2", 36.6, 0.1, 0.5);
+      draw("s5lrs", 35.6, 2.4, 1, 0, "power2.inOut");
+      count("s5res", 35.8, 2.4, 3, 148, (v) => String(Math.round(v)), "power2.inOut");
+      count("s5cpr", 35.8, 2.4, 1623, 33, money, "power2.inOut");
+      tl.to("#s5resd", { color: "#FFB000", duration: 0.4 }, 36.6);
+      // the payoff line takes the screen
+      wordsOut("#s5a1", 38.55);
+      wordsOut("#s5a2", 38.6);
+      tl.to("#s5cam", { scale: 0.9, opacity: 0.14, filter: "blur(10px)", duration: 0.6, ease: "power2.inOut" }, 38.55);
+      words("#s5b1", 38.75, 0.1, 0.55);
+      tl.fromTo("#s5b2", { scale: 1.5, opacity: 0, filter: "blur(14px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 39.35);
+      tl.fromTo("#s5ul", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "expo.inOut" }, 39.85);
+      // a quiet sign-off, not a logo animation
+      tl.fromTo("#logo", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 40.15);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
