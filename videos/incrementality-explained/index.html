@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="ar" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Reignite Group — Incrementality</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      /* Alexandria: one family, Arabic + Latin subsets (SIL OFL, via @fontsource/alexandria) */
+      @font-face { font-family: "Alexandria"; font-weight: 300; src: url("assets/fonts/alexandria-arabic-300-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 400; src: url("assets/fonts/alexandria-arabic-400-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 500; src: url("assets/fonts/alexandria-arabic-500-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("assets/fonts/alexandria-arabic-700-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("assets/fonts/alexandria-arabic-800-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("assets/fonts/alexandria-arabic-900-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 300; src: url("assets/fonts/alexandria-latin-300-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 400; src: url("assets/fonts/alexandria-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 500; src: url("assets/fonts/alexandria-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("assets/fonts/alexandria-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("assets/fonts/alexandria-latin-800-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("assets/fonts/alexandria-latin-900-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+
+      :root {
+        --orange: #ff4d1a;
+        --charcoal: #1a1a1a;
+        --paper: #f5f1ea;
+        --gold: #ffb000;
+        --paper-70: rgba(245, 241, 234, 0.7);
+        --paper-55: rgba(245, 241, 234, 0.55);
+        --paper-14: rgba(245, 241, 234, 0.14);
+        --paper-08: rgba(245, 241, 234, 0.08);
+        --muted: #6e6a64;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--charcoal); }
+      #root {
+        position: relative; width: 100%; height: 100%; overflow: hidden;
+        background: var(--charcoal); color: var(--paper);
+        font-family: "Alexandria", sans-serif; -webkit-font-smoothing: antialiased;
+      }
+      .clip { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+      .row { position: absolute; left: 0; right: 0; text-align: center; white-space: nowrap; }
+      .ar { direction: rtl; unicode-bidi: isolate; }
+      .en { direction: ltr; unicode-bidi: isolate; }
+      .w { display: inline-block; }
+      .or { color: var(--orange); }
+      .num { font-weight: 900; letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; }
+      .lab { font-weight: 500; color: var(--paper-70); }
+      .caps { font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; }
+
+      /* ---------- ground ---------- */
+      #ground { overflow: hidden; }
+      #grid {
+        position: absolute; left: -144px; top: -144px; width: 1368px; height: 2208px;
+        background-image:
+          linear-gradient(rgba(245, 241, 234, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(245, 241, 234, 0.035) 1px, transparent 1px);
+        background-size: 72px 72px;
+      }
+      #marks { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+      #marks path { stroke: rgba(245, 241, 234, 0.09); stroke-width: 1.5; fill: none; }
+      #glow {
+        position: absolute; left: 90px; top: 510px; width: 900px; height: 900px; border-radius: 50%;
+        background: radial-gradient(closest-side, rgba(255, 77, 26, 0.22), rgba(255, 77, 26, 0.07) 55%, rgba(255, 77, 26, 0) 100%);
+        opacity: 0;
+      }
+      #prog { position: absolute; left: 90px; right: 90px; top: 236px; height: 2px; background: var(--paper-08); }
+      #progfill { position: absolute; inset: 0; background: var(--orange); transform-origin: 0 50%; }
+      #vig {
+        position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(120% 75% at 50% 48%, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0.38) 100%);
+      }
+
+      /* ---------- shared bits ---------- */
+      .card {
+        position: absolute; left: 130px; width: 820px; height: 290px; border-radius: 30px;
+        background: rgba(245, 241, 234, 0.03); border: 1px solid rgba(245, 241, 234, 0.1);
+      }
+      .card .lab { position: absolute; right: 44px; top: 34px; font-size: 40px; }
+      .card .val { position: absolute; left: 0; right: 0; top: 104px; text-align: center; font-size: 150px; }
+      .tick { position: absolute; width: 16px; height: 16px; border-color: var(--orange); border-style: solid; border-width: 0; }
+      .dot { position: absolute; border-radius: 50%; background: var(--paper); }
+      .hline { position: absolute; height: 3px; background: var(--orange); transform-origin: 100% 50%; }
+      .logo-frame { position: absolute; overflow: hidden; }
+      .logo-frame img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+      .logo-clip { mix-blend-mode: lighten; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="75.4" data-width="1080" data-height="1920">
+
+      <!-- ================= GROUND (grid, data marks, travelling glow, progress) ================= -->
+      <div id="ground" class="clip" data-start="0" data-duration="75.4" data-track-index="0">
+        <div id="grid" data-layout-allow-overflow></div>
+        <svg id="marks" viewBox="0 0 1080 1920">
+          <path d="M138 432h20M148 422v20 M922 432h20M932 422v20 M138 1584h20M148 1574v20 M922 1584h20M932 1574v20" />
+          <path d="M90 1656h120 M90 1656v-10 M130 1656v-6 M170 1656v-6 M210 1656v-10" />
+          <path d="M870 288h120 M990 288v10 M950 288v6 M910 288v6 M870 288v10" />
+        </svg>
+        <div id="glow"></div>
+        <div id="prog"><div id="progfill"></div></div>
+      </div>
+
+      <!-- ================= 01 HOOK (0 – 9.4; frozen + dimmed behind 02) ================= -->
+      <section id="s1" class="clip" data-start="0" data-duration="9.4" data-track-index="1">
+        <div id="s1in" class="abs" style="inset: 0">
+          <div id="s1a" class="card" style="top: 500px">
+            <div class="lab ar">صرفنا على الإعلانات</div>
+            <div id="s1an" class="val num en">0$</div>
+          </div>
+          <svg id="s1con" class="abs" style="left: 520px; top: 800px; width: 40px; height: 80px" viewBox="0 0 40 80">
+            <path id="s1conl" d="M20 2 V70" stroke="#FF4D1A" stroke-width="3" fill="none" />
+            <path id="s1cona" d="M9 60 L20 72 L31 60" stroke="#FF4D1A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div id="s1b" class="card" style="top: 880px">
+            <div class="lab ar">مبيعات</div>
+            <div id="s1bn" class="val num en">0$</div>
+          </div>
+          <div id="s1r" class="row en" style="top: 1230px; height: 300px; display: flex; justify-content: center; align-items: baseline; gap: 34px">
+            <span id="s1roas" class="caps" style="font-size: 92px; color: var(--paper)">ROAS</span>
+            <span id="s1x" class="num or" style="font-size: 290px; display: inline-block">3X</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- hook watermark: the supplied logo, composited with lighten so its black field sits on the charcoal -->
+      <section id="s1l" class="clip logo-clip" data-start="0" data-duration="6.8" data-track-index="4">
+        <div class="logo-frame" style="left: 405px; top: 262px; width: 270px; height: 152px">
+          <img id="s1logo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
+        </div>
+      </section>
+
+      <!-- ================= 02 THE QUESTION (6.2 – 9.4) ================= -->
+      <section id="s2" class="clip" data-start="6.2" data-duration="3.2" data-track-index="2">
+        <div class="row ar" style="top: 690px; font-size: 64px; font-weight: 500; color: var(--paper-70)"><span id="s2a" class="w">بس...</span></div>
+        <div class="row ar" style="top: 810px; font-size: 100px; font-weight: 800; line-height: 1.3">
+          <span class="w s2w">هل</span> <span class="w s2w">الإعلان</span> <span id="s2f" class="w s2w or" style="position: relative">فعلاً<i id="s2u" class="hline" style="left: 0; right: 0; bottom: -8px; display: block"></i></span>
+        </div>
+        <div class="row ar" style="top: 960px; font-size: 100px; font-weight: 800; line-height: 1.3">
+          <span class="w s2w">جاب</span> <span class="w s2w">كل</span> <span class="w s2w">هالمبيعات؟</span>
+        </div>
+      </section>
+
+      <!-- ================= 03 100 → 40 → 25 → 15 (9.4 – 21.15) ================= -->
+      <section id="s3" class="clip" data-start="9.4" data-duration="11.75" data-track-index="1">
+        <div id="st100" class="abs" style="inset: 0" data-layout-allow-overlap>
+          <div id="st100n" class="row num en" style="top: 300px; font-size: 220px">0</div>
+          <div class="row ar" style="top: 548px; font-size: 60px; font-weight: 700">عميل</div>
+        </div>
+        <div id="st40" class="abs" style="inset: 0" data-layout-allow-overlap>
+          <div class="row num en or" style="top: 300px; font-size: 220px">40</div>
+          <div class="row ar" style="top: 548px; font-size: 60px; font-weight: 700">اشتروا</div>
+        </div>
+        <div id="st25" class="abs" style="inset: 0" data-layout-allow-overlap>
+          <div class="row num en" style="top: 300px; font-size: 220px">25</div>
+          <div class="row ar" style="top: 548px; font-size: 60px; font-weight: 700">كانوا رح يشتروا أصلاً</div>
+        </div>
+        <div id="st15" class="abs" style="inset: 0" data-layout-allow-overlap>
+          <div id="st15n" class="row num en or" style="top: 300px; font-size: 220px">15</div>
+          <div class="row ar" style="top: 548px; font-size: 60px; font-weight: 700">مبيعات إضافية</div>
+        </div>
+        <div id="dots3" class="abs" style="left: 184px; top: 664px; width: 712px; height: 712px"></div>
+        <div id="s3sub" class="row ar or" style="top: 1420px; font-size: 54px; font-weight: 700">حتى لو ما شافوا الإعلان</div>
+      </section>
+
+      <!-- ================= 04 TERM → ATTRIBUTION vs INCREMENTALITY (21.15 – 35.75) ================= -->
+      <section id="s4" class="clip" data-start="21.15" data-duration="14.6" data-track-index="1">
+        <div id="s4caret" class="abs" style="left: 536px; top: 790px; width: 8px; height: 110px; background: var(--orange)"></div>
+        <div id="s4wordbox" class="abs" style="left: 0; top: 780px; width: 1080px; height: 140px">
+          <div id="s4word" class="row en or caps" style="top: 0; font-size: 112px; font-weight: 900; letter-spacing: -0.01em; line-height: 1.2"></div>
+        </div>
+        <div id="s4def" class="row ar" style="top: 960px; font-size: 54px; font-weight: 600">النتيجة الإضافية اللي سببها الإعلان</div>
+        <div id="s4chip" class="abs en" style="left: 290px; top: 1086px; width: 500px; height: 92px; border-radius: 46px; border: 1px solid var(--paper-14); display: flex; align-items: center; justify-content: center; gap: 18px; font-size: 40px">
+          <span style="color: var(--paper-70); font-weight: 500">Incremental</span>
+          <span style="color: var(--gold); font-weight: 700">=</span>
+          <span class="ar or" style="font-weight: 700">إضافي</span>
+        </div>
+
+        <!-- split -->
+        <div id="s4div" class="abs" style="left: 539px; top: 470px; width: 2px; height: 1010px; background: var(--paper-14); transform-origin: 50% 0"></div>
+        <div id="s4L" class="abs" style="left: 90px; top: 470px; width: 420px; height: 1010px">
+          <div id="s4Lh" class="row en caps" style="top: 56px; font-size: 38px">ATTRIBUTION</div>
+          <div id="s4Lbar" class="abs" style="left: 160px; top: 128px; width: 100px; height: 3px; background: var(--paper-55)"></div>
+          <div class="abs ar" style="left: 0; right: 0; top: 176px; font-size: 48px; font-weight: 600; line-height: 1.5; text-align: center; white-space: normal">
+            <span class="w s4lq">قدّيش</span> <span class="w s4lq">بيعة</span> <span class="w s4lq">نقدر</span> <span class="w s4lq">ننسبها</span> <span class="w s4lq">للإعلان؟</span>
+          </div>
+          <div id="dotsL" class="abs" style="left: 32px; top: 520px; width: 356px; height: 218px"></div>
+          <div id="s4Ln" class="row num en" style="top: 790px; font-size: 96px">40</div>
+        </div>
+        <div id="s4R" class="abs" style="left: 570px; top: 470px; width: 420px; height: 1010px">
+          <div id="s4Rbar" class="abs" style="left: 160px; top: 128px; width: 100px; height: 3px; background: var(--orange)"></div>
+          <div class="abs ar" style="left: 0; right: 0; top: 176px; font-size: 48px; font-weight: 600; line-height: 1.5; text-align: center; white-space: normal">
+            <span class="w s4rq">قدّيش</span> <span class="w s4rq">بيعة</span> <span class="w s4rq or">ما</span> <span class="w s4rq or">كانت</span> <span class="w s4rq or">رح</span> <span class="w s4rq or">تصير</span> <span class="w s4rq or">بدونه؟</span>
+          </div>
+          <div id="dotsR" class="abs" style="left: 32px; top: 520px; width: 356px; height: 218px"></div>
+          <div id="s4Rn" class="row num en or" style="top: 790px; font-size: 96px">15</div>
+        </div>
+      </section>
+
+      <!-- ================= 05 CONTROL GROUP: 50 vs 35 → 15 (35.75 – 50.1) ================= -->
+      <section id="s5" class="clip" data-start="35.75" data-duration="14.35" data-track-index="1">
+        <div id="s5eq" class="row en" style="top: 300px; height: 210px; display: flex; justify-content: center; align-items: baseline; gap: 26px">
+          <span class="num s5e" style="font-size: 104px; color: var(--paper)">50</span>
+          <span class="s5e" style="font-size: 92px; font-weight: 400; color: var(--paper-55)">−</span>
+          <span class="num s5e" style="font-size: 104px; color: var(--paper)">35</span>
+          <span class="s5e" style="font-size: 92px; font-weight: 400; color: var(--paper-55)">=</span>
+          <span id="s5e15" class="num or" style="font-size: 196px; display: inline-block">15</span>
+        </div>
+        <div id="s5eqs" class="row ar" style="top: 520px; font-size: 52px; font-weight: 600">الزيادة الناتجة عن الإعلان</div>
+
+        <div id="s5ln" class="row num en" style="top: 642px; left: 191px; right: auto; width: 218px; font-size: 130px">0</div>
+        <div id="s5rn" class="row num en" style="top: 642px; left: 671px; right: auto; width: 218px; font-size: 130px">0</div>
+        <div id="s5ls" class="abs" style="left: 177px; top: 788px; width: 246px; height: 476px; border: 2px dashed var(--paper-14); border-radius: 22px"></div>
+        <div id="s5rs" class="abs" style="left: 657px; top: 788px; width: 246px; height: 476px; border: 2px dashed var(--paper-14); border-radius: 22px"></div>
+        <div id="dotsA" class="abs" style="left: 191px; top: 802px; width: 218px; height: 448px"></div>
+        <div id="dotsB" class="abs" style="left: 671px; top: 802px; width: 218px; height: 448px"></div>
+        <div id="s5gap" class="abs" style="left: 191px; top: 935px; width: 698px; height: 0; border-top: 3px dashed var(--orange); transform-origin: 100% 50%"></div>
+        <div id="s5base" class="abs" style="left: 120px; top: 1284px; width: 840px; height: 2px; background: var(--paper-55); transform-origin: 50% 50%"></div>
+        <div id="s5la" class="row ar" style="top: 1316px; left: 120px; right: auto; width: 360px; font-size: 48px; font-weight: 700">شافوا الإعلان</div>
+        <div id="s5ra" class="row ar" style="top: 1316px; left: 600px; right: auto; width: 360px; font-size: 48px; font-weight: 700">ما شافوا الإعلان</div>
+      </section>
+
+      <!-- ================= 06 DASHBOARD: ROAS 5.0X → INCREMENTAL ROAS 2.1X (50.1 – 59.95) ================= -->
+      <section id="s6" class="clip" data-start="50.1" data-duration="9.85" data-track-index="1">
+        <div id="s6p" class="abs" style="left: 90px; top: 470px; width: 900px; height: 920px; border-radius: 36px; background: linear-gradient(180deg, #232323, #1e1e1e); border: 1px solid rgba(245, 241, 234, 0.1); overflow: hidden">
+          <div class="abs" style="left: 40px; top: 36px; display: flex; gap: 12px">
+            <i style="width: 14px; height: 14px; border-radius: 50%; background: var(--paper-14); display: block"></i>
+            <i style="width: 14px; height: 14px; border-radius: 50%; background: var(--paper-14); display: block"></i>
+            <i style="width: 14px; height: 14px; border-radius: 50%; background: var(--paper-14); display: block"></i>
+          </div>
+          <i id="s6live" class="abs" style="right: 44px; top: 36px; width: 14px; height: 14px; border-radius: 50%; background: var(--orange); display: block"></i>
+          <div class="abs" style="left: 0; right: 0; top: 86px; height: 1px; background: var(--paper-08)"></div>
+
+          <div id="s6r1" class="abs" style="left: 0; top: 0; width: 900px; height: 470px">
+            <div class="abs en caps" style="left: 56px; top: 132px; font-size: 40px; color: var(--paper-70); letter-spacing: 0.14em">ROAS</div>
+            <div id="s6v1" class="abs num en" style="left: 50px; top: 196px; font-size: 200px">0.0X</div>
+            <svg id="s6spark" class="abs" style="left: 500px; top: 200px; width: 350px; height: 170px" viewBox="0 0 350 170">
+              <path id="s6sparkp" d="M4 150 L50 132 L96 140 L142 104 L188 112 L234 74 L280 82 L336 24" stroke="#FFB000" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+              <circle id="s6sparkc" cx="336" cy="24" r="9" fill="#FFB000" />
+            </svg>
+            <div class="abs" style="left: 56px; top: 412px; width: 788px; height: 16px; border-radius: 8px; background: var(--paper-08)"></div>
+            <div id="s6b1" class="abs" style="left: 56px; top: 412px; width: 788px; height: 16px; border-radius: 8px; background: var(--paper); transform-origin: 0 50%"></div>
+          </div>
+          <div class="abs" style="left: 56px; right: 56px; top: 478px; height: 1px; background: var(--paper-08)"></div>
+          <div id="s6r2" class="abs" style="left: 0; top: 470px; width: 900px; height: 450px">
+            <div id="s6l2" class="abs en caps or" style="left: 56px; top: 56px; font-size: 40px; letter-spacing: 0.1em">INCREMENTAL ROAS</div>
+            <div id="s6l2a" class="abs ar or" style="right: 56px; top: 54px; font-size: 40px; font-weight: 700">التأثير الحقيقي</div>
+            <div id="s6v2" class="abs num en or" style="left: 50px; top: 136px; font-size: 200px; transform-origin: 0 60%">5.0X</div>
+            <div class="abs" style="left: 56px; top: 352px; width: 788px; height: 16px; border-radius: 8px; background: var(--paper-08)"></div>
+            <div id="s6b2" class="abs" style="left: 56px; top: 352px; width: 788px; height: 16px; border-radius: 8px; background: var(--orange); transform-origin: 0 50%"></div>
+          </div>
+          <div id="s6scan" class="abs" style="left: 0; right: 0; top: 0; height: 3px; background: var(--orange); box-shadow: 0 0 24px 4px rgba(255, 77, 26, 0.55)"></div>
+        </div>
+      </section>
+
+      <!-- ================= 07 THE REAL QUESTION (59.95 – 68.4) ================= -->
+      <section id="s7" class="clip" data-start="59.95" data-duration="8.45" data-track-index="1">
+        <div id="s7in" class="abs" style="inset: 0">
+          <div id="s7a" class="row ar" style="top: 470px; font-size: 60px; font-weight: 500; color: var(--paper-70)">السؤال الحقيقي مش...</div>
+          <div id="s7bw" class="abs" style="left: 0; right: 0; top: 584px; height: 140px; text-align: center">
+            <span id="s7b" class="ar" style="display: inline-block; position: relative; font-size: 92px; font-weight: 800; line-height: 1.4">كم بيعة جاب الإعلان؟<i id="s7x" class="abs" style="left: -14px; right: -14px; top: 54%; height: 5px; background: var(--paper-70); transform-origin: 100% 50%; display: block"></i></span>
+          </div>
+          <div class="row ar" style="top: 850px; font-size: 116px; font-weight: 800; line-height: 1.3"><span class="w s7c">كم</span> <span class="w s7c">بيعة</span></div>
+          <div class="row ar or" style="top: 1004px; font-size: 116px; font-weight: 800; line-height: 1.3"><span class="w s7c">ما</span> <span class="w s7c">كانت</span> <span class="w s7c">لتصير</span></div>
+          <div class="row ar or" style="top: 1158px; font-size: 116px; font-weight: 800; line-height: 1.3"><span class="w s7c">بدونه؟</span></div>
+        </div>
+      </section>
+
+      <!-- ================= 08 MEMORY (68.4 – 72.4) ================= -->
+      <section id="s8" class="clip" data-start="68.4" data-duration="4.0" data-track-index="1">
+        <div id="s8a" class="row ar" style="top: 640px; font-size: 58px; font-weight: 500; color: var(--paper-70)">احفظ المصطلح.</div>
+        <div id="s8word" class="row en or caps" style="top: 752px; font-size: 112px; font-weight: 900; letter-spacing: -0.01em; line-height: 1.2"></div>
+        <div id="s8b" class="row ar" style="top: 960px; font-size: 58px; font-weight: 600">مش كل نتيجة نُسبت للإعلان...</div>
+        <div id="s8c" class="row ar or" style="top: 1050px; font-size: 58px; font-weight: 800">سببها الإعلان.</div>
+      </section>
+
+      <!-- ================= 09 END CARD (72.4 – 75.4) — supplied logo, unmodified ================= -->
+      <section id="s9" class="clip logo-clip" data-start="72.4" data-duration="3.0" data-track-index="4">
+        <div class="logo-frame" style="left: 150px; top: 721px; width: 780px; height: 439px">
+          <img id="s9logo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
+        </div>
+      </section>
+
+      <div id="vig" class="clip" data-start="0" data-duration="75.4" data-track-index="3"></div>
+
+      <!-- ================= AUDIO ================= -->
+      <audio id="a-music" src="audio/music.wav" data-start="0" data-duration="75.4" data-track-index="20" data-volume="1"></audio>
+      <audio id="a-sfx" src="audio/sfx.wav" data-start="0" data-duration="75.4" data-track-index="21" data-volume="1"></audio>
+      <audio id="vo01" src="audio/vo/vo_01.wav" data-start="0.45" data-duration="4.745" data-track-index="10"></audio>
+      <audio id="vo02" src="audio/vo/vo_02.wav" data-start="6.445" data-duration="2.675" data-track-index="10"></audio>
+      <audio id="vo03" src="audio/vo/vo_03.wav" data-start="9.67" data-duration="2.477" data-track-index="10"></audio>
+      <audio id="vo04" src="audio/vo/vo_04.wav" data-start="12.597" data-duration="4.618" data-track-index="10"></audio>
+      <audio id="vo05" src="audio/vo/vo_05.wav" data-start="17.715" data-duration="3.145" data-track-index="10"></audio>
+      <audio id="vo06" src="audio/vo/vo_06.wav" data-start="21.41" data-duration="2.293" data-track-index="10"></audio>
+      <audio id="vo07" src="audio/vo/vo_07.wav" data-start="24.303" data-duration="2.548" data-track-index="10"></audio>
+      <audio id="vo08" src="audio/vo/vo_08.wav" data-start="27.201" data-duration="4.038" data-track-index="10"></audio>
+      <audio id="vo09" src="audio/vo/vo_09.wav" data-start="31.639" data-duration="3.773" data-track-index="10"></audio>
+      <audio id="vo10" src="audio/vo/vo_10.wav" data-start="36.062" data-duration="5.996" data-track-index="10"></audio>
+      <audio id="vo11" src="audio/vo/vo_11.wav" data-start="42.358" data-duration="7.399" data-track-index="10"></audio>
+      <audio id="vo12" src="audio/vo/vo_12.wav" data-start="50.407" data-duration="3.633" data-track-index="10"></audio>
+      <audio id="vo13" src="audio/vo/vo_13.wav" data-start="54.49" data-duration="5.124" data-track-index="10"></audio>
+      <audio id="vo14" src="audio/vo/vo_14.wav" data-start="60.264" data-duration="3.194" data-track-index="10"></audio>
+      <audio id="vo15" src="audio/vo/vo_15.wav" data-start="64.008" data-duration="3.995" data-track-index="10"></audio>
+      <audio id="vo16" src="audio/vo/vo_16.wav" data-start="68.703" data-duration="2.026" data-track-index="10"></audio>
+    </div>
+
+    <script>
+      (function () {
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => Array.from(document.querySelectorAll(s));
+        const ORANGE = "#FF4D1A", PAPER = "#F5F1EA", MUTED = "#6E6A64";
+        const E = "power3.out";
+
+        // deterministic shuffle (seeded LCG — no Math.random)
+        function shuffled(n, seed) {
+          const a = Array.from({ length: n }, (_, i) => i);
+          let s = seed >>> 0;
+          for (let i = n - 1; i > 0; i--) {
+            s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
+            const j = s % (i + 1);
+            [a[i], a[j]] = [a[j], a[i]];
+          }
+          return a;
+        }
+        function dotGrid(host, cols, rows, size, gap, cls) {
+          const out = [];
+          for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+              const d = document.createElement("i");
+              d.className = "dot " + cls;
+              d.style.width = d.style.height = size + "px";
+              d.style.left = c * (size + gap) + "px";
+              d.style.top = r * (size + gap) + "px";
+              host.appendChild(d);
+              out.push(d);
+            }
+          }
+          return out;
+        }
+        const fmt = (v, dec) => {
+          const n = dec ? v.toFixed(dec) : String(Math.round(v));
+          return n.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        };
+        function letters(el, word) {
+          el.innerHTML = word.split("").map((ch) => `<span class="w ch">${ch}</span>`).join("");
+          return Array.from(el.querySelectorAll(".ch"));
+        }
+        function fit(el, maxW) {
+          const w = el.scrollWidth;
+          if (w > maxW) el.style.fontSize = parseFloat(getComputedStyle(el).fontSize) * (maxW / w) + "px";
+        }
+
+        function build() {
+          const tl = gsap.timeline({ paused: true });
+          const rise = (el, t, d = 0.7, y = 44) => tl.fromTo(el, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, t);
+          const out = (el, t, d = 0.35) => tl.to(el, { opacity: 0, duration: d, ease: "power2.in" }, t);
+          const count = (el, from, to, t, d, suffix = "", dec = 0, ease = "power2.out") => {
+            const o = { v: from };
+            el.textContent = fmt(from, dec) + suffix;
+            tl.to(o, { v: to, duration: d, ease, onUpdate: () => (el.textContent = fmt(o.v, dec) + suffix) }, t);
+          };
+          const glow = (t, x, y, op, s = 1, d = 0.8) => tl.to("#glow", { x: x - 540, y: y - 960, opacity: op, scale: s, duration: d, ease: "power2.inOut" }, t);
+
+          // ---------- ground ----------
+          tl.fromTo("#grid", { x: 0, y: 0 }, { x: 72, y: 144, duration: 75.4, ease: "none" }, 0);
+          tl.fromTo("#marks", { opacity: 0 }, { opacity: 1, duration: 1.2 }, 0.2);
+          tl.fromTo("#progfill", { scaleX: 0 }, { scaleX: 1, duration: 72.0, ease: "none" }, 0.4);
+          tl.to(["#grid", "#marks", "#prog"], { opacity: 0, duration: 0.8, ease: "power1.inOut" }, 72.0);
+
+          // ---------- 01 HOOK ----------
+          tl.fromTo("#s1logo", { opacity: 0 }, { opacity: 0.9, duration: 0.8, ease: "power1.out" }, 0.1);
+          tl.to("#s1logo", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 6.2);
+          rise("#s1a", 0.3, 0.6);
+          count($("#s1an"), 0, 10000, 0.55, 1.25, "$");
+          tl.fromTo("#s1conl", { strokeDasharray: 70, strokeDashoffset: 70 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.inOut" }, 2.95);
+          tl.fromTo("#s1cona", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 3.22);
+          rise("#s1b", 3.2, 0.6);
+          count($("#s1bn"), 0, 30000, 3.43, 1.1, "$");
+          rise("#s1roas", 4.85, 0.55, 30);
+          tl.fromTo("#s1x", { opacity: 0, scale: 1.35 }, { opacity: 1, scale: 1, duration: 0.55, ease: "expo.out" }, 5.15);
+          glow(4.95, 640, 1380, 0.95, 0.75, 0.6);
+          // freeze → dim behind the question
+          tl.to("#s1in", { opacity: 0.12, scale: 0.97, filter: "blur(8px)", duration: 0.55, ease: "power2.inOut", transformOrigin: "50% 50%" }, 6.2);
+          tl.to("#glow", { opacity: 0, duration: 0.5 }, 6.2);
+          out("#s1in", 9.0, 0.3);
+
+          // ---------- 02 QUESTION ----------
+          rise("#s2a", 6.45, 0.6, 24);
+          $$(".s2w").forEach((el, i) => rise(el, 6.95 + i * 0.13 + (i > 2 ? 0.25 : 0), 0.65, 36));
+          tl.fromTo("#s2u", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 7.95);
+          out("#s2a", 9.05, 0.3);
+          out($$(".s2w"), 9.05, 0.3);
+
+          // ---------- 03 DOTS 100 → 40 → 25 → 15 ----------
+          const d3 = dotGrid($("#dots3"), 10, 10, 46, 28, "d3");
+          const order = shuffled(100, 20261005);
+          const buyers = order.slice(0, 40).map((i) => d3[i]);
+          const anyway = buyers.slice(0, 25);
+          const incr = buyers.slice(25);
+          const nonBuyers = order.slice(40).map((i) => d3[i]);
+          tl.set(["#st40", "#st25", "#st15", "#s3sub"], { opacity: 0 }, 0);
+          rise("#st100", 9.55, 0.6, 30);
+          count($("#st100n"), 0, 100, 9.65, 0.95, "", 0, "power1.out");
+          tl.fromTo(d3, { opacity: 0, scale: 0 }, { opacity: 0.92, scale: 1, duration: 0.45, ease: "back.out(2)", stagger: { each: 0.008, from: "center", grid: [10, 10] } }, 9.62);
+          // 40 bought
+          out("#st100", 11.05, 0.25);
+          rise("#st40", 11.15, 0.5, 30);
+          tl.to(buyers, { backgroundColor: ORANGE, opacity: 1, duration: 0.35, ease: "power2.out", stagger: 0.012 }, 11.13);
+          tl.to(nonBuyers, { opacity: 0.2, duration: 0.5 }, 11.3);
+          // 25 would have bought anyway
+          out("#st40", 12.95, 0.25);
+          rise("#st25", 13.05, 0.5, 30);
+          tl.to(anyway, { backgroundColor: MUTED, duration: 0.5, ease: "power1.inOut", stagger: 0.04 }, 13.05);
+          tl.to(nonBuyers, { opacity: 0.1, duration: 0.6 }, 13.2);
+          rise("#s3sub", 16.1, 0.55, 20);
+          // 15 incremental
+          out("#s3sub", 17.55, 0.3);
+          tl.to(anyway, { opacity: 0.16, scale: 0.72, duration: 0.6, ease: "power2.inOut", stagger: 0.015 }, 17.8);
+          tl.to(incr, { scale: 1.14, boxShadow: "0 0 26px 6px rgba(255,77,26,0.55)", duration: 0.6, ease: E, stagger: 0.035 }, 18.1);
+          out("#st25", 18.95, 0.25);
+          tl.fromTo("#st15", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out", transformOrigin: "50% 22%" }, 19.05);
+          glow(18.9, 540, 420, 0.9, 0.7, 0.6);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, 20.75);
+          tl.to(["#st15", "#dots3"], { opacity: 0, duration: 0.35, ease: "power2.in" }, 20.8);
+
+          // ---------- 04 TERM ----------
+          const wch = letters($("#s4word"), "INCREMENTALITY");
+          fit($("#s4word"), 900);
+          tl.set([wch, "#s4def", "#s4chip", "#s4div", "#s4Lh", "#s4Lbar", "#s4Rbar", ".s4lq", ".s4rq", "#s4Ln", "#s4Rn"], { opacity: 0 }, 0);
+          tl.fromTo("#s4caret", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 21.3);
+          [21.75, 22.2].forEach((t) => { tl.to("#s4caret", { opacity: 0, duration: 0.08 }, t); tl.to("#s4caret", { opacity: 1, duration: 0.08 }, t + 0.22); });
+          tl.to("#s4caret", { opacity: 0, duration: 0.15 }, 22.68);
+          wch.forEach((c, i) => tl.fromTo(c, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.42, ease: E }, 22.7 + i * 0.04));
+          glow(22.6, 540, 850, 0.75, 0.9, 0.7);
+          rise("#s4def", 23.15, 0.6, 28);
+          rise("#s4chip", 23.6, 0.55, 22);
+          // → split
+          out(["#s4def", "#s4chip"], 24.3, 0.3);
+          tl.to("#glow", { opacity: 0, duration: 0.5 }, 24.3);
+          tl.fromTo("#s4div", { opacity: 1, scaleY: 0 }, { scaleY: 1, duration: 0.7, ease: "power2.inOut" }, 24.45);
+          rise("#s4Lh", 25.2, 0.55, 24);
+          tl.fromTo("#s4Lbar", { opacity: 1, scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: E }, 25.45);
+          // word flies into the right header (≈ 46px caps over 400px)
+          const ww = $("#s4word").scrollWidth;
+          const sc = 400 / ww;
+          tl.to("#s4wordbox", { x: 240, y: -258, scale: sc, duration: 0.85, ease: "power3.inOut", transformOrigin: "50% 0%" }, 25.95);
+          tl.fromTo("#s4Rbar", { opacity: 1, scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: E }, 26.6);
+          // attribution question
+          $$(".s4lq").forEach((el, i) => rise(el, 28.85 + i * 0.16, 0.55, 26));
+          const dL = dotGrid($("#dotsL"), 8, 5, 34, 12, "dl");
+          const dR = dotGrid($("#dotsR"), 8, 5, 34, 12, "dr");
+          tl.fromTo(dL, { opacity: 0, scale: 0 }, { opacity: 0.95, scale: 1, duration: 0.35, ease: "back.out(2)", stagger: 0.012 }, 29.9);
+          rise("#s4Ln", 30.55, 0.5, 20);
+          // incrementality question
+          tl.to("#s4L", { opacity: 0.4, duration: 0.5 }, 31.65);
+          $$(".s4rq").forEach((el, i) => rise(el, 33.5 + i * 0.12, 0.55, 26));
+          const rOrder = shuffled(40, 77);
+          const rIncr = rOrder.slice(0, 15).map((i) => dR[i]);
+          const rAny = rOrder.slice(15).map((i) => dR[i]);
+          tl.set(rIncr, { backgroundColor: ORANGE }, 0);
+          tl.set(rAny, { backgroundColor: MUTED }, 0);
+          tl.fromTo(dR, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)", stagger: 0.012 }, 34.3);
+          tl.to(rAny, { opacity: 0.22, duration: 0.4 }, 34.95);
+          tl.to(rIncr, { boxShadow: "0 0 18px 4px rgba(255,77,26,0.5)", duration: 0.4 }, 34.95);
+          rise("#s4Rn", 35.0, 0.45, 18);
+          tl.to("#s4L", { opacity: 1, duration: 0.4 }, 35.0);
+          out(["#s4L", "#s4R", "#s4div", "#s4wordbox"], 35.4, 0.3);
+
+          // ---------- 05 CONTROL GROUP ----------
+          const fillOrder = (cols, rows) => {
+            const o = [];
+            for (let r = rows - 1; r >= 0; r--) for (let c = cols - 1; c >= 0; c--) o.push(r * cols + c);
+            return o;
+          };
+          const dA = dotGrid($("#dotsA"), 5, 10, 34, 12, "da");
+          const dB = dotGrid($("#dotsB"), 5, 10, 34, 12, "db").slice(15); // bottom 7 rows = 35
+          $$("#dotsB .db").slice(0, 15).forEach((d) => d.remove());
+          const aSeq = fillOrder(5, 10).map((i) => dA[i]);
+          const bSeq = fillOrder(5, 7).map((i) => dB[i]);
+          const aTop = dA.slice(0, 15); // the 15-dot surplus above the 35 line
+          tl.set([".s5e", "#s5e15", "#s5eqs", "#s5gap", "#s5ln", "#s5rn", "#s5la", "#s5ra"], { opacity: 0 }, 0);
+          tl.set([dA, dB], { opacity: 0, scale: 0 }, 0);
+          tl.fromTo("#s5base", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 36.0);
+          tl.fromTo(["#s5ls", "#s5rs"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: E, stagger: 0.12 }, 36.4);
+          rise("#s5la", 39.35, 0.5, 18);
+          tl.to("#s5ln", { opacity: 1, duration: 0.3 }, 39.4);
+          tl.to(aSeq, { opacity: 0.95, scale: 1, duration: 0.22, ease: "back.out(2.4)", stagger: 0.026 }, 39.45);
+          count($("#s5ln"), 0, 50, 39.45, 50 * 0.026 + 0.1, "", 0, "none");
+          rise("#s5ra", 41.05, 0.5, 18);
+          tl.to("#s5rn", { opacity: 1, duration: 0.3 }, 41.1);
+          tl.to(bSeq, { opacity: 0.95, scale: 1, duration: 0.22, ease: "back.out(2.4)", stagger: 0.026 }, 41.15);
+          count($("#s5rn"), 0, 35, 41.15, 35 * 0.026 + 0.1, "", 0, "none");
+          tl.fromTo("#s5ln", { scale: 1 }, { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, 43.45);
+          tl.fromTo("#s5rn", { scale: 1 }, { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, 44.9);
+          tl.fromTo("#s5gap", { opacity: 1, scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, 46.5);
+          tl.to(aTop, { backgroundColor: ORANGE, opacity: 1, boxShadow: "0 0 18px 4px rgba(255,77,26,0.5)", duration: 0.35, stagger: 0.025 }, 46.75);
+          tl.to("#s5ln", { color: ORANGE, duration: 0.3 }, 46.75);
+          $$(".s5e").forEach((el, i) => rise(el, 46.9 + i * 0.07, 0.5, 24));
+          tl.fromTo("#s5e15", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.55, ease: "expo.out" }, 47.15);
+          glow(47.0, 800, 400, 0.85, 0.6, 0.6);
+          rise("#s5eqs", 48.35, 0.55, 20);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, 49.6);
+          tl.to("#s5 > *", { opacity: 0, duration: 0.3, ease: "power2.in" }, 49.75);
+
+          // ---------- 06 DASHBOARD ----------
+          tl.set(["#s6l2", "#s6l2a", "#s6v2", "#s6scan"], { opacity: 0 }, 0);
+          tl.fromTo("#s6p", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.8, ease: E }, 50.3);
+          tl.fromTo("#s6live", { opacity: 0.25 }, { opacity: 1, duration: 0.5, yoyo: true, repeat: 9, ease: "sine.inOut" }, 50.6);
+          tl.set("#s6b1", { scaleX: 0 }, 0);
+          tl.set("#s6b2", { scaleX: 0 }, 0);
+          count($("#s6v1"), 0, 5, 52.05, 1.25, "X", 1, "power2.out");
+          tl.fromTo("#s6sparkp", { strokeDasharray: 420, strokeDashoffset: 420 }, { strokeDashoffset: 0, duration: 1.2, ease: "power2.out" }, 52.1);
+          tl.fromTo("#s6sparkc", { opacity: 0, scale: 0, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, 53.25);
+          tl.to("#s6b1", { scaleX: 1, duration: 1.25, ease: "power2.out" }, 52.05);
+          // the shift
+          tl.fromTo("#s6scan", { opacity: 1, y: 0 }, { y: 918, duration: 0.9, ease: "power1.inOut" }, 54.55);
+          tl.to("#s6scan", { opacity: 0, duration: 0.2 }, 55.4);
+          tl.to("#s6r1", { opacity: 0.32, duration: 0.6 }, 54.9);
+          rise("#s6l2", 55.3, 0.5, 18);
+          rise("#s6l2a", 55.4, 0.5, 18);
+          tl.set("#s6b2", { scaleX: 1 }, 57.35);
+          tl.fromTo("#s6v2", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 57.35);
+          count($("#s6v2"), 5, 2.1, 57.4, 1.0, "X", 1, "power2.inOut");
+          tl.to("#s6b2", { scaleX: 0.42, duration: 1.0, ease: "power2.inOut" }, 57.4);
+          tl.to("#s6v2", { scale: 1.04, duration: 0.5, ease: E }, 58.4);
+          glow(57.6, 330, 1210, 0.8, 0.6, 0.7);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, 59.5);
+          out("#s6p", 59.6, 0.3);
+
+          // ---------- 07 THE REAL QUESTION ----------
+          tl.set(["#s7a", "#s7bw", ".s7c"], { opacity: 0 }, 0);
+          tl.set("#s7x", { scaleX: 0 }, 0);
+          rise("#s7a", 60.95, 0.6, 24);
+          rise("#s7bw", 62.35, 0.6, 30);
+          tl.to("#s7x", { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, 63.55);
+          tl.to("#s7b", { color: "rgba(245,241,234,0.32)", duration: 0.5 }, 63.65);
+          const s7c = $$(".s7c");
+          rise(s7c[0], 65.8, 0.6, 36);
+          rise(s7c[1], 65.95, 0.6, 36);
+          s7c.slice(2).forEach((el, i) => rise(el, 66.8 + i * 0.16, 0.6, 36));
+          glow(66.7, 540, 1150, 0.75, 1.0, 0.8);
+          tl.fromTo("#s7in", { scale: 1 }, { scale: 1.035, duration: 4.4, ease: "sine.inOut", transformOrigin: "50% 55%" }, 63.8);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, 67.9);
+          out("#s7in", 68.05, 0.3);
+
+          // ---------- 08 MEMORY ----------
+          const mch = letters($("#s8word"), "INCREMENTALITY");
+          fit($("#s8word"), 900);
+          tl.set([mch, "#s8a", "#s8b", "#s8c"], { opacity: 0 }, 0);
+          rise("#s8a", 68.75, 0.6, 22);
+          mch.forEach((c, i) => tl.fromTo(c, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 69.55 + i * 0.035));
+          glow(69.5, 540, 820, 0.8, 0.9, 0.6);
+          rise("#s8b", 70.3, 0.6, 22);
+          rise("#s8c", 70.75, 0.6, 22);
+          tl.to("#glow", { opacity: 0, duration: 0.5 }, 71.8);
+          tl.to("#s8 > *", { opacity: 0, duration: 0.4, ease: "power2.in" }, 71.95);
+
+          // ---------- 09 END CARD ----------
+          tl.fromTo("#s9logo", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 72.55);
+
+          window.__timelines["main"] = tl;
+        }
+
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+        else build();
+      })();
+    </script>
+  </body>
+</html>
