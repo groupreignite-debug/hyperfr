@@ -18,12 +18,23 @@ import soundfile as sf
 from scipy.signal import butter, sosfilt
 
 SR = 48000
-DUR = 75.4
-N = int(SR * DUR)
 ROOT = Path(__file__).resolve().parent.parent
+# Cue times below are authored on the original cue sheet; TIMEMAP re-times them onto the
+# client voiceover (scripts/timemap.json, written by build_vo_human.py).
+_tm = json.loads((ROOT / "scripts" / "timemap.json").read_text())
+TIMEMAP = _tm["anchors"]
+DUR = _tm["duration"]
+N = int(SR * DUR)
 rng = np.random.default_rng(11)
 T = np.arange(N) / SR
-LINES = json.loads((ROOT / "scripts" / "cues.json").read_text())["lines"]
+LINES = {ln["line"]: ln for ln in json.loads((ROOT / "scripts" / "cues_human.json").read_text())["lines"]}
+
+
+def M(t):
+    for (o0, n0), (o1, n1) in zip(TIMEMAP, TIMEMAP[1:]):
+        if o0 <= t <= o1:
+            return n0 + (t - o0) * (n1 - n0) / (o1 - o0)
+    return TIMEMAP[-1][1] + (t - TIMEMAP[-1][0])
 
 
 def lp(x, hz, order=2):
@@ -38,8 +49,10 @@ def bp(x, lo, hi, order=2):
     return sosfilt(butter(order, [lo, hi], "band", fs=SR, output="sos"), x)
 
 
-def env(points):
+def env(points, remap=True):
     ts, vs = zip(*points)
+    if remap:
+        ts = [M(t) for t in ts]
     return np.interp(T, ts, vs)
 
 
@@ -168,7 +181,7 @@ music *= master[:, None]
 duck = np.ones(N)
 for ln in LINES.values():
     a, b = ln["start"] - 0.12, ln["end"] + 0.15
-    duck = np.minimum(duck, env([(0, 1), (max(a - 0.15, 0), 1), (a, 0.45), (b, 0.45), (b + 0.35, 1), (DUR, 1)]))
+    duck = np.minimum(duck, env([(0, 1), (max(a - 0.15, 0), 1), (a, 0.45), (b, 0.45), (b + 0.35, 1), (DUR, 1)], remap=False))
 music *= duck[:, None]
 
 
@@ -237,9 +250,10 @@ SFX = []
 
 
 def ticks(t0, t1, every, gain=0.35):
-    t = t0
-    while t <= t1 + 1e-6:
-        SFX.append((t, "tick", gain))
+    # spacing is kept in real seconds; the span itself is re-timed
+    t, end = M(t0), M(t1)
+    while t <= end + 1e-6:
+        SFX.append((t, "tick", gain, True))
         t += every
 
 
@@ -284,7 +298,10 @@ SFX += [(71.95, "whoosh_long", 0.3)]
 SFX += [(72.55, "chime", 0.55), (72.55, "deep", 0.3)]
 
 sfx = np.zeros((N, 2))
-for t, kind, gain in SFX:
+for ev in SFX:
+    t, kind, gain = ev[0], ev[1], ev[2]
+    if len(ev) < 4:
+        t = M(t)
     if kind.startswith("riser:"):
         length = float(kind.split(":")[1])
         place(sfx, riser(length), t - length, gain)

@@ -1,0 +1,890 @@
+[
+{
+"text": "صرفت",
+"type": "word",
+"start": 1.08,
+"end": 1.42
+},
+{
+"text": "10",
+"type": "word",
+"start": 1.44,
+"end": 1.68
+},
+{
+"text": "آلاف",
+"type": "word",
+"start": 1.72,
+"end": 1.92
+},
+{
+"text": "دولار",
+"type": "word",
+"start": 1.96,
+"end": 2.2
+},
+{
+"text": "على",
+"type": "word",
+"start": 2.24,
+"end": 2.3
+},
+{
+"text": "الإعلانات،",
+"type": "word",
+"start": 2.32,
+"end": 2.86
+},
+{
+"text": "وجبت",
+"type": "word",
+"start": 3.08,
+"end": 3.42
+},
+{
+"text": "30",
+"type": "word",
+"start": 3.42,
+"end": 3.7
+},
+{
+"text": "ألف",
+"type": "word",
+"start": 3.72,
+"end": 3.84
+},
+{
+"text": "دولار",
+"type": "word",
+"start": 3.88,
+"end": 4.08
+},
+{
+"text": "مبيعات،",
+"type": "word",
+"start": 4.14,
+"end": 4.66
+},
+{
+"text": "بس",
+"type": "word",
+"start": 5.04,
+"end": 5.2
+},
+{
+"text": "هالـ",
+"type": "word",
+"start": 5.22,
+"end": 5.38
+},
+{
+"text": "إعلان",
+"type": "word",
+"start": 5.4,
+"end": 5.72
+},
+{
+"text": "فعلًا",
+"type": "word",
+"start": 5.86,
+"end": 6.12
+},
+{
+"text": "جاب",
+"type": "word",
+"start": 6.18,
+"end": 6.36
+},
+{
+"text": "كل",
+"type": "word",
+"start": 6.4,
+"end": 6.5
+},
+{
+"text": "هالمبيعات؟",
+"type": "word",
+"start": 6.54,
+"end": 7.14
+},
+{
+"text": "تخيل",
+"type": "word",
+"start": 7.64,
+"end": 7.94
+},
+{
+"text": "عندك",
+"type": "word",
+"start": 7.98,
+"end": 8.28
+},
+{
+"text": "100",
+"type": "word",
+"start": 8.3,
+"end": 8.48
+},
+{
+"text": "عميل،",
+"type": "word",
+"start": 8.52,
+"end": 8.8
+},
+{
+"text": "أربعين",
+"type": "word",
+"start": 9.04,
+"end": 9.28
+},
+{
+"text": "اشتروا،",
+"type": "word",
+"start": 9.3,
+"end": 9.7
+},
+{
+"text": "بس",
+"type": "word",
+"start": 10.18,
+"end": 10.32
+},
+{
+"text": "25",
+"type": "word",
+"start": 10.32,
+"end": 10.88
+},
+{
+"text": "منهم",
+"type": "word",
+"start": 10.92,
+"end": 11.14
+},
+{
+"text": "كانوا",
+"type": "word",
+"start": 11.18,
+"end": 11.34
+},
+{
+"text": "راح",
+"type": "word",
+"start": 11.38,
+"end": 11.5
+},
+{
+"text": "يشتروا",
+"type": "word",
+"start": 11.54,
+"end": 11.8
+},
+{
+"text": "أصلًا",
+"type": "word",
+"start": 11.82,
+"end": 12.14
+},
+{
+"text": "حتى",
+"type": "word",
+"start": 12.46,
+"end": 12.72
+},
+{
+"text": "لو",
+"type": "word",
+"start": 12.76,
+"end": 12.86
+},
+{
+"text": "ما",
+"type": "word",
+"start": 12.9,
+"end": 12.98
+},
+{
+"text": "شافوا",
+"type": "word",
+"start": 13.02,
+"end": 13.24
+},
+{
+"text": "الإعلان.",
+"type": "word",
+"start": 13.26,
+"end": 13.58
+},
+{
+"text": "يعني",
+"type": "word",
+"start": 14.26,
+"end": 14.44
+},
+{
+"text": "الإعلان",
+"type": "word",
+"start": 14.46,
+"end": 14.8
+},
+{
+"text": "فعليًا",
+"type": "word",
+"start": 14.84,
+"end": 15.28
+},
+{
+"text": "جايب",
+"type": "word",
+"start": 15.52,
+"end": 15.7
+},
+{
+"text": "لك",
+"type": "word",
+"start": 15.72,
+"end": 15.82
+},
+{
+"text": "15",
+"type": "word",
+"start": 15.84,
+"end": 16.34
+},
+{
+"text": "بيعة",
+"type": "word",
+"start": 16.379,
+"end": 16.56
+},
+{
+"text": "إضافية.",
+"type": "word",
+"start": 16.6,
+"end": 17.1
+},
+{
+"text": "هون",
+"type": "word",
+"start": 17.66,
+"end": 17.82
+},
+{
+"text": "بيجي",
+"type": "word",
+"start": 17.86,
+"end": 18.08
+},
+{
+"text": "مفهوم",
+"type": "word",
+"start": 18.12,
+"end": 18.46
+},
+{
+"text": "اسمه",
+"type": "word",
+"start": 18.52,
+"end": 18.74
+},
+{
+"text": "Incrementality.",
+"type": "word",
+"start": 18.82,
+"end": 19.56
+},
+{
+"text": "في",
+"type": "word",
+"start": 20.16,
+"end": 20.26
+},
+{
+"text": "فرق",
+"type": "word",
+"start": 20.3,
+"end": 20.48
+},
+{
+"text": "كبير",
+"type": "word",
+"start": 20.6,
+"end": 21.12
+},
+{
+"text": "بين",
+"type": "word",
+"start": 21.16,
+"end": 21.3
+},
+{
+"text": "Attribution",
+"type": "word",
+"start": 21.4,
+"end": 21.98
+},
+{
+"text": "و",
+"type": "word",
+"start": 22.12,
+"end": 22.18
+},
+{
+"text": "Incrementality.",
+"type": "word",
+"start": 22.26,
+"end": 23.0
+},
+{
+"text": "Attribution",
+"type": "word",
+"start": 23.64,
+"end": 24.2
+},
+{
+"text": "بيسألك",
+"type": "word",
+"start": 24.24,
+"end": 24.7
+},
+{
+"text": "كم",
+"type": "word",
+"start": 24.76,
+"end": 24.9
+},
+{
+"text": "بيعة",
+"type": "word",
+"start": 24.94,
+"end": 25.14
+},
+{
+"text": "منقدر",
+"type": "word",
+"start": 25.18,
+"end": 25.42
+},
+{
+"text": "ننسبها",
+"type": "word",
+"start": 25.46,
+"end": 25.88
+},
+{
+"text": "للإعلان،",
+"type": "word",
+"start": 25.92,
+"end": 26.38
+},
+{
+"text": "أما",
+"type": "word",
+"start": 27.08,
+"end": 27.22
+},
+{
+"text": "Incrementality",
+"type": "word",
+"start": 27.34,
+"end": 28.02
+},
+{
+"text": "بيسألك",
+"type": "word",
+"start": 28.06,
+"end": 28.66
+},
+{
+"text": "كم",
+"type": "word",
+"start": 28.72,
+"end": 28.86
+},
+{
+"text": "بيعة",
+"type": "word",
+"start": 28.9,
+"end": 29.34
+},
+{
+"text": "ما",
+"type": "word",
+"start": 29.38,
+"end": 29.46
+},
+{
+"text": "كانت",
+"type": "word",
+"start": 29.52,
+"end": 29.68
+},
+{
+"text": "راح",
+"type": "word",
+"start": 29.7,
+"end": 29.82
+},
+{
+"text": "تصير",
+"type": "word",
+"start": 29.86,
+"end": 30.1
+},
+{
+"text": "بدونه.",
+"type": "word",
+"start": 30.14,
+"end": 30.46
+},
+{
+"text": "وأبسط",
+"type": "word",
+"start": 31.12,
+"end": 31.46
+},
+{
+"text": "طريقة",
+"type": "word",
+"start": 31.5,
+"end": 31.76
+},
+{
+"text": "تفهم",
+"type": "word",
+"start": 31.84,
+"end": 32.119
+},
+{
+"text": "فيها",
+"type": "word",
+"start": 32.159,
+"end": 32.299
+},
+{
+"text": "الفكرة",
+"type": "word",
+"start": 32.32,
+"end": 32.7
+},
+{
+"text": "إنك",
+"type": "word",
+"start": 32.78,
+"end": 32.98
+},
+{
+"text": "تقارن",
+"type": "word",
+"start": 33.02,
+"end": 33.34
+},
+{
+"text": "بين",
+"type": "word",
+"start": 33.36,
+"end": 33.48
+},
+{
+"text": "مجموعة",
+"type": "word",
+"start": 33.52,
+"end": 33.92
+},
+{
+"text": "شافت",
+"type": "word",
+"start": 34.02,
+"end": 34.32
+},
+{
+"text": "الإعلان",
+"type": "word",
+"start": 34.34,
+"end": 34.74
+},
+{
+"text": "ومجموعة",
+"type": "word",
+"start": 35.2,
+"end": 35.8
+},
+{
+"text": "ما",
+"type": "word",
+"start": 35.84,
+"end": 35.92
+},
+{
+"text": "شافته.",
+"type": "word",
+"start": 35.96,
+"end": 36.36
+},
+{
+"text": "إذا",
+"type": "word",
+"start": 37.06,
+"end": 37.2
+},
+{
+"text": "الأولى",
+"type": "word",
+"start": 37.22,
+"end": 37.5
+},
+{
+"text": "جابت",
+"type": "word",
+"start": 37.54,
+"end": 37.8
+},
+{
+"text": "50",
+"type": "word",
+"start": 37.84,
+"end": 38.2
+},
+{
+"text": "بيعة",
+"type": "word",
+"start": 38.24,
+"end": 38.46
+},
+{
+"text": "والتانية",
+"type": "word",
+"start": 38.5,
+"end": 38.98
+},
+{
+"text": "35،",
+"type": "word",
+"start": 39.02,
+"end": 39.8
+},
+{
+"text": "فالفرق",
+"type": "word",
+"start": 40.32,
+"end": 40.7
+},
+{
+"text": "15",
+"type": "word",
+"start": 40.74,
+"end": 41.36
+},
+{
+"text": "هو",
+"type": "word",
+"start": 41.7,
+"end": 41.82
+},
+{
+"text": "الزيادة",
+"type": "word",
+"start": 41.86,
+"end": 42.3
+},
+{
+"text": "الناتجة",
+"type": "word",
+"start": 42.34,
+"end": 42.72
+},
+{
+"text": "عن",
+"type": "word",
+"start": 42.76,
+"end": 42.84
+},
+{
+"text": "الإعلان.",
+"type": "word",
+"start": 42.88,
+"end": 43.28
+},
+{
+"text": "يعني",
+"type": "word",
+"start": 43.86,
+"end": 44.08
+},
+{
+"text": "ممكن",
+"type": "word",
+"start": 44.12,
+"end": 44.54
+},
+{
+"text": "المنصة",
+"type": "word",
+"start": 44.58,
+"end": 45.14
+},
+{
+"text": "تقولك",
+"type": "word",
+"start": 45.14,
+"end": 45.54
+},
+{
+"text": "الـ",
+"type": "word",
+"start": 45.94,
+"end": 46.08
+},
+{
+"text": "ROAS",
+"type": "word",
+"start": 46.12,
+"end": 46.6
+},
+{
+"text": "ضرب",
+"type": "word",
+"start": 46.7,
+"end": 46.9
+},
+{
+"text": "خمس",
+"type": "word",
+"start": 46.96,
+"end": 47.18
+},
+{
+"text": "أضعاف،",
+"type": "word",
+"start": 47.22,
+"end": 47.64
+},
+{
+"text": "بس",
+"type": "word",
+"start": 48.16,
+"end": 48.28
+},
+{
+"text": "لما",
+"type": "word",
+"start": 48.32,
+"end": 48.52
+},
+{
+"text": "تقيس",
+"type": "word",
+"start": 48.56,
+"end": 48.76
+},
+{
+"text": "التأثير",
+"type": "word",
+"start": 48.8,
+"end": 49.22
+},
+{
+"text": "الحقيقي",
+"type": "word",
+"start": 49.26,
+"end": 49.66
+},
+{
+"text": "للإعلان",
+"type": "word",
+"start": 49.7,
+"end": 50.26
+},
+{
+"text": "الـ",
+"type": "word",
+"start": 50.82,
+"end": 50.9
+},
+{
+"text": "Incremental",
+"type": "word",
+"start": 50.94,
+"end": 51.48
+},
+{
+"text": "ROAS",
+"type": "word",
+"start": 51.64,
+"end": 52.16
+},
+{
+"text": "بيكون",
+"type": "word",
+"start": 52.28,
+"end": 52.58
+},
+{
+"text": "أقل",
+"type": "word",
+"start": 52.6,
+"end": 52.74
+},
+{
+"text": "بكتير.",
+"type": "word",
+"start": 52.78,
+"end": 53.14
+},
+{
+"text": "لذلك",
+"type": "word",
+"start": 53.92,
+"end": 54.3
+},
+{
+"text": "السؤال",
+"type": "word",
+"start": 54.34,
+"end": 54.72
+},
+{
+"text": "الحقيقي",
+"type": "word",
+"start": 54.74,
+"end": 55.04
+},
+{
+"text": "مش",
+"type": "word",
+"start": 55.1,
+"end": 55.34
+},
+{
+"text": "كم",
+"type": "word",
+"start": 55.46,
+"end": 55.62
+},
+{
+"text": "بيعة",
+"type": "word",
+"start": 55.66,
+"end": 55.92
+},
+{
+"text": "جاب",
+"type": "word",
+"start": 55.98,
+"end": 56.14
+},
+{
+"text": "الإعلان،",
+"type": "word",
+"start": 56.16,
+"end": 56.58
+},
+{
+"text": "السؤال",
+"type": "word",
+"start": 56.92,
+"end": 57.28
+},
+{
+"text": "الحقيقي",
+"type": "word",
+"start": 57.3,
+"end": 57.64
+},
+{
+"text": "كم",
+"type": "word",
+"start": 57.68,
+"end": 57.84
+},
+{
+"text": "بيعة",
+"type": "word",
+"start": 57.88,
+"end": 58.32
+},
+{
+"text": "ما",
+"type": "word",
+"start": 58.38,
+"end": 58.46
+},
+{
+"text": "كانت",
+"type": "word",
+"start": 58.54,
+"end": 58.78
+},
+{
+"text": "حتصير",
+"type": "word",
+"start": 58.82,
+"end": 59.18
+},
+{
+"text": "بدونه.",
+"type": "word",
+"start": 59.22,
+"end": 59.56
+},
+{
+"text": "حافظ",
+"type": "word",
+"start": 61.04,
+"end": 61.26
+},
+{
+"text": "على",
+"type": "word",
+"start": 61.32,
+"end": 61.38
+},
+{
+"text": "المصطلح",
+"type": "word",
+"start": 61.38,
+"end": 61.86
+},
+{
+"text": "Incrementality.",
+"type": "word",
+"start": 62.12,
+"end": 62.86
+},
+{
+"text": "نسيتها،",
+"type": "word",
+"start": 63.68,
+"end": 64.06
+},
+{
+"text": "هاه؟",
+"type": "word",
+"start": 64.08,
+"end": 64.28
+},
+{
+"text": "لا،",
+"type": "word",
+"start": 66.06,
+"end": 66.14
+},
+{
+"text": "دوري",
+"type": "word",
+"start": 66.28,
+"end": 66.48
+},
+{
+"text": "نقول",
+"type": "word",
+"start": 66.5,
+"end": 66.7
+},
+{
+"text": "هذي؟",
+"type": "word",
+"start": 66.74,
+"end": 66.96
+}
+]
