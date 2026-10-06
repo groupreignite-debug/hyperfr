@@ -1,0 +1,30 @@
+<template>
+  <style>
+    @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; color: #f5f1ea; font-family: "Inter", sans-serif; }
+    #s12-bg { position: absolute; inset: 0; background: #1a1a1a; }
+    /* the supplied logo, untouched: framed only; its black field blends into the charcoal */
+    #s12-logo { position: absolute; left: 160px; top: 720px; width: 760px; }
+    #s12-img { display: block; width: 760px; height: auto; mix-blend-mode: lighten; }
+    #s12-svc { position: absolute; left: 60px; right: 60px; top: 1215px; text-align: center; font-weight: 600; font-size: 25px; letter-spacing: 0.26em; color: rgba(245,241,234,0.62); white-space: nowrap; }
+    #s12-svc i { font-style: normal; color: #ff4d1a; margin: 0 14px; }
+  </style>
+
+  <div id="root" data-composition-id="s12-endcard" data-width="1080" data-height="1920">
+    <div id="s12-bg" class="clip" data-start="0" data-duration="4.3" data-track-index="0">
+      <div id="s12-logo"><img id="s12-img" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" /></div>
+      <div id="s12-svc">BRANDING<i>•</i>DIGITAL MARKETING<i>•</i>DESIGN</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // minimal: fade + 98% → 100%, then a quiet fade out (final frame)
+      tl.fromTo("#s12-img", { opacity: 0, scale: 0.98 }, { opacity: 1, scale: 1, duration: 1.6, ease: "power2.out" }, 0.15);
+      tl.fromTo("#s12-svc", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 1.0);
+      tl.to(["#s12-img", "#s12-svc"], { opacity: 0, duration: 0.7, ease: "power2.in" }, 3.55);
+      window.__timelines["s12-endcard"] = tl;
+    })();
+  </script>
+</template>
