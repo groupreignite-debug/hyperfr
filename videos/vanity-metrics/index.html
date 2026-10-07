@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="ar" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Reignite Group — Vanity Metrics</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      /* Alexandria: one family, Arabic + Latin subsets (SIL OFL, via @fontsource/alexandria) */
+      @font-face { font-family: "Alexandria"; font-weight: 300; src: url("assets/fonts/alexandria-arabic-300-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 400; src: url("assets/fonts/alexandria-arabic-400-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 500; src: url("assets/fonts/alexandria-arabic-500-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("assets/fonts/alexandria-arabic-700-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("assets/fonts/alexandria-arabic-800-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("assets/fonts/alexandria-arabic-900-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 300; src: url("assets/fonts/alexandria-latin-300-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 400; src: url("assets/fonts/alexandria-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 500; src: url("assets/fonts/alexandria-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("assets/fonts/alexandria-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("assets/fonts/alexandria-latin-800-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("assets/fonts/alexandria-latin-900-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+
+      :root {
+        --orange: #ff4d1a;
+        --charcoal: #1a1a1a;
+        --paper: #f5f1ea;
+        --gold: #ffb000;
+        --paper-70: rgba(245, 241, 234, 0.7);
+        --paper-55: rgba(245, 241, 234, 0.55);
+        --paper-14: rgba(245, 241, 234, 0.14);
+        --paper-08: rgba(245, 241, 234, 0.08);
+        --muted: #6e6a64;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--charcoal); }
+      #root {
+        position: relative; width: 100%; height: 100%; overflow: hidden;
+        background: var(--charcoal); color: var(--paper);
+        font-family: "Alexandria", sans-serif; -webkit-font-smoothing: antialiased;
+      }
+      .clip { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+      .row { position: absolute; left: 0; right: 0; text-align: center; white-space: nowrap; }
+      .ar { direction: rtl; unicode-bidi: isolate; }
+      .en { direction: ltr; unicode-bidi: isolate; }
+      .w { display: inline-block; }
+      .or { color: var(--orange); }
+      .num { font-weight: 900; letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; }
+      .lab { font-weight: 500; color: var(--paper-70); }
+      .caps { font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; }
+
+      /* ---------- ground ---------- */
+      #ground { overflow: hidden; }
+      #grid {
+        position: absolute; left: -144px; top: -144px; width: 1368px; height: 2208px;
+        background-image:
+          linear-gradient(rgba(245, 241, 234, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(245, 241, 234, 0.035) 1px, transparent 1px);
+        background-size: 72px 72px;
+      }
+      #marks { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+      #marks path { stroke: rgba(245, 241, 234, 0.09); stroke-width: 1.5; fill: none; }
+      #glow {
+        position: absolute; left: 90px; top: 510px; width: 900px; height: 900px; border-radius: 50%;
+        background: radial-gradient(closest-side, rgba(255, 77, 26, 0.22), rgba(255, 77, 26, 0.07) 55%, rgba(255, 77, 26, 0) 100%);
+        opacity: 0;
+      }
+      #prog { position: absolute; left: 90px; right: 90px; top: 236px; height: 2px; background: var(--paper-08); }
+      #progfill { position: absolute; inset: 0; background: var(--orange); transform-origin: 0 50%; }
+      #vig {
+        position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(120% 75% at 50% 48%, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0.38) 100%);
+      }
+
+      /* ---------- shared bits ---------- */
+      .card {
+        position: absolute; left: 130px; width: 820px; height: 290px; border-radius: 30px;
+        background: rgba(245, 241, 234, 0.03); border: 1px solid rgba(245, 241, 234, 0.1);
+      }
+      .dot { position: absolute; border-radius: 50%; background: var(--paper); }
+      .hline { position: absolute; height: 3px; background: var(--orange); transform-origin: 100% 50%; }
+      .logo-frame { position: absolute; overflow: hidden; }
+      .logo-frame img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+      .logo-clip { mix-blend-mode: lighten; }
+      .heart { display: block; fill: currentColor; }
+
+      /* 04 balloons */
+      .bwrap { position: absolute; left: 540px; width: 0; height: 0; }
+      .balloon {
+        position: absolute; left: -420px; top: -100px; width: 840px; height: 200px; border-radius: 100px;
+        background: rgba(245, 241, 234, 0.05); border: 2px solid rgba(245, 241, 234, 0.16);
+      }
+      .balloon .bl { position: absolute; left: 56px; top: 0; height: 196px; display: flex; align-items: center; font-size: 40px; color: var(--paper-70); }
+      .bdot { position: absolute; left: -14px; top: -14px; width: 28px; height: 28px; border-radius: 50%; background: var(--paper-55); opacity: 0; }
+      .balloon .bn { position: absolute; right: 56px; top: 0; height: 196px; display: flex; align-items: center; font-size: 104px; }
+
+      /* 05 shop */
+      #shop path, #shop rect, #shop circle { fill: none; stroke: var(--paper-55); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .stat { position: absolute; top: 300px; width: 300px; height: 230px; text-align: center; }
+      .stat .num { display: block; font-size: 96px; }
+      .stat .sl { display: block; margin-top: 18px; font-size: 46px; font-weight: 700; }
+
+      /* 06 split */
+      .item { position: absolute; left: 0; right: 0; height: 80px; display: flex; align-items: center; gap: 22px; white-space: nowrap; }
+      .item i { width: 16px; height: 16px; border-radius: 50%; display: block; flex: none; }
+
+      /* subtitles: one line at a time, bottom safe area (above the bottom 300px, clear of the right-edge icons) */
+      #subs { pointer-events: none; }
+      .sub { position: absolute; left: 90px; width: 840px; top: 1430px; height: 190px; display: flex; align-items: center; justify-content: center; opacity: 0; }
+      .sub span {
+        display: inline-block; max-width: 840px; padding: 14px 32px; border-radius: 24px;
+        background: rgba(26, 26, 26, 0.86); border: 1px solid rgba(245, 241, 234, 0.1);
+        font-size: 46px; font-weight: 600; line-height: 1.45; text-align: center; color: var(--paper);
+        direction: rtl; unicode-bidi: isolate; white-space: normal;
+      }
+      .sub b { font-weight: 700; color: var(--orange); direction: ltr; unicode-bidi: isolate; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0.0" data-duration="56.07" data-width="1080" data-height="1920">
+
+      <!-- ================= GROUND (grid, data marks, travelling glow, progress) ================= -->
+      <div id="ground" class="clip" data-start="0.0" data-duration="56.07" data-track-index="0">
+        <div id="grid" data-layout-allow-overflow></div>
+        <svg id="marks" viewBox="0 0 1080 1920">
+          <path d="M138 432h20M148 422v20 M922 432h20M932 422v20 M138 1350h20M148 1340v20 M922 1350h20M932 1340v20" />
+          <path d="M90 1392h120 M90 1392v-10 M130 1392v-6 M170 1392v-6 M210 1392v-10" />
+          <path d="M870 288h120 M990 288v10 M950 288v6 M910 288v6 M870 288v10" />
+        </svg>
+        <div id="glow"></div>
+        <div id="prog"><div id="progfill"></div></div>
+      </div>
+
+      <!-- ================= 01 HOOK: 10,000 ❤ · 0 زبون (frozen + dimmed behind 02) ================= -->
+      <section id="s1" class="clip" data-start="0.0" data-duration="7.122" data-track-index="1">
+        <div id="s1in" class="abs" style="inset: 0">
+          <div id="s1a" class="card" style="top: 500px; height: 300px">
+            <div id="s1hearts" class="abs" style="inset: 0" data-layout-allow-overflow></div>
+            <div class="row en" style="top: 0; height: 300px; display: flex; justify-content: center; align-items: center; gap: 34px">
+              <span id="s1an" class="num" style="font-size: 176px">0</span>
+              <svg id="s1heart" class="heart" style="width: 120px; height: 120px; color: var(--paper)" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /></svg>
+            </div>
+          </div>
+          <div id="s1b" class="card" style="top: 860px; height: 300px; border-color: rgba(255, 77, 26, 0.35)">
+            <div class="row ar" style="top: 0; height: 300px; display: flex; justify-content: center; align-items: center; gap: 36px">
+              <span id="s1bn" class="num en or" style="font-size: 200px">0</span>
+              <span class="or" style="font-size: 110px; font-weight: 800">زبون</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- hook watermark: the supplied logo, composited with lighten so its black field sits on the charcoal -->
+      <section id="s1l" class="clip logo-clip" data-start="0.0" data-duration="5.852" data-track-index="4">
+        <div class="logo-frame" style="left: 405px; top: 262px; width: 270px; height: 152px">
+          <img id="s1logo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
+        </div>
+      </section>
+
+      <!-- ================= 02 FREEZE: شو صار؟ ================= -->
+      <section id="s2" class="clip" data-start="5.652" data-duration="1.47" data-track-index="2">
+        <div class="row ar" style="top: 720px; font-size: 150px; font-weight: 800; line-height: 1.4">
+          <span class="w s2w">شو</span> <span class="w s2w or">صار؟</span>
+        </div>
+      </section>
+
+      <!-- ================= 03 TERM: VANITY METRICS ================= -->
+      <section id="s3" class="clip" data-start="7.122" data-duration="5.507" data-track-index="1">
+        <div id="s3caret" class="abs" style="left: 536px; top: 470px; width: 8px; height: 160px; background: var(--orange)"></div>
+        <div id="s3w1" class="row en caps" style="top: 440px; font-size: 176px; font-weight: 900; letter-spacing: -0.01em; line-height: 1.15"></div>
+        <div id="s3w2" class="row en caps" style="top: 640px; font-size: 176px; font-weight: 900; letter-spacing: -0.01em; line-height: 1.15"></div>
+        <div id="s3gloss" class="row ar or" style="top: 870px; font-size: 64px; font-weight: 700">أرقام الغرور</div>
+        <div id="s3rule" class="abs" style="left: 390px; top: 990px; width: 300px; height: 2px; background: var(--paper-14); transform-origin: 50% 50%"></div>
+        <div class="row ar" style="top: 1040px; font-size: 64px; font-weight: 600; line-height: 1.4">
+          <span class="w s3t">بتبيّن</span> <span class="w s3t">حلوة…</span>
+        </div>
+        <div class="row ar" style="top: 1160px; font-size: 64px; font-weight: 600; line-height: 1.4">
+          <span class="w s3u">بس</span> <span class="w s3u">ما</span> <span class="w s3u">بتدفع</span> <span id="s3rent" class="w s3u or" style="font-weight: 800">الإيجار</span>
+        </div>
+      </section>
+
+      <!-- ================= 04 BALLOONS: LIKES · VIEWS · FOLLOWERS → popped ================= -->
+      <section id="s4" class="clip" data-start="12.629" data-duration="9.44" data-track-index="1">
+        <div id="b1" class="bwrap" style="top: 470px"><div class="balloon">
+          <div class="bl en caps">LIKES</div><div id="b1n" class="bn num en">0</div>
+        </div><i class="bdot"></i></div>
+        <div id="b2" class="bwrap" style="top: 720px"><div class="balloon">
+          <div class="bl en caps">VIEWS</div><div id="b2n" class="bn num en">0</div>
+        </div><i class="bdot"></i></div>
+        <div id="b3" class="bwrap" style="top: 970px"><div class="balloon">
+          <div class="bl en caps">FOLLOWERS</div><div id="b3n" class="bn num en">0</div>
+        </div><i class="bdot"></i></div>
+        <div id="needle" class="abs" style="left: 90px; top: 340px; width: 900px; height: 3px; background: var(--orange); box-shadow: 0 0 18px 3px rgba(255, 77, 26, 0.5)"></div>
+        <div class="row ar" style="top: 1170px; font-size: 84px; font-weight: 800; line-height: 1.4">
+          <span class="w s4q">قدّيش</span> <span class="w s4q">واحد</span> <span class="w s4q">صار</span> <span class="w s4q or">زبون؟</span>
+        </div>
+      </section>
+
+      <!-- ================= 05 SHOP: 1,000 → 10 → 2 · REACH / BUSINESS ================= -->
+      <section id="s5" class="clip" data-start="22.069" data-duration="11.132" data-track-index="1">
+        <div id="st1" class="stat" style="left: 690px">
+          <span id="st1n" class="num en">0</span><span class="sl ar">مرقوا</span>
+        </div>
+        <div id="st2" class="stat" style="left: 390px">
+          <span class="num en">10</span><span class="sl ar">فاتوا</span>
+        </div>
+        <div id="st3" class="stat" style="left: 90px">
+          <span class="num en or">2</span><span class="sl ar or">اشتروا</span>
+        </div>
+        <svg id="shop" class="abs" style="left: 0; top: 0; width: 1080px; height: 1920px" viewBox="0 0 1080 1920">
+          <path class="sp" pathLength="1" d="M90 1110 H990" />
+          <path class="sp" pathLength="1" d="M300 1110 V700 M780 1110 V700" />
+          <path class="sp" pathLength="1" d="M270 700 L320 610 H760 L810 700 Z" />
+          <path class="sp" pathLength="1" d="M400 610 L380 700 M480 610 L470 700 M560 610 L560 700 M640 610 L650 700 M720 610 L740 700" />
+          <rect class="sp" pathLength="1" x="340" y="722" width="400" height="76" rx="12" />
+          <rect class="sp" pathLength="1" x="325" y="830" width="140" height="200" rx="8" />
+          <rect class="sp" pathLength="1" x="615" y="830" width="140" height="200" rx="8" />
+          <rect class="sp" pathLength="1" x="490" y="880" width="100" height="230" rx="6" />
+          <circle class="sp" pathLength="1" cx="578" cy="1000" r="5" />
+        </svg>
+        <div id="sign" class="row en caps or" style="top: 722px; height: 76px; line-height: 76px; font-size: 48px; letter-spacing: 0.12em">BUSINESS</div>
+        <div id="crowd" class="abs" style="left: 0; top: 1140px; width: 1080px; height: 170px; overflow: hidden">
+          <div id="crowdIn" data-layout-allow-overflow class="abs" style="left: 0; top: 0; width: 4320px; height: 170px"></div>
+        </div>
+        <div id="peel" class="abs" style="inset: 0"></div>
+        <div id="reachbr" class="abs" style="left: 90px; top: 1320px; width: 900px; height: 14px; border: 2px solid var(--paper-55); border-top: none; border-radius: 0 0 8px 8px"></div>
+        <div id="reach" class="row en caps" style="top: 1342px; font-size: 48px; letter-spacing: 0.12em">REACH</div>
+      </section>
+
+      <!-- ================= 06 SPLIT: VANITY vs ACTIONABLE ================= -->
+      <section id="s6" class="clip" data-start="33.201" data-duration="7.967" data-track-index="1">
+        <div id="s6div" class="abs" style="left: 539px; top: 430px; width: 2px; height: 860px; background: var(--paper-14); transform-origin: 50% 0"></div>
+        <div id="s6L" class="abs" style="left: 90px; top: 430px; width: 420px; height: 860px">
+          <div id="s6Lh" class="row en caps" style="top: 40px; font-size: 52px; color: var(--paper-55)">VANITY</div>
+          <div class="abs" style="left: 160px; top: 122px; width: 100px; height: 3px; background: var(--paper-55)"></div>
+          <div class="item en s6l" style="top: 200px; justify-content: center; font-size: 42px; font-weight: 700; color: var(--paper-55)"><i style="background: var(--paper-55)"></i>LIKES</div>
+          <div class="item en s6l" style="top: 320px; justify-content: center; font-size: 42px; font-weight: 700; color: var(--paper-55)"><i style="background: var(--paper-55)"></i>VIEWS</div>
+          <div class="item en s6l" style="top: 440px; justify-content: center; font-size: 42px; font-weight: 700; color: var(--paper-55)"><i style="background: var(--paper-55)"></i>FOLLOWERS</div>
+        </div>
+        <div id="s6R" class="abs" style="left: 570px; top: 430px; width: 420px; height: 860px">
+          <div id="s6Rh" class="row en caps or" style="top: 40px; font-size: 52px">ACTIONABLE</div>
+          <div id="s6Rbar" class="abs" style="left: 160px; top: 122px; width: 100px; height: 3px; background: var(--orange)"></div>
+          <div class="item ar s6r" style="top: 200px; justify-content: center; font-size: 54px; font-weight: 700"><i style="background: var(--orange)"></i>رسائل</div>
+          <div class="item ar s6r" style="top: 320px; justify-content: center; font-size: 54px; font-weight: 700"><i style="background: var(--orange)"></i>طلبات أسعار</div>
+          <div class="item ar s6r" style="top: 440px; justify-content: center; font-size: 54px; font-weight: 700"><i style="background: var(--orange)"></i>مبيعات</div>
+          <div class="item ar s6r" style="top: 560px; justify-content: center; font-size: 54px; font-weight: 700"><i style="background: var(--orange)"></i>زبون رجع</div>
+        </div>
+      </section>
+
+      <!-- ================= 07 THE REAL QUESTION ================= -->
+      <section id="s7" class="clip" data-start="41.168" data-duration="7.183" data-track-index="1">
+        <div id="s7in" class="abs" style="inset: 0">
+          <div id="s7aw" class="abs" style="left: 0; right: 0; top: 500px; height: 150px; text-align: center">
+            <span id="s7a" class="ar" style="display: inline-block; position: relative; font-size: 84px; font-weight: 800; line-height: 1.6">قدّيش لايك جبنا؟<i id="s7x" class="abs" style="left: -16px; right: -16px; top: 52%; height: 7px; border-radius: 4px; background: var(--orange); transform-origin: 100% 50%; display: block"></i></span>
+          </div>
+          <div id="s7r1" class="row ar" style="top: 790px; font-size: 92px; font-weight: 800; line-height: 1.4">
+            <span class="w s7b">قدّيش</span> <span class="w s7b">رسالة</span> <span class="w s7b">إجت؟</span>
+          </div>
+          <div id="s7r2" class="row ar" style="top: 960px; font-size: 88px; font-weight: 800; line-height: 1.4">
+            <span class="w s7c">قدّيش</span> <span class="w s7c">منها</span> <span class="w s7c">صار</span> <span class="w s7c or">بيعة؟</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 08 QUESTION TO THE VIEWER ================= -->
+      <section id="s8" class="clip" data-start="48.351" data-duration="4.719" data-track-index="1">
+        <svg id="s8bub" class="abs" style="left: 380px; top: 420px; width: 320px; height: 300px" viewBox="0 0 320 300">
+          <path d="M60 20 H260 Q300 20 300 60 V180 Q300 220 260 220 H140 L80 276 V220 H60 Q20 220 20 180 V60 Q20 20 60 20 Z" fill="none" stroke="#FF4D1A" stroke-width="10" stroke-linejoin="round" />
+          <circle class="s8d" cx="110" cy="120" r="14" fill="#F5F1EA" />
+          <circle class="s8d" cx="160" cy="120" r="14" fill="#F5F1EA" />
+          <circle class="s8d" cx="210" cy="120" r="14" fill="#F5F1EA" />
+        </svg>
+        <div id="s8q" class="row ar" style="top: 810px; font-size: 84px; font-weight: 800; line-height: 1.4">شو أول رقم بتتطلّع عليه؟</div>
+        <div id="s8c" class="row ar or" style="top: 990px; font-size: 64px; font-weight: 700; line-height: 1.4">قلّي بالكومنتات</div>
+        <svg id="s8arrow" class="abs" style="left: 508px; top: 1110px; width: 64px; height: 90px" viewBox="0 0 64 90">
+          <path d="M32 6 V78 M8 56 L32 80 L56 56" fill="none" stroke="#FF4D1A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </section>
+
+      <!-- ================= 09 END CARD — supplied logo, unmodified ================= -->
+      <section id="s9" class="clip logo-clip" data-start="53.07" data-duration="3.0" data-track-index="4">
+        <div class="logo-frame" style="left: 150px; top: 741px; width: 780px; height: 439px">
+          <img id="s9logo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
+        </div>
+      </section>
+
+      <div id="vig" class="clip" data-start="0.0" data-duration="56.07" data-track-index="3"></div>
+
+      <!-- ================= SUBTITLES (built from SUBS below) ================= -->
+      <section id="subs" class="clip" data-start="0.0" data-duration="53.07" data-track-index="5"></section>
+
+      <!-- ================= AUDIO ================= -->
+      <audio id="a-music" src="audio/music.wav" data-start="0.0" data-duration="56.07" data-track-index="20" data-volume="1"></audio>
+      <audio id="a-sfx" src="audio/sfx.wav" data-start="0.0" data-duration="56.07" data-track-index="21" data-volume="1"></audio>
+      <!-- VO -->
+      <!-- /VO -->
+    </div>
+
+    <script>
+      (function () {
+        /*CUES*/ const CUES = {"duration":56.07,"endcard":53.07,"scenes":{"s1":[0.0,7.122],"s1l":[0.0,5.852],"s2":[5.652,7.122],"s3":[7.122,12.629],"s4":[12.629,22.069],"s5":[22.069,33.201],"s6":[33.201,41.168],"s7":[41.168,48.351],"s8":[48.351,53.07],"s9":[53.07,56.07],"subs":[0.0,53.07]},"lines":{"01":{"s":0.4,"e":3.273,"p":[[1.682,1.956]]},"02":{"s":3.723,"e":5.052,"p":[]},"03":{"s":6.152,"e":6.622,"p":[]},"04":{"s":7.422,"e":8.85,"p":[]},"05":{"s":9.45,"e":12.129,"p":[[10.66,10.998]]},"06":{"s":13.079,"e":17.513,"p":[[13.828,13.953],[15.263,15.892]]},"07":{"s":18.213,"e":21.319,"p":[[19.259,19.6]]},"08":{"s":22.569,"e":25.542,"p":[]},"09":{"s":26.142,"e":28.391,"p":[[27.231,27.367],[27.371,27.594]]},"10":{"s":29.191,"e":32.451,"p":[[30.004,30.187],[30.759,31.165]]},"11":{"s":33.651,"e":36.322,"p":[]},"12":{"s":36.822,"e":40.418,"p":[]},"13":{"s":41.618,"e":43.271,"p":[]},"14":{"s":43.771,"e":47.551,"p":[[44.167,44.79],[45.859,46.267]]},"15":{"s":48.851,"e":52.07,"p":[[49.349,49.487],[50.929,51.262]]}}}; /*END CUES*/
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => Array.from(document.querySelectorAll(s));
+        const ORANGE = "#FF4D1A", PAPER = "#F5F1EA";
+        const E = "power3.out";
+        // line timing helpers (absolute seconds, from scripts/cues.json)
+        const S = (n) => CUES.lines[n].s;
+        const N = (n) => CUES.lines[n].e;
+        const P = (n, i) => CUES.lines[n].p[i]; // [pause start, pause end]
+        const W = (k) => CUES.scenes[k];
+
+        // subtitles: exactly the spoken line, split at the speaker's own pauses. <b> = English key term (orange)
+        const SUBS = [
+          ["01", 0, "تخيّل نزّلت بوست،"],
+          ["01", 1, "وجاب عشر آلاف لايك…"],
+          ["02", 0, "وولا زبون واحد حكاك."],
+          ["03", 0, "شو صار؟"],
+          ["04", 0, "هيدا اسمو <b>Vanity Metrics</b>."],
+          ["05", 0, "أرقام بتبيّن حلوة…"],
+          ["05", 1, "بس ما بتدفع الإيجار."],
+          ["06", 0, "الـ <b>Likes</b>، الـ <b>Views</b>، الـ <b>Followers</b>…"],
+          ["06", 2, "كلها بتحسّسك إنو الشغل ماشي."],
+          ["07", 0, "بس السؤال الحقيقي:"],
+          ["07", 1, "قدّيش واحد منهن صار زبون؟"],
+          ["08", 0, "تخيّل محل، بيمرق قدّام واجهته ألف شخص باليوم."],
+          ["09", 0, "عشرة بس بيفوتوا…"],
+          ["09", 2, "وتنين بيشتروا."],
+          ["10", 0, "الألف هني الـ <b>Reach</b>."],
+          ["10", 2, "التنين هني البزنس."],
+          ["11", 0, "الأرقام اللي بتفرق اسمها <b>Actionable Metrics</b>:"],
+          ["12", 0, "رسائل، طلبات أسعار، مبيعات، وزبون رجع اشترى مرة تانية."],
+          ["13", 0, "فبدل ما تسأل قدّيش لايك جبنا…"],
+          ["14", 0, "اسأل: قدّيش رسالة إجت؟"],
+          ["14", 2, "وقدّيش منها صار بيعة؟"],
+          ["15", 0, "وإنت؟ شو أول رقم بتتطلّع عليه؟"],
+          ["15", 2, "قلّي بالكومنتات."],
+        ];
+        // segment k of a line starts at the end of pause (k-1); pauses listed in cues.json
+        const segStart = (n, k) => (k === 0 ? S(n) : P(n, k - 1)[1]);
+
+        // deterministic shuffle / noise (seeded LCG — no Math.random)
+        function rng(seed) {
+          let s = seed >>> 0;
+          return () => ((s = (Math.imul(s, 1664525) + 1013904223) >>> 0) / 4294967296);
+        }
+        const fmt = (v) => String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        function letters(el, word) {
+          el.innerHTML = word.split("").map((ch) => (ch === " " ? '<span class="w ch">&nbsp;</span>' : `<span class="w ch">${ch}</span>`)).join("");
+          return Array.from(el.querySelectorAll(".ch"));
+        }
+        function fit(el, maxW) {
+          const w = el.scrollWidth;
+          if (w > maxW) el.style.fontSize = parseFloat(getComputedStyle(el).fontSize) * (maxW / w) + "px";
+        }
+        const HEART = '<svg class="heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+
+        function build() {
+          const tl = gsap.timeline({ paused: true });
+          const DUR = CUES.duration, END = CUES.endcard;
+          const rise = (el, t, d = 0.7, y = 44) => tl.fromTo(el, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, t);
+          const out = (el, t, d = 0.35) => tl.to(el, { opacity: 0, duration: d, ease: "power2.in" }, t);
+          const count = (el, from, to, t, d, ease = "power2.out") => {
+            const o = { v: from };
+            el.textContent = fmt(from);
+            tl.to(o, { v: to, duration: d, ease, onUpdate: () => (el.textContent = fmt(o.v)) }, t);
+          };
+          const glow = (t, x, y, op, s = 1, d = 0.8) => tl.to("#glow", { x: x - 540, y: y - 960, opacity: op, scale: s, duration: d, ease: "power2.inOut" }, t);
+
+          // ---------- ground ----------
+          tl.fromTo("#grid", { x: 0, y: 0 }, { x: 72, y: 144, duration: DUR, ease: "none" }, 0);
+          tl.fromTo("#marks", { opacity: 0 }, { opacity: 1, duration: 1.2 }, 0.2);
+          tl.fromTo("#progfill", { scaleX: 0 }, { scaleX: 1, duration: END - 0.4, ease: "none" }, 0.4);
+          tl.to(["#grid", "#marks", "#prog"], { opacity: 0, duration: 0.8, ease: "power1.inOut" }, END - 0.4);
+
+          // ---------- subtitles ----------
+          const host = $("#subs");
+          const subEls = SUBS.map(([n, k, html]) => {
+            const d = document.createElement("div");
+            d.className = "sub";
+            d.innerHTML = `<span>${html}</span>`;
+            host.appendChild(d);
+            return { el: d, t: segStart(n, k) };
+          });
+          subEls.forEach((c, i) => {
+            const n = SUBS[i][0];
+            const sameLine = i + 1 < SUBS.length && SUBS[i + 1][0] === n;
+            const next = i + 1 < subEls.length ? subEls[i + 1].t : END;
+            const hide = sameLine ? next - 0.18 : Math.min(N(n) + 0.45, next - 0.18); // fully out before the next one fades in
+            tl.fromTo(c.el, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none" }, c.t - 0.06);
+            tl.to(c.el, { opacity: 0, duration: 0.12, ease: "none" }, hide);
+          });
+
+          // ---------- 01 HOOK ----------
+          const like0 = P("01", 0)[1]; // "وجاب عشر آلاف لايك"
+          tl.fromTo("#s1logo", { opacity: 0 }, { opacity: 0.9, duration: 0.8, ease: "power1.out" }, 0.1);
+          tl.to("#s1logo", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, N("02") + 0.3);
+          rise("#s1a", 0.3, 0.6);
+          tl.fromTo("#s1heart", { scale: 0.6, opacity: 0.4 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2.5)" }, 0.45);
+          count($("#s1an"), 0, 10000, like0 - 0.1, N("01") - like0 + 0.2, "power2.out");
+          tl.fromTo("#s1heart", { scale: 1 }, { scale: 1.18, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out" }, N("01") + 0.05);
+          // floating hearts
+          const hr = rng(1012);
+          for (let i = 0; i < 12; i++) {
+            const h = document.createElement("div");
+            h.className = "abs";
+            const sz = 26 + Math.round(hr() * 26);
+            h.style.cssText = `left:${90 + Math.round(hr() * 620)}px;top:${200 + Math.round(hr() * 60)}px;width:${sz}px;height:${sz}px;color:${PAPER}`;
+            h.innerHTML = HEART;
+            h.firstChild.style.width = h.firstChild.style.height = sz + "px";
+            $("#s1hearts").appendChild(h);
+            const t0 = like0 - 0.1 + i * 0.13;
+            tl.fromTo(h, { opacity: 0, y: 0, x: 0 }, { opacity: 0.55, y: -90, x: (hr() - 0.5) * 30, duration: 0.5, ease: "power1.out" }, t0);
+            tl.to(h, { opacity: 0, y: -230, duration: 0.9, ease: "power1.in" }, t0 + 0.5);
+          }
+          rise("#s1b", S("02") + 0.1, 0.6);
+          tl.fromTo("#s1bn", { scale: 1.35, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "expo.out" }, S("02") + 0.55);
+          glow(S("02") + 0.5, 540, 1010, 0.8, 0.7, 0.6);
+          // freeze → dim behind the question
+          tl.to("#s1in", { opacity: 0.12, scale: 0.97, filter: "blur(8px)", duration: 0.55, ease: "power2.inOut", transformOrigin: "50% 50%" }, W("s2")[0]);
+          tl.to("#glow", { opacity: 0, duration: 0.5 }, W("s2")[0]);
+          out("#s1in", W("s2")[1] - 0.35, 0.3);
+
+          // ---------- 02 FREEZE ----------
+          $$(".s2w").forEach((el, i) => rise(el, S("03") - 0.1 + i * 0.16, 0.6, 40));
+          out($$(".s2w"), W("s2")[1] - 0.35, 0.3);
+
+          // ---------- 03 TERM ----------
+          const wch = letters($("#s3w1"), "VANITY").concat(letters($("#s3w2"), "METRICS"));
+          fit($("#s3w1"), 920);
+          fit($("#s3w2"), 920);
+          tl.set([wch, "#s3gloss", ".s3t", ".s3u"], { opacity: 0 }, 0);
+          const t3 = S("04");
+          tl.fromTo("#s3caret", { opacity: 0 }, { opacity: 1, duration: 0.15 }, W("s3")[0] + 0.05);
+          tl.to("#s3caret", { opacity: 0, duration: 0.08 }, t3 + 0.1);
+          tl.to("#s3caret", { opacity: 1, duration: 0.08 }, t3 + 0.3);
+          tl.to("#s3caret", { opacity: 0, duration: 0.12 }, t3 + 0.5);
+          wch.forEach((c, i) => tl.fromTo(c, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.42, ease: E }, t3 + 0.5 + i * 0.035));
+          glow(t3 + 0.4, 540, 660, 0.75, 0.9, 0.7);
+          tl.fromTo("#s3gloss", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.6, ease: E }, N("04") - 0.1);
+          tl.fromTo("#s3rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, N("04") + 0.15);
+          tl.to("#glow", { opacity: 0, duration: 0.5 }, S("05"));
+          // the second line "types in", word by word, as it is spoken
+          const typeIn = (els, t0, t1) => els.forEach((el, i) => tl.fromTo(el, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" }, t0 + ((t1 - t0) * i) / els.length));
+          typeIn($$(".s3t"), S("05") + 0.35, P("05", 0)[0]);
+          typeIn($$(".s3u"), P("05", 0)[1], N("05") - 0.35);
+          tl.fromTo("#s3rent", { scale: 1 }, { scale: 1.12, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out" }, N("05") - 0.1);
+          out("#s3 > *", W("s3")[1] - 0.35, 0.3);
+
+          // ---------- 04 BALLOONS ----------
+          const t4 = S("06");
+          const views = t4 + 0.86, follows = t4 + 1.54; // measured word onsets in vo_06
+          const balloons = [["#b1", "#b1n", 10000, t4 - 0.1], ["#b2", "#b2n", 50000, views - 0.1], ["#b3", "#b3n", 2500, follows - 0.1]];
+          balloons.forEach(([b, n, v, t], i) => {
+            const bl = $(b + " .balloon");
+            tl.fromTo(bl, { scale: 0.25, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.9, ease: "elastic.out(1, 0.55)" }, t);
+            count($(n), 0, v, t + 0.05, 0.9);
+            // gentle balloon bob
+            tl.fromTo(b, { y: 0 }, { y: -10, duration: 1.1, yoyo: true, repeat: 3, ease: "sine.inOut" }, t + 0.9 + i * 0.3);
+          });
+          // the needle sweeps down and pops them one by one
+          const tPop = S("07") + 0.25;
+          tl.fromTo("#needle", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.out" }, tPop - 0.35);
+          tl.to("#needle", { y: 700, duration: 1.05, ease: "none" }, tPop);
+          tl.to("#needle", { opacity: 0, duration: 0.25 }, tPop + 1.05);
+          balloons.forEach(([b], i) => {
+            const t = tPop + 0.195 + i * 0.375; // needle (340px → 1040px over 1.05s) crosses each balloon centre
+            const bl = $(b + " .balloon");
+            tl.to(bl, { scale: 1.08, duration: 0.08, ease: "power2.out" }, t - 0.08);
+            tl.to(bl, { scaleX: 0.04, scaleY: 0.14, opacity: 0, duration: 0.22, ease: "power3.in" }, t);
+            tl.fromTo($(b + " .bdot"), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.14);
+          });
+          const q4 = $$(".s4q");
+          q4.forEach((el, i) => rise(el, P("07", 0)[1] + i * 0.18, 0.55, 30));
+          glow(P("07", 0)[1] + 0.6, 380, 1240, 0.6, 0.5, 0.6);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, W("s4")[1] - 0.5);
+          out("#s4 > *", W("s4")[1] - 0.4, 0.3);
+
+          // ---------- 05 SHOP ----------
+          const t5 = S("08");
+          const sp = $$("#shop .sp");
+          tl.set(["#st1", "#st2", "#st3", "#sign", "#reach", "#reachbr", "#crowd"], { opacity: 0 }, 0);
+          tl.fromTo(sp, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut", stagger: 0.08 }, W("s5")[0] + 0.15);
+          // the crowd: 4 identical 1080px tiles of seeded dots, scrolling past the shop
+          const cr = rng(500);
+          const tile = [];
+          for (let i = 0; i < 110; i++) tile.push([Math.round(cr() * 1066), 8 + Math.round(cr() * 140), 0.35 + cr() * 0.5]);
+          for (let k = 0; k < 4; k++) {
+            tile.forEach(([x, y, o]) => {
+              const d = document.createElement("i");
+              d.className = "dot";
+              d.style.cssText = `width:14px;height:14px;left:${x + k * 1080}px;top:${y}px;opacity:${o.toFixed(2)}`;
+              $("#crowdIn").appendChild(d);
+            });
+          }
+          tl.to("#crowd", { opacity: 1, duration: 0.6 }, t5 + 0.3);
+          tl.fromTo("#crowdIn", { x: -3240 }, { x: -1080, duration: W("s5")[1] - t5, ease: "none" }, t5);
+          tl.fromTo("#st1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, t5 + 1.6);
+          count($("#st1n"), 0, 1000, t5 + 1.7, 1.2, "power1.out");
+          // 10 peel off into the door
+          const t9 = S("09");
+          const pr = rng(77);
+          const peel = [];
+          for (let i = 0; i < 10; i++) {
+            const d = document.createElement("i");
+            d.className = "dot";
+            d.style.cssText = "width:14px;height:14px;left:0;top:0";
+            $("#peel").appendChild(d);
+            const sx = 300 + Math.round(pr() * 480), sy = 1150 + Math.round(pr() * 140);
+            const dx = 516 + (i % 2) * 34, dy = 912 + Math.floor(i / 2) * 38;
+            tl.set(d, { x: sx, y: sy, opacity: 0 }, 0);
+            tl.to(d, { opacity: 0.95, duration: 0.2 }, t9 - 0.1 + i * 0.04);
+            tl.to(d, { x: dx, y: dy, duration: 0.85, ease: "power3.inOut" }, t9 + 0.1 + i * 0.05);
+            peel.push(d);
+          }
+          tl.to("#st1", { opacity: 0.45, duration: 0.4 }, t9 + 0.2);
+          tl.fromTo("#st2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, t9 + 0.3);
+          // ... and 2 buy
+          const tBuy = P("09", 1)[1];
+          tl.to("#st2", { opacity: 0.45, duration: 0.4 }, tBuy);
+          tl.to(peel.slice(2), { opacity: 0.35, duration: 0.4 }, tBuy);
+          tl.to(peel.slice(0, 2), { backgroundColor: ORANGE, scale: 1.45, boxShadow: "0 0 22px 6px rgba(255,77,26,0.55)", duration: 0.45, ease: E, stagger: 0.15 }, tBuy);
+          tl.fromTo("#st3", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, tBuy + 0.1);
+          glow(tBuy, 540, 1000, 0.7, 0.45, 0.6);
+          // labels: the crowd is REACH, the 2 are BUSINESS
+          const tReach = P("10", 0)[1];
+          tl.to("#st1", { opacity: 1, duration: 0.3 }, tReach);
+          tl.fromTo("#reachbr", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: "power2.inOut" }, tReach);
+          tl.fromTo("#reach", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, tReach + 0.15);
+          const tBiz = P("10", 1)[1];
+          tl.to("#st3", { scale: 1.08, duration: 0.3, ease: E, transformOrigin: "50% 30%" }, tBiz);
+          tl.fromTo("#sign", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, tBiz + 0.35);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, W("s5")[1] - 0.6);
+          out("#s5 > *", W("s5")[1] - 0.4, 0.3);
+
+          // ---------- 06 SPLIT ----------
+          tl.set([".s6l", ".s6r", "#s6Lh", "#s6Rh", "#s6Rbar"], { opacity: 0 }, 0);
+          tl.fromTo("#s6div", { scaleY: 0 }, { scaleY: 1, duration: 0.7, ease: "power2.inOut" }, W("s6")[0] + 0.1);
+          rise("#s6Lh", W("s6")[0] + 0.4, 0.5, 20);
+          $$(".s6l").forEach((el, i) => rise(el, S("11") + 0.2 + i * 0.12, 0.45, 20));
+          const tAct = S("11") + 1.6; // "Actionable Metrics"
+          tl.to("#s6L", { opacity: 0.45, duration: 0.5 }, tAct);
+          rise("#s6Rh", tAct, 0.5, 20);
+          tl.fromTo("#s6Rbar", { opacity: 1, scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: E }, tAct + 0.2);
+          const items = [0, 0.9, 1.95, 2.62]; // measured onsets in vo_12
+          $$(".s6r").forEach((el, i) => tl.fromTo(el, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.45, ease: E }, S("12") + items[i] - 0.05));
+          glow(S("12") + 0.4, 780, 980, 0.55, 0.6, 0.8);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, W("s6")[1] - 0.5);
+          out("#s6 > *", W("s6")[1] - 0.4, 0.3);
+
+          // ---------- 07 THE REAL QUESTION ----------
+          tl.set(["#s7aw", ".s7b", ".s7c"], { opacity: 0 }, 0);
+          tl.set("#s7x", { scaleX: 0 }, 0);
+          rise("#s7aw", S("13") + 0.55, 0.6, 30);
+          tl.to("#s7x", { scaleX: 1, duration: 0.45, ease: "power2.inOut" }, N("13") + 0.05);
+          tl.to("#s7a", { color: "rgba(245,241,234,0.32)", duration: 0.45 }, N("13") + 0.15);
+          $$(".s7b").forEach((el, i) => rise(el, P("14", 0)[1] - 0.05 + i * 0.14, 0.6, 36));
+          $$(".s7c").forEach((el, i) => rise(el, P("14", 1)[1] - 0.05 + i * 0.14, 0.6, 36));
+          glow(P("14", 1)[1] + 0.3, 330, 1030, 0.75, 0.6, 0.8);
+          tl.fromTo("#s7in", { scale: 1 }, { scale: 1.04, duration: W("s7")[1] - N("13"), ease: "sine.inOut", transformOrigin: "50% 50%" }, N("13"));
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, W("s7")[1] - 0.5);
+          out("#s7in", W("s7")[1] - 0.35, 0.3);
+
+          // ---------- 08 QUESTION TO THE VIEWER ----------
+          tl.set(["#s8q", "#s8c", "#s8arrow"], { opacity: 0 }, 0);
+          fit($("#s8q"), 900);
+          tl.fromTo("#s8bub", { opacity: 0, scale: 0.8, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.8)", transformOrigin: "30% 90%" }, W("s8")[0] + 0.2);
+          tl.fromTo(".s8d", { opacity: 0.25 }, { opacity: 1, duration: 0.3, yoyo: true, repeat: 7, ease: "sine.inOut", stagger: 0.12 }, W("s8")[0] + 0.7);
+          rise("#s8q", P("15", 0)[1] - 0.05, 0.6, 30);
+          rise("#s8c", P("15", 1)[1] - 0.05, 0.55, 24);
+          tl.fromTo("#s8arrow", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, P("15", 1)[1] + 0.2);
+          tl.to("#s8arrow", { y: 16, duration: 0.45, yoyo: true, repeat: 3, ease: "sine.inOut" }, P("15", 1)[1] + 0.6);
+          out("#s8 > *", END - 0.5, 0.4);
+
+          // ---------- 09 END CARD ----------
+          tl.fromTo("#s9logo", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, END + 0.1);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["main"] = tl;
+        }
+
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+        else build();
+      })();
+    </script>
+  </body>
+</html>

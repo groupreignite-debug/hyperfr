@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ar"><head><meta charset="UTF-8" /><title>Vanity Metrics — cover</title>
+<!-- Episode cover (series template). Text stays inside the centre 1080x1350 (y 285–1635) so it survives the grid crop.
+     Export: python3 scripts/build_cover.py -->
+<style>
+      @font-face { font-family: "Alexandria"; font-weight: 300; src: url("../assets/fonts/alexandria-arabic-300-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 400; src: url("../assets/fonts/alexandria-arabic-400-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 500; src: url("../assets/fonts/alexandria-arabic-500-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("../assets/fonts/alexandria-arabic-700-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("../assets/fonts/alexandria-arabic-800-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("../assets/fonts/alexandria-arabic-900-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 300; src: url("../assets/fonts/alexandria-latin-300-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 400; src: url("../assets/fonts/alexandria-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 500; src: url("../assets/fonts/alexandria-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("../assets/fonts/alexandria-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("../assets/fonts/alexandria-latin-800-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("../assets/fonts/alexandria-latin-900-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #1a1a1a; color: #f5f1ea; font-family: "Alexandria", sans-serif; -webkit-font-smoothing: antialiased; }
+#grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(245,241,234,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(245,241,234,0.035) 1px, transparent 1px); background-size: 72px 72px; }
+#glow { position: absolute; left: 140px; top: 560px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,77,26,0.2), rgba(255,77,26,0.06) 55%, rgba(255,77,26,0) 100%); }
+#vig { position: absolute; inset: 0; background: radial-gradient(120% 75% at 50% 48%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.38) 100%); }
+.row { position: absolute; left: 0; right: 0; text-align: center; white-space: nowrap; }
+.ar { direction: rtl; unicode-bidi: isolate; }
+.en { direction: ltr; unicode-bidi: isolate; }
+.logo { position: absolute; left: 390px; top: 1430px; width: 300px; height: 169px; mix-blend-mode: lighten; }
+.logo img { width: 100%; height: 100%; display: block; }
+</style></head>
+<body>
+<div id="grid"></div><div id="glow"></div>
+<div class="row ar" style="top: 360px; font-size: 60px; font-weight: 800; color: #ff4d1a">شو يعني؟</div>
+<div class="row" style="top: 470px; left: 470px; right: 470px; height: 4px; background: rgba(245,241,234,0.14)"></div>
+<div class="row en" style="top: 560px; font-size: 196px; font-weight: 900; letter-spacing: -0.01em; line-height: 1.12">VANITY<br />METRICS</div>
+<div class="row en" style="top: 1110px; height: 140px; display: flex; justify-content: center; align-items: center; gap: 30px; font-size: 104px; font-weight: 900; letter-spacing: -0.03em">
+  <span>10,000</span><svg viewBox="0 0 24 24" style="width:96px;height:96px;fill:#F5F1EA;display:block"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+  <span style="color: rgba(245,241,234,0.4); font-weight: 400; margin: 0 6px">·</span>
+  <span class="ar" style="color: #ff4d1a; display: flex; align-items: center; gap: 24px"><span class="en">0</span><span style="font-size: 76px; font-weight: 800; letter-spacing: 0">زبون</span></span>
+</div>
+<div class="logo"><img src="../assets/reignite/reignite-group-logo.png" alt="Reignite Group" /></div>
+<div id="vig"></div>
+</body></html>
