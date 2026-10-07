@@ -52,11 +52,13 @@ for fid in FULL:
 tags = "\n".join(
     f'      <audio id="vo{n}" src="audio/vo/vo_{n}.wav" data-start="{v["start"]}" data-duration="{v["dur"]}" data-track-index="10"></audio>'
     for n, v in L.items())
-html = re.sub(r"(<!-- VO -->\n).*?(\n\s*<!-- /VO -->)", lambda m: m.group(1) + tags + m.group(2), html, flags=re.S)
+html, k = re.subn(r"<!-- VO -->.*?<!-- /VO -->", lambda m: "<!-- VO -->\n" + tags + "\n      <!-- /VO -->", html, flags=re.S)
+assert k == 1, "VO block markers not found"
 
 data = {"duration": DUR, "endcard": END, "scenes": {k: [round(a, 3), round(b, 3)] for k, (a, b) in SCENES.items()},
         "lines": {n: {"s": v["start"], "e": v["end"], "p": v["pauses"]} for n, v in L.items()}}
 html = re.sub(r"/\*CUES\*/.*?/\*END CUES\*/", lambda m: "/*CUES*/ const CUES = " + json.dumps(data, separators=(",", ":")) + "; /*END CUES*/",
               html, flags=re.S)
+assert html.count('<audio id="vo') == len(L), "VO tags were not written"
 HTML.write_text(html)
 print("applied cues: duration", DUR, "end card", END)
