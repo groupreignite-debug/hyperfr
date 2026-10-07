@@ -40,6 +40,6 @@ npx hyperframes preview --background  # Studio
 npx hyperframes@0.8.127 render --quality high --fps 30 --output renders/vanity-metrics-raw.mp4
 # Instagram loudness: -14 LUFS, true peak < -1 dBFS. Speech peaks sit ~18 dB over its average, so use
 # gain + a transparent limiter rather than loudnorm alone (re-measure with ebur128 if the mix changes):
-ffmpeg -i renders/vanity-metrics-raw.mp4 -c:v copy -af "volume=14.6dB,alimiter=limit=0.75:attack=3:release=60:level=false,aresample=48000" -c:a aac -b:a 256k renders/vanity-metrics.mp4
+ffmpeg -i renders/vanity-metrics-raw.mp4 -c:v copy -af "volume=7.8dB,alimiter=limit=0.75:attack=3:release=60:level=false,aresample=48000" -c:a aac -b:a 256k renders/vanity-metrics.mp4
 python3 scripts/build_cover.py        # cover/cover.html -> cover.png
 ```
