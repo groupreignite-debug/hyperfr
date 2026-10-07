@@ -339,12 +339,13 @@ for t, kind, gain in SFX:
         place(sfx, GEN[kind](), t, gain)
 
 
+# stem peaks are set so the VO stays the loudest element (VO lines peak around -1.7 dBFS)
 def finish(x, peak_db):
     x = x - x.mean(0)
     pk = np.max(np.abs(x)) + 1e-9
     return x / pk * (10 ** (peak_db / 20))
 
 
-sf.write(str(ROOT / "audio" / "music.wav"), finish(music, -5.0).astype(np.float32), SR, subtype="PCM_16")
-sf.write(str(ROOT / "audio" / "sfx.wav"), finish(sfx, -4.0).astype(np.float32), SR, subtype="PCM_16")
+sf.write(str(ROOT / "audio" / "music.wav"), finish(music, -9.0).astype(np.float32), SR, subtype="PCM_16")
+sf.write(str(ROOT / "audio" / "sfx.wav"), finish(sfx, -12.0).astype(np.float32), SR, subtype="PCM_16")
 print("wrote audio/music.wav, audio/sfx.wav", DUR, "s,", len(SFX), "sfx events")
