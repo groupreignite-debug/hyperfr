@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1350" />
+    <title>Incrementality vs ROAS — 6/7</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+
+      .pair { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 110px; }
+      .pair .arrow { margin-bottom: 70px; flex: none; }
+      .cell { text-align: center; }
+      .lab { font-size: 32px; margin-bottom: 10px; white-space: nowrap; }
+      .seen { font-size: 130px; color: rgba(245, 241, 234, 0.55); }
+      .seen .strike::after { height: 4px; }
+      .real { font-size: 150px; }
+      .text.big { font-size: 44px; line-height: 1.6; }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="head">
+        <span class="series">شو يعني؟</span>
+        <span class="count">٦/٧</span>
+      </header>
+      <div class="example">مثال</div>
+      <main class="body">
+
+        <div class="pair">
+          <div class="cell">
+            <div class="latin-tag muted lab"><bdi>ROAS</bdi></div>
+            <div class="num ltr seen"><span class="strike">5.0X</span></div>
+          </div>
+          <svg class="arrow" width="96" height="48" viewBox="0 0 48 24" aria-hidden="true"><path d="M46 12H4M13 3L3 12l10 9" fill="none" stroke="#FF4D1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="cell">
+            <div class="latin-tag or lab"><bdi>INCREMENTAL ROAS</bdi></div>
+            <div class="num ltr gold real">2.1X</div>
+          </div>
+        </div>
+        <div class="text big">الرقم اللي بتشوفو بالمنصة… مش دايماً الرقم الحقيقي.</div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,119 @@
+@import url("fonts.css");
+
+:root {
+  --orange: #ff4d1a;
+  --charcoal: #1a1a1a;
+  --paper: #f5f1ea;
+  --gold: #ffb000;
+  --paper-55: rgba(245, 241, 234, 0.55);
+  --paper-40: rgba(245, 241, 234, 0.4);
+  --paper-15: rgba(245, 241, 234, 0.15);
+  --margin: 96px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 1080px;
+  height: 1350px;
+  overflow: hidden;
+  background: var(--charcoal);
+}
+
+body {
+  position: relative;
+  color: var(--paper);
+  font-family: "Alexandria", sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  /* the reel's faint 72px technical grid */
+  background-image:
+    linear-gradient(rgba(245, 241, 234, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 241, 234, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+  background-position: -1px -1px;
+}
+
+/* ---------- frame: header + content area ---------- */
+.page {
+  position: absolute;
+  inset: var(--margin);
+  display: flex;
+  flex-direction: column;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 44px;
+  flex: none;
+}
+.series { color: var(--orange); font-size: 30px; font-weight: 500; }
+.count { color: var(--paper-55); font-size: 30px; font-weight: 300; }
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: right;
+}
+
+/* small "example" tag under the header */
+.example {
+  align-self: flex-start;
+  margin-top: 28px;
+  padding: 6px 22px 10px;
+  border: 1.5px solid var(--paper-40);
+  border-radius: 999px;
+  color: var(--paper-55);
+  font-size: 28px;
+  font-weight: 300;
+}
+
+/* ---------- type ---------- */
+.or { color: var(--orange); }
+.gold { color: var(--gold); }
+.muted { color: var(--paper-55); }
+.title, .text { text-wrap: balance; }
+.title { font-size: 64px; font-weight: 800; line-height: 1.35; }
+.text { font-size: 40px; font-weight: 400; line-height: 1.6; }
+.center { text-align: center; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+.num { font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; }
+.latin-tag { font-weight: 500; letter-spacing: 0.06em; }
+
+/* struck-through in orange */
+.strike { position: relative; display: inline-block; }
+.strike::after {
+  content: "";
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 54%;
+  height: 5px;
+  background: var(--orange);
+  border-radius: 3px;
+}
+
+/* ---------- logo: supplied file, untouched; lighten lets its black field sit on the charcoal ---------- */
+.logo {
+  display: block;
+  margin: 0 auto;
+  width: 280px; /* the mark itself spans ~53% of the file, so it reads ~150px wide */
+  mix-blend-mode: lighten;
+}
+
+/* ---------- dot marker ---------- */
+.dot {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-left: 18px;
+  flex: none;
+}
+.dot.muted-fill { background: var(--paper-40); }
+.dot.orange-fill { background: var(--orange); }

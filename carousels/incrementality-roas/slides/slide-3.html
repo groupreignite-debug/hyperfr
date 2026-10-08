@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1350" />
+    <title>Incrementality vs ROAS — 3/7</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+
+      .body { justify-content: space-evenly; }
+      .grid { display: grid; grid-template-columns: repeat(10, 44px); gap: 20px; justify-content: center; }
+      .grid i { width: 44px; height: 44px; border-radius: 50%; display: block; }
+      .grid .m { background: rgba(245, 241, 234, 0.4); }
+      .grid .o { background: var(--orange); }
+      .grid .e { border: 2px solid rgba(245, 241, 234, 0.3); }
+      .legend { list-style: none; font-size: 36px; line-height: 1.4; }
+      .legend li { display: flex; align-items: center; margin-top: 14px; }
+      .legend li:first-child { font-weight: 700; }
+      .dot.ring { background: linear-gradient(90deg, var(--orange) 50%, rgba(245,241,234,0.4) 50%); }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="head">
+        <span class="series">شو يعني؟</span>
+        <span class="count">٣/٧</span>
+      </header>
+      <div class="example">مثال</div>
+      <main class="body">
+
+        <div class="title">تخيّل عندك 100 عميل</div>
+        <div class="grid"><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i><i class="e"></i></div>
+        <ul class="legend">
+          <li><span class="dot ring"></span>40 اشتروا</li>
+          <li><span class="dot muted-fill"></span>25 كانوا رح يشتروا أصلاً، حتى لو ما شافوا الإعلان</li>
+          <li><span class="dot orange-fill"></span>15 بس اشتروا بسبب الإعلان</li>
+        </ul>
+      </main>
+    </div>
+  </body>
+</html>

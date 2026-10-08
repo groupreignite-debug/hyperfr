@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1350" />
+    <title>Incrementality vs ROAS — 5/7</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+
+      .bars { margin: 56px 0 10px; }
+      .label { font-size: 36px; font-weight: 500; margin: 26px 0 14px; }
+      .barrow { display: flex; align-items: center; height: 76px; }
+      .bar { height: 76px; background: rgba(245, 241, 234, 0.4); }
+      .bar:first-child { border-radius: 0 10px 10px 0; }
+      .bar:last-of-type { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+      .bar.hot { background: var(--orange); }
+      .val { font-size: 56px; margin-right: 26px; }
+      .eq { font-size: 80px; font-weight: 700; margin: 60px 0 40px; white-space: nowrap; letter-spacing: -0.02em; }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="head">
+        <span class="series">شو يعني؟</span>
+        <span class="count">٥/٧</span>
+      </header>
+      <div class="example">مثال</div>
+      <main class="body">
+
+        <div class="title">أبسط طريقة: قارن مجموعتين</div>
+        <div class="bars">
+          <div class="label">شافوا الإعلان</div>
+          <div class="barrow">
+            <div class="bar" style="width:546px"></div><div class="bar hot" style="width:234px"></div>
+            <span class="val num">50</span>
+          </div>
+          <div class="label">ما شافوا الإعلان</div>
+          <div class="barrow">
+            <div class="bar" style="width:546px"></div>
+            <span class="val num">35</span>
+          </div>
+        </div>
+        <div class="eq ltr center">50 − 35 = <span class="num or">15</span></div>
+        <div class="text">الـ 15 هي <span class="or">الزيادة الحقيقية</span> اللي جابها الإعلان.</div>
+      </main>
+    </div>
+  </body>
+</html>
