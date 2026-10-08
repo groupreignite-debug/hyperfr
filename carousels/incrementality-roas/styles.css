@@ -49,8 +49,8 @@ body {
   height: 44px;
   flex: none;
 }
-.series { color: var(--orange); font-size: 30px; font-weight: 500; }
-.count { color: var(--paper-55); font-size: 30px; font-weight: 300; }
+.series { color: var(--orange); font-size: 32px; font-weight: 500; }
+.count { color: var(--paper-55); font-size: 32px; font-weight: 300; }
 
 .body {
   flex: 1;
@@ -68,7 +68,7 @@ body {
   border: 1.5px solid var(--paper-40);
   border-radius: 999px;
   color: var(--paper-55);
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 300;
 }
 
