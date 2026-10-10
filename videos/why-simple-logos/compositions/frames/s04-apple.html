@@ -1,0 +1,89 @@
+<template>
+  <style>
+    @font-face { font-family: "Noto Kufi Arabic"; font-weight: 800; src: url("assets/fonts/noto-kufi-arabic-arabic-800-normal.woff2") format("woff2"); }
+    @font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 600; src: url("assets/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; color: #f5f1ea; font-family: "IBM Plex Sans Arabic", sans-serif; }
+    #s04-stage { position: absolute; inset: 0; }
+    .s04-ar { font-family: "Noto Kufi Arabic", sans-serif; direction: rtl; white-space: nowrap; }
+    .s04-w { display: inline-block; }
+    .or { color: #ff4d1a; }
+    .s04-tag { position: absolute; right: 90px; top: 318px; font-family: "Inter", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.24em; color: rgba(245,241,234,0.6); white-space: nowrap; }
+    .s04-tag b { color: #ff4d1a; font-weight: 800; margin-left: 14px; }
+    #s04-h { position: absolute; left: 60px; right: 90px; top: 372px; text-align: right; font-weight: 800; font-size: 84px; line-height: 1.4; }
+    #s04-h2 { position: absolute; right: 90px; top: 500px; font-family: "IBM Plex Sans Arabic", sans-serif; font-weight: 600; font-size: 52px; color: rgba(245,241,234,0.6); direction: rtl; white-space: nowrap; }
+
+    #s04-art { position: absolute; left: 300px; top: 620px; width: 480px; height: 480px; overflow: visible; }
+    #s04-geo { position: absolute; left: 300px; top: 620px; width: 480px; height: 480px; overflow: visible; }
+    #s04-word { position: absolute; left: 0; right: 0; top: 1120px; text-align: center; }
+    #s04-word .s04-in { clip-path: inset(-20% 0% -20% 0%); position: relative; display: inline-block; font-family: "Inter", sans-serif; font-weight: 600; font-size: 66px; letter-spacing: -0.01em; color: #f5f1ea; }
+    #s04-wx { position: absolute; left: -16px; right: -16px; top: 52%; height: 5px; background: #ff4d1a; transform-origin: 0% 50%; }
+    #s04-lA { position: absolute; left: 60px; right: 60px; top: 1236px; text-align: center; font-weight: 800; font-size: 62px; line-height: 1.4; color: rgba(245,241,234,0.85); }
+    #s04-lB { position: absolute; left: 40px; right: 40px; top: 1340px; text-align: center; font-weight: 800; font-size: 100px; line-height: 1.35; }
+  </style>
+
+  <div id="root" data-composition-id="s04-apple" data-width="1080" data-height="1920">
+    <div id="s04-stage" class="clip" data-start="0" data-duration="7" data-track-index="0">
+      <div class="s04-tag" id="s04-tag">DISTINCTIVE<b>02</b></div>
+      <div id="s04-h" class="s04-ar"><span class="s04-w or" id="s04-a1">أبل،</span> <span class="s04-w" id="s04-a2">نفس</span> <span class="s04-w" id="s04-a3">الفكرة.</span></div>
+      <div id="s04-h2">تفاحة بسيطة.</div>
+
+      <svg id="s04-geo" viewBox="0 0 24 24">
+        <g fill="none" stroke="#f5f1ea" stroke-opacity="0.3" stroke-width="0.06">
+          <circle id="s04-g1" cx="8.1" cy="14.6" r="7.3" />
+          <circle id="s04-g2" cx="15.2" cy="14.6" r="7.3" />
+          <circle id="s04-g3" cx="11.7" cy="17.4" r="6.2" />
+          <line id="s04-g4" x1="11.7" y1="-1" x2="11.7" y2="25" stroke-dasharray="0.3 0.3" />
+          <line id="s04-g5" x1="-1" y1="6.9" x2="25" y2="6.9" stroke-dasharray="0.3 0.3" />
+        </g>
+        <circle id="s04-bite" cx="21.9" cy="10.4" r="3.1" fill="none" stroke="#ff4d1a" stroke-width="0.09" />
+      </svg>
+      <svg id="s04-art" viewBox="0 0 24 24">
+        <path fill="#f5f1ea" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/>
+      </svg>
+      <div id="s04-word"><span class="s04-in" id="s04-wordin">Apple<i id="s04-wx"></i></span></div>
+
+      <div id="s04-lA" class="s04-ar">بتعرفه حتى بدون اسم.</div>
+      <div id="s04-lB" class="s04-ar"><span class="s04-w" id="s04-b1">هون</span> <span class="s04-w or" id="s04-b2">قوة</span> <span class="s04-w or" id="s04-b3">الشعار.</span></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const V = 0.2;
+      const tl = gsap.timeline({ paused: true });
+      const word = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, t);
+
+      tl.fromTo("#s04-tag", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.05);
+      word("#s04-a1", V + 0.0); word("#s04-a2", V + 0.48); word("#s04-a3", V + 0.69);
+
+      // silhouette + its name, then the geometry behind the shape
+      tl.fromTo("#s04-art", { opacity: 0, scale: 0.82, transformOrigin: "50% 60%" }, { opacity: 1, scale: 1, duration: 0.7, ease: "expo.out" }, 0.1);
+      tl.fromTo("#s04-wordin", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.35);
+      ["#s04-g1", "#s04-g2", "#s04-g3"].forEach((g, i) => {
+        tl.fromTo(g, { scale: 0, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 0.7, ease: "expo.out" }, V + 0.7 + i * 0.15);
+      });
+      tl.fromTo(["#s04-g4", "#s04-g5"], { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.1 }, V + 1.0);
+      tl.fromTo("#s04-bite", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.55, ease: "back.out(2)" }, V + 1.34);
+      tl.fromTo("#s04-h2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, V + 1.34);
+
+      // "حتى بدون اسم..." — the name is struck and removed
+      tl.fromTo("#s04-wx", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.inOut" }, V + 2.6);
+      tl.to("#s04-wordin", { clipPath: "inset(-20% 0% -20% 100%)", duration: 0.55, ease: "expo.inOut" }, V + 3.17);
+      tl.fromTo("#s04-lA", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, V + 3.0);
+
+      // "بتعرف الشركة" — guides fall away, silhouette alone
+      tl.to("#s04-geo", { opacity: 0, duration: 0.6, ease: "power2.out" }, V + 3.92);
+      tl.to("#s04-art", { scale: 1.08, y: 40, duration: 1.4, ease: "expo.out" }, V + 3.92);
+
+      // "هون قوة الشعار."
+      tl.to("#s04-lA", { opacity: 0.4, duration: 0.4 }, V + 5.1);
+      word("#s04-b1", V + 5.21);
+      tl.fromTo(["#s04-b2", "#s04-b3"], { opacity: 0, y: 40, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.7)", stagger: 0.3 }, V + 5.5);
+
+      window.__timelines["s04-apple"] = tl;
+    })();
+  </script>
+</template>
