@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="ar" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Reignite Group — Retargeting</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      /* Alexandria: one family, Arabic + Latin subsets (SIL OFL, via @fontsource/alexandria) */
+      @font-face { font-family: "Alexandria"; font-weight: 300; src: url("assets/fonts/alexandria-arabic-300-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 400; src: url("assets/fonts/alexandria-arabic-400-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 500; src: url("assets/fonts/alexandria-arabic-500-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("assets/fonts/alexandria-arabic-700-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("assets/fonts/alexandria-arabic-800-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("assets/fonts/alexandria-arabic-900-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 300; src: url("assets/fonts/alexandria-latin-300-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 400; src: url("assets/fonts/alexandria-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 500; src: url("assets/fonts/alexandria-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("assets/fonts/alexandria-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("assets/fonts/alexandria-latin-800-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("assets/fonts/alexandria-latin-900-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+
+      :root {
+        --orange: #ff4d1a;
+        --charcoal: #1a1a1a;
+        --paper: #f5f1ea;
+        --gold: #ffb000;
+        --paper-70: rgba(245, 241, 234, 0.7);
+        --paper-55: rgba(245, 241, 234, 0.55);
+        --paper-14: rgba(245, 241, 234, 0.14);
+        --paper-08: rgba(245, 241, 234, 0.08);
+        --muted: #6e6a64;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--charcoal); }
+      #root {
+        position: relative; width: 100%; height: 100%; overflow: hidden;
+        background: var(--charcoal); color: var(--paper);
+        font-family: "Alexandria", sans-serif; -webkit-font-smoothing: antialiased;
+      }
+      .clip { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+      .row { position: absolute; left: 0; right: 0; text-align: center; white-space: nowrap; }
+      .ar { direction: rtl; unicode-bidi: isolate; }
+      .en { direction: ltr; unicode-bidi: isolate; }
+      .w { display: inline-block; }
+      .or { color: var(--orange); }
+      .caps { font-weight: 800; letter-spacing: 0.02em; }
+
+      /* ---------- ground ---------- */
+      #ground { overflow: hidden; }
+      #grid {
+        position: absolute; left: -144px; top: -144px; width: 1368px; height: 2208px;
+        background-image:
+          linear-gradient(rgba(245, 241, 234, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(245, 241, 234, 0.035) 1px, transparent 1px);
+        background-size: 72px 72px;
+      }
+      #marks { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+      #marks path { stroke: rgba(245, 241, 234, 0.09); stroke-width: 1.5; fill: none; }
+      #glow {
+        position: absolute; left: 90px; top: 510px; width: 900px; height: 900px; border-radius: 50%;
+        background: radial-gradient(closest-side, rgba(255, 77, 26, 0.22), rgba(255, 77, 26, 0.07) 55%, rgba(255, 77, 26, 0) 100%);
+        opacity: 0;
+      }
+      #prog { position: absolute; left: 90px; right: 90px; top: 236px; height: 2px; background: var(--paper-08); }
+      #progfill { position: absolute; inset: 0; background: var(--orange); transform-origin: 0 50%; }
+      #vig {
+        position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(120% 75% at 50% 48%, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0.38) 100%);
+      }
+
+      /* ---------- the one world: jacket card, Pixel dot, person, phone, icons ---------- */
+      .jc { position: absolute; border-radius: 28px; background: var(--paper); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35); }
+      .jc svg { position: absolute; left: 14%; top: 12%; width: 72%; height: 72%; display: block; }
+      .jc.sm { border-radius: 16px; }
+      .px { position: absolute; width: 24px; height: 24px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 18px 5px rgba(255, 77, 26, 0.55); }
+      .person { position: absolute; display: block; }
+      .person svg { width: 100%; height: 100%; display: block; fill: currentColor; }
+      .phone { position: absolute; border-radius: 48px; border: 3px solid var(--paper-14); background: rgba(245, 241, 234, 0.03); overflow: hidden; }
+      .bar { position: absolute; height: 18px; border-radius: 9px; background: var(--paper-14); }
+      [data-ic] { display: block; width: 44px; height: 44px; flex: none; }
+      .ic { display: block; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+      .chip {
+        display: flex; align-items: center; gap: 16px; height: 92px; padding: 0 36px; border-radius: 46px;
+        border: 2px solid var(--paper-14); background: rgba(245, 241, 234, 0.04); font-size: 46px; font-weight: 700;
+      }
+            .cursor { position: absolute; width: 58px; height: 58px; }
+      .ring { position: absolute; width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%; border: 4px solid var(--orange); opacity: 0; }
+      .logo-frame { position: absolute; overflow: hidden; }
+      .logo-frame img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+      .logo-clip { mix-blend-mode: lighten; }
+      .draw path, .draw rect, .draw circle { fill: none; stroke: var(--paper-55); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+      /* 09 rules */
+      .rule { position: absolute; left: 90px; width: 900px; height: 240px; border-radius: 30px; border: 2px solid var(--paper-14); background: rgba(245, 241, 234, 0.03); }
+      .rule .ico { position: absolute; right: 34px; top: 56px; width: 128px; height: 128px; border-radius: 50%; border: 3px solid var(--paper-14); color: var(--orange); display: flex; align-items: center; justify-content: center; }
+      .rule .ico [data-ic] { width: 62px; height: 62px; }
+      .rule .cond { position: absolute; right: 196px; top: 48px; font-size: 54px; font-weight: 800; white-space: nowrap; }
+      .rule .cons { position: absolute; right: 196px; top: 134px; height: 64px; display: flex; align-items: center; gap: 16px; font-size: 46px; font-weight: 700; color: var(--orange); white-space: nowrap; }
+      .rule .cons [data-ic] { width: 44px; height: 44px; }
+
+      /* subtitles: one line at a time, bottom safe area (above the bottom 300px, clear of the right-edge icons) */
+      #subs { pointer-events: none; }
+      .sub { position: absolute; left: 90px; width: 840px; top: 1430px; height: 190px; display: flex; align-items: center; justify-content: center; opacity: 0; }
+      .sub span {
+        display: inline-block; max-width: 840px; padding: 14px 32px; border-radius: 24px;
+        background: rgba(26, 26, 26, 0.86); border: 1px solid rgba(245, 241, 234, 0.1);
+        font-size: 46px; font-weight: 600; line-height: 1.45; text-align: center; color: var(--paper);
+        direction: rtl; unicode-bidi: isolate; white-space: normal;
+      }
+      .sub b { font-weight: 700; color: var(--orange); direction: ltr; unicode-bidi: isolate; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0.0" data-duration="61.576" data-width="1080" data-height="1920">
+
+      <!-- ================= GROUND (grid, marks, travelling glow, progress) ================= -->
+      <div id="ground" class="clip" data-start="0.0" data-duration="61.576" data-track-index="0">
+        <div id="grid" data-layout-allow-overflow></div>
+        <svg id="marks" viewBox="0 0 1080 1920">
+          <path d="M138 432h20M148 422v20 M922 432h20M932 422v20 M138 1380h20M148 1370v20 M922 1380h20M932 1370v20" />
+          <path d="M90 1400h120 M90 1400v-10 M130 1400v-6 M170 1400v-6 M210 1400v-10" />
+          <path d="M870 288h120 M990 288v10 M950 288v6 M910 288v6 M870 288v10" />
+        </svg>
+        <div id="glow"></div>
+        <div id="prog"><div id="progfill"></div></div>
+      </div>
+
+      <!-- ================= 01 HOOK: the shop page, the tap, the jacket left behind ================= -->
+      <section id="s1" class="clip" data-start="0.0" data-duration="4.145" data-track-index="1">
+        <div id="ph1" class="phone" style="left: 330px; top: 430px; width: 420px; height: 820px" data-layout-allow-overflow>
+          <div class="bar" style="left: 150px; top: 22px; width: 120px; height: 10px"></div>
+          <div class="bar" style="left: 40px; top: 70px; width: 120px"></div>
+          <div class="bar" style="left: 300px; top: 70px; width: 80px"></div>
+          <div class="abs" style="left: 40px; top: 130px; width: 340px; height: 340px; border-radius: 28px; background: var(--paper-08)"></div>
+          <div class="bar" style="left: 40px; top: 500px; width: 240px; height: 24px"></div>
+          <div class="bar" style="left: 40px; top: 544px; width: 130px; height: 24px"></div>
+          <div class="abs" style="left: 40px; top: 610px; width: 340px; height: 80px; border-radius: 40px; border: 2px solid var(--paper-14)"></div>
+          <div class="bar" style="left: 40px; top: 730px; width: 340px; height: 10px"></div>
+        </div>
+        <div id="j1" class="jc" data-jacket style="left: 370px; top: 560px; width: 340px; height: 340px" data-layout-allow-overflow></div>
+        <i id="r1" class="ring" style="left: 560px; top: 740px"></i>
+        <div id="cur1" class="cursor" data-cursor style="left: 0; top: 0" data-layout-allow-overflow></div>
+        <div class="row ar" style="top: 1300px; height: 92px; display: flex; justify-content: center; gap: 40px">
+          <div id="c1a" class="chip"><i data-ic="eye" class="or"></i><span>شفت</span></div>
+          <div id="c1b" class="chip"><i data-ic="hand" class="or"></i><span>فلّيت</span></div>
+        </div>
+      </section>
+
+      <!-- hook watermark: the supplied logo, composited with lighten so its black field sits on the charcoal -->
+      <section id="s1l" class="clip logo-clip" data-start="0.0" data-duration="4.119" data-track-index="4">
+        <div class="logo-frame" style="left: 405px; top: 262px; width: 270px; height: 152px">
+          <img id="s1logo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
+        </div>
+      </section>
+
+      <!-- ================= 02 FOLLOW: the jacket pops into every feed (dimmed behind 03) ================= -->
+      <section id="s2" class="clip" data-start="4.145" data-duration="6.674" data-track-index="1">
+        <div id="s2in" class="abs" style="inset: 0">
+          <div id="lb3" class="row ar" style="top: 470px; left: 90px; right: auto; width: 300px; font-size: 42px; font-weight: 700">بكل مكان</div>
+          <div id="lb2" class="row en" style="top: 470px; left: 390px; right: auto; width: 300px; font-size: 42px; font-weight: 700">YouTube</div>
+          <div id="lb1" class="row en" style="top: 470px; left: 720px; right: auto; width: 300px; font-size: 42px; font-weight: 700">Instagram</div>
+          <div id="sc3" class="phone feed" style="left: 90px; top: 560px; width: 270px; height: 600px; border-radius: 40px"></div>
+          <div id="sc2" class="phone feed" style="left: 405px; top: 560px; width: 270px; height: 600px; border-radius: 40px"></div>
+          <div id="sc1" class="phone feed" style="left: 720px; top: 560px; width: 270px; height: 600px; border-radius: 40px"></div>
+          <div id="j2c" class="jc sm" data-jacket style="left: 115px; top: 690px; width: 220px; height: 220px"></div>
+          <div id="j2b" class="jc sm" data-jacket style="left: 430px; top: 690px; width: 220px; height: 220px"></div>
+          <div id="j2" class="jc" data-jacket style="left: 370px; top: 660px; width: 340px; height: 340px"></div>
+        </div>
+      </section>
+
+      <!-- ================= 03 FREEZE: صدفة؟ لأ. ================= -->
+      <section id="s3" class="clip" data-start="9.16" data-duration="1.659" data-track-index="2">
+        <div id="s3q" class="row ar" style="top: 640px; font-size: 150px; font-weight: 800; line-height: 1.4">صدفة؟</div>
+        <div id="s3n" data-layout-allow-overflow class="row ar or" style="top: 880px; font-size: 230px; font-weight: 900; line-height: 1.3">لأ.</div>
+      </section>
+
+      <!-- ================= 04 TERM: Retargeting + the loop out and back ================= -->
+      <section id="s4" class="clip" data-start="10.819" data-duration="4.433" data-track-index="1">
+        <div id="s4caret" class="abs" style="left: 536px; top: 470px; width: 8px; height: 150px; background: var(--orange)"></div>
+        <div id="s4word" class="row en or" style="top: 440px; font-size: 168px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.2"></div>
+        <div id="s4p" class="person" data-person style="left: 196px; top: 760px; width: 100px; height: 166px; color: var(--paper)"></div>
+        <div id="s4j" class="jc sm" data-jacket style="left: 800px; top: 770px; width: 140px; height: 140px"></div>
+        <svg id="s4loop" class="abs" style="left: 0; top: 660px; width: 1080px; height: 360px" viewBox="0 0 1080 360">
+          <defs><clipPath id="s4clip"><rect id="s4cr" x="300" y="0" width="0" height="200" /></clipPath></defs>
+          <path id="s4out" clip-path="url(#s4clip)" d="M320 120 C 470 10, 680 10, 790 120" fill="none" stroke="rgba(245,241,234,0.55)" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 16" />
+          <path id="s4back" d="M790 240 C 680 350, 470 350, 330 250" fill="none" stroke="#FF4D1A" stroke-width="6" stroke-linecap="round" />
+          <path id="s4head" d="M352 222 L326 248 L362 258" fill="none" stroke="#FF4D1A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <div class="row ar" style="top: 1110px; font-size: 60px; font-weight: 600; line-height: 1.4">
+          <span class="w s4d">توصل</span> <span class="w s4d">مرة</span> <span class="w s4d">تانية</span> <span class="w s4d">للي</span> <span class="w s4d">شافوك…</span>
+        </div>
+        <div class="row ar or" style="top: 1220px; font-size: 68px; font-weight: 800; line-height: 1.4">
+          <span class="w s4e">وما</span> <span class="w s4e">اشتروا</span>
+        </div>
+      </section>
+
+      <!-- ================= 05 SHOP: came in, tried, left — then the salesperson remembers ================= -->
+      <section id="s5" class="clip" data-start="15.252" data-duration="8.915" data-track-index="1">
+        <svg id="shop" class="abs draw" style="left: 0; top: 0; width: 1080px; height: 1920px" viewBox="0 0 1080 1920">
+          <path class="sp" pathLength="1" d="M90 1150 H990" />
+          <path class="sp" pathLength="1" d="M230 1150 V700 M850 1150 V700" />
+          <path class="sp" pathLength="1" d="M200 700 L250 610 H830 L880 700 Z" />
+          <path class="sp" pathLength="1" d="M330 610 L310 700 M420 610 L410 700 M510 610 L510 700 M600 610 L610 700 M690 610 L710 700 M770 610 L800 700" />
+          <rect class="sp" pathLength="1" x="270" y="740" width="340" height="320" rx="12" />
+          <path class="sp" pathLength="1" d="M300 790 H580" />
+          <rect class="sp" pathLength="1" x="660" y="760" width="150" height="390" rx="6" />
+          <circle class="sp" pathLength="1" cx="680" cy="960" r="6" />
+        </svg>
+        <svg id="hook5" class="abs" style="left: 425px; top: 784px; width: 30px; height: 40px" viewBox="0 0 30 40"><path d="M15 2 V30" stroke="rgba(245,241,234,0.55)" stroke-width="3" /></svg>
+        <div id="j5" class="jc sm" data-jacket style="left: 360px; top: 812px; width: 160px; height: 160px"></div>
+        <div id="sales5" class="person" data-person style="left: 700px; top: 1006px; width: 74px; height: 124px; color: var(--orange)"></div>
+        <div id="p5in" class="person" data-person style="left: 530px; top: 920px; width: 62px; height: 104px; color: var(--paper)"></div>
+        <div id="p5" class="person" data-person style="left: 0; top: 1018px; width: 80px; height: 132px; color: var(--paper)" data-layout-allow-overflow></div>
+        <svg id="bub5" class="abs" style="left: 160px; top: 380px; width: 760px; height: 220px" viewBox="0 0 760 220">
+          <path d="M40 10 H720 Q750 10 750 40 V140 Q750 170 720 170 H600 L585 212 L555 170 H40 Q10 170 10 140 V40 Q10 10 40 10 Z" fill="#1A1A1A" stroke="#FF4D1A" stroke-width="5" stroke-linejoin="round" />
+        </svg>
+        <div id="bub5t" class="row ar" style="top: 410px; left: 170px; right: auto; width: 740px; height: 150px; display: flex; align-items: center; justify-content: center; font-size: 56px; font-weight: 700">بعدها القطعة&nbsp;<span class="or">ناطرتك</span></div>
+        <div class="row ar" style="top: 1210px; height: 92px; display: flex; justify-content: center; gap: 30px">
+          <div id="c5a" class="chip"><span>فات</span><i data-ic="check" class="or"></i></div>
+          <div id="c5b" class="chip"><span>جرّب</span><i data-ic="check" class="or"></i></div>
+          <div id="c5c" class="chip" style="color: var(--paper-55)"><span>اشترى</span><i data-ic="x"></i></div>
+        </div>
+      </section>
+
+      <!-- ================= 06 PIXEL: the salesperson becomes the dot ================= -->
+      <section id="s6" class="clip" data-start="24.167" data-duration="6.202" data-track-index="1">
+        <div id="s6lab" class="row en" style="top: 330px; height: 110px; display: flex; justify-content: center; align-items: center; gap: 28px">
+          <span class="or" style="font-size: 92px; font-weight: 900; letter-spacing: 0.02em">PIXEL</span>
+          <span style="font-size: 80px; font-weight: 400; color: var(--paper-55)">=</span>
+          <span class="ar" style="font-size: 84px; font-weight: 800">البيّاع</span>
+        </div>
+        <div id="bw" class="abs" style="left: 130px; top: 480px; width: 820px; height: 620px; border-radius: 30px; border: 2px solid var(--paper-14); background: #202020; overflow: hidden">
+          <div class="abs" style="left: 32px; top: 26px; display: flex; gap: 12px">
+            <i style="width: 14px; height: 14px; border-radius: 50%; background: var(--paper-14); display: block"></i>
+            <i style="width: 14px; height: 14px; border-radius: 50%; background: var(--paper-14); display: block"></i>
+            <i style="width: 14px; height: 14px; border-radius: 50%; background: var(--paper-14); display: block"></i>
+          </div>
+          <div class="abs" style="left: 140px; top: 16px; width: 440px; height: 34px; border-radius: 17px; background: var(--paper-08)"></div>
+          <div class="abs" style="left: 0; right: 0; top: 66px; height: 1px; background: var(--paper-08)"></div>
+          <div id="pgA" class="abs" style="left: 0; top: 66px; width: 820px; height: 554px">
+            <div id="j6" class="jc sm" data-jacket style="left: 50px; top: 50px; width: 300px; height: 300px"></div>
+            <div class="bar" style="left: 400px; top: 80px; width: 330px; height: 26px"></div>
+            <div class="bar" style="left: 400px; top: 130px; width: 200px; height: 26px"></div>
+            <div class="bar" style="left: 400px; top: 200px; width: 360px; height: 12px"></div>
+            <div class="bar" style="left: 400px; top: 228px; width: 300px; height: 12px"></div>
+            <div id="cartbtn" class="abs" style="left: 400px; top: 290px; width: 360px; height: 84px; border-radius: 42px; border: 2px solid var(--paper-14); color: var(--paper-70); display: flex; align-items: center; justify-content: center"><i data-ic="cart" style="width: 44px; height: 44px"></i></div>
+            <div class="bar" style="left: 50px; top: 420px; width: 710px; height: 12px"></div>
+            <div class="bar" style="left: 50px; top: 450px; width: 520px; height: 12px"></div>
+          </div>
+          <div id="pgB" class="abs" style="left: 0; top: 66px; width: 820px; height: 554px">
+            <div class="abs" style="left: 50px; top: 46px; color: var(--orange)"><i data-ic="cart" style="width: 70px; height: 70px"></i></div>
+            <div class="bar" style="left: 140px; top: 70px; width: 220px; height: 26px"></div>
+            <div class="abs" style="left: 50px; top: 160px; width: 720px; height: 190px; border-radius: 22px; border: 2px solid var(--paper-14)"></div>
+            <div class="jc sm" data-jacket style="left: 76px; top: 185px; width: 140px; height: 140px"></div>
+            <div class="bar" style="left: 250px; top: 205px; width: 300px; height: 24px"></div>
+            <div class="bar" style="left: 250px; top: 250px; width: 160px; height: 24px"></div>
+            <div class="abs" style="left: 50px; top: 400px; width: 720px; height: 84px; border-radius: 42px; border: 2px solid var(--paper-14)"></div>
+          </div>
+        </div>
+        <i id="px6" class="px" style="left: 896px; top: 499px"></i>
+        <i id="px6r" class="ring" style="left: 908px; top: 511px"></i>
+        <div id="sales6" class="person" data-person style="left: 700px; top: 1006px; width: 74px; height: 124px; color: var(--orange)"></div>
+        <div id="cur6" class="cursor" data-cursor style="left: 0; top: 0" data-layout-allow-overflow></div>
+        <i id="r6" class="ring" style="left: 0; top: 0"></i>
+        <div id="mline" class="abs" style="left: 906px; top: 524px; width: 0; height: 640px; border-left: 3px dashed rgba(255, 77, 26, 0.7); transform-origin: 50% 0"></div>
+        <div id="mem" class="abs ar" style="left: 130px; top: 1164px; width: 820px; height: 210px; border-radius: 26px; border: 2px solid rgba(255, 77, 26, 0.45); background: rgba(255, 77, 26, 0.05)">
+          <div id="m1" class="abs" style="right: 50px; top: 30px; height: 70px; display: flex; align-items: center; gap: 18px; font-size: 48px; font-weight: 700"><span>فات</span><i data-ic="check" class="or" style="width: 44px; height: 44px"></i></div>
+          <div id="m2" class="abs" style="right: 50px; top: 110px; height: 70px; display: flex; align-items: center; gap: 18px; font-size: 48px; font-weight: 700"><span>صفحة الجاكيت</span><i data-ic="check" class="or" style="width: 44px; height: 44px"></i></div>
+        </div>
+      </section>
+
+      <!-- ================= 07 WARM: stranger vs someone who knows you ================= -->
+      <section id="s7" class="clip" data-start="30.369" data-duration="4.762" data-track-index="1">
+        <svg class="abs draw s7shop" style="left: 190px; top: 400px; width: 160px; height: 140px" viewBox="0 0 160 140">
+          <path pathLength="1" d="M10 40 L30 6 H130 L150 40 Z M22 40 V134 H138 V40 M66 134 V84 H94 V134" />
+        </svg>
+        <svg class="abs draw s7shop" style="left: 730px; top: 400px; width: 160px; height: 140px" viewBox="0 0 160 140">
+          <path pathLength="1" d="M10 40 L30 6 H130 L150 40 Z M22 40 V134 H138 V40 M66 134 V84 H94 V134" />
+        </svg>
+        <div id="pathL" class="abs" style="left: 268px; top: 556px; width: 0; height: 420px; border-left: 5px dotted var(--muted); transform-origin: 50% 100%"></div>
+        <div id="pathR" class="abs" style="left: 808px; top: 556px; width: 0; height: 90px; border-left: 5px dotted var(--orange); transform-origin: 50% 100%"></div>
+        <div id="pL" class="person" data-person style="left: 226px; top: 990px; width: 88px; height: 146px; color: var(--muted)"></div>
+        <div id="pR" class="person" data-person style="left: 766px; top: 660px; width: 88px; height: 146px; color: var(--orange)"></div>
+        <div id="lR" class="row ar or" style="top: 826px; left: 590px; right: auto; width: 440px; font-size: 54px; font-weight: 800">بيعرفك</div>
+        <div id="lL" class="row ar" style="top: 1156px; left: 50px; right: auto; width: 440px; font-size: 54px; font-weight: 700; color: var(--paper-55)">ما بيعرفك</div>
+        <div id="s7z" class="row ar or" style="top: 1270px; font-size: 76px; font-weight: 800; line-height: 1.3">مش من الصفر</div>
+      </section>
+
+      <!-- ================= 08 DON'T REPEAT: the same ad, five times ================= -->
+      <section id="s8" class="clip" data-start="35.131" data-duration="3.943" data-track-index="1">
+        <div id="deck" class="abs" style="inset: 0" data-layout-allow-overflow></div>
+        <div class="row ar" style="top: 1130px; height: 120px; display: flex; justify-content: center; align-items: center; gap: 28px">
+          <span id="s8t" style="font-size: 66px; font-weight: 700">نفس الإعلان كل يوم</span>
+          <span id="s8eq" style="font-size: 70px; font-weight: 400; color: var(--paper-55)">=</span>
+          <i id="s8face" data-ic="sleepy" style="width: 112px; height: 112px; color: var(--paper)"></i>
+        </div>
+      </section>
+
+      <!-- ================= 09 THE RULES ================= -->
+      <section id="s9" class="clip" data-start="39.074" data-duration="8.007" data-track-index="1">
+        <div id="rw1" class="rule ar" style="top: 450px">
+          <div class="ico"><i data-ic="eye"></i></div>
+          <div class="cond">شاف المنتج</div>
+          <div class="cons rc"><i data-ic="arrow"></i><span>فرجيه ياه مرة تانية</span></div>
+          <div class="jc sm th" data-jacket style="left: 40px; top: 50px; width: 140px; height: 140px"></div>
+        </div>
+        <div id="rw2" class="rule ar" style="top: 730px">
+          <div class="ico"><i data-ic="cart"></i></div>
+          <div class="cond">حطّو بالسلة</div>
+          <div class="cons rc"><i data-ic="arrow"></i><span>ذكّرو</span></div>
+          <div class="jc sm th" data-jacket style="left: 40px; top: 50px; width: 140px; height: 140px"></div>
+          <i id="rw2px" class="px" style="left: 162px; top: 34px"></i>
+        </div>
+        <div id="rw3" class="rule ar" style="top: 1010px">
+          <div class="ico"><i data-ic="check"></i></div>
+          <div class="cond">اشترى</div>
+          <div class="cons rc"><i data-ic="arrow"></i><span>وقّف الإعلان</span></div>
+          <div class="jc sm th" data-jacket style="left: 40px; top: 50px; width: 140px; height: 140px"></div>
+        </div>
+      </section>
+
+      <!-- ================= 10 THE LINE ================= -->
+      <section id="s10" class="clip" data-start="47.081" data-duration="6.202" data-track-index="1">
+        <div id="s10in" class="abs" style="inset: 0">
+          <div class="row ar" style="top: 560px; font-size: 64px; font-weight: 600; line-height: 1.4; color: var(--paper-70)">
+            <span class="w a10">مش</span> <span class="w a10">كل</span> <span class="w a10">إعلان</span> <span class="w a10">لازم</span> <span class="w a10">يحكي</span>
+          </div>
+          <div class="row ar" style="top: 660px; font-size: 64px; font-weight: 600; line-height: 1.4; color: var(--paper-70)">
+            <span class="w b10">مع</span> <span class="w b10">ناس</span> <span class="w b10">جداد.</span>
+          </div>
+          <div class="row ar" style="top: 870px; font-size: 92px; font-weight: 800; line-height: 1.4">
+            <span class="w c10">أقرب</span> <span class="w c10">زبون…</span>
+          </div>
+          <div class="row ar" style="top: 1005px; font-size: 92px; font-weight: 800; line-height: 1.4">
+            <span class="w d10">هوي</span> <span class="w d10">اللي</span> <span class="w e10 or">فات</span> <span class="w e10 or">وفلّ.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 11 CTA: comment PIXEL ================= -->
+      <section id="s11" class="clip" data-start="53.283" data-duration="5.293" data-track-index="1">
+        <svg id="bub11" class="abs" style="left: 170px; top: 400px; width: 740px; height: 380px" viewBox="0 0 740 380">
+          <path d="M60 14 H680 Q726 14 726 60 V250 Q726 296 680 296 H200 L120 364 L132 296 H60 Q14 296 14 250 V60 Q14 14 60 14 Z" fill="none" stroke="#FF4D1A" stroke-width="10" stroke-linejoin="round" />
+        </svg>
+        <div id="w11" class="row en" style="top: 414px; left: 184px; right: auto; width: 712px; height: 282px; display: flex; justify-content: center; align-items: center; gap: 26px">
+          <span style="font-size: 150px; font-weight: 900; letter-spacing: 0.02em">PIXEL</span>
+          <i id="px11" class="px" style="position: relative; width: 38px; height: 38px; margin-top: 70px"></i>
+        </div>
+        <div id="t11a" class="row ar" style="top: 860px; font-size: 92px; font-weight: 800; line-height: 1.4">اكتب <span class="en or">PIXEL</span></div>
+        <svg id="arr11" class="abs" style="left: 508px; top: 1010px; width: 64px; height: 90px" viewBox="0 0 64 90">
+          <path d="M32 6 V78 M8 56 L32 80 L56 56" fill="none" stroke="#FF4D1A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <div id="t11b" class="row ar" style="top: 1150px; font-size: 62px; font-weight: 600; line-height: 1.4; color: var(--paper-70)">ومنقلّك كيف تتأكد</div>
+      </section>
+
+      <!-- ================= 12 END CARD — supplied logo, unmodified ================= -->
+      <section id="s12" class="clip logo-clip" data-start="58.576" data-duration="3.0" data-track-index="4">
+        <div class="logo-frame" style="left: 150px; top: 741px; width: 780px; height: 439px">
+          <img id="s12logo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
+        </div>
+      </section>
+
+      <div id="vig" class="clip" data-start="0.0" data-duration="61.576" data-track-index="3"></div>
+
+      <!-- ================= SUBTITLES (built from SUBS below) ================= -->
+      <section id="subs" class="clip" data-start="0.0" data-duration="58.576" data-track-index="5"></section>
+
+      <!-- ================= AUDIO ================= -->
+      <audio id="a-vo" src="audio/vo/vo_track.wav" data-start="0.0" data-duration="61.576" data-track-index="10" data-volume="1"></audio>
+      <audio id="a-music" src="audio/music.wav" data-start="0.0" data-duration="61.576" data-track-index="20" data-volume="1"></audio>
+      <audio id="a-sfx" src="audio/sfx.wav" data-start="0.0" data-duration="61.576" data-track-index="21" data-volume="1"></audio>
+    </div>
+
+    <script>
+      (function () {
+        /*CUES*/ const CUES = {"duration":61.576,"endcard":58.576,"scenes":{"s1":[0.0,4.145],"s1l":[0.0,4.119],"s2":[4.145,10.819],"s3":[9.16,10.819],"s4":[10.819,15.252],"s5":[15.252,24.167],"s6":[24.167,30.369],"s7":[30.369,35.131],"s8":[35.131,39.074],"s9":[39.074,47.081],"s10":[47.081,53.283],"s11":[53.283,58.576],"s12":[58.576,61.576],"subs":[0.0,58.576]},"words":[[0.395,0.643],[0.681,0.871],[0.91,1.024],[1.062,1.329],[1.614,1.805],[1.843,2.148],[2.186,2.452],[3.1,3.519],[4.395,4.605],[4.662,4.89],[5.024,5.157],[5.195,5.614],[5.633,6.071],[6.338,6.433],[6.471,6.986],[7.386,7.481],[7.519,7.9],[8.224,8.433],[8.471,8.757],[9.31,9.614],[10.186,10.319],[11.119,11.29],[11.31,11.538],[11.557,12.129],[12.529,12.7],[12.738,12.986],[13.005,13.29],[13.329,13.633],[13.652,13.786],[13.824,14.09],[14.11,14.338],[14.433,14.548],[14.586,14.643],[14.662,14.929],[15.652,15.919],[15.957,16.186],[16.224,16.471],[16.7,16.852],[16.929,17.233],[17.29,17.652],[17.671,18.014],[18.052,18.167],[18.205,18.262],[18.281,18.548],[19.024,19.31],[19.329,19.69],[19.729,19.805],[19.824,20.167],[20.89,21.024],[21.062,21.329],[21.386,21.671],[21.957,22.167],[22.205,22.376],[22.795,22.967],[22.986,23.329],[23.367,23.805],[24.567,24.681],[24.7,25.176],[25.195,25.29],[25.329,25.633],[25.671,25.767],[25.843,26.186],[26.967,27.195],[27.233,27.5],[27.519,28.071],[28.452,28.91],[28.929,29.081],[29.119,29.386],[29.576,29.729],[29.748,29.9],[29.957,30.243],[30.719,30.928],[30.967,31.214],[31.252,31.519],[31.957,32.11],[32.205,32.357],[32.357,32.757],[32.852,33.29],[33.843,33.881],[33.9,33.976],[34.033,34.357],[34.395,34.49],[34.51,34.567],[34.586,34.986],[35.481,35.652],[35.71,36.014],[36.662,36.719],[36.738,37.081],[37.119,37.31],[37.31,37.671],[37.71,37.824],[37.862,38.071],[38.262,38.395],[38.433,38.833],[39.424,39.576],[39.633,39.805],[39.824,40.51],[40.548,40.852],[40.89,40.967],[41.005,41.214],[41.29,41.614],[42.205,42.376],[42.433,42.681],[42.719,43.329],[43.367,43.71],[43.767,43.957],[43.976,44.281],[44.319,44.681],[45.252,45.443],[45.462,45.919],[45.976,46.167],[46.224,46.567],[46.605,46.89],[47.481,47.576],[47.633,47.748],[47.843,48.205],[48.243,48.471],[48.51,48.719],[48.738,48.833],[48.852,49.024],[49.062,49.386],[49.9,50.262],[50.338,50.624],[50.662,50.929],[51.043,51.405],[51.881,51.995],[52.09,52.243],[52.281,52.567],[52.643,53.043],[53.633,54.033],[54.071,54.167],[54.205,54.529],[55.024,55.367],[55.405,55.767],[55.805,56.49],[56.719,57.024],[57.062,57.195],[57.252,57.405],[57.443,57.976]],"lines":{"01":{"s":0.395,"e":3.519,"w":[0,7]},"02":{"s":4.395,"e":8.757,"w":[8,18]},"03":{"s":9.31,"e":10.319,"w":[19,20]},"04":{"s":11.119,"e":12.129,"w":[21,23]},"05":{"s":12.529,"e":14.929,"w":[24,33]},"06":{"s":15.652,"e":18.548,"w":[34,43]},"07":{"s":19.024,"e":23.805,"w":[44,55]},"08":{"s":24.567,"e":30.243,"w":[56,70]},"09":{"s":30.719,"e":34.986,"w":[71,83]},"10":{"s":35.481,"e":38.833,"w":[84,93]},"11":{"s":39.424,"e":44.681,"w":[94,107]},"12":{"s":45.252,"e":46.89,"w":[108,112]},"13":{"s":47.481,"e":53.043,"w":[113,128]},"14":{"s":53.633,"e":57.976,"w":[129,138]}}}; /*END CUES*/
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => Array.from(document.querySelectorAll(s));
+        const ORANGE = "#FF4D1A", GOLD = "#FFB000";
+        const E = "power3.out";
+        // timing helpers (film seconds, from scripts/cues.json → Scribe word timings of the VO)
+        const W = (i) => CUES.words[i][0]; // word i starts
+        const We = (i) => CUES.words[i][1]; // word i ends
+        const SC = (k) => CUES.scenes[k];
+
+        // subtitles: exactly the brief's spoken line, split at the speaker's own pauses.
+        // [first Scribe word index, html]. <b> = English key term (Latin, orange)
+        const SUBS = [
+          [0, "فتت مرة على موقع،"],
+          [4, "شفت جاكيت حلو… وفلّيت."],
+          [8, "تاني يوم، صار الجاكيت لاحقك:"],
+          [13, "عـ <b>Instagram</b>، عـ <b>YouTube</b>، بكل مكان."],
+          [19, "صدفة؟ لأ."],
+          [21, "هيدا اسمو <b>Retargeting</b>."],
+          [24, "يعني ترجع توصل للناس اللي شافوك قبل،"],
+          [31, "بس ما اشتروا."],
+          [34, "تخيّل محل تياب."],
+          [37, "حدا فات، جرّب، وطلع بلا ما يشتري."],
+          [44, "البيّاع الشاطر ما بينساه."],
+          [48, "بس يرجع يمرق، بيقلّو:"],
+          [53, "\"بعدها القطعة ناطرتك.\""],
+          [56, "عالإنترنت، الـ <b>Pixel</b> هوي البيّاع."],
+          [62, "كود صغير بموقعك،"],
+          [65, "بيتذكّر مين فات، وعلى أي صفحة."],
+          [71, "وليش هالشي مهم؟"],
+          [74, "لأن هيدا الشخص بيعرفك."],
+          [78, "ما عم تبلّش معو من الصفر."],
+          [84, "بس انتبه:"],
+          [86, "ما تفرجيه نفس الإعلان كل يوم، هيك بيزهق."],
+          [94, "اللي شاف المنتج، فرجيه ياه مرة تانية."],
+          [101, "واللي حطّو بالسلة، ذكّرو إنو بعدو ناطرو."],
+          [108, "وإذا اشترى؟ وقّف الإعلان عنو."],
+          [113, "مش كل إعلان لازم يحكي مع ناس جداد."],
+          [121, "أحياناً أقرب زبون… هوي اللي فات وفلّ."],
+          [129, "موقعك فيه <b>Pixel</b>؟"],
+          [132, "اكتب <b>PIXEL</b> بالكومنتات، ومنقلّك كيف تتأكد."],
+        ];
+        const LINE_END = Object.values(CUES.lines).map((l) => [l.w[0], l.w[1], l.e]);
+        const lineEndFor = (wi) => LINE_END.find(([a, b]) => wi >= a && wi <= b)[2];
+
+        // line icons (24-unit grid, stroke = currentColor) — used instead of colour emoji
+        const ICON = {
+          eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
+          hand: '<path d="M18 11V6a2 2 0 0 0-4 0M14 10V4a2 2 0 0 0-4 0v2M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-6-2.3l-3.6-3.6a2 2 0 0 1 2.8-2.8L7 15"/>',
+          cart: '<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 2h2l2.7 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L22 7H5.1"/>',
+          check: '<path d="M20 6 9 17l-5-5"/>',
+          x: '<path d="M18 6 6 18M6 6l12 12"/>',
+          arrow: '<path d="M20 12H4M10 6l-6 6 6 6"/>',
+          sleepy: '<circle cx="11" cy="13.5" r="9"/><path d="M6.5 12q1.6 1.4 3.2 0M12.3 12q1.6 1.4 3.2 0"/><circle cx="11" cy="17.3" r="1.2"/><path d="M17.6 1.6h3.6l-3.6 3.6h3.6"/>',
+        };
+        const JACKET = '<svg viewBox="0 0 100 100"><path d="M38 14 L50 30 L62 14 M38 14 L22 20 L10 46 L22 52 L26 44 L26 88 L74 88 L74 44 L78 52 L90 46 L78 20 L62 14 M50 30 V88 M33 66 H43 M57 66 H67" fill="none" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="40" r="3.5" fill="#FF4D1A"/></svg>';
+        const PERSON = '<svg viewBox="0 0 60 100"><circle cx="30" cy="16" r="14"/><path d="M5 98 V64 Q5 38 30 38 Q55 38 55 64 V98 Z"/></svg>';
+        const CURSOR = '<svg viewBox="0 0 24 24" style="width:100%;height:100%;display:block"><path d="M4 2 L4 21 L9.2 15.9 L12.6 23 L15.6 21.6 L12.3 14.6 L19.4 14.6 Z" fill="#F5F1EA" stroke="#1A1A1A" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+        const FEED = '<div class="bar" style="left:22px;top:22px;width:90px;height:10px"></div><i class="abs" style="left:22px;top:66px;width:44px;height:44px;border-radius:50%;background:rgba(245,241,234,0.14)"></i><div class="bar" style="left:80px;top:72px;width:130px;height:14px"></div><div class="bar" style="left:80px;top:94px;width:80px;height:10px"></div><div class="abs" style="left:22px;top:128px;width:220px;height:220px;border-radius:16px;background:rgba(245,241,234,0.08)"></div><div class="bar" style="left:22px;top:370px;width:200px;height:12px"></div><div class="bar" style="left:22px;top:394px;width:140px;height:12px"></div><i class="abs" style="left:22px;top:440px;width:44px;height:44px;border-radius:50%;background:rgba(245,241,234,0.14)"></i><div class="bar" style="left:80px;top:446px;width:120px;height:14px"></div><div class="abs" style="left:22px;top:502px;width:220px;height:120px;border-radius:16px;background:rgba(245,241,234,0.08)"></div>';
+
+        function build() {
+          $$("[data-ic]").forEach((el) => { el.innerHTML = `<svg class="ic" viewBox="0 0 24 24" style="width:100%;height:100%">${ICON[el.dataset.ic]}</svg>`; });
+          $$("[data-jacket]").forEach((el) => (el.innerHTML = JACKET));
+          $$("[data-person]").forEach((el) => (el.innerHTML = PERSON));
+          $$("[data-cursor]").forEach((el) => (el.innerHTML = CURSOR));
+          $$(".feed").forEach((el) => (el.innerHTML = FEED));
+
+          const tl = gsap.timeline({ paused: true });
+          const DUR = CUES.duration, END = CUES.endcard;
+          const rise = (el, t, d = 0.7, y = 44) => tl.fromTo(el, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, t);
+          const out = (el, t, d = 0.35) => tl.to(el, { opacity: 0, duration: d, ease: "power2.in" }, t);
+          const pop = (el, t, d = 0.5) => tl.fromTo(el, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: d, ease: "back.out(2.2)" }, t);
+          const pulse = (el, t, s = 1.08) => tl.fromTo(el, { scale: 1 }, { scale: s, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out" }, t);
+          const ring = (el, t) => tl.fromTo(el, { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 1.6, duration: 0.6, ease: "power2.out" }, t);
+          const glow = (t, x, y, op, s = 1, d = 0.8) => tl.to("#glow", { x: x - 540, y: y - 960, opacity: op, scale: s, duration: d, ease: "power2.inOut" }, t);
+          const words = (els, t, gap = 0.12, y = 34) => els.forEach((el, i) => rise(el, t + i * gap, 0.55, y));
+
+          // ---------- ground ----------
+          tl.fromTo("#grid", { x: 0, y: 0 }, { x: 72, y: 144, duration: DUR, ease: "none" }, 0);
+          tl.fromTo("#marks", { opacity: 0 }, { opacity: 1, duration: 1.2 }, 0.2);
+          tl.fromTo("#progfill", { scaleX: 0 }, { scaleX: 1, duration: END - 0.4, ease: "none" }, 0.4);
+          tl.to(["#grid", "#marks", "#prog"], { opacity: 0, duration: 0.8, ease: "power1.inOut" }, END - 0.4);
+
+          // ---------- subtitles ----------
+          const host = $("#subs");
+          SUBS.forEach(([wi, html], i) => {
+            const d = document.createElement("div");
+            d.className = "sub";
+            d.innerHTML = `<span>${html}</span>`;
+            host.appendChild(d);
+            const t = W(wi);
+            const next = i + 1 < SUBS.length ? W(SUBS[i + 1][0]) : END;
+            const sameLine = i + 1 < SUBS.length && lineEndFor(SUBS[i + 1][0]) === lineEndFor(wi);
+            const hide = sameLine ? next - 0.18 : Math.min(lineEndFor(wi) + 0.45, next - 0.18);
+            tl.fromTo(d, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none" }, t - 0.06);
+            tl.to(d, { opacity: 0, duration: 0.12, ease: "none" }, hide);
+          });
+
+          // ---------- 01 HOOK ----------
+          tl.fromTo("#s1logo", { opacity: 0 }, { opacity: 0.9, duration: 0.8, ease: "power1.out" }, 0.1);
+          tl.to("#s1logo", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, We(7) + 0.1);
+          rise("#ph1", 0.15, 0.7, 60);
+          tl.fromTo("#j1", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, 0.3);
+          tl.set(["#c1a", "#c1b"], { opacity: 0 }, 0);
+          tl.fromTo("#cur1", { x: 840, y: 1250, opacity: 0 }, { opacity: 1, duration: 0.3 }, W(3));
+          tl.to("#cur1", { x: 552, y: 742, duration: 0.6, ease: "power2.inOut" }, W(3));
+          tl.to("#cur1", { scale: 0.82, duration: 0.09, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "10% 10%" }, W(5));
+          ring("#r1", W(5));
+          pulse("#j1", W(5), 1.05);
+          tl.fromTo("#c1a", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, W(4));
+          // he leaves: the page closes, the jacket stays behind
+          tl.to("#cur1", { opacity: 0, duration: 0.3 }, We(6));
+          tl.to("#ph1", { y: 700, opacity: 0, duration: 0.7, ease: "power3.in" }, W(7) - 0.15);
+          tl.fromTo("#c1b", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, W(7));
+          tl.to("#j1", { y: 100, duration: 0.9, ease: "power2.inOut" }, W(7) + 0.1);
+          tl.to("#j1", { rotation: -3, duration: 0.6, yoyo: true, repeat: 1, ease: "sine.inOut" }, We(7));
+          glow(We(7), 540, 830, 0.55, 0.7, 0.6);
+          out(["#c1a", "#c1b"], SC("s1")[1] - 0.4, 0.3);
+
+          // ---------- 02 FOLLOW ----------
+          const FOLLOW = SC("s2")[0];
+          tl.set(["#lb1", "#lb2", "#lb3"], { opacity: 0 }, 0);
+          tl.fromTo("#j2", { y: 0, rotation: 0 }, { y: -14, duration: 0.5, yoyo: true, repeat: 1, ease: "sine.inOut" }, FOLLOW);
+          tl.to("#j2", { y: -40, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, W(11));
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, W(13) - 0.3);
+          // feed 1: Instagram — the same card flies into the feed
+          tl.fromTo("#sc1", { opacity: 0, x: 220 }, { opacity: 1, x: 0, duration: 0.6, ease: E }, W(13) - 0.25);
+          rise("#lb1", W(14) - 0.05, 0.45, 20);
+          tl.to("#j2", { x: 375, y: 30, scale: 220 / 340, transformOrigin: "0% 0%", duration: 0.55, ease: "power3.inOut" }, W(14) - 0.1);
+          tl.to("#j2", { scale: 0.7, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out" }, W(14) + 0.45);
+          // feed 2: YouTube
+          tl.fromTo("#sc2", { opacity: 0, x: 220 }, { opacity: 1, x: 0, duration: 0.6, ease: E }, W(15) - 0.3);
+          rise("#lb2", W(16) - 0.05, 0.45, 20);
+          pop("#j2b", W(16));
+          // feed 3: everywhere — and it drifts toward the viewer
+          tl.fromTo("#sc3", { opacity: 0, x: 220 }, { opacity: 1, x: 0, duration: 0.6, ease: E }, W(17) - 0.35);
+          rise("#lb3", W(17) - 0.05, 0.45, 20);
+          pop("#j2c", W(17) + 0.05);
+          tl.to("#j2c", { x: 200, y: 120, scale: 1.45, boxShadow: "0 40px 80px rgba(0,0,0,0.6)", duration: 1.0, ease: "power2.inOut" }, W(17) + 0.5);
+          // freeze → dim behind the question
+          tl.to("#s2in", { opacity: 0.12, scale: 0.97, filter: "blur(8px)", duration: 0.55, ease: "power2.inOut", transformOrigin: "50% 50%" }, SC("s3")[0]);
+          out("#s2in", SC("s2")[1] - 0.35, 0.3);
+
+          // ---------- 03 FREEZE ----------
+          rise("#s3q", W(19) - 0.1, 0.55, 40);
+          tl.fromTo("#s3n", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.32, ease: "expo.out", transformOrigin: "50% 55%" }, W(20) - 0.04);
+          glow(W(20), 540, 1030, 0.85, 0.6, 0.3);
+          tl.to("#glow", { opacity: 0, duration: 0.3 }, SC("s3")[1] - 0.35);
+          out(["#s3q", "#s3n"], SC("s3")[1] - 0.3, 0.25);
+
+          // ---------- 04 TERM ----------
+          const wch = $("#s4word");
+          wch.innerHTML = "Retargeting".split("").map((c) => `<span class="w ch">${c}</span>`).join("");
+          const chs = $$("#s4word .ch");
+          const cw = chs.reduce((a, c) => a + c.offsetWidth, 0);
+          if (cw > 880) wch.style.fontSize = parseFloat(getComputedStyle(wch).fontSize) * (880 / cw) + "px";
+          const T4 = SC("s4")[0];
+          tl.set([chs, "#s4p", "#s4j", ".s4d", ".s4e"], { opacity: 0 }, 0);
+          tl.fromTo("#s4caret", { opacity: 0 }, { opacity: 1, duration: 0.15 }, T4 + 0.05);
+          tl.to("#s4caret", { opacity: 0, duration: 0.08 }, T4 + 0.35);
+          tl.to("#s4caret", { opacity: 1, duration: 0.08 }, T4 + 0.55);
+          tl.to("#s4caret", { opacity: 0, duration: 0.1 }, W(23) - 0.05);
+          chs.forEach((c, i) => tl.fromTo(c, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.42, ease: E }, W(23) - 0.05 + i * 0.035));
+          glow(W(23), 540, 560, 0.7, 0.85, 0.6);
+          // the loop: out to the shop, and back to the same person
+          rise("#s4p", W(23) + 0.3, 0.5, 20);
+          pop("#s4j", W(23) + 0.45);
+          tl.fromTo("#s4out", { strokeDashoffset: 0, opacity: 0 }, { opacity: 1, duration: 0.2 }, W(24) - 0.25);
+          tl.fromTo("#s4cr", { attr: { width: 0 } }, { attr: { width: 520 }, duration: 0.7, ease: "power2.inOut" }, W(24) - 0.25);
+          tl.fromTo("#s4back", { strokeDasharray: 640, strokeDashoffset: 640 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, W(25));
+          tl.fromTo("#s4head", { opacity: 0 }, { opacity: 1, duration: 0.15 }, W(25) + 0.75);
+          pulse("#s4p", W(25) + 0.8, 1.1);
+          tl.to("#glow", { opacity: 0, duration: 0.5 }, W(25));
+          words($$(".s4d"), W(26) - 0.1, 0.11, 28);
+          words($$(".s4e"), W(31) - 0.05, 0.14, 28);
+          out("#s4 > *", SC("s4")[1] - 0.35, 0.3);
+
+          // ---------- 05 SHOP ----------
+          const T5 = SC("s5")[0];
+          tl.set(["#j5", "#hook5", "#sales5", "#p5", "#p5in", "#bub5", "#bub5t", "#c5a", "#c5b", "#c5c"], { opacity: 0 }, 0);
+          tl.fromTo("#shop .sp", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut", stagger: 0.07 }, T5 + 0.1);
+          tl.to("#hook5", { opacity: 1, duration: 0.3 }, T5 + 0.7);
+          tl.fromTo("#j5", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.6)" }, T5 + 0.8);
+          tl.fromTo("#j5", { rotation: -3 }, { rotation: 3, duration: 0.7, yoyo: true, repeat: 3, ease: "sine.inOut", transformOrigin: "50% 0%" }, T5 + 1.3);
+          // someone walks in …
+          tl.fromTo("#p5", { x: -40, opacity: 0 }, { opacity: 1, duration: 0.3 }, W(37) - 0.55);
+          tl.to("#p5", { x: 696, duration: 0.85, ease: "power1.inOut" }, W(37) - 0.55);
+          tl.fromTo("#p5", { y: 0 }, { y: -8, duration: 0.14, yoyo: true, repeat: 5, ease: "sine.inOut" }, W(37) - 0.55);
+          tl.to("#p5", { opacity: 0, scale: 0.9, duration: 0.2 }, W(38) - 0.05);
+          tl.fromTo("#c5a", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, W(38));
+          // … tries the jacket …
+          tl.to("#p5in", { opacity: 1, duration: 0.2 }, W(39) - 0.1);
+          pulse("#j5", W(39), 1.08);
+          tl.fromTo("#c5b", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, W(39));
+          tl.to("#p5in", { opacity: 0, duration: 0.2 }, W(40) - 0.15);
+          // … and leaves without buying
+          tl.set("#p5", { x: 696, scale: 1 }, W(40) - 0.05);
+          tl.to("#p5", { opacity: 1, duration: 0.15 }, W(40) - 0.05);
+          tl.to("#p5", { x: 1120, duration: 0.8, ease: "power1.in" }, W(40) + 0.05);
+          tl.fromTo("#c5c", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, W(43) - 0.1);
+          // the good salesperson doesn't forget
+          tl.fromTo("#sales5", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, W(44));
+          tl.to(["#c5a", "#c5b", "#c5c"], { opacity: 0.25, duration: 0.4 }, W(44));
+          glow(W(44) + 0.2, 737, 1060, 0.55, 0.4, 0.6);
+          // he passes by again
+          tl.to("#p5", { x: 860, duration: 1.0, ease: "power1.out" }, W(49) - 0.2);
+          tl.fromTo("#p5", { y: 0 }, { y: -8, duration: 0.14, yoyo: true, repeat: 5, ease: "sine.inOut" }, W(49) - 0.2);
+          tl.set("#p5", { opacity: 1 }, W(49) - 0.2);
+          tl.fromTo(["#bub5", "#bub5t"], { opacity: 0, scale: 0.85, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.8)", transformOrigin: "75% 100%" }, W(53) - 0.1);
+          tl.to("#j5", { boxShadow: "0 0 40px 8px rgba(255,77,26,0.5)", duration: 0.5 }, W(53));
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, SC("s5")[1] - 0.6);
+          out(["#shop", "#hook5", "#j5", "#p5", "#bub5", "#bub5t", "#c5a", "#c5b", "#c5c"], SC("s5")[1] - 0.45, 0.4);
+
+          // ---------- 06 PIXEL ----------
+          const T6 = SC("s6")[0];
+          tl.set(["#s6lab", "#pgB", "#px6", "#cur6", "#m1", "#m2"], { opacity: 0 }, 0);
+          tl.set("#mline", { scaleY: 0 }, 0);
+          tl.fromTo("#bw", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, T6 + 0.15);
+          // the salesperson shrinks into the Pixel dot in the page corner
+          tl.to("#sales6", { x: 171, y: -557, scale: 0.18, duration: 0.85, ease: "power3.inOut", transformOrigin: "50% 50%" }, T6 + 0.3);
+          tl.to("#sales6", { opacity: 0, duration: 0.2 }, T6 + 1.0);
+          tl.fromTo("#px6", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(3)" }, T6 + 1.0);
+          tl.fromTo("#s6lab", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.55, ease: E }, W(59) - 0.1);
+          const blips = [W(62), W(65), W(68) + 0.15];
+          blips.forEach((t) => { pulse("#px6", t, 1.5); ring("#px6r", t); });
+          // the visit: product page …
+          tl.fromTo("#cur6", { x: 980, y: 1200, opacity: 0 }, { opacity: 1, duration: 0.25 }, W(63) - 0.35);
+          tl.to("#cur6", { x: 330, y: 760, duration: 0.6, ease: "power2.inOut" }, W(63) - 0.35);
+          tl.set("#r6", { x: 330, y: 760 }, 0);
+          ring("#r6", W(64));
+          pulse("#j6", W(64), 1.05);
+          tl.to("#mline", { scaleY: 1, duration: 0.6, ease: "power2.inOut" }, W(65));
+          tl.fromTo("#m1", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: E }, W(67) - 0.1);
+          // … then the cart
+          tl.to("#cur6", { x: 720, y: 892, duration: 0.5, ease: "power2.inOut" }, W(67) + 0.05);
+          tl.set("#r6", { x: 720, y: 892 }, W(68) - 0.1);
+          ring("#r6", W(68) - 0.05);
+          tl.to("#cartbtn", { borderColor: ORANGE, color: ORANGE, duration: 0.2 }, W(68) - 0.05);
+          tl.to("#pgA", { opacity: 0, duration: 0.25 }, W(68) + 0.1);
+          tl.to("#pgB", { opacity: 1, duration: 0.3 }, W(68) + 0.15);
+          tl.fromTo("#m2", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: E }, W(70) - 0.1);
+          tl.to("#cur6", { opacity: 0, duration: 0.3 }, W(70) + 0.2);
+          out("#s6 > *", SC("s6")[1] - 0.35, 0.3);
+
+          // ---------- 07 WARM ----------
+          const T7 = SC("s7")[0];
+          tl.set(["#pL", "#pR", "#lL", "#lR", "#s7z"], { opacity: 0 }, 0);
+          tl.set(["#pathL", "#pathR"], { scaleY: 0 }, 0);
+          tl.fromTo(".s7shop path", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut", stagger: 0.12 }, T7 + 0.1);
+          rise("#pL", W(72), 0.5, 20);
+          tl.to("#pathL", { scaleY: 1, duration: 0.9, ease: "power2.inOut" }, W(72) + 0.3);
+          rise("#lL", W(73), 0.45, 18);
+          rise("#pR", W(77) - 0.15, 0.5, 20);
+          tl.to("#pathR", { scaleY: 1, duration: 0.35, ease: "power2.out" }, W(77) + 0.15);
+          rise("#lR", W(77), 0.45, 18);
+          glow(W(77), 808, 760, 0.7, 0.5, 0.6);
+          tl.fromTo("#s7z", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.55, ease: "expo.out" }, W(82) - 0.15);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, SC("s7")[1] - 0.6);
+          out("#s7 > *", SC("s7")[1] - 0.35, 0.3);
+
+          // ---------- 08 DON'T REPEAT ----------
+          const deck = [];
+          for (let k = 0; k < 5; k++) {
+            const c = document.createElement("div");
+            c.className = "jc";
+            c.style.cssText = "left:350px;top:500px;width:380px;height:460px";
+            c.innerHTML = JACKET.replace('<svg viewBox', '<svg style="left:15%;top:6%;width:70%;height:58%" viewBox') +
+              '<i class="abs" style="left:44px;top:330px;width:220px;height:20px;border-radius:10px;background:#1A1A1A;opacity:0.85"></i>' +
+              '<i class="abs" style="left:44px;top:366px;width:140px;height:20px;border-radius:10px;background:#1A1A1A;opacity:0.35"></i>' +
+              '<i class="abs" style="left:236px;top:398px;width:100px;height:36px;border-radius:18px;background:#FF4D1A"></i>';
+            $("#deck").appendChild(c);
+            deck.push(c);
+          }
+          tl.set(["#s8t", "#s8eq", "#s8face"], { opacity: 0 }, 0);
+          const dealt = [SC("s8")[0] + 0.25, W(87), W(88), W(90), W(91)];
+          deck.forEach((c, k) => {
+            const rot = k === 0 ? 0 : (k % 2 ? -1 : 1) * (2 + k);
+            tl.fromTo(c, { opacity: 0, x: 520, y: -k * 26, rotation: 16 }, { opacity: 1 - k * 0.15, x: 0, rotation: rot, duration: 0.35, ease: "power3.out" }, dealt[k]);
+          });
+          rise("#s8t", W(88) - 0.05, 0.5, 24);
+          tl.fromTo(["#s8eq", "#s8face"], { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)", stagger: 0.1 }, W(92));
+          tl.to("#s8face", { rotation: -8, duration: 0.4, yoyo: true, repeat: 1, ease: "sine.inOut" }, W(93) + 0.2);
+          tl.to(deck, { x: -900, rotation: -18, opacity: 0, duration: 0.5, ease: "power3.in", stagger: 0.03 }, We(93) + 0.05);
+          out(["#s8t", "#s8eq", "#s8face"], SC("s8")[1] - 0.3, 0.25);
+
+          // ---------- 09 THE RULES ----------
+          tl.set([".rule", ".rc", "#rw2px"], { opacity: 0 }, 0);
+          const ruleIn = (r, t) => tl.fromTo(r, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.55, ease: E }, t);
+          ruleIn("#rw1", W(94) - 0.05);
+          tl.fromTo("#rw1 .rc", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: E }, W(97) - 0.05);
+          tl.fromTo("#rw1 .th", { opacity: 0.4, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, W(97));
+          ruleIn("#rw2", W(101) - 0.05);
+          tl.fromTo("#rw2 .rc", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: E }, W(104) - 0.05);
+          pop("#rw2px", W(104) + 0.1, 0.4);
+          tl.to("#rw1", { opacity: 0.5, duration: 0.4 }, W(101));
+          ruleIn("#rw3", W(108) - 0.05);
+          tl.to("#rw2", { opacity: 0.5, duration: 0.4 }, W(108));
+          tl.fromTo("#rw3 .rc", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: E }, W(110) - 0.05);
+          // bought → the ad switches off, the row turns gold
+          const TG = W(110) + 0.15;
+          tl.to("#rw3", { borderColor: "rgba(255,176,0,0.75)", backgroundColor: "rgba(255,176,0,0.06)", duration: 0.4 }, TG);
+          tl.to(["#rw3 .ico", "#rw3 .rc"], { color: GOLD, borderColor: GOLD, duration: 0.4 }, TG);
+          tl.to("#rw3 .th", { opacity: 0, scale: 0.85, duration: 0.5, ease: "power2.in" }, TG + 0.1);
+          tl.to(["#rw1", "#rw2"], { opacity: 1, duration: 0.5 }, We(112) + 0.1);
+          out(".rule", SC("s9")[1] - 0.35, 0.3);
+
+          // ---------- 10 THE LINE ----------
+          words($$(".a10"), W(113) - 0.05, 0.12);
+          words($$(".b10"), W(118) - 0.05, 0.12);
+          words($$(".c10"), W(122) - 0.05, 0.16, 40);
+          words($$(".d10"), W(125) - 0.05, 0.14, 40);
+          words($$(".e10"), W(127) - 0.05, 0.16, 40);
+          glow(W(127), 400, 1090, 0.8, 0.6, 0.7);
+          tl.fromTo("#s10in", { scale: 1 }, { scale: 1.05, duration: SC("s10")[1] - SC("s10")[0], ease: "sine.inOut", transformOrigin: "50% 50%" }, SC("s10")[0]);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, SC("s10")[1] - 0.6);
+          out("#s10in", SC("s10")[1] - 0.35, 0.3);
+
+          // ---------- 11 CTA ----------
+          const T11 = SC("s11")[0];
+          tl.set(["#w11", "#t11a", "#t11b", "#arr11"], { opacity: 0 }, 0);
+          tl.fromTo("#bub11", { opacity: 0, scale: 0.8, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.8)", transformOrigin: "20% 90%" }, T11 + 0.2);
+          rise("#w11", T11 + 0.45, 0.55, 26);
+          tl.fromTo("#px11", { scale: 1, opacity: 0.6 }, { scale: 1.45, opacity: 1, duration: 0.45, yoyo: true, repeat: 7, ease: "sine.inOut" }, W(131) - 0.1);
+          rise("#t11a", W(132) - 0.05, 0.55, 30);
+          tl.fromTo("#arr11", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, W(133) + 0.2);
+          tl.to("#arr11", { y: 16, duration: 0.45, yoyo: true, repeat: 3, ease: "sine.inOut" }, W(133) + 0.6);
+          rise("#t11b", W(135) - 0.05, 0.55, 24);
+          glow(W(132), 540, 900, 0.6, 0.8, 0.7);
+          tl.to("#glow", { opacity: 0, duration: 0.5 }, END - 0.6);
+          out("#s11 > *", END - 0.5, 0.4);
+
+          // ---------- 12 END CARD ----------
+          tl.fromTo("#s12logo", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, END + 0.1);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["main"] = tl;
+        }
+
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+        else build();
+      })();
+    </script>
+  </body>
+</html>
