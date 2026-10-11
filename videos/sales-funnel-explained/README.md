@@ -3,7 +3,7 @@
 HyperFrames composition: `index.html` (1080×1920, 30fps). Brief: `BRIEF.md` · VO script + timings: `SCRIPT.md` ·
 scene plan: `STORYBOARD.md` · Instagram caption: `CAPTION.md`.
 
-Deliverables: `renders/sales-funnel-explained.mp4` (H.264 1080×1920 30fps, AAC, −14 LUFS, true peak < −1 dBFS)
+Deliverables: `renders/sales-funnel-explained.mp4` (H.264 1080×1920 30fps, AAC, −13.7 LUFS, true peak −1.1 dBFS)
 and `cover.png`.
 
 Arc: HOOK (an ad, a shrug, a scroll) → the stranger (the ad bounces off) → `Sales Funnel` (the path from first sight to
@@ -37,8 +37,8 @@ python3 scripts/build_audio.py   # procedural music bed (pre-ducked under the VO
 npm run check                         # lint + runtime + layout + contrast
 npx hyperframes preview --background  # Studio
 npx hyperframes@0.8.127 render --quality high --fps 30 --output renders/sales-funnel-raw.mp4
-# Instagram loudness: -14 LUFS, true peak < -1 dBFS (re-measure with ebur128 if the mix changes):
-ffmpeg -i renders/sales-funnel-raw.mp4 -c:v copy -af "volume=<gain>dB,alimiter=limit=0.85:attack=3:release=60:level=false,aresample=48000" -c:a aac -b:a 256k renders/sales-funnel-explained.mp4
+# Instagram loudness: -14 LUFS, true peak < -1 dBFS (measured -13.7 LUFS / -1.1 dBTP; re-measure with ebur128 if the mix changes):
+ffmpeg -i renders/sales-funnel-raw.mp4 -c:v copy -af "volume=6.3dB,alimiter=limit=0.85:attack=3:release=60:level=false,aresample=48000" -c:a aac -b:a 256k renders/sales-funnel-explained.mp4
 python3 scripts/build_cover.py        # cover/cover.html -> cover.png
 ```
 
