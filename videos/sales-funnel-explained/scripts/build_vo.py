@@ -1,0 +1,52 @@
+"""Lay the chosen ElevenLabs take on the film and write the cue sheet.
+
+Input : audio/vo/vo_full.mp3     (take 3, voice "Fadi - Lebanese Conversational", eleven_multilingual_v2,
+                                  generated on ElevenLabs flow b2xrMxWciA7lUhILktXK; Salem's pick)
+        scripts/vo_words.json    (ElevenLabs Scribe word timings of that file, raw take seconds)
+Output: audio/vo/vo_track.wav    (1.05x tempo, pitch kept, +GAIN_DB, 48 kHz mono, starts at LEAD)
+        scripts/cues.json        (every word and every script line in film seconds, end card, duration)
+Then run scripts/apply_cues.py (writes the timings into index.html) and scripts/build_audio.py.
+
+The take is one continuous file, so it is NOT cut or re-spaced: every timing is a straight linear map
+film = LEAD + raw / TEMPO. The 14 script lines are word-index ranges into the Scribe word list.
+"""
+import json
+import subprocess
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+VO = ROOT / "audio" / "vo"
+TEMPO = 1.05      # the brief allows ~1.05x if the take feels slow; atempo keeps the pitch
+LEAD = 0.3        # silence before the take (its first word sits ~0.1s in -> first word at ~0.4s)
+GAIN_DB = 10.5  # the take lands ~-33.7 LUFS; lift it so the VO sits on top of the mix
+TAIL = 0.6        # after the last word, before the end card
+END_CARD = 3.0
+# first/last Scribe word index of each script line (brief section 2)
+LINES = {"01": (0, 8), "02": (9, 16), "03": (17, 20), "04": (21, 33), "05": (34, 38), "06": (39, 47),
+         "07": (48, 59), "08": (60, 67), "09": (68, 77), "10": (78, 89), "11": (90, 110), "12": (111, 117),
+         "13": (118, 122), "14": (123, 131)}
+
+words = [w for w in json.loads((ROOT / "scripts" / "vo_words.json").read_text())["words"] if w.get("type", "word") == "word"]
+assert len(words) == 132, len(words)
+f = lambda t: round(LEAD + t / TEMPO, 3)
+
+W = [[f(w["start"]), f(w["end"])] for w in words]
+end_card = round(W[-1][1] + TAIL, 3)
+film_dur = round(end_card + END_CARD, 3)
+# the track runs the full film length (silence after the take) so its clip matches the root duration
+subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(VO / "vo_full.mp3"), "-af",
+                f"atempo={TEMPO},volume={GAIN_DB}dB,adelay={int(LEAD * 1000)},aresample=48000,apad",
+                "-t", str(film_dur), "-ac", "1", "-c:a", "pcm_s24le", str(VO / "vo_track.wav")], check=True)
+
+cues = {
+    "tempo": TEMPO,
+    "words": W,
+    "text": [w["text"] for w in words],
+    "lines": {n: {"s": W[a][0], "e": W[b][1], "w": [a, b]} for n, (a, b) in LINES.items()},
+}
+cues["endcard"] = end_card
+cues["duration"] = film_dur
+(ROOT / "scripts" / "cues.json").write_text(json.dumps(cues, ensure_ascii=False, indent=0))
+for n, v in cues["lines"].items():
+    print(n, v["s"], v["e"])
+print("endcard", cues["endcard"], "duration", cues["duration"])

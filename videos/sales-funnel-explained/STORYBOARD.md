@@ -1,0 +1,47 @@
+---
+format: 1080x1920
+fps: 30
+duration: 59.1
+music: dark minimal electronic bed (procedural, scripts/build_audio.py), same palette as the earlier episodes
+captions: Arabic, burned in, one line at a time, key terms in orange Latin
+---
+
+# STORYBOARD: Sales Funnel (شو يعني؟)
+
+Same world as the earlier episodes: charcoal canvas, barely visible 72px grid drifting slowly, Alexandria 300–900,
+orange for meaning, a progress hairline at the top. **One world:** the **funnel** is the recurring object, a line-drawn
+outline with 4 bands (Awareness, Consideration, Decision, Loyalty). It is one element (`#fnBox`) that lives from
+scene 03 to scene 11 and only moves and scales: centre → small on the left beside the café → centre → left (room for
+the tags) → centre. It shows no numbers; its narrowing is just a shape. The **customer** is an off-white person icon.
+The **café** is a generic line drawing (awning, blank sign, window with a counter, door, one cup) with no name, logo or
+cup branding. Every scene window and reveal is keyed to a Scribe word time (`scripts/apply_cues.py`, `W(i)` in
+`index.html`). The funnel shape and colours (orange bands, gold bottom band) are reusable for the Retargeting
+episode (Nov 7).
+
+| # | window (s) | lines | scene | on-screen text |
+|---|------------|-------|-------|----------------|
+| 01 HOOK | 0–2.87 | 01 | The spoken line rises word by word, big in the centre (**subtitle hidden**). Below it, a phone shows an ad card ("اشتري هلق") with a person icon in front. The person shrugs (two orange shrug marks) and the feed scrolls straight past the ad (swipe). Logo watermark small at the top | `ليش ما حدا بيشتري منك` / `من أول مرة؟` |
+| 02 STRANGER | 2.87–5.45 | 02 | Two person icons: an orange one on the right with a small ad card (you), and a grey stranger on the left. An orange arrow fires from the ad, bounces off the stranger and falls away. A big orange `؟` pops over the stranger | `؟` · `ما بيعرفك` |
+| 03 TERM | 5.45–12.05 | 03–04 | `Sales Funnel` lands huge. The empty funnel outline draws itself band by band (pen sound). A small person sits above the funnel mouth; a dotted path runs down through the funnel to an orange cart under it | `Sales Funnel` · person → dotted path → cart (drawn, top to bottom) |
+| 04 CAFÉ | 12.05–14.61 | 05 | The funnel slides small to the left (RTL "one side"). On the right, a line-drawn café front draws itself on a street line; the cup appears on the counter | cup icon |
+| 05 AWARENESS | 14.61–18.59 | 06 | The customer walks past the café (right to left) and stops; an eye badge pops over the head. The **top band** fills orange and gets its label. The customer walks on | `Awareness` · eye icon `لاحظ` |
+| 06 CONSIDERATION | 18.59–24.36 | 07 | Three quick beats as spoken: steam rises from the cup, two seated person icons appear inside, a small review card shows three outline stars (no rating number). The **second band** fills | `Consideration` · aroma icon · people icon · star icon |
+| 07 DECISION | 24.36–28.57 | 08 | The customer walks through the door (shop-door bell) and appears inside; the cup slides across the counter to them (cup set). The **third band** fills | `Decision` · cup icon `أول فنجان` |
+| 08 LOYALTY | 28.57–33.07 | 09 | A 3-page calendar flips (pages marked with dots, no numbers) as the customer comes back three times; then two friend icons join. The **bottom band** fills in **gold** | `Loyalty` (gold) · loop icon · plus + people icon |
+| 09 THE MISTAKE | 33.07–37.79 | 10 | The full funnel is back in the centre. A big "اشتري هلق" ad card flies in and jumps straight at the top band, hits it (dull thud, the funnel shakes) and breaks in two; an orange ✗ stamps over the band | `✗` · `أول مرة؟` |
+| 10 THE MESSAGES | 37.79–47.02 | 11 | The funnel moves left; the bands answer one by one on "كل مرحلة إلها رسالة". Next to each of the top 3 bands a message tag slides in on a dashed connector as it's spoken (soft pop each). The bottom band steps back | book icon `علّمو` · star icon `ليش إنت` · cart icon `سهّلّو` |
+| 11 DROP-OFF | 47.02–52.72 | 12–13 | Calm: three grey person icons quietly step out of the funnel's sides at different bands and drop away. Then a magnifier glides over the bands and stops, pulsing, on Consideration; the other bands dim | magnifier icon `وين؟` |
+| 12 CTA | 52.72–56.10 | 14 | A large orange comment bubble; inside, the four stage names as chips that light up in turn like taps; a bobbing down arrow | `Awareness` · `Consideration` · `Decision` · `Loyalty` · down arrow |
+| 13 END CARD | 56.10–59.10 | — | The supplied logo fades in 0.97 → 1 with the Reignite chime. No text | (logo only) |
+
+Notes
+- **One text layer:** the bottom subtitles carry every spoken sentence; the centre shows only visuals and short labels.
+  Scene 01 shows its full line big in the centre, so its subtitle is not shown.
+- Emoji (☕ 👀 👃 👥 ⭐ 🔁 📖 🛒 🔍 👇 🧍) are drawn as line icons in brand colours. Alexandria has no emoji, and a
+  fallback emoji font would look different from scene to scene (brief §4 allows this). `👃` is drawn as rising aroma
+  lines, since a nose doesn't read well as a line icon.
+- Gold is used only for the Loyalty stage (its band and its label in scene 08); the gold band stays part of the funnel
+  afterwards.
+- The scene 01 line is shown as the brief's short on-screen form `ليش ما حدا بيشتري منك من أول مرة؟`; the
+  subtitle track does not repeat it.
+- The scene 11 magnifier stops on Consideration. It's an example, not a claim that most people drop there.
