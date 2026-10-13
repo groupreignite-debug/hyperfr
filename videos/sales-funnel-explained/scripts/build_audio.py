@@ -347,7 +347,7 @@ SFX += [(W(44), "pop", 0.3), (W(54) - 0.15, "pop", 0.3)]
 # 07 decision: the door bell as he walks in, the cup set on the counter
 SFX += [(W(61) + 0.55, "bell", 0.6), (W(63) + 0.45, "cupset", 0.7)]
 # 08 loyalty: three quick visits (calendar flips), the friends
-SFX += [(t, "tick", 0.35) for t in (W(70) - 0.1, W(71) - 0.05, W(72) - 0.05)] + [(W(74) - 0.05, "click", 0.3)]
+SFX += [(W(70) - 0.15 + k * 0.38, "tick", 0.35) for k in range(3)] + [(W(74) - 0.05, "click", 0.3)]
 # 09 the mistake: the ad flies in, thud on the hit, the stamp
 SFX += [(W(80) - 0.1, "whoosh", 0.3), (W(82), "whoosh", 0.35), (HIT, "thud", 0.75), (HIT + 0.1, "click", 0.45)]
 # 10 messages: three soft pops for the tags

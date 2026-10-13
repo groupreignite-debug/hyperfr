@@ -1,36 +1,48 @@
-# SCRIPT: Sales Funnel (ElevenLabs "Fadi" VO, take 3)
+# SCRIPT: Sales Funnel (client voiceover)
 
-Voice: ElevenLabs "Fadi - Lebanese Conversational Voice" (`oJQlz7pz2yWd7MRmDUXm`), `eleven_multilingual_v2`.
-The full script was generated as 3 takes on ElevenLabs flow `b2xrMxWciA7lUhILktXK`; **take 3** is used
-(`audio/vo/vo_full.mp3`, untouched, 58.5s). `scripts/build_vo.py` plays it at 1.05× (pitch kept) from 0.3s, with no
-cuts or re-spacing. Word timings come from ElevenLabs Scribe (`scripts/vo_words.json`, raw take seconds; Scribe flow
-`M7KMp6NVxT8H2QSBmbHQ`), mapped linearly into film time in `scripts/cues.json`. Times below are film seconds.
+**Voice used in the reel:** the client recording `AUD-20261013-WA0100.m4a` (Oct 13), kept as
+`audio/vo-human/src/vo_human_raw.m4a` (WhatsApp AAC 65 kb/s mono, 55.0s). `scripts/build_vo_human.py` cleans it
+(EQ for the phone mic, de-ess, light compression, levelled to −23 LUFS like the TTS track the mix was balanced on)
+and tightens three silences only: the 1.06s lead-in → 0.40s, the 1.5s breath between lines 10 and 11 → 0.75s, and a
+0.9s mid-sentence hesitation in line 12 → 0.4s. No time-stretch, no words cut. Word timings: ElevenLabs Scribe
+(`scripts/vo_human_words.json`, Scribe flow `M7KMp6NVxT8H2QSBmbHQ`). Times below are film seconds.
 
 | # | start | end | line (as written in the brief = subtitle text) |
 |---|-------|-----|------------------------------------------------|
-| 01 | 0.38 | 2.68 | ليش ما حدا بيشتري منك من أول مرة بيشوفك؟ *(shown big in scene 01; subtitle hidden)* |
-| 02 | 3.12 | 5.10 | لأن الناس ما بيشتروا من حدا ما بيعرفوه. |
-| 03 | 5.75 | 6.85 | هيدا اسمو Sales Funnel. |
-| 04 | 7.41 | 11.82 | يعني الطريق اللي بيمشيه الزبون، من أول مرة بيسمع فيك، لحد ما يشتري. |
-| 05 | 12.39 | 14.34 | تخيّل في قهوة جديدة بحيّك. |
-| 06 | 14.91 | 18.43 | أول مرة بتمرق قدّامها، بس بتلاحظها. هيدي الـ Awareness. |
-| 07 | 18.89 | 24.15 | بعدين بتشمّ الريحة، بتشوف الناس قاعدين، بتقرا الريفيوز. هيدا الـ Consideration. |
-| 08 | 24.66 | 28.57 | وبيوم، بتفوت وبتطلب أول فنجان. هيدا الـ Decision. |
-| 09 | 28.62 | 33.04 | وإذا عجبتك؟ بترجع كل يوم، وبتخبّر رفقاتك. هيدي الـ Loyalty. |
-| 10 | 33.37 | 37.35 | الغلطة؟ إنك تطلب من حدا يشتري، وهوي بعدو أول مرة عم يشوفك. |
-| 11 | 38.19 | 46.78 | كل مرحلة إلها رسالة. للي ما بيعرفك، علّمو شي. للي عم يفكّر، فرجيه ليش إنت. وللي جاهز، سهّلّو يشتري. |
-| 12 | 47.37 | 50.40 | ومش كل الناس بيكمّلوا الطريق، وهيدا طبيعي. |
-| 13 | 50.83 | 52.47 | المهم تعرف وين عم تخسرهن. |
-| 14 | 53.02 | 55.50 | بأي مرحلة عم تخسر زباينك؟ اكتبلنا بالكومنتات. |
+| 01 | 0.39 | 2.69 | ليش ما حدا بيشتري منك من أول مرة بيشوفك؟ *(shown big in scene 01; subtitle hidden)* |
+| 02 | 3.06 | 4.91 | لأن الناس ما بيشتروا من حدا ما بيعرفوه. |
+| 03 | 5.49 | 6.84 | هيدا اسمو Sales Funnel. |
+| 04 | 7.21 | 10.80 | يعني الطريق اللي بيمشيه الزبون، من أول مرة بيسمع فيك، لحد ما يشتري. |
+| 05 | 11.32 | 12.87 | تخيّل في قهوة جديدة بحيّك. |
+| 06 | 13.24 | 16.70 | أول مرة بتمرق قدّامها، بس بتلاحظها. هيدي الـ Awareness. |
+| 07 | 17.18 | 22.57 | بعدين بتشمّ الريحة، بتشوف الناس قاعدين، بتقرا الريفيوز. هيدا الـ Consideration. |
+| 08 | 23.16 | 26.20 | وبيوم، بتفوت وبتطلب أول فنجان. هيدا الـ Decision. |
+| 09 | 26.91 | 30.73 | وإذا عجبتك؟ بترجع كل يوم، وبتخبّر رفقاتك. هيدي الـ Loyalty. |
+| 10 | 31.34 | 35.05 | الغلطة؟ إنك تطلب من حدا يشتري، وهوي بعدو أول مرة عم يشوفك. |
+| 11 | 35.78 | 42.96 | كل مرحلة إلها رسالة. للي ما بيعرفك، علّمو شي. للي عم يفكّر، فرجيه ليش إنت. وللي جاهز، سهّلّو يشتري. |
+| 12 | 43.66 | 46.52 | ومش كل الناس بيكمّلوا الطريق، وهيدا طبيعي. |
+| 13 | 47.06 | 48.65 | المهم تعرف وين عم تخسرهن. |
+| 14 | 49.06 | 52.06 | بأي مرحلة عم تخسر زباينك؟ اكتبلنا بالكومنتات. |
 
-End card: 56.10–59.10s.
+End card: 52.66–55.66s.
 
-## Notes from the Scribe pass (for Salem)
-- **English terms:** Scribe returned `sales funnel`, `awareness`, `consideration`, `decision` and `loyalty` in Latin
-  script, which is a good sign they were spoken as English. They still need a listen to confirm.
-- **Possible extra syllable in line 11:** Scribe hears `كل مرحلة أم إلها رسالة` (an extra "أم", ~0.1s at
-  40.38–40.48s raw / ~38.76s film) where the script has `كل مرحلة إلها رسالة`. It may be a small stumble in the take
-  or Scribe mishearing a breath. The subtitle shows the script text. If it is audible, re-generate line 11 only.
-- Scribe also wrote `الـ reviews` / `الـ comments` in Latin for `الريفيوز` / `بالكومنتات`, and MSA spellings
-  (`اسمه`, `بيعرفه`, `تخسرهم`, `علمه`, `سهّل له`, `اكتب لنا`). These are transcription spellings. The subtitles always
-  use the brief's text.
+## Check of the recording against the script (Scribe pass)
+- **Complete and in order:** all 14 lines, 131 words, no repeats, no outtakes, no missing phrases.
+- **English terms:** Scribe returned `Sales Funnel`, `Awareness`, `Consideration`, `Decision` and `Loyalty` in Latin
+  script (capitalised), a good sign they were said as English. A quick listen still confirms it.
+- **No stumble:** the stray "أم" that the TTS take had in line 11 is not in this recording.
+- **Small wording differences Scribe heard** (subtitles keep the brief's text in every case):
+  - line 04 `اللي بيمشي الزبون` (script: `بيمشيه`)
+  - line 11 `علموه شي` (script: `علّمو شي`), `اللي ما بيعرفك` / `اللي عم يفكر` (script: `للي`)
+  - line 12 `وهيدا الطبيعي` (script: `وهيدا طبيعي`)
+  - line 14 `اكتبنا` (script: `اكتبلنا`); `إذا بينك` is Scribe mishearing `زباينك`
+  These are natural spoken variants or transcription spellings, not errors worth a re-record. Salem may want to
+  listen to line 12 (`الطبيعي`) once.
+- **Audio quality:** clean (noise floor ≈ −80 dB, no clipping, steady level ±1.5 dB), but phone-band: the top end
+  above 5 kHz is 10–17 dB below the TTS take, so the clean-up adds presence and a high shelf. It sounds like a good
+  phone recording, not a studio mic.
+
+## Fallback: TTS take
+The earlier ElevenLabs "Fadi" take 3 (flow `b2xrMxWciA7lUhILktXK`) is still in `audio/vo/` with `scripts/build_vo.py`
+and `scripts/vo_words.json`. To switch back: run `build_vo.py`, point `#a-vo` in `index.html` at
+`audio/vo/vo_track.wav`, then `apply_cues.py` and `build_audio.py`.
