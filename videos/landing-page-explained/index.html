@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="ar" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Reignite Group — Landing Page vs Homepage</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      /* Alexandria: one family, Arabic + Latin subsets (SIL OFL, via @fontsource/alexandria) */
+      @font-face { font-family: "Alexandria"; font-weight: 300; src: url("assets/fonts/alexandria-arabic-300-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 400; src: url("assets/fonts/alexandria-arabic-400-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 500; src: url("assets/fonts/alexandria-arabic-500-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("assets/fonts/alexandria-arabic-700-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("assets/fonts/alexandria-arabic-800-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("assets/fonts/alexandria-arabic-900-normal.woff2") format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+      @font-face { font-family: "Alexandria"; font-weight: 300; src: url("assets/fonts/alexandria-latin-300-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 400; src: url("assets/fonts/alexandria-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 500; src: url("assets/fonts/alexandria-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 700; src: url("assets/fonts/alexandria-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 800; src: url("assets/fonts/alexandria-latin-800-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+      @font-face { font-family: "Alexandria"; font-weight: 900; src: url("assets/fonts/alexandria-latin-900-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212, U+2215; }
+
+      :root {
+        --orange: #ff4d1a;
+        --charcoal: #1a1a1a;
+        --paper: #f5f1ea;
+        --gold: #ffb000;
+        --paper-70: rgba(245, 241, 234, 0.7);
+        --paper-55: rgba(245, 241, 234, 0.55);
+        --paper-30: rgba(245, 241, 234, 0.3);
+        --paper-14: rgba(245, 241, 234, 0.14);
+        --paper-08: rgba(245, 241, 234, 0.08);
+        --or-14: rgba(255, 77, 26, 0.14);
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--charcoal); }
+      #root {
+        position: relative; width: 100%; height: 100%; overflow: hidden;
+        background: var(--charcoal); color: var(--paper);
+        font-family: "Alexandria", sans-serif; -webkit-font-smoothing: antialiased;
+      }
+      .clip { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+      .row { position: absolute; left: 0; right: 0; text-align: center; white-space: nowrap; }
+      .ar { direction: rtl; unicode-bidi: isolate; }
+      .en { direction: ltr; unicode-bidi: isolate; }
+      .or { color: var(--orange); }
+      .hide { opacity: 0; }
+      svg { overflow: visible; }
+
+      /* ---------- ground (as the Incrementality reel) ---------- */
+      #ground { overflow: hidden; }
+      #grid {
+        position: absolute; left: -144px; top: -144px; width: 1368px; height: 2208px;
+        background-image:
+          linear-gradient(rgba(245, 241, 234, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(245, 241, 234, 0.035) 1px, transparent 1px);
+        background-size: 72px 72px;
+      }
+      #marks { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+      #marks path { stroke: rgba(245, 241, 234, 0.09); stroke-width: 1.5; fill: none; }
+      #glow {
+        position: absolute; left: 90px; top: 510px; width: 900px; height: 900px; border-radius: 50%;
+        background: radial-gradient(closest-side, rgba(255, 77, 26, 0.2), rgba(255, 77, 26, 0.06) 55%, rgba(255, 77, 26, 0) 100%);
+        opacity: 0;
+      }
+      #prog { position: absolute; left: 90px; right: 90px; top: 236px; height: 2px; background: var(--paper-08); }
+      #progfill { position: absolute; inset: 0; background: var(--orange); transform-origin: 0 50%; }
+      #vig {
+        position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(120% 75% at 50% 48%, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0.38) 100%);
+      }
+      .logo-frame { position: absolute; overflow: hidden; }
+      .logo-frame img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+      .logo-clip { mix-blend-mode: lighten; }
+
+      /* ---------- phone + mockups ---------- */
+      .phone {
+        position: absolute; left: 230px; top: 420px; width: 620px; height: 1020px; border-radius: 72px;
+        border: 3px solid rgba(245, 241, 234, 0.82); background: var(--charcoal);
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.45);
+      }
+      .screen {
+        position: absolute; left: 14px; top: 14px; width: 586px; height: 986px; border-radius: 58px;
+        overflow: hidden; background: #1f1f1f; border: 1px solid var(--paper-08); direction: rtl;
+      }
+      .notch { position: absolute; left: 233px; top: 14px; width: 120px; height: 28px; border-radius: 14px; background: var(--charcoal); border: 1.5px solid var(--paper-14); z-index: 5; }
+      .topbar { position: absolute; left: 0; right: 0; top: 52px; height: 78px; border-bottom: 1px solid var(--paper-08); z-index: 3; background: #1f1f1f; }
+      .wm { position: absolute; left: 0; right: 0; top: 18px; text-align: center; font-size: 34px; font-weight: 900; letter-spacing: 0.22em; direction: ltr; }
+      .ico { position: absolute; top: 20px; width: 38px; height: 38px; }
+      .ico path, .ico circle, .ico rect { stroke: var(--paper); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .vp { position: absolute; left: 0; right: 0; top: 130px; bottom: 0; overflow: hidden; }
+      .scroll { position: absolute; left: 0; top: 0; width: 586px; }
+      .sec { position: absolute; left: 22px; width: 542px; }
+      .sec h4 { position: absolute; right: 0; top: 0; font-size: 26px; font-weight: 800; }
+      .btn {
+        position: absolute; height: 52px; padding: 0 26px; border-radius: 26px; display: flex; align-items: center;
+        font-size: 22px; font-weight: 700; white-space: nowrap; background: var(--orange); color: var(--charcoal);
+      }
+      .btn.ol { background: transparent; color: var(--paper); border: 2px solid var(--paper-30); }
+      .btn.sm { height: 40px; padding: 0 18px; font-size: 18px; border-radius: 20px; }
+      .ph { position: absolute; height: 12px; border-radius: 6px; background: var(--paper-14); }
+      .tile { position: absolute; top: 46px; width: 170px; height: 140px; border-radius: 22px; border: 1.5px solid var(--paper-14); background: var(--paper-08); }
+      .tile span { position: absolute; left: 0; right: 0; bottom: 16px; text-align: center; font-size: 24px; font-weight: 700; }
+      .card { position: absolute; border-radius: 22px; background: var(--paper-08); border: 1px solid var(--paper-08); }
+      .bdot { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 4px rgba(255, 77, 26, 0.25); opacity: 0; }
+      .sflash { position: absolute; border: 3px solid var(--orange); border-radius: 24px; opacity: 0; }
+      .hbox { position: absolute; border: 4px solid var(--orange); border-radius: 22px; opacity: 0; box-shadow: 0 0 26px rgba(255, 77, 26, 0.35); }
+      .tag {
+        position: absolute; height: 46px; padding: 0 16px; border-radius: 14px; background: var(--orange); color: var(--charcoal);
+        font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 8px; white-space: nowrap; direction: rtl; opacity: 0;
+      }
+      .badge {
+        position: absolute; width: 58px; height: 58px; border-radius: 50%; background: var(--orange); color: var(--charcoal);
+        font-size: 30px; font-weight: 900; display: flex; align-items: center; justify-content: center; opacity: 0;
+      }
+      .chip {
+        height: 74px; padding: 0 28px; border-radius: 37px; border: 2px solid var(--orange); background: rgba(255, 77, 26, 0.08);
+        display: flex; align-items: center; gap: 14px; font-size: 34px; font-weight: 700; white-space: nowrap;
+      }
+      .chip b { color: var(--orange); font-weight: 900; }
+      .cta {
+        position: absolute; left: 32px; width: 522px; height: 98px; border-radius: 49px; background: var(--orange); color: var(--charcoal);
+        font-size: 38px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+      }
+
+      /* ---------- ad card ---------- */
+      .ad { position: absolute; width: 380px; height: 560px; border-radius: 30px; background: #222; border: 1.5px solid var(--paper-14); overflow: hidden; direction: rtl; transform-origin: 0 0; }
+      .ad .hd { position: absolute; left: 0; right: 0; top: 0; height: 70px; }
+      .ad .av { position: absolute; right: 20px; top: 15px; width: 40px; height: 40px; border-radius: 50%; background: var(--orange); color: var(--charcoal); font-size: 22px; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+      .ad .nm { position: absolute; right: 72px; top: 12px; font-size: 21px; font-weight: 800; letter-spacing: 0.12em; direction: ltr; }
+      .ad .sp { position: absolute; right: 72px; top: 40px; font-size: 16px; color: var(--paper-55); }
+      .ad .im { position: absolute; left: 0; right: 0; top: 70px; height: 330px; background: radial-gradient(70% 70% at 50% 55%, rgba(255, 77, 26, 0.3), rgba(255, 77, 26, 0.06)); }
+      .ad .im svg { position: absolute; left: 30px; top: 70px; width: 320px; height: 160px; }
+      .ad .cb { position: absolute; left: 0; right: 0; top: 400px; height: 64px; background: var(--orange); color: var(--charcoal); font-size: 25px; font-weight: 800; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; }
+      .ad .ic { position: absolute; right: 18px; top: 480px; display: flex; gap: 16px; }
+      .ad .ic svg { width: 34px; height: 34px; }
+      .ad .ic path { stroke: var(--paper-70); stroke-width: 2.6; fill: none; stroke-linejoin: round; stroke-linecap: round; }
+
+      /* ---------- subtitles ---------- */
+      .sub {
+        position: absolute; left: 100px; width: 800px; bottom: 330px; text-align: center; opacity: 0;
+      }
+      .sub span.p {
+        display: inline-block; max-width: 800px; padding: 14px 30px 18px; border-radius: 26px;
+        background: rgba(26, 26, 26, 0.86); border: 1px solid var(--paper-08);
+        font-size: 44px; font-weight: 700; line-height: 1.45; direction: rtl; unicode-bidi: isolate; white-space: normal;
+      }
+      .sub .k { color: var(--orange); direction: ltr; unicode-bidi: isolate; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-full data-start="0" data-duration="62.419" data-width="1080" data-height="1920">
+
+      <!-- ================= GROUND (grid, marks, glow, progress) ================= -->
+      <div id="ground" class="clip" data-full data-start="0" data-duration="62.419" data-track-index="0">
+        <div id="grid" data-layout-allow-overflow></div>
+        <svg id="marks" viewBox="0 0 1080 1920">
+          <path d="M138 432h20M148 422v20 M922 432h20M932 422v20 M138 1584h20M148 1574v20 M922 1584h20M932 1574v20" />
+          <path d="M90 1656h120 M90 1656v-10 M130 1656v-6 M170 1656v-6 M210 1656v-10" />
+          <path d="M870 288h120 M990 288v10 M950 288v6 M910 288v6 M870 288v10" />
+        </svg>
+        <div id="glow"></div>
+        <div id="prog"><div id="progfill"></div></div>
+      </div>
+
+      <!-- ================= 01 HOOK: ad → house "Homepage" → lost visitor, money rolls away ================= -->
+      <section id="s1" class="clip" data-full data-start="0" data-duration="62.419" data-track-index="1">
+        <div id="s1in" class="abs" style="inset: 0">
+          <div id="ad1" class="ad" style="left: 70px; top: 640px"></div>
+          <svg id="s1arr" class="abs" style="left: 0; top: 0; width: 1080px; height: 1920px" viewBox="0 0 1080 1920">
+            <path id="s1arrp" d="M400 760 C470 690 560 700 616 772" stroke="#FF4D1A" stroke-width="5" fill="none" stroke-linecap="round" />
+            <path id="s1arrh" d="M594 770 L618 776 L622 750" stroke="#FF4D1A" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <svg id="house1" class="abs" style="left: 640px; top: 700px; width: 340px; height: 319px" viewBox="0 0 160 150">
+            <path id="h1p" d="M10 70 L80 10 L150 70 V140 H10 Z" stroke="#F5F1EA" stroke-opacity="0.85" stroke-width="2.4" fill="rgba(245,241,234,0.04)" stroke-linejoin="round" />
+            <rect x="110" y="96" width="24" height="44" rx="2" stroke="#F5F1EA" stroke-opacity="0.6" stroke-width="2" fill="none" />
+          </svg>
+          <div id="h1lab" class="row en or" style="left: 640px; right: auto; width: 340px; top: 1040px; font-size: 50px; font-weight: 800">Homepage</div>
+          <svg id="guest1" class="abs" style="left: 694px; top: 896px; width: 58px; height: 97px" viewBox="0 0 60 100"></svg>
+          <div id="q1" class="abs or" style="left: 668px; top: 820px; font-size: 54px; font-weight: 900">؟</div>
+          <div id="q2" class="abs or" style="left: 748px; top: 806px; font-size: 44px; font-weight: 900">؟</div>
+          <div id="q3" class="abs or" style="left: 716px; top: 772px; font-size: 34px; font-weight: 900">؟</div>
+          <svg id="coin" class="abs" style="left: 740px; top: 930px; width: 40px; height: 40px" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="18" fill="#FF4D1A" />
+            <circle cx="20" cy="20" r="12.5" fill="none" stroke="#1A1A1A" stroke-width="2.2" />
+            <path d="M20 12 V28 M24.5 15.5 C22 13.5 15.5 14 15.5 17.5 C15.5 21 24.5 19 24.5 22.8 C24.5 26 18 26.5 15.5 24.5" stroke="#1A1A1A" stroke-width="2.2" fill="none" stroke-linecap="round" />
+          </svg>
+        </div>
+      </section>
+
+      <!-- hook watermark: the supplied logo, composited with lighten so its black field sits on the charcoal -->
+      <section id="wm" class="clip logo-clip" data-start="0" data-duration="6" data-track-index="4">
+        <div class="logo-frame" style="left: 405px; top: 262px; width: 270px; height: 152px">
+          <img id="wmlogo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
+        </div>
+      </section>
+
+      <!-- ================= 02–08 THE PHONE STAGE ================= -->
+      <section id="stage" class="clip" data-full data-start="0" data-duration="62.419" data-track-index="2">
+        <!-- labels above the phone -->
+        <div id="lab2" class="row ar" style="top: 296px; font-size: 60px; font-weight: 800">مثال</div>
+        <div id="chips" class="abs ar" style="left: 0; right: 0; top: 306px; display: flex; justify-content: center; gap: 18px">
+          <div id="chM" class="chip"><span>قائمة</span><b id="cM">٦</b></div>
+          <div id="chS" class="chip"><span>أقسام</span><b id="cS">٠</b></div>
+          <div id="chB" class="chip"><span>كبسات</span><b id="cB">٠</b></div>
+        </div>
+        <div id="term" class="row en or" style="top: 262px; font-size: 104px; font-weight: 900; letter-spacing: -0.01em; line-height: 1.2">Landing Page</div>
+
+        <!-- 04: three visitors, each wants a different part of the homepage -->
+        <svg id="lines4" class="abs" style="left: 0; top: 0; width: 1080px; height: 1920px" viewBox="0 0 1080 1920"></svg>
+        <div id="ppl"></div>
+
+        <!-- 05: the ad + the hesitating arrow -->
+        <div id="ad2" class="ad" style="left: 64px; top: 600px"></div>
+        <svg id="arr5" class="abs" style="left: 0; top: 0; width: 1080px; height: 1920px" viewBox="0 0 1080 1920">
+          <defs><mask id="m5"><path id="m5p" d="M372 820 C430 760 500 760 556 800" stroke="#fff" stroke-width="14" fill="none" /></mask></defs>
+          <path d="M372 820 C430 760 500 760 556 800" stroke="#FF4D1A" stroke-width="5" fill="none" stroke-dasharray="14 12" stroke-linecap="round" mask="url(#m5)" />
+          <path id="arr5h" d="M536 792 L558 802 L556 778" stroke="#FF4D1A" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <div id="q5" class="abs or" style="left: 420px; top: 600px; width: 120px; text-align: center; font-size: 140px; font-weight: 900; line-height: 1">؟</div>
+
+        <!-- 08: ad on top, solid line only to the landing page -->
+        <div id="ad3" class="ad" style="left: 460px; top: 300px"></div>
+        <svg id="ln8" class="abs" style="left: 0; top: 0; width: 1080px; height: 1920px" viewBox="0 0 1080 1920">
+          <path id="ln8p" d="M540 538 C540 600 300 590 300 650" stroke="#FF4D1A" stroke-width="5" fill="none" stroke-linecap="round" />
+          <circle id="ln8c" cx="300" cy="652" r="9" fill="#FF4D1A" />
+        </svg>
+        <div id="lab8b" class="abs en" style="left: 60px; width: 480px; top: 1296px; display: flex; justify-content: center; gap: 12px; font-size: 36px; font-weight: 800; white-space: nowrap">
+          <span class="or">Landing Page</span><span style="color: var(--paper-55)">=</span><span class="ar">لهدف واحد</span>
+        </div>
+        <div id="lab8a" class="abs en" style="left: 540px; width: 480px; top: 1296px; display: flex; justify-content: center; gap: 12px; font-size: 36px; font-weight: 800; white-space: nowrap">
+          <span>Homepage</span><span style="color: var(--paper-55)">=</span><span class="ar">للكل</span>
+        </div>
+        <div id="bdgA" class="abs" style="left: 0; top: 0"></div>
+
+        <!-- the two phones (A = homepage, B = landing page); B sits on A for the wipe -->
+        <div id="phA" class="phone">
+          <div class="screen" id="scrA">
+            <div class="notch"></div>
+            <div class="topbar">
+              <svg class="ico" style="right: 28px" viewBox="0 0 38 38"><path d="M6 10h26M6 19h26M6 28h26" /></svg>
+              <div class="wm">SHOES</div>
+              <svg class="ico" style="left: 84px" viewBox="0 0 38 38"><circle cx="16" cy="16" r="10" /><path d="M24 24l8 8" /></svg>
+              <svg class="ico" style="left: 28px" viewBox="0 0 38 38"><path d="M5 8h5l4 18h17l3-13H12" /><circle cx="16" cy="32" r="2" /><circle cx="28" cy="32" r="2" /></svg>
+            </div>
+            <div class="vp" id="vpA"><div class="scroll" id="scA" data-layout-allow-overflow></div></div>
+            <div id="dimA" class="abs" style="left: 0; right: 0; top: 130px; bottom: 0; background: rgba(26, 26, 26, 0.62); opacity: 0"></div>
+            <div id="menu" data-layout-allow-overlap class="abs" style="right: 0; top: 130px; width: 330px; height: 432px; background: #1a1a1a; border-left: 1px solid var(--paper-14); border-bottom: 1px solid var(--paper-14); border-bottom-left-radius: 26px; z-index: 4"></div>
+          </div>
+        </div>
+
+        <div id="phB" class="phone">
+          <div class="screen" id="scrB">
+            <div class="notch"></div>
+            <div class="topbar" style="border-bottom-color: transparent"><div class="wm" id="lpWm" style="font-size: 26px; top: 24px">SHOES</div></div>
+            <div class="vp"><div class="scroll" id="scB" data-layout-allow-overflow></div></div>
+          </div>
+        </div>
+        <div id="wipe" class="abs" style="left: 0; top: 400px; width: 8px; height: 1060px; background: var(--orange); box-shadow: 0 0 30px 6px rgba(255, 77, 26, 0.55); opacity: 0"></div>
+      </section>
+
+      <!-- ================= 09–10 DINNER: the neighborhood, then the open door ================= -->
+      <section id="s9" class="clip" data-full data-start="0" data-duration="62.419" data-track-index="1">
+        <div id="s9in" class="abs" style="inset: 0">
+          <svg id="hood" class="abs" style="left: 0; top: 0; width: 1080px; height: 1920px" viewBox="0 0 1080 1920"></svg>
+          <div id="gw" class="abs" style="left: 0; top: 0; width: 64px; height: 107px">
+            <svg id="guest" class="abs" style="left: 0; top: 0; width: 64px; height: 107px" viewBox="0 0 60 100"></svg>
+            <div id="q9" class="abs or" style="left: 0; top: -82px; width: 64px; text-align: center; font-size: 64px; font-weight: 900; line-height: 1">؟</div>
+          </div>
+        </div>
+        <div id="s10ic" class="abs" style="left: 0; right: 0; top: 300px; display: flex; justify-content: center; align-items: center; gap: 30px">
+          <svg width="90" height="110" viewBox="0 0 90 110"><rect x="12" y="6" width="66" height="100" rx="6" stroke="#F5F1EA" stroke-width="4" fill="none" /><path d="M12 6 L52 18 V100 L12 106 Z" fill="#FF4D1A" /><circle cx="44" cy="60" r="4" fill="#1A1A1A" /></svg>
+          <svg width="70" height="40" viewBox="0 0 70 40"><path d="M66 20 H8 M24 6 L8 20 L24 34" stroke="#FF4D1A" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          <svg width="130" height="110" viewBox="0 0 130 110"><ellipse cx="65" cy="40" rx="58" ry="12" stroke="#F5F1EA" stroke-width="4" fill="none" /><path d="M22 50 V104 M108 50 V104" stroke="#F5F1EA" stroke-width="4" stroke-linecap="round" /><ellipse cx="44" cy="34" rx="14" ry="5" fill="#FF4D1A" /><ellipse cx="86" cy="34" rx="14" ry="5" fill="#FF4D1A" /></svg>
+        </div>
+      </section>
+
+      <!-- ================= 11 THE RULE (subtitle hidden: the line is the graphic) ================= -->
+      <section id="s11" class="clip" data-full data-start="0" data-duration="62.419" data-track-index="1">
+        <div id="r0" class="row ar" style="top: 560px; font-size: 64px; font-weight: 600; color: var(--paper-70)">القاعدة بسيطة:</div>
+        <div class="rl abs ar" style="left: 0; right: 0; top: 700px; height: 150px; display: flex; justify-content: center; align-items: center; gap: 34px">
+          <span class="rw" style="font-size: 108px; font-weight: 800">إعلان واحد،</span><span class="rb">١</span>
+        </div>
+        <div class="rl abs ar" style="left: 0; right: 0; top: 870px; height: 150px; display: flex; justify-content: center; align-items: center; gap: 34px">
+          <span class="rw" style="font-size: 108px; font-weight: 800">صفحة وحدة،</span><span class="rb">١</span>
+        </div>
+        <div class="rl abs ar" style="left: 0; right: 0; top: 1040px; height: 150px; display: flex; justify-content: center; align-items: center; gap: 34px">
+          <span class="rw or" style="font-size: 108px; font-weight: 800">هدف واحد.</span><span class="rb">١</span>
+        </div>
+        <style>
+          .rb { display: inline-flex; width: 104px; height: 104px; border-radius: 50%; border: 5px solid var(--gold); color: var(--gold); font-size: 60px; font-weight: 900; align-items: center; justify-content: center; }
+        </style>
+      </section>
+
+      <!-- ================= 12 CTA: pick one ================= -->
+      <section id="s12" class="clip" data-full data-start="0" data-duration="62.419" data-track-index="1">
+        <svg id="bub" class="abs" style="left: 110px; top: 560px; width: 860px; height: 560px" viewBox="0 0 860 560">
+          <path d="M60 4 H800 C834 4 856 26 856 60 V400 C856 434 834 456 800 456 H250 L150 552 L170 456 H60 C26 456 4 434 4 400 V60 C4 26 26 4 60 4 Z" stroke="#F5F1EA" stroke-opacity="0.8" stroke-width="4" fill="rgba(245,241,234,0.04)" stroke-linejoin="round" />
+        </svg>
+        <div id="cc1" class="abs en" style="left: 190px; top: 640px; width: 700px; height: 140px; border-radius: 70px; border: 3px solid var(--paper-30); display: flex; align-items: center; justify-content: center; gap: 26px; font-size: 64px; font-weight: 800">
+          <i style="width: 40px; height: 40px; border-radius: 50%; border: 4px solid var(--paper-55); display: block"></i><span>Homepage</span>
+        </div>
+        <div id="cc2" class="abs en" style="left: 190px; top: 820px; width: 700px; height: 140px; border-radius: 70px; border: 3px solid var(--orange); background: rgba(255, 77, 26, 0.08); display: flex; align-items: center; justify-content: center; gap: 26px; font-size: 64px; font-weight: 800">
+          <i style="width: 40px; height: 40px; border-radius: 50%; border: 4px solid var(--orange); display: block"></i><span class="or">Landing Page</span>
+        </div>
+        <svg id="dn" class="abs" style="left: 500px; top: 1160px; width: 80px; height: 110px" viewBox="0 0 80 110">
+          <path d="M40 6 V96 M12 68 L40 98 L68 68" stroke="#FF4D1A" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </section>
+
+      <!-- ================= 13 END CARD — supplied logo, unmodified ================= -->
+      <section id="s13" class="clip logo-clip" data-full data-start="0" data-duration="62.419" data-track-index="4">
+        <div class="logo-frame" style="left: 150px; top: 721px; width: 780px; height: 439px">
+          <img id="endlogo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
+        </div>
+      </section>
+
+      <!-- ================= SUBTITLES (built from the cue sheet) ================= -->
+      <section id="subs" class="clip" data-full data-start="0" data-duration="62.419" data-track-index="5"></section>
+
+      <div id="vig" class="clip" data-full data-start="0" data-duration="62.419" data-track-index="3"></div>
+
+      <!-- ================= AUDIO ================= -->
+      <audio id="a-vo" src="audio/vo/vo_track.wav" data-full data-start="0" data-duration="62.419" data-track-index="10" data-volume="1"></audio>
+      <audio id="a-music" src="audio/music.wav" data-full data-start="0" data-duration="62.419" data-track-index="20" data-volume="1"></audio>
+      <audio id="a-sfx" src="audio/sfx.wav" data-full data-start="0" data-duration="62.419" data-track-index="21" data-volume="1"></audio>
+    </div>
+
+    <script>
+      function main() {
+        // Cue sheet: written by scripts/cues.py (line + word timings from the VO, and every beat derived from them).
+        const CUES = /*CUES*/{"lines":[{"n":1,"start":0.0,"end":2.989,"words":[["عم",0.0,0.2],["تدفع",0.222,0.521],["عالإعلان…",0.555,1.104],["وتبعت",1.165,1.514],["الناس",1.553,1.902],["عالصفحة",1.941,2.39],["الرئيسية؟",2.44,2.989]]},{"n":2,"start":3.5,"end":4.998,"words":[["هون",3.5,3.791],["عم",3.823,4.055],["تضيّع",4.081,4.488],["مصاري.",4.533,4.998]]},{"n":3,"start":5.5,"end":7.992,"words":[["خلّيني",5.5,5.917],["فرجيك",5.964,6.329],["مثال:",6.369,6.734],["محل",6.775,7.036],["أحذية",7.065,7.43],["أونلاين.",7.47,7.992]]},{"n":4,"start":8.5,"end":14.0,"words":[["هيدي",8.5,8.889],["الـ",8.932,9.257],["Homepage",9.293,9.942],["تبعو.",10.014,10.468],["فيها",10.518,10.907],["قائمة،",10.951,11.47],["وأقسام",11.527,12.046],["كتير،",12.104,12.558],["وكبسات",12.608,13.127],["بكل",13.185,13.509],["مكان.",13.545,14.0]]},{"n":5,"start":14.5,"end":21.492,"words":[["وهيدا",14.5,14.904],["طبيعي.",14.949,15.41],["الـ",15.461,15.75],["Homepage",15.782,16.359],["معمولة",16.423,16.884],["لكل",16.935,17.224],["الناس:",17.256,17.717],["اللي",17.769,18.115],["بدو",18.153,18.442],["رجالي،",18.474,18.935],["اللي",18.986,19.332],["بدو",19.371,19.659],["نسائي،",19.691,20.153],["واللي",20.204,20.608],["بدو",20.653,20.941],["العروض.",20.973,21.492]]},{"n":6,"start":22.0,"end":26.501,"words":[["بس",22.0,22.221],["هوّي",22.246,22.578],["عامل",22.615,22.947],["إعلان",22.984,23.371],["على",23.414,23.691],["حذاء",23.722,24.054],["رياضي",24.091,24.478],["واحد.",24.521,24.908],["لوين",24.951,25.283],["لازم",25.32,25.652],["يبعت",25.689,26.021],["الناس؟",26.058,26.501]]},{"n":7,"start":27.0,"end":28.498,"words":[["على",27.0,27.332],["Landing",27.369,27.967],["Page.",28.033,28.498]]},{"n":8,"start":29.0,"end":34.496,"words":[["ما",29.0,29.277],["في",29.308,29.586],["قائمة.",29.617,30.172],["صورة",30.233,30.65],["الحذاء،",30.696,31.32],["عنوان",31.39,31.875],["واحد،",31.929,32.415],["وكبسة",32.469,32.954],["وحدة:",33.008,33.494],["اطلب",33.548,33.964],["هلّق.",34.01,34.496]]},{"n":9,"start":35.0,"end":40.516,"words":[["ليش؟",35.0,35.37],["لأن",35.411,35.719],["الزائر",35.754,36.247],["جايي",36.302,36.672],["لسبب",36.713,37.083],["واحد،",37.124,37.556],["والصفحة",37.604,38.159],["لازم",38.22,38.59],["تحكي",38.631,39.001],["عن",39.043,39.289],["هيدا",39.317,39.687],["السبب",39.728,40.159],["بس.",40.207,40.516]]},{"n":10,"start":41.0,"end":45.997,"words":[["تخيّل",41.0,41.419],["تعزم",41.465,41.824],["حدا",41.864,42.163],["على",42.196,42.495],["العشا،",42.528,43.007],["وتقلّو:",43.06,43.598],["تعا",43.658,43.957],["عالحي،",43.99,44.469],["ودوّر",44.522,44.94],["عالبيت",44.987,45.465],["لحالك.",45.518,45.997]]},{"n":11,"start":46.5,"end":50.499,"words":[["الـ",46.5,46.785],["Landing",46.816,47.329],["Page",47.386,47.728],["هيي",47.766,48.05],["إنك",48.082,48.367],["تفتحلو",48.398,48.854],["الباب،",48.905,49.36],["والطاولة",49.411,49.98],["جاهزة.",50.044,50.499]]},{"n":12,"start":51.0,"end":54.999,"words":[["القاعدة",51.0,51.586],["بسيطة:",51.651,52.172],["إعلان",52.229,52.685],["واحد،",52.736,53.191],["صفحة",53.242,53.633],["وحدة،",53.676,54.132],["هدف",54.182,54.508],["واحد.",54.544,54.999]]},{"n":13,"start":55.5,"end":58.919,"words":[["إعلاناتك",55.5,56.062],["لوين",56.125,56.462],["عم",56.5,56.725],["تبعت",56.75,57.087],["الناس؟",57.125,57.575],["اكتبلنا",57.625,58.131],["بالكومنتات.",58.188,58.919]]}],"beats":{"s1_ad":0.15,"s1_tap":0.705,"s1_arrow":1.165,"s1_house":1.615,"s1_push":2.44,"s1_lost":2.79,"s1_coin":4.533,"s1_out":5.15,"s2_phone":5.35,"s2_mark":7.065,"s3_menu":10.951,"s3_menu_close":11.427,"s3_steps":[11.577,11.955,12.333,12.711,13.088,13.466,13.844,14.222],"s3_end":14.6,"s4_shrink":15.361,"s4_p":[18.474,19.691,20.973],"s5_ad":22.615,"s5_shoe":23.722,"s5_arrow":24.951,"s5_q":26.058,"s6_wipe":26.9,"s6_term":27.369,"s7_k":[29.0,30.233,31.39,32.469],"s7_tap":33.548,"s8_split":34.9,"s8_lab_a":35.411,"s8_ad":35.754,"s8_line":36.713,"s8_lab_b":37.604,"s9_in":40.85,"s9_guest":41.465,"s9_wander":43.658,"s10_light":46.816,"s10_door":48.398,"s10_table":49.411,"s10_walk":49.98,"s11_in":50.9,"s11_stamp":[52.229,53.242,54.182],"s12_in":55.4,"s12_chips":[56.125,56.75],"s12_arrow":57.625,"end":59.419,"total":62.419}}/*END-CUES*/;
+        const B = CUES.beats;
+        const LN = CUES.lines;
+        const LS = (n) => LN[n - 1].start, LE = (n) => LN[n - 1].end;
+
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => Array.from(document.querySelectorAll(s));
+        const AR = (n) => String(n).replace(/\d/g, (d) => "٠١٢٣٤٥٦٧٨٩"[d]);
+        const E = "power3.out", CAM = "power3.inOut";
+
+        // ---------- vector parts ----------
+        const shoe = (up, sole, acc) => `<svg viewBox="0 0 400 200">
+          <path d="M18 146 C18 166 30 178 54 178 L352 178 C380 178 394 166 390 146 L386 134 L22 136 Z" fill="${sole}"/>
+          <path d="M40 166 H360" stroke="${acc}" stroke-opacity="0.35" stroke-width="4" stroke-linecap="round"/>
+          <path d="M24 138 L30 84 C32 64 46 56 66 58 L96 62 C110 76 128 80 150 74 L176 40 C186 30 204 30 214 38 L232 60 C270 84 320 100 358 112 C384 120 392 130 388 138 Z" fill="${up}"/>
+          <path d="M30 84 C32 64 46 56 66 58 L72 102 L30 108 Z" fill="${acc}" fill-opacity="0.85"/>
+          <path d="M96 62 C110 76 128 80 150 74" stroke="${acc}" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M84 128 C150 98 236 92 334 120" stroke="${acc}" stroke-width="13" fill="none" stroke-linecap="round"/>
+          <path d="M168 68 L186 52 M190 80 L208 64 M212 90 L230 74" stroke="${acc}" stroke-width="6" stroke-linecap="round"/>
+          <path d="M338 116 C364 122 386 128 388 138 L344 138 Z" fill="${acc}" fill-opacity="0.3"/></svg>`;
+        const SPORT = shoe("#FF4D1A", "#F5F1EA", "#1A1A1A");
+        const PLAIN = shoe("rgba(245,241,234,0.62)", "rgba(245,241,234,0.3)", "#1A1A1A");
+        const person = (fill) => `<circle cx="30" cy="18" r="15" fill="${fill}"/><path d="M6 98 C6 60 16 44 30 44 C44 44 54 60 54 98 Z" fill="${fill}"/>`;
+        const check = `<svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15" fill="rgba(255,77,26,0.16)"/><path d="M9 17.5 L15 23 L25 11" stroke="#FF4D1A" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        const cross = (c, w = 26) => `<svg width="${w}" height="${w}" viewBox="0 0 26 26"><path d="M5 5 L21 21 M21 5 L5 21" stroke="${c}" stroke-width="4" stroke-linecap="round"/></svg>`;
+
+        function adCard(el) {
+          el.innerHTML = `
+            <div class="hd"><div class="av en">S</div><div class="nm">SHOES</div><div class="sp">إعلان</div>
+              <div class="abs en" style="left: 22px; top: 18px; font-size: 26px; color: var(--paper-55); letter-spacing: 2px">···</div></div>
+            <div class="im">${SPORT}</div>
+            <div class="cb"><span>اطلب هلّق</span><span class="en" style="font-size: 30px">‹</span></div>
+            <div class="ic">
+              <svg viewBox="0 0 34 34"><path d="M17 29 C6 21 3 15 3 11 C3 6 7 3 11 3 C14 3 16 5 17 7 C18 5 20 3 23 3 C27 3 31 6 31 11 C31 15 28 21 17 29 Z"/></svg>
+              <svg viewBox="0 0 34 34"><path d="M30 16 C30 23 24 28 17 28 C15 28 13 27.6 11 27 L4 30 L6 24 C4.5 21.8 4 19 4 16 C4 9 10 4 17 4 C24 4 30 9 30 16 Z"/></svg>
+              <svg viewBox="0 0 34 34"><path d="M31 3 L3 14 L14 18 L18 30 Z M14 18 L31 3"/></svg>
+            </div>
+            <div class="ph" style="right: 22px; top: 530px; width: 220px"></div>`;
+        }
+        ["#ad1", "#ad2", "#ad3"].forEach((s) => adCard($(s)));
+        $("#guest1").innerHTML = person("#F5F1EA");
+        $("#guest").innerHTML = person("#F5F1EA");
+
+        // ---------- MOCKUP A: the homepage (8 sections; buttons counted from the DOM) ----------
+        const HOME = [
+          { id: "hero", h: 330, html: `<div class="card" style="left: 0; top: 0; width: 542px; height: 330px; background: var(--or-14); border-color: rgba(255,77,26,0.3)"></div>
+              <div class="abs" style="right: 30px; top: 40px; font-size: 42px; font-weight: 800">لكل خطوة، حذاء.</div>
+              <div class="abs" style="right: 30px; top: 104px; font-size: 22px; color: var(--paper-70)">تشكيلة جديدة كل أسبوع</div>
+              <div class="btn" style="right: 30px; top: 160px">تسوّق الآن</div>
+              <div class="abs" style="left: 18px; top: 168px; width: 300px; height: 150px">${PLAIN}</div>` },
+          { id: "cats", h: 196, html: `<h4>الأقسام</h4>
+              <div class="tile" id="tileM" style="right: 0"><span>رجالي</span></div>
+              <div class="tile" id="tileW" style="right: 186px"><span>نسائي</span></div>
+              <div class="tile" style="right: 372px"><span>أطفال</span></div>` },
+          { id: "offers", h: 130, html: `<div id="offers" class="card" style="left: 0; top: 0; width: 542px; height: 130px; background: var(--orange); border: 0"></div>
+              <div class="abs" style="right: 30px; top: 26px; font-size: 34px; font-weight: 900; color: var(--charcoal)">العروض</div>
+              <div class="abs" style="right: 30px; top: 76px; font-size: 20px; font-weight: 600; color: var(--charcoal)">حسومات الموسم</div>
+              <div class="btn" style="left: 26px; top: 38px; background: var(--charcoal); color: var(--orange)">اكتشف</div>` },
+          { id: "grid", h: 790, html: `<h4>منتجات جديدة</h4><div class="btn ol sm" style="left: 0; top: -4px">شوف الكل</div>` +
+              [0, 1, 2, 3, 4, 5].map((i) => {
+                const x = i % 2 ? 0 : 281, y = 52 + Math.floor(i / 2) * 246;
+                return `<div class="card" style="left: ${x}px; top: ${y}px; width: 261px; height: 230px"></div>
+                  <div class="abs" style="left: ${x + 30}px; top: ${y + 18}px; width: 200px; height: 100px">${PLAIN}</div>
+                  <div class="ph" style="left: ${x + 101}px; top: ${y + 136}px; width: 140px"></div>
+                  <div class="ph" style="left: ${x + 151}px; top: ${y + 160}px; width: 90px; background: var(--paper-08)"></div>
+                  <div class="btn sm ol" style="left: ${x + 18}px; top: ${y + 172}px">أضف</div>`;
+              }).join("") },
+          { id: "best", h: 290, html: `<h4>الأكثر مبيعاً</h4><div class="btn ol sm" style="left: 0; top: -4px">شوف الكل</div>` +
+              [0, 1, 2].map((i) => `<div class="card" style="right: ${i * 186}px; top: 56px; width: 170px; height: 226px"></div>
+                  <div class="abs" style="right: ${i * 186 + 15}px; top: 80px; width: 140px; height: 70px">${PLAIN}</div>
+                  <div class="ph" style="right: ${i * 186 + 18}px; top: 186px; width: 120px"></div>
+                  <div class="ph" style="right: ${i * 186 + 18}px; top: 212px; width: 70px; background: var(--paper-08)"></div>`).join("") },
+          { id: "blog", h: 270, html: `<h4>من المدوّنة</h4>
+              <div class="card" style="left: 0; top: 52px; width: 542px; height: 214px"></div>
+              <div class="card" style="right: 18px; top: 70px; width: 180px; height: 178px; background: var(--paper-14)"></div>
+              <div class="ph" style="right: 220px; top: 84px; width: 280px; height: 16px; background: var(--paper-30)"></div>
+              <div class="ph" style="right: 220px; top: 118px; width: 250px"></div>
+              <div class="ph" style="right: 220px; top: 142px; width: 210px"></div>
+              <div class="btn sm ol" style="right: 220px; top: 186px">اقرأ المزيد</div>` },
+          { id: "news", h: 220, html: `<div class="card" style="left: 0; top: 0; width: 542px; height: 220px"></div>
+              <div class="abs" style="right: 30px; top: 28px; font-size: 28px; font-weight: 800">اشترك بالنشرة</div>
+              <div class="ph" style="right: 30px; top: 78px; width: 300px"></div>
+              <div class="abs" style="right: 30px; top: 124px; width: 300px; height: 56px; border-radius: 16px; border: 1.5px solid var(--paper-30)"></div>
+              <div class="btn" style="left: 30px; top: 126px">اشترك</div>` },
+          { id: "foot", h: 380, html: `<div class="abs" style="left: -22px; top: 0; width: 586px; height: 380px; background: rgba(0,0,0,0.25)"></div>` +
+              [["عن المحل", ["من نحن", "قصّتنا", "الوظائف"]], ["المساعدة", ["الشحن", "الإرجاع", "الأسئلة"]], ["تواصل معنا", ["واتساب", "إيميل", "الفروع"]]]
+                .map(([t, ls], i) => `<div class="abs" style="right: ${i * 186}px; top: 34px; width: 170px; font-size: 22px; font-weight: 800">${t}</div>` +
+                  ls.map((l, j) => `<div class="abs" style="right: ${i * 186}px; top: ${82 + j * 44}px; font-size: 20px; color: var(--paper-55)">${l}</div>`).join("")).join("") +
+              `<div class="abs" style="left: 0; right: 0; top: 300px; height: 1px; background: var(--paper-08)"></div>
+               <div class="abs en" style="left: 0; right: 0; top: 322px; text-align: center; font-size: 18px; color: var(--paper-30); letter-spacing: 0.2em">SHOES</div>` },
+        ];
+        const scA = $("#scA");
+        let y = 22;
+        HOME.forEach((s) => {
+          s.top = y;
+          scA.insertAdjacentHTML("beforeend", `<div class="sec" id="sec-${s.id}" style="top: ${y}px; height: ${s.h}px">${s.html}</div>`);
+          y += s.h + 30;
+        });
+        scA.style.height = y + "px";
+        const VPH = 856; // viewport height (986 screen − 130 bars)
+        const maxScroll = y - VPH;
+        // menu (6 items)
+        const MENU = ["رجالي", "نسائي", "أطفال", "العروض", "من نحن", "تواصل معنا"];
+        $("#menu").innerHTML = MENU.map((m, i) => `<div class="abs" style="right: 34px; top: ${22 + i * 66}px; font-size: 30px; font-weight: 600">${m}</div>` +
+          (i < 5 ? `<div class="abs" style="right: 34px; left: 34px; top: ${80 + i * 66}px; height: 1px; background: var(--paper-08)"></div>` : "")).join("");
+
+        // positions are measured once, before any transform is applied
+        const rel = (el, host) => {
+          const a = el.getBoundingClientRect(), b = host.getBoundingClientRect();
+          return { x: a.left - b.left, y: a.top - b.top, w: a.width, h: a.height };
+        };
+        // per-section buttons + their dots, section flash boxes (inside the scroller, so they scroll with it)
+        const secBtns = HOME.map((s) => $$(`#sec-${s.id} .btn`));
+        const counts = secBtns.map((b) => b.length);
+        if (JSON.stringify(counts) !== JSON.stringify(CUES.home_buttons || counts)) console.warn("HOME_BUTTONS out of sync with cues.py", counts);
+        const dots = secBtns.map((bs) => bs.map((b) => {
+          const r = rel(b, scA);
+          const d = document.createElement("i");
+          d.className = "bdot";
+          d.style.left = r.x + r.w - 10 + "px";
+          d.style.top = r.y - 6 + "px";
+          scA.appendChild(d);
+          return d;
+        }));
+        const flashes = HOME.map((s) => {
+          const f = document.createElement("i");
+          f.className = "sflash";
+          Object.assign(f.style, { left: "12px", width: "562px", top: s.top - 10 + "px", height: s.h + 20 + "px" });
+          scA.appendChild(f);
+          return f;
+        });
+
+        // ---------- MOCKUP B: the landing page (one goal) ----------
+        $("#scB").innerHTML = `
+          <div id="lpShoe" class="card" style="left: 20px; top: 14px; width: 546px; height: 330px; background: radial-gradient(70% 70% at 50% 55%, rgba(255,77,26,0.3), rgba(255,77,26,0.05)); border-color: rgba(255,77,26,0.25)">
+            <div class="abs" style="left: 38px; top: 70px; width: 470px; height: 235px">${SPORT}</div></div>
+          <div id="lpHead" class="abs" style="left: 0; right: 0; top: 372px; text-align: center; font-size: 44px; font-weight: 800">الحذاء الرياضي الجديد</div>
+          <div id="lpSub" class="abs" style="left: 0; right: 0; top: 440px; text-align: center; font-size: 24px; color: var(--paper-70)">خفيف ومريح، لكل يوم ولكل ركضة.</div>
+          <div id="lpTicks" class="abs" style="right: 110px; top: 498px; width: 366px">
+            ${["خفيف الوزن", "نعل مريح", "توصيل لباب البيت"].map((t, i) => `<div class="abs" style="right: 0; top: ${i * 46}px; display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 600">${check}<span>${t}</span></div>`).join("")}
+          </div>
+          <div id="lpBtn" class="cta" style="top: 660px">اطلب هلّق</div>
+          <div class="abs" style="left: 0; right: 0; top: 806px; text-align: center; font-size: 28px; font-weight: 800">ليش هالحذاء؟</div>
+          <div class="ph" style="left: 113px; top: 862px; width: 360px"></div>
+          <div class="ph" style="left: 143px; top: 888px; width: 300px"></div>
+          <div class="cta" style="top: 940px">اطلب هلّق</div>`;
+        const scrB = $("#scrB");
+        // the empty spot where the menu used to be (same place as the homepage's hamburger)
+        scrB.insertAdjacentHTML("beforeend", `<div id="ghost" class="abs" style="right: 18px; top: 66px; width: 58px; height: 52px; border-radius: 14px; border: 3px dashed var(--orange); display: flex; align-items: center; justify-content: center; opacity: 0; z-index: 6">${cross("#FF4D1A")}</div>`);
+        const LP = { shoe: $("#lpShoe"), head: $("#lpHead"), btn: $("#lpBtn") };
+        const boxB = (el, pad, tagHtml, tagSide, id) => {
+          const r = rel(el, scrB);
+          scrB.insertAdjacentHTML("beforeend", `<div id="${id}" class="hbox" style="left: ${r.x - pad}px; top: ${r.y - pad}px; width: ${r.w + 2 * pad}px; height: ${r.h + 2 * pad}px; z-index: 6"></div>
+            <div id="${id}t" class="tag" style="${tagSide}: ${tagSide === "right" ? 586 - (r.x + r.w + pad) : r.x - pad}px; top: ${r.y - pad - 40}px; z-index: 7">${tagHtml}</div>`);
+        };
+        boxB(LP.shoe, 8, `<span>صورة</span>`, "right", "hb1");
+        boxB(LP.head, 12, `<span>عنوان</span><b>١</b>`, "right", "hb2");
+        boxB(LP.btn, 10, `<span>كبسة</span><b>١</b>`, "right", "hb3");
+        scrB.insertAdjacentHTML("beforeend", `<div id="hb0t" class="tag" style="right: 12px; top: 126px; z-index: 7"><span>قائمة</span>${cross("#1A1A1A", 20)}</div>`);
+        // tap ripple on the CTA
+        const btnR = rel(LP.btn, scrB);
+        scrB.insertAdjacentHTML("beforeend", `<i id="rip" class="abs" style="left: ${btnR.x + btnR.w / 2 - 50}px; top: ${btnR.y + btnR.h / 2 - 50}px; width: 100px; height: 100px; border-radius: 50%; border: 4px solid #F5F1EA; opacity: 0; z-index: 8"></i>`);
+
+        // homepage highlight: the open menu
+        const scrA = $("#scrA");
+        scrA.insertAdjacentHTML("beforeend", `<div id="hbM" class="hbox" style="right: 6px; top: 136px; width: 318px; height: 420px; z-index: 6"></div>
+          <div id="bgM" class="badge" style="right: 296px; top: 112px; z-index: 7">${AR(MENU.length)}</div>`);
+
+        // ---------- 04 visitors (lines drawn to the phone once it has shrunk) ----------
+        const SA = 0.6, AX = 770, AY = 930; // phone A after the shrink: scale + centre
+        const toCanvas = (el, host, ox = 0.5, oy = 0.5) => {
+          const r = el.getBoundingClientRect(), p = host.getBoundingClientRect();
+          const cx = r.left + r.width * ox, cy = r.top + r.height * oy;
+          const pc = { x: p.left + p.width / 2, y: p.top + p.height / 2 };
+          return { x: AX + (cx - pc.x) * SA, y: AY + (cy - pc.y) * SA };
+        };
+        const T4 = [$("#tileM"), $("#tileW"), $("#offers")].map((el) => toCanvas(el, $("#phA"), 0.5, 0.45));
+        const P4 = [{ lab: "رجالي", y: 560 }, { lab: "نسائي", y: 820 }, { lab: "العروض", y: 1080 }];
+        $("#ppl").innerHTML = P4.map((p, i) => `<div class="p4 abs" style="left: 80px; top: ${p.y}px; width: 200px; height: 230px">
+            <svg class="abs" style="left: 60px; top: 0; width: 80px; height: 133px" viewBox="0 0 60 100">${person(i === 2 ? "#FF4D1A" : "#F5F1EA")}</svg>
+            <div class="abs ar" style="left: 0; right: 0; top: 150px; text-align: center; font-size: 40px; font-weight: 800">${p.lab}</div></div>`).join("");
+        $("#lines4").innerHTML = P4.map((p, i) => {
+          const sx = 290, sy = p.y + 70, t = T4[i];
+          return `<path class="l4" d="M${sx} ${sy} C${sx + 140} ${sy} ${t.x - 160} ${t.y} ${t.x} ${t.y}" stroke="#FF4D1A" stroke-width="4" fill="none" stroke-linecap="round"/>
+                  <circle class="l4c" cx="${t.x}" cy="${t.y}" r="10" fill="#FF4D1A"/>`;
+        }).join("");
+
+        // ---------- 08 homepage badges (beside phone A in the split) ----------
+        $("#bdgA").innerHTML = [MENU.length, HOME.length, counts.reduce((a, b) => a + b, 0)]
+          .map((n, i) => `<div class="badge b8" style="left: ${975}px; top: ${700 + i * 82}px; opacity: 0">${AR(n)}</div>`).join("");
+
+        // ---------- 09 neighborhood ----------
+        const HX = [110, 340, 570, 800], HY = [560, 820, 1080];
+        const houses = [];
+        HY.forEach((hy) => HX.forEach((hx) => houses.push({ x: hx, y: hy })));
+        const TGT = 5; // the house that opens (row 2, col 2)
+        $("#hood").innerHTML =
+          [740, 1000, 1260].map((sy) => `<path class="street" d="M70 ${sy} H1010" stroke="rgba(245,241,234,0.14)" stroke-width="3" stroke-dasharray="18 14"/>`).join("") +
+          houses.map((h, i) => `<g class="hs" id="hs${i}" transform="translate(${h.x} ${h.y})">
+              <path class="hsw" d="M8 62 L80 8 L152 62 V150 H8 Z" fill="rgba(245,241,234,0.03)" stroke="#F5F1EA" stroke-opacity="0.7" stroke-width="3" stroke-linejoin="round"/>
+              <rect x="26" y="84" width="30" height="26" rx="3" stroke="#F5F1EA" stroke-opacity="0.5" stroke-width="2.5" fill="none"/>
+              ${i === TGT ? `<rect id="inside" x="64" y="96" width="34" height="54" fill="#FF4D1A" opacity="0"/>
+                <g id="table" opacity="0"><ellipse cx="81" cy="128" rx="13" ry="3.5" fill="#1A1A1A"/><path d="M72 131 V146 M90 131 V146" stroke="#1A1A1A" stroke-width="2.5"/></g>
+                <rect id="door" x="64" y="96" width="34" height="54" rx="2" fill="#1A1A1A" stroke="#F5F1EA" stroke-opacity="0.7" stroke-width="2.5"/>`
+              : `<rect x="64" y="96" width="34" height="54" rx="2" stroke="#F5F1EA" stroke-opacity="0.6" stroke-width="2.5" fill="none"/>`}
+            </g>`).join("");
+        const tgt = houses[TGT];
+        const doorC = { x: tgt.x + 81, y: tgt.y + 150 }; // door threshold in canvas px
+
+        // ---------- subtitles: one phrase at a time, exactly the spoken words ----------
+        const LATIN = /^[A-Za-z]/;
+        const SUBS = [];
+        LN.forEach((ln, li) => {
+          if (ln.n === 12) return; // scene 11: the line is the centre graphic, subtitle hidden
+          // phrases at punctuation; a long phrase is halved by words; tiny phrases join a neighbour
+          const ws = ln.words, MAXC = 30;
+          const txt = (c) => c.map((w) => w[0]).join(" ");
+          let phrases = [], cur = [];
+          ws.forEach((w, i) => { cur.push(w); if (/[،:.؟…]$/.test(w[0]) || i === ws.length - 1) { phrases.push(cur); cur = []; } });
+          const split = (c) => {
+            if (txt(c).length <= MAXC || c.length < 2) return [c];
+            let best = 1, bd = 1e9;
+            for (let k = 1; k < c.length; k++) { const d = Math.abs(txt(c.slice(0, k)).length - txt(c.slice(k)).length); if (d < bd) { bd = d; best = k; } }
+            return [...split(c.slice(0, best)), ...split(c.slice(best))];
+          };
+          phrases = phrases.flatMap(split);
+          const chunks = [];
+          phrases.forEach((c) => {
+            const prev = chunks[chunks.length - 1];
+            if (prev && (txt(c).length < 10 || txt(prev).length < 10) && txt(prev.concat(c)).length <= MAXC) chunks[chunks.length - 1] = prev.concat(c);
+            else chunks.push(c);
+          });
+          const next = li + 1 < LN.length ? LN[li + 1].start : B.end;
+          chunks.forEach((c, ci) => {
+            const s = ci === 0 ? ln.start - 0.08 : c[0][1] - 0.04;
+            const e = ci < chunks.length - 1 ? chunks[ci + 1][0][1] - 0.04 : Math.min(next - 0.06, ln.end + 0.6);
+            SUBS.push({ s, e, toks: c.map((w) => w[0]) });
+          });
+        });
+        $("#subs").innerHTML = SUBS.map((s, i) => {
+          // Latin key terms: keep trailing punctuation outside the LTR span
+          const toks = [];
+          s.toks.forEach((t) => {
+            const m = t.match(/^([A-Za-z]+)([.،:؟]*)$/);
+            if (m) toks.push({ k: m[1], p: m[2] }); else toks.push({ a: t });
+          });
+          let html = "", run = [];
+          const flush = (p = "") => { if (run.length) { html += `<span class="k">${run.join(" ")}</span>${p} `; run = []; } };
+          toks.forEach((t) => { if (t.k) { run.push(t.k); if (t.p) flush(t.p); } else { flush(); html += t.a + " "; } });
+          flush();
+          return `<div class="sub" id="sub${i}"><span class="p">${html.trim()}</span></div>`;
+        }).join("");
+
+        function build() {
+          const tl = gsap.timeline({ paused: true });
+          const TOT = B.total;
+          const rise = (el, t, d = 0.6, y = 36) => tl.fromTo(el, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, t);
+          const out = (el, t, d = 0.35) => tl.to(el, { opacity: 0, duration: d, ease: "power2.in" }, t);
+          const pop = (el, t, s = 0.4) => tl.fromTo(el, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.2)" }, t);
+          const draw = (el, t, d = 0.5, len = 600) => tl.fromTo(el, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: d, ease: "power2.inOut" }, t);
+          const glow = (t, x, y, op, s = 1, d = 0.8) => tl.to("#glow", { x: x - 540, y: y - 960, opacity: op, scale: s, duration: d, ease: "power2.inOut" }, t);
+          const show = (sel, a, b) => { tl.set(sel, { opacity: 0 }, 0); tl.set(sel, { opacity: 1 }, a); tl.set(sel, { opacity: 0 }, b); };
+
+          // ---------- ground ----------
+          tl.fromTo("#grid", { x: 0, y: 0 }, { x: 72, y: 144, duration: TOT, ease: "none" }, 0);
+          tl.fromTo("#marks", { opacity: 0 }, { opacity: 1, duration: 1.2 }, 0.2);
+          tl.fromTo("#progfill", { scaleX: 0 }, { scaleX: 1, duration: B.end - 0.4, ease: "none" }, 0.4);
+          tl.to(["#grid", "#marks", "#prog"], { opacity: 0, duration: 0.8, ease: "power1.inOut" }, B.end - 0.4);
+
+          // scene windows
+          show("#s1", 0, B.s2_phone + 0.2);
+          show("#stage", B.s2_phone - 0.01, B.s9_in + 0.4);
+          show("#s9", B.s9_in, B.s11_in);
+          show("#s11", B.s11_in, B.s12_in);
+          show("#s12", B.s12_in, B.end);
+          show("#s13", B.end - 0.05, TOT + 1);
+
+          // ---------- 01 HOOK ----------
+          tl.fromTo("#wmlogo", { opacity: 0 }, { opacity: 0.9, duration: 0.8, ease: "power1.out" }, 0.1);
+          tl.to("#wmlogo", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, B.s1_push);
+          tl.fromTo("#ad1", { opacity: 0, y: 60, scale: 0.85 }, { opacity: 1, y: 0, scale: 0.85, duration: 0.6, ease: E }, B.s1_ad);
+          // tap on the ad's button
+          tl.fromTo("#ad1 .cb", { scale: 1 }, { scale: 0.94, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 50%" }, B.s1_tap);
+          draw("#s1arrp", B.s1_arrow, 0.45, 300);
+          tl.fromTo("#s1arrh", { opacity: 0 }, { opacity: 1, duration: 0.12 }, B.s1_arrow + 0.38);
+          tl.fromTo("#house1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, B.s1_house - 0.25);
+          draw("#h1p", B.s1_house - 0.25, 0.7, 520);
+          rise("#h1lab", B.s1_house, 0.5, 20);
+          // push into the house
+          tl.to("#s1in", { x: 540 - 810, y: 900 - 850, scale: 1.45, transformOrigin: "810px 850px", duration: 0.9, ease: CAM }, B.s1_push);
+          tl.to(["#ad1", "#s1arr"], { opacity: 0, duration: 0.4 }, B.s1_push + 0.1);
+          tl.fromTo("#guest1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, B.s1_lost);
+          tl.to("#guest1", { rotation: -8, duration: 0.35, yoyo: true, repeat: 5, ease: "sine.inOut", transformOrigin: "50% 100%" }, B.s1_lost + 0.4);
+          ["#q1", "#q2", "#q3"].forEach((q, i) => pop(q, B.s1_lost + 0.35 + i * 0.22, 0.2));
+          // the coin drops and rolls away
+          tl.fromTo("#coin", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.12 }, B.s1_coin - 0.12);
+          tl.to("#coin", { y: 30, duration: 0.32, ease: "bounce.out" }, B.s1_coin);
+          tl.to("#coin", { x: 520, rotation: 720, duration: 1.3, ease: "power1.in" }, B.s1_coin + 0.4);
+          tl.to("#s1in", { opacity: 0, duration: 0.35 }, B.s1_out);
+
+          // ---------- 02 EXAMPLE ----------
+          tl.set(["#phB", "#chips", "#term", "#ppl", "#lines4", "#ad2", "#arr5", "#q5", "#ad3", "#ln8", "#lab8a", "#lab8b", "#menu", "#lab2"], { opacity: 0 }, 0);
+          tl.fromTo("#phA", { opacity: 0, y: 760 }, { opacity: 1, y: 0, duration: 0.9, ease: CAM }, B.s2_phone);
+          rise("#lab2", B.s2_phone + 0.35, 0.55, 20);
+          tl.fromTo("#scrA .wm", { opacity: 0, scale: 1.35 }, { opacity: 1, scale: 1, duration: 0.7, ease: E }, B.s2_mark);
+
+          // ---------- 03 HOMEPAGE: menu (6) → sections (8) → buttons ----------
+          out("#lab2", B.s3_menu - 0.5, 0.3);
+          rise("#chips", B.s3_menu - 0.3, 0.5, 18);
+          tl.set(["#chS", "#chB"], { opacity: 0.25 }, 0);
+          tl.to("#phA", { scale: 1.04, transformOrigin: "80% 15%", duration: 0.7, ease: CAM }, B.s3_menu - 0.2);
+          tl.fromTo("#menu", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.4, ease: E }, B.s3_menu);
+          tl.to("#dimA", { opacity: 1, duration: 0.3 }, B.s3_menu);
+          tl.fromTo("#hbM", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.35, ease: E }, B.s3_menu + 0.25);
+          pop("#bgM", B.s3_menu + 0.45, 0.3);
+          tl.fromTo("#chM", { scale: 1 }, { scale: 1.1, duration: 0.18, yoyo: true, repeat: 1 }, B.s3_menu + 0.45);
+          // close, then scroll section by section
+          tl.to(["#menu", "#hbM", "#bgM", "#dimA"], { opacity: 0, duration: 0.3 }, B.s3_menu_close);
+          tl.to("#phA", { scale: 1, duration: 0.6, ease: CAM }, B.s3_menu_close);
+          tl.to(["#chS", "#chB"], { opacity: 1, duration: 0.3 }, B.s3_menu_close);
+          const cnt = { s: 0, b: 0 };
+          const upd = () => { $("#cS").textContent = AR(Math.round(cnt.s)); $("#cB").textContent = AR(Math.round(cnt.b)); };
+          upd();
+          let cum = 0;
+          B.s3_steps.forEach((t, k) => {
+            const target = Math.min(Math.max(HOME[k].top - 40, 0), maxScroll);
+            const dur = k + 1 < B.s3_steps.length ? B.s3_steps[k + 1] - t : 0.5;
+            tl.to("#scA", { y: -target, duration: Math.max(0.3, dur * 0.85), ease: "power2.inOut" }, t - 0.15);
+            tl.fromTo(flashes[k], { opacity: 0 }, { opacity: 1, duration: 0.12 }, t);
+            tl.to(flashes[k], { opacity: 0.35, duration: 0.4 }, t + 0.3);
+            cum += counts[k];
+            tl.to(cnt, { s: k + 1, duration: 0.05, onUpdate: upd }, t);
+            dots[k].forEach((d, j) => {
+              tl.fromTo(d, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(3)" }, t + 0.06 + j * 0.05);
+              tl.to(cnt, { b: cum - counts[k] + j + 1, duration: 0.03, onUpdate: upd }, t + 0.06 + j * 0.05);
+            });
+          });
+          tl.fromTo("#chS", { scale: 1 }, { scale: 1.08, duration: 0.2, yoyo: true, repeat: 1 }, B.s3_end);
+          tl.fromTo("#chB", { scale: 1 }, { scale: 1.08, duration: 0.2, yoyo: true, repeat: 1 }, B.s3_end + 0.1);
+
+          // ---------- 04 FOR EVERYONE ----------
+          out("#chips", B.s4_shrink, 0.3);
+          tl.to(flashes, { opacity: 0, duration: 0.3 }, B.s4_shrink);
+          tl.to(dots.flat(), { opacity: 0, duration: 0.3 }, B.s4_shrink);
+          tl.to("#scA", { y: 0, duration: 0.8, ease: CAM }, B.s4_shrink);
+          tl.to("#phA", { x: AX - 540, y: AY - 930, scale: SA, transformOrigin: "50% 50%", duration: 0.9, ease: CAM }, B.s4_shrink);
+          tl.set(["#ppl", "#lines4"], { opacity: 1 }, B.s4_shrink);
+          tl.set([".p4", ".l4c"], { opacity: 0 }, 0);
+          const p4 = $$(".p4"), l4 = $$(".l4"), l4c = $$(".l4c");
+          B.s4_p.forEach((t, i) => {
+            rise(p4[i], t - 0.15, 0.5, 26);
+            draw(l4[i], t + 0.2, 0.55, 700);
+            tl.fromTo(l4c[i], { opacity: 0, scale: 0, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.7);
+          });
+
+          // ---------- 05 THE AD ----------
+          tl.to(["#ppl", "#lines4"], { opacity: 0, duration: 0.35 }, B.s5_ad - 0.4);
+          tl.fromTo("#ad2", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 0.8, duration: 0.55, ease: "back.out(1.8)", immediateRender: false }, B.s5_ad);
+          tl.set("#ad2", { scale: 0.5 }, 0);
+          tl.fromTo("#ad2 .im svg", { scale: 1 }, { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 60%" }, B.s5_shoe);
+          tl.set("#arr5", { opacity: 1 }, B.s5_arrow - 0.01);
+          tl.fromTo("#m5p", { strokeDasharray: 260, strokeDashoffset: 260 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, B.s5_arrow);
+          tl.set("#arr5h", { opacity: 0 }, 0);
+          tl.to("#arr5h", { opacity: 1, duration: 0.1 }, B.s5_arrow + 0.5);
+          tl.to("#arr5", { x: -18, duration: 0.28, yoyo: true, repeat: 3, ease: "sine.inOut" }, B.s5_arrow + 0.6);
+          tl.set("#q5", { opacity: 1 }, B.s5_q - 0.01);
+          pop("#q5", B.s5_q, 0.3);
+
+          // ---------- 06 TERM: wipe to the landing page ----------
+          tl.to(["#ad2", "#arr5", "#q5"], { opacity: 0, duration: 0.3 }, B.s6_wipe - 0.5);
+          tl.to("#phA", { x: 0, y: 0, scale: 1, duration: 0.6, ease: CAM }, B.s6_wipe - 0.45);
+          tl.set("#phB", { opacity: 1, clipPath: "inset(0% 0% 0% 100%)" }, B.s6_wipe + 0.15);
+          tl.to("#phB", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power2.inOut" }, B.s6_wipe + 0.15);
+          tl.fromTo("#wipe", { opacity: 1, x: 850 }, { x: 222, duration: 0.5, ease: "power2.inOut", immediateRender: false }, B.s6_wipe + 0.15);
+          tl.to("#wipe", { opacity: 0, duration: 0.15 }, B.s6_wipe + 0.65);
+          tl.set("#phA", { opacity: 0 }, B.s6_wipe + 0.66);
+          tl.set("#term", { opacity: 1 }, B.s6_term - 0.01);
+          tl.fromTo("#term", { opacity: 0, y: 40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "expo.out" }, B.s6_term);
+          glow(B.s6_term, 540, 330, 0.8, 0.5, 0.6);
+          tl.to("#glow", { opacity: 0, duration: 0.6 }, B.s7_k[0]);
+
+          // ---------- 07 ONE OF EACH ----------
+          const LPALL = ["#lpWm", "#lpShoe", "#lpHead", "#lpSub", "#lpTicks", "#lpBtn"];
+          const focus = (t, keep) => {
+            LPALL.forEach((s) => tl.to(s, { opacity: keep.includes(s) ? 1 : 0.4, duration: 0.3 }, t));
+          };
+          const [k0, k1, k2, k3] = B.s7_k;
+          focus(k0, []);
+          tl.fromTo("#ghost", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: E }, k0);
+          rise("#hb0t", k0 + 0.15, 0.35, 10);
+          focus(k1, ["#lpShoe"]);
+          tl.to("#hb0t", { opacity: 0, duration: 0.2 }, k1);
+          tl.to(["#ghost"], { opacity: 0.45, duration: 0.3 }, k1);
+          tl.fromTo("#hb1", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.3, ease: E }, k1);
+          rise("#hb1t", k1 + 0.1, 0.35, 10);
+          focus(k2, ["#lpHead"]);
+          tl.to("#hb1t", { opacity: 0, duration: 0.2 }, k2);
+          tl.to(["#hb1"], { opacity: 0.45, duration: 0.3 }, k2);
+          tl.fromTo("#hb2", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.3, ease: E }, k2);
+          rise("#hb2t", k2 + 0.1, 0.35, 10);
+          focus(k3, ["#lpBtn"]);
+          tl.to("#hb2t", { opacity: 0, duration: 0.2 }, k3);
+          tl.to(["#hb2"], { opacity: 0.45, duration: 0.3 }, k3);
+          tl.fromTo("#hb3", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.3, ease: E }, k3);
+          rise("#hb3t", k3 + 0.1, 0.35, 10);
+          tl.to("#phB", { scale: 1.05, transformOrigin: "50% 72%", duration: 0.8, ease: CAM }, k3);
+          tl.fromTo("#lpBtn", { scale: 1 }, { scale: 0.95, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out" }, B.s7_tap);
+          tl.fromTo("#rip", { opacity: 0.9, scale: 0.4 }, { opacity: 0, scale: 3.2, duration: 0.7, ease: "power2.out", immediateRender: false }, B.s7_tap);
+
+          // ---------- 08 SIDE BY SIDE ----------
+          const sp = B.s8_split;
+          out("#term", sp, 0.3);
+          tl.to(["#ghost", "#hb0t", "#hb1", "#hb1t", "#hb2", "#hb2t", "#hb3t"], { opacity: 0, duration: 0.3 }, sp);
+          LPALL.forEach((s) => tl.to(s, { opacity: 1, duration: 0.3 }, sp));
+          tl.to("#phB", { x: 300 - 540, y: 960 - 930, scale: SA, transformOrigin: "50% 50%", duration: 0.9, ease: CAM }, sp);
+          tl.set("#phA", { x: 780 - 540 + 120, y: 30, scale: SA, transformOrigin: "50% 50%" }, sp + 0.05);
+          tl.to("#phA", { opacity: 1, x: 780 - 540, duration: 0.8, ease: CAM }, sp + 0.1);
+          // homepage: all its boxes and badges back (first screen of the page)
+          tl.to([flashes[0], flashes[1], flashes[2], flashes[3]], { opacity: 0.85, duration: 0.3, stagger: 0.06 }, sp + 0.6);
+          tl.to(dots.slice(0, 4).flat(), { opacity: 1, scale: 1, duration: 0.25, stagger: 0.03 }, sp + 0.7);
+          $$(".b8").forEach((b, i) => pop(b, sp + 0.9 + i * 0.12, 0.3));
+          tl.to("#phA", { x: 780 - 540 + 6, duration: 0.09, yoyo: true, repeat: 5, ease: "sine.inOut" }, B.s8_lab_a + 0.1);
+          tl.fromTo("#lab8a", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, B.s8_lab_a);
+          // the ad connects only to the landing page
+          tl.fromTo("#ad3", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 0.42, duration: 0.5, ease: "back.out(1.8)", immediateRender: false }, B.s8_ad);
+          tl.set("#ad3", { scale: 0.3 }, 0);
+          tl.set("#ln8", { opacity: 1 }, B.s8_line - 0.01);
+          draw("#ln8p", B.s8_line, 0.55, 400);
+          tl.fromTo("#ln8c", { opacity: 0, scale: 0, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, B.s8_line + 0.5);
+          tl.to("#hb3", { opacity: 1, duration: 0.3 }, B.s8_line + 0.5);
+          tl.fromTo("#lab8b", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, B.s8_lab_b);
+          glow(B.s8_lab_b, 300, 960, 0.7, 0.7, 0.7);
+          tl.to("#glow", { opacity: 0, duration: 0.5 }, B.s9_in - 0.3);
+          tl.to(["#phA", "#phB", "#ad3", "#ln8", "#lab8a", "#lab8b", "#bdgA"], { opacity: 0, duration: 0.4, ease: "power2.in" }, B.s9_in - 0.3);
+
+          // ---------- 09 DINNER: the neighborhood ----------
+          tl.set(".hs", { opacity: 0 }, 0);
+          tl.set(".street", { opacity: 0 }, 0);
+          tl.to(".street", { opacity: 1, duration: 0.6, stagger: 0.1 }, B.s9_in + 0.1);
+          tl.to(".hs", { opacity: 1, duration: 0.45, stagger: { each: 0.05, from: "center" } }, B.s9_in + 0.15);
+          $$(".hsw").forEach((p, i) => draw(p, B.s9_in + 0.15 + i * 0.05, 0.6, 520));
+          // guest wanders the streets
+          const G = (x, y) => ({ x: x - 32, y: y - 104 });
+          const path = [G(60, 1000), G(250, 1000), G(250, 740), G(500, 740), G(500, 1000), G(730, 1000), G(730, 740), G(960, 740)];
+          tl.set("#gw", { ...path[0], opacity: 0 }, 0);
+          tl.set("#q9", { opacity: 0 }, 0);
+          tl.to("#gw", { opacity: 1, duration: 0.4 }, B.s9_guest);
+          const wStart = B.s9_guest + 0.3, wEnd = B.s10_light - 0.2;
+          const seg = (wEnd - wStart) / (path.length - 1);
+          path.slice(1).forEach((p, i) => tl.to("#gw", { x: p.x, y: p.y, duration: seg * 0.8, ease: "sine.inOut" }, wStart + i * seg));
+          tl.fromTo("#guest", { rotation: -4 }, { rotation: 4, duration: 0.25, yoyo: true, repeat: Math.max(1, Math.floor((wEnd - wStart) / 0.25)), ease: "sine.inOut", transformOrigin: "50% 100%" }, wStart);
+          tl.to("#q9", { opacity: 1, duration: 0.3 }, B.s9_wander);
+
+          // ---------- 10 DOOR OPEN ----------
+          const hc = { x: tgt.x + 80, y: tgt.y + 90 };
+          tl.to("#q9", { opacity: 0, duration: 0.25 }, B.s10_light - 0.2);
+          houses.forEach((h, i) => { if (i !== TGT) tl.to(`#hs${i}`, { opacity: 0.14, duration: 0.5 }, B.s10_light); });
+          tl.to(`#hs${TGT} .hsw`, { fill: "rgba(255,77,26,0.22)", stroke: "#FF4D1A", strokeOpacity: 1, duration: 0.5 }, B.s10_light);
+          glow(B.s10_light, hc.x, hc.y, 0.9, 0.55, 0.6);
+          tl.to("#s9in", { x: 540 - hc.x, y: 930 - hc.y, scale: 1.9, transformOrigin: `${hc.x}px ${hc.y}px`, duration: 1.1, ease: CAM }, B.s10_light);
+          tl.to("#glow", { x: 0, y: 930 - 960, duration: 1.1, ease: CAM }, B.s10_light);
+          // guest waits at the door
+          tl.to("#gw", { x: doorC.x - 32 - 70, y: doorC.y - 104, duration: 0.8, ease: "power2.inOut" }, B.s10_light - 0.1);
+          tl.to("#guest", { rotation: 0, duration: 0.3 }, B.s10_light - 0.1);
+          tl.set("#inside", { opacity: 1 }, B.s10_door - 0.01);
+          tl.to("#door", { scaleX: 0.12, transformOrigin: "0% 0%", duration: 0.7, ease: "power2.out" }, B.s10_door);
+          tl.to("#table", { opacity: 1, duration: 0.4 }, B.s10_table);
+          tl.fromTo("#s10ic", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, B.s10_table);
+          tl.to("#gw", { x: doorC.x - 32, y: doorC.y - 104, scale: 0.6, opacity: 0, duration: 0.8, ease: "power2.in" }, B.s10_walk);
+          tl.to(["#s9in", "#s10ic"], { opacity: 0, duration: 0.35 }, B.s11_in - 0.35);
+          tl.to("#glow", { opacity: 0, duration: 0.35 }, B.s11_in - 0.35);
+
+          // ---------- 11 THE RULE (gold, once) ----------
+          tl.set(["#r0", ".rl"], { opacity: 0 }, 0);
+          rise("#r0", B.s11_in + 0.1, 0.55, 24);
+          const rl = $$(".rl"), rb = $$(".rb");
+          tl.set(rb, { opacity: 0 }, 0);
+          B.s11_stamp.forEach((t, i) => {
+            rise(rl[i], t - 0.1, 0.5, 30);
+            tl.fromTo(rb[i], { opacity: 0, scale: 2.4, rotation: -20 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.32, ease: "power4.in" }, t + 0.25);
+            tl.fromTo(rl[i], { x: 0 }, { x: 6, duration: 0.05, yoyo: true, repeat: 3 }, t + 0.57);
+          });
+          tl.to("#s11 > *", { opacity: 0, duration: 0.3 }, B.s12_in - 0.3);
+
+          // ---------- 12 CTA ----------
+          tl.fromTo("#bub", { opacity: 0, scale: 0.85, transformOrigin: "20% 100%" }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, B.s12_in);
+          pop("#cc1", B.s12_chips[0], 0.6);
+          pop("#cc2", B.s12_chips[1], 0.6);
+          tl.fromTo("#dn", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, B.s12_arrow);
+          tl.to("#dn", { y: 22, duration: 0.4, yoyo: true, repeat: 3, ease: "sine.inOut" }, B.s12_arrow + 0.4);
+          tl.to("#s12 > *", { opacity: 0, duration: 0.4, ease: "power2.in" }, B.end - 0.45);
+
+          // ---------- 13 END CARD ----------
+          tl.fromTo("#endlogo", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, B.end);
+
+          // ---------- subtitles ----------
+          SUBS.forEach((s, i) => {
+            const el = `#sub${i}`;
+            tl.fromTo(el, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, s.s);
+            tl.to(el, { opacity: 0, duration: 0.12 }, s.e - 0.12);
+          });
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["main"] = tl;
+        }
+
+        build();
+      }
+      // fonts first: the mockups are measured (button / tile positions) before the timeline is built
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(main);
+      else main();
+    </script>
+  </body>
+</html>
