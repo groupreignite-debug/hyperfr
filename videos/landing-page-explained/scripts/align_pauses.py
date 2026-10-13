@@ -6,7 +6,7 @@ boundaries are cheap, plain word boundaries cost more, a skipped punctuation bou
 little), scoring each speech run by how well its length matches its letter count at the take's
 average speaking rate. Words inside a run are spread by letter count.
 
-  python3 scripts/align_pauses.py            # audio/vo/vo_track.wav → scripts/vo_words.json
+  python3 scripts/align_pauses.py            # audio/vo/vo_full.mp3 → scripts/vo_words.json (vo_track.wav clock)
 
 Output has Scribe's shape ([{text, start, end, type}]), so cues.py --words reads either.
 Prefer real Scribe timings when available.
@@ -26,20 +26,29 @@ spec = importlib.util.spec_from_file_location("cues", ROOT / "scripts" / "cues.p
 cues = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(cues)
 
-x, sr = sf.read(str(ROOT / "audio" / "vo" / "vo_track.wav"))
+# analyse the take before loudness processing (it flattens the pauses), then map onto vo_track.wav's clock
+SRC = ROOT / "audio" / "vo" / "vo_full.mp3"
+TRK = ROOT / "audio" / "vo" / "vo_track.wav"
+TMP = ROOT / "audio" / "vo" / ".align_src.wav"
+subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", str(SRC), "-af",  # build_vo.py's filters, minus loudness
+                "highpass=f=80,equalizer=f=3200:t=q:w=1.2:g=1.5,deesser=i=0.35", "-ac", "1", str(TMP)], check=True)
+x, sr = sf.read(str(TMP))
+SCALE = sf.info(str(TRK)).duration / (len(x) / sr)  # < 1 when build_vo.py sped the take up
 if x.ndim > 1:
     x = x.mean(1)
 hop = int(sr * 0.01)
 rms = np.sqrt(np.convolve(x ** 2, np.ones(hop * 2) / (hop * 2), mode="same"))[::hop] + 1e-9
 db = 20 * np.log10(rms)
-voiced = db > -38
+voiced = db > 20 * np.log10(np.max(np.abs(x)) + 1e-12) - 22
 t = np.arange(len(db)) * 0.01
 
 on = np.flatnonzero(voiced)
 v0, v1 = t[on[0]], t[on[-1]] + 0.01
-# pauses ≥ 120 ms below -38 dB (ffmpeg silencedetect: ignores the short dips of stop consonants)
-log = subprocess.run(["ffmpeg", "-v", "info", "-i", str(ROOT / "audio" / "vo" / "vo_track.wav"), "-af",
-                      "silencedetect=noise=-38dB:d=0.12", "-f", "null", "-"], capture_output=True, text=True).stderr
+# pauses ≥ 120 ms (ffmpeg silencedetect: ignores the short dips of stop consonants)
+# threshold sits 22 dB under the track's peak, so it holds whatever level the take arrives at
+peak_db = 20 * np.log10(np.max(np.abs(x)) + 1e-12)
+log = subprocess.run(["ffmpeg", "-v", "info", "-i", str(TMP), "-af",
+                      f"silencedetect=noise={peak_db - 22:.1f}dB:d=0.12", "-f", "null", "-"], capture_output=True, text=True).stderr
 ss = [float(m) for m in re.findall(r"silence_start: ([0-9.]+)", log)]
 se = [float(m) for m in re.findall(r"silence_end: ([0-9.]+)", log)]
 pauses = [(a, b) for a, b in zip(ss, se) if a > v0 + 0.05 and b < v1 - 0.05]
@@ -74,7 +83,7 @@ def seg_cost(p, k0, k1):
     dur = ends[p] - starts[p]
     exp = (cw[k1 + 1] - cw[k0]) * rate
     c = abs(math.log(max(dur, 0.05) / exp)) * 2.0
-    c += 0.35 * sum(punct[k] for k in range(k0, k1))  # punctuation read without a pause
+    c += 0.8 * sum(punct[k] for k in range(k0, k1))  # punctuation read without a pause (rare in ElevenLabs reads)
     return c
 
 
@@ -112,8 +121,9 @@ for p, k0, k1 in bounds:
     for kk in range(k0, k1 + 1):
         a = s + (e - s) * (cw[kk] - cw[k0]) / tot
         b = s + (e - s) * (cw[kk + 1] - cw[k0]) / tot
-        out.append({"text": words[kk], "start": round(a, 3), "end": round(b - (0.0 if kk == k1 else 0.02), 3), "type": "word"})
+        out.append({"text": words[kk], "start": round(a * SCALE, 3), "end": round((b - (0.0 if kk == k1 else 0.02)) * SCALE, 3), "type": "word"})
 
+TMP.unlink()
 (ROOT / "scripts" / "vo_words.json").write_text(json.dumps(out, ensure_ascii=False, indent=0))
 print(f"{len(pauses)} pauses, {W} words, rate {rate:.4f}s/unit, speech {v0:.2f}–{v1:.2f}s")
 for p, k0, k1 in bounds:

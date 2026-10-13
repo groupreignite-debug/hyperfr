@@ -3,7 +3,7 @@
   python3 scripts/build_vo.py              # process the chosen take
   python3 scripts/build_vo.py --silent     # timing-preview only: silent track of the cue length
 
-Light polish for an ElevenLabs take (80 Hz HPF, gentle presence, de-ess, soft limiter). If the
+Light polish for an ElevenLabs take (80 Hz HPF, gentle presence, de-ess, -16 LUFS speech level, soft limiter). If the
 take runs over 60 s it is sped up without changing pitch (ffmpeg atempo) to land at ~60 s.
 The final mix is normalised to -14 LUFS on the render (README).
 
@@ -41,6 +41,7 @@ chain = [
     "equalizer=f=3200:t=q:w=1.2:g=1.5",
     "deesser=i=0.35",
     f"atempo={tempo:.4f}",
+    "loudnorm=I=-16:TP=-1.5:LRA=7",  # takes arrive at very different levels (landing-v2 take 1: -33.6 dB mean)
     "alimiter=limit=0.89:level=false",
 ]
 subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", str(SRC), "-af", ",".join(chain), "-ar", "48000", "-ac", "2",
