@@ -3,11 +3,11 @@ workflow: faceless-explainer
 flow: autonomous
 storyboard: skip
 angle: concept
-length: 61.6s (58.0s VO + 0.6s tail + 3s end card)
+length: 60.5s (56.9s VO + 0.6s tail + 3s end card)
 destination: instagram-reels (@reignitegroup, Sat Nov 7 2026)
 format: 1080x1920 @ 30fps
 language: ar (Lebanese conversational) + English key terms
-voice: ElevenLabs "Fadi - Lebanese Conversational Voice" (oJQlz7pz2yWd7MRmDUXm), eleven_multilingual_v2, take 4, 1.05x tempo
+voice: client recording (audio/vo-human, Oct 13), replacing the ElevenLabs "Fadi" take 4 used for the first cut
 vo_mode: verbatim (client script)
 series: شو يعني؟ (after incrementality-explained, vanity-metrics)
 brand: Reignite Group
