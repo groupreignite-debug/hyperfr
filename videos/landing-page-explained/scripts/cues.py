@@ -120,7 +120,7 @@ def beats(L):
     b["s1_push"] = W(1, 6)
     b["s1_lost"] = W(1, 6) + 0.35
     b["s1_coin"] = W(2, 3)
-    b["s1_out"] = LS(3) - 0.35
+    b["s1_out"] = LS(3) - 0.15
     # 02 example
     b["s2_phone"] = LS(3) - 0.15
     b["s2_mark"] = W(3, 4)
@@ -138,7 +138,7 @@ def beats(L):
     b["s5_ad"] = W(6, 2)
     b["s5_shoe"] = W(6, 5)
     b["s5_arrow"] = W(6, 8)
-    b["s5_q"] = W(6, 11)
+    b["s5_q"] = min(W(6, 11), W(6, 8) + 0.4)
     # 06 term
     b["s6_wipe"] = LS(7) - 0.1
     b["s6_term"] = W(7, 1)
@@ -159,7 +159,7 @@ def beats(L):
     b["s10_light"] = W(11, 1)
     b["s10_door"] = W(11, 5)
     b["s10_table"] = W(11, 7)
-    b["s10_walk"] = WE(11, 7)
+    b["s10_walk"] = min(WE(11, 7), W(11, 7) + 0.15)
     # 11 the rule
     b["s11_in"] = LS(12) - 0.1
     b["s11_stamp"] = [W(12, 2), W(12, 4), W(12, 6)]

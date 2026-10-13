@@ -4,5 +4,3 @@ snapshots/
 .hyperframes/
 *.log
 __pycache__/
-# silent timing-preview track (scripts/build_vo.py --silent); the real VO track is force-added
-audio/vo/vo_track.wav

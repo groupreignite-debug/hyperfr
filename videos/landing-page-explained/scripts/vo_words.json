@@ -1,0 +1,710 @@
+[
+{
+"text": "عم",
+"start": 0.08,
+"end": 0.274,
+"type": "word"
+},
+{
+"text": "تدفع",
+"start": 0.294,
+"end": 0.61,
+"type": "word"
+},
+{
+"text": "عالإعلان…",
+"start": 0.63,
+"end": 1.21,
+"type": "word"
+},
+{
+"text": "وتبعت",
+"start": 1.828,
+"end": 2.091,
+"type": "word"
+},
+{
+"text": "الناس",
+"start": 2.111,
+"end": 2.375,
+"type": "word"
+},
+{
+"text": "عالصفحة",
+"start": 2.395,
+"end": 2.765,
+"type": "word"
+},
+{
+"text": "الرئيسية؟",
+"start": 2.89,
+"end": 3.477,
+"type": "word"
+},
+{
+"text": "هون",
+"start": 4.038,
+"end": 4.25,
+"type": "word"
+},
+{
+"text": "عم",
+"start": 4.27,
+"end": 4.43,
+"type": "word"
+},
+{
+"text": "تضيّع",
+"start": 4.45,
+"end": 4.714,
+"type": "word"
+},
+{
+"text": "مصاري.",
+"start": 4.734,
+"end": 5.069,
+"type": "word"
+},
+{
+"text": "خلّيني",
+"start": 5.693,
+"end": 6.094,
+"type": "word"
+},
+{
+"text": "فرجيك",
+"start": 6.114,
+"end": 6.514,
+"type": "word"
+},
+{
+"text": "مثال:",
+"start": 6.534,
+"end": 6.89,
+"type": "word"
+},
+{
+"text": "محل",
+"start": 7.351,
+"end": 7.595,
+"type": "word"
+},
+{
+"text": "أحذية",
+"start": 7.615,
+"end": 7.977,
+"type": "word"
+},
+{
+"text": "أونلاين.",
+"start": 7.997,
+"end": 8.496,
+"type": "word"
+},
+{
+"text": "هيدي",
+"start": 9.167,
+"end": 9.364,
+"type": "word"
+},
+{
+"text": "الـ",
+"start": 9.384,
+"end": 9.541,
+"type": "word"
+},
+{
+"text": "Homepage",
+"start": 9.561,
+"end": 9.915,
+"type": "word"
+},
+{
+"text": "تبعو.",
+"start": 9.935,
+"end": 10.151,
+"type": "word"
+},
+{
+"text": "فيها",
+"start": 10.821,
+"end": 11.123,
+"type": "word"
+},
+{
+"text": "قائمة،",
+"start": 11.143,
+"end": 11.522,
+"type": "word"
+},
+{
+"text": "وأقسام",
+"start": 11.743,
+"end": 12.178,
+"type": "word"
+},
+{
+"text": "كتير،",
+"start": 12.198,
+"end": 12.531,
+"type": "word"
+},
+{
+"text": "وكبسات",
+"start": 12.987,
+"end": 13.427,
+"type": "word"
+},
+{
+"text": "بكل",
+"start": 13.447,
+"end": 13.703,
+"type": "word"
+},
+{
+"text": "مكان.",
+"start": 13.723,
+"end": 14.06,
+"type": "word"
+},
+{
+"text": "وهيدا",
+"start": 14.649,
+"end": 14.943,
+"type": "word"
+},
+{
+"text": "طبيعي.",
+"start": 14.963,
+"end": 15.277,
+"type": "word"
+},
+{
+"text": "الـ",
+"start": 15.741,
+"end": 15.935,
+"type": "word"
+},
+{
+"text": "Homepage",
+"start": 15.955,
+"end": 16.385,
+"type": "word"
+},
+{
+"text": "معمولة",
+"start": 16.405,
+"end": 16.74,
+"type": "word"
+},
+{
+"text": "لكل",
+"start": 16.76,
+"end": 16.953,
+"type": "word"
+},
+{
+"text": "الناس:",
+"start": 16.973,
+"end": 17.281,
+"type": "word"
+},
+{
+"text": "اللي",
+"start": 17.503,
+"end": 17.766,
+"type": "word"
+},
+{
+"text": "بدو",
+"start": 17.786,
+"end": 17.998,
+"type": "word"
+},
+{
+"text": "رجالي،",
+"start": 18.018,
+"end": 18.353,
+"type": "word"
+},
+{
+"text": "اللي",
+"start": 18.936,
+"end": 19.243,
+"type": "word"
+},
+{
+"text": "بدو",
+"start": 19.263,
+"end": 19.51,
+"type": "word"
+},
+{
+"text": "نسائي،",
+"start": 19.53,
+"end": 19.916,
+"type": "word"
+},
+{
+"text": "واللي",
+"start": 20.195,
+"end": 20.458,
+"type": "word"
+},
+{
+"text": "بدو",
+"start": 20.478,
+"end": 20.654,
+"type": "word"
+},
+{
+"text": "العروض.",
+"start": 20.674,
+"end": 21.0,
+"type": "word"
+},
+{
+"text": "بس",
+"start": 21.775,
+"end": 21.948,
+"type": "word"
+},
+{
+"text": "هوّي",
+"start": 21.968,
+"end": 22.196,
+"type": "word"
+},
+{
+"text": "عامل",
+"start": 22.216,
+"end": 22.5,
+"type": "word"
+},
+{
+"text": "إعلان",
+"start": 22.52,
+"end": 22.859,
+"type": "word"
+},
+{
+"text": "على",
+"start": 22.879,
+"end": 23.108,
+"type": "word"
+},
+{
+"text": "حذاء",
+"start": 23.128,
+"end": 23.411,
+"type": "word"
+},
+{
+"text": "رياضي",
+"start": 23.431,
+"end": 23.77,
+"type": "word"
+},
+{
+"text": "واحد.",
+"start": 23.79,
+"end": 24.094,
+"type": "word"
+},
+{
+"text": "لوين",
+"start": 24.803,
+"end": 25.06,
+"type": "word"
+},
+{
+"text": "لازم",
+"start": 25.08,
+"end": 25.337,
+"type": "word"
+},
+{
+"text": "يبعت",
+"start": 25.357,
+"end": 25.614,
+"type": "word"
+},
+{
+"text": "الناس؟",
+"start": 25.634,
+"end": 25.962,
+"type": "word"
+},
+{
+"text": "على",
+"start": 26.162,
+"end": 26.34,
+"type": "word"
+},
+{
+"text": "Landing",
+"start": 26.36,
+"end": 26.716,
+"type": "word"
+},
+{
+"text": "Page.",
+"start": 26.736,
+"end": 26.979,
+"type": "word"
+},
+{
+"text": "ما",
+"start": 27.434,
+"end": 27.549,
+"type": "word"
+},
+{
+"text": "في",
+"start": 27.569,
+"end": 27.684,
+"type": "word"
+},
+{
+"text": "قائمة.",
+"start": 27.704,
+"end": 27.955,
+"type": "word"
+},
+{
+"text": "صورة",
+"start": 28.632,
+"end": 28.891,
+"type": "word"
+},
+{
+"text": "الحذاء،",
+"start": 28.911,
+"end": 29.29,
+"type": "word"
+},
+{
+"text": "عنوان",
+"start": 29.596,
+"end": 29.958,
+"type": "word"
+},
+{
+"text": "واحد،",
+"start": 29.978,
+"end": 30.301,
+"type": "word"
+},
+{
+"text": "وكبسة",
+"start": 30.558,
+"end": 30.825,
+"type": "word"
+},
+{
+"text": "وحدة:",
+"start": 30.845,
+"end": 31.088,
+"type": "word"
+},
+{
+"text": "اطلب",
+"start": 31.621,
+"end": 31.904,
+"type": "word"
+},
+{
+"text": "هلّق.",
+"start": 31.924,
+"end": 32.172,
+"type": "word"
+},
+{
+"text": "ليش؟",
+"start": 32.495,
+"end": 32.752,
+"type": "word"
+},
+{
+"text": "لأن",
+"start": 33.218,
+"end": 33.434,
+"type": "word"
+},
+{
+"text": "الزائر",
+"start": 33.454,
+"end": 33.827,
+"type": "word"
+},
+{
+"text": "جايي",
+"start": 33.847,
+"end": 34.116,
+"type": "word"
+},
+{
+"text": "لسبب",
+"start": 34.136,
+"end": 34.404,
+"type": "word"
+},
+{
+"text": "واحد،",
+"start": 34.424,
+"end": 34.713,
+"type": "word"
+},
+{
+"text": "والصفحة",
+"start": 35.301,
+"end": 35.722,
+"type": "word"
+},
+{
+"text": "لازم",
+"start": 35.742,
+"end": 36.007,
+"type": "word"
+},
+{
+"text": "تحكي",
+"start": 36.027,
+"end": 36.293,
+"type": "word"
+},
+{
+"text": "عن",
+"start": 36.313,
+"end": 36.474,
+"type": "word"
+},
+{
+"text": "هيدا",
+"start": 36.494,
+"end": 36.759,
+"type": "word"
+},
+{
+"text": "السبب",
+"start": 36.779,
+"end": 37.096,
+"type": "word"
+},
+{
+"text": "بس.",
+"start": 37.116,
+"end": 37.298,
+"type": "word"
+},
+{
+"text": "تخيّل",
+"start": 38.052,
+"end": 38.458,
+"type": "word"
+},
+{
+"text": "تعزم",
+"start": 38.478,
+"end": 38.885,
+"type": "word"
+},
+{
+"text": "حدا",
+"start": 38.905,
+"end": 39.234,
+"type": "word"
+},
+{
+"text": "على",
+"start": 39.254,
+"end": 39.583,
+"type": "word"
+},
+{
+"text": "العشا،",
+"start": 39.603,
+"end": 40.107,
+"type": "word"
+},
+{
+"text": "وتقلّو:",
+"start": 40.375,
+"end": 40.677,
+"type": "word"
+},
+{
+"text": "تعا",
+"start": 40.697,
+"end": 40.9,
+"type": "word"
+},
+{
+"text": "عالحي،",
+"start": 40.92,
+"end": 41.243,
+"type": "word"
+},
+{
+"text": "ودوّر",
+"start": 41.702,
+"end": 42.046,
+"type": "word"
+},
+{
+"text": "عالبيت",
+"start": 42.066,
+"end": 42.541,
+"type": "word"
+},
+{
+"text": "لحالك.",
+"start": 42.561,
+"end": 42.991,
+"type": "word"
+},
+{
+"text": "الـ",
+"start": 43.8,
+"end": 44.058,
+"type": "word"
+},
+{
+"text": "Landing",
+"start": 44.078,
+"end": 44.584,
+"type": "word"
+},
+{
+"text": "Page",
+"start": 44.604,
+"end": 44.944,
+"type": "word"
+},
+{
+"text": "هيي",
+"start": 45.095,
+"end": 45.254,
+"type": "word"
+},
+{
+"text": "إنك",
+"start": 45.274,
+"end": 45.453,
+"type": "word"
+},
+{
+"text": "تفتحلو",
+"start": 45.588,
+"end": 45.912,
+"type": "word"
+},
+{
+"text": "الباب،",
+"start": 45.932,
+"end": 46.229,
+"type": "word"
+},
+{
+"text": "والطاولة",
+"start": 46.732,
+"end": 47.039,
+"type": "word"
+},
+{
+"text": "جاهزة.",
+"start": 47.059,
+"end": 47.282,
+"type": "word"
+},
+{
+"text": "القاعدة",
+"start": 48.033,
+"end": 48.504,
+"type": "word"
+},
+{
+"text": "بسيطة:",
+"start": 48.524,
+"end": 48.9,
+"type": "word"
+},
+{
+"text": "إعلان",
+"start": 49.224,
+"end": 49.758,
+"type": "word"
+},
+{
+"text": "واحد،",
+"start": 49.778,
+"end": 50.247,
+"type": "word"
+},
+{
+"text": "صفحة",
+"start": 50.397,
+"end": 50.611,
+"type": "word"
+},
+{
+"text": "وحدة،",
+"start": 50.631,
+"end": 50.866,
+"type": "word"
+},
+{
+"text": "هدف",
+"start": 51.19,
+"end": 51.338,
+"type": "word"
+},
+{
+"text": "واحد.",
+"start": 51.358,
+"end": 51.564,
+"type": "word"
+},
+{
+"text": "إعلاناتك",
+"start": 52.477,
+"end": 52.964,
+"type": "word"
+},
+{
+"text": "لوين",
+"start": 52.984,
+"end": 53.258,
+"type": "word"
+},
+{
+"text": "عم",
+"start": 53.278,
+"end": 53.445,
+"type": "word"
+},
+{
+"text": "تبعت",
+"start": 53.465,
+"end": 53.739,
+"type": "word"
+},
+{
+"text": "الناس؟",
+"start": 53.759,
+"end": 54.106,
+"type": "word"
+},
+{
+"text": "اكتبلنا",
+"start": 54.774,
+"end": 55.169,
+"type": "word"
+},
+{
+"text": "بالكومنتات.",
+"start": 55.189,
+"end": 55.75,
+"type": "word"
+}
+]

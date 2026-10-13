@@ -13,9 +13,14 @@ statistic or AI image appears. Look, fonts, audio bed and logo handling follow `
   `mix-blend-mode: lighten` so its black field sits on the charcoal.
 
 ## Timing pipeline (one cue sheet drives picture, subtitles and SFX)
-1. `audio/vo/vo_full.mp3` = the chosen Fadi **landing-v2** take. `python3 scripts/build_vo.py` → `audio/vo/vo_track.wav`
+1. `audio/vo/vo_full.mp3` = the chosen Fadi **landing-v2 take 1** (Salem's pick; 56.3 s, no speed-up needed). `python3 scripts/build_vo.py` → `audio/vo/vo_track.wav`
    (light polish; sped up without pitch change only if it runs over 60 s).
-2. Word timings: ElevenLabs Scribe on `vo_track.wav`, saved as `scripts/vo_words.json` (`[{text,start,end}]`).
+2. Word timings → `scripts/vo_words.json` (`[{text,start,end}]`). Preferred: ElevenLabs Scribe on `vo_track.wav`.
+   **In use for take 1:** `python3 scripts/align_pauses.py`. Scribe could not be reached from the build session
+   (no upload path to ElevenLabs), so the known script is aligned to the take's pauses instead: the clean
+   ElevenLabs read breaks into 38 speech runs that match the script's phrases one-to-one, and words inside a
+   run are spread by letter count. Phrase starts are exact; mid-phrase words are approximate (±0.2 s).
+   Drop a Scribe export into `scripts/vo_words.json` and rerun step 3 to tighten them.
 3. `python3 scripts/cues.py --words scripts/vo_words.json` aligns Scribe's words to the script, derives every
    beat (`beats()`), writes `scripts/cues.json` and injects CUES into `index.html` (+ all clip durations).
 4. `python3 scripts/build_audio.py` → `audio/music.wav` (bed, pre-ducked under each VO line) + `audio/sfx.wav`.
