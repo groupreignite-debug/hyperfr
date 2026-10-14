@@ -1,0 +1,126 @@
+<template>
+  <style>
+    @font-face { font-family: "Noto Kufi Arabic"; font-weight: 800; src: url("assets/fonts/noto-kufi-arabic-arabic-800-normal.woff2") format("woff2"); }
+    @font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 600; src: url("assets/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; color: #f5f1ea; font-family: "IBM Plex Sans Arabic", sans-serif; }
+    #s03-stage { position: absolute; inset: 0; }
+    .s03-ar { font-family: "Noto Kufi Arabic", sans-serif; direction: rtl; white-space: nowrap; }
+    .s03-w { display: inline-block; }
+    .or { color: #ff4d1a; }
+    .s03-tag { position: absolute; right: 90px; top: 318px; font-family: "Inter", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.24em; color: rgba(245,241,234,0.6); white-space: nowrap; }
+    .s03-tag b { color: #ff4d1a; font-weight: 800; margin-left: 14px; }
+    #s03-h { position: absolute; left: 60px; right: 90px; top: 372px; text-align: right; font-weight: 800; font-size: 92px; line-height: 1.4; }
+
+    #s03-art { position: absolute; left: 110px; top: 640px; width: 860px; height: 360px; }
+    #s03-box { position: absolute; inset: 0; overflow: visible; }
+    #s03-sw { position: absolute; left: 0; top: 0; width: 860px; height: 360px; overflow: visible; }
+    #s03-ghost { position: absolute; left: 0; top: 0; width: 860px; height: 360px; overflow: visible; }
+    .s03-dim { position: absolute; font-family: "Inter", sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.2em; color: rgba(245,241,234,0.45); white-space: nowrap; }
+
+    #s03-one { position: absolute; left: 90px; top: 1050px; width: 420px; height: 250px; }
+    #s03-1 { position: absolute; left: 0; top: -40px; font-family: "Inter", sans-serif; font-weight: 800; font-size: 250px; line-height: 1; color: #ff4d1a; letter-spacing: -0.04em; }
+    #s03-shape { position: absolute; left: 170px; top: 120px; font-family: "Inter", sans-serif; font-weight: 800; font-size: 56px; letter-spacing: 0.12em; color: #f5f1ea; }
+    #s03-one-ar { position: absolute; right: 90px; top: 1100px; font-weight: 800; font-size: 76px; line-height: 1.4; }
+
+    #s03-chips { position: absolute; left: 90px; right: 90px; top: 1350px; height: 100px; }
+    .s03-chip { position: absolute; top: 0; height: 86px; padding: 0 30px; border: 1.5px solid rgba(245,241,234,0.22); border-radius: 43px; direction: rtl; white-space: nowrap; font-family: "IBM Plex Sans Arabic", sans-serif; font-weight: 600; font-size: 40px; line-height: 82px; color: rgba(245,241,234,0.8); }
+    .s03-chip i { font-style: normal; font-family: "Inter", sans-serif; font-weight: 800; color: #ff4d1a; margin-left: 16px; }
+    #s03-c1 { right: 0; }
+    #s03-c2 { left: 0; }
+    #s03-traits { position: absolute; left: 90px; right: 90px; top: 1360px; height: 80px; display: flex; justify-content: space-between; }
+    .s03-tr { font-family: "Inter", sans-serif; font-weight: 800; font-size: 34px; letter-spacing: 0.14em; color: #f5f1ea; white-space: nowrap; }
+    .s03-tr span { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #ff4d1a; margin-right: 14px; vertical-align: 6px; }
+  </style>
+
+  <div id="root" data-composition-id="s03-nike" data-width="1080" data-height="1920">
+    <div id="s03-stage" class="clip" data-start="0" data-duration="9.55" data-track-index="0">
+      <div class="s03-tag" id="s03-tag">SIMPLICITY<b>01</b></div>
+      <div id="s03-h" class="s03-ar"><span class="s03-w or" id="s03-h1">نايك</span> <span class="s03-w" id="s03-h2">كمثال.</span></div>
+
+      <div id="s03-art">
+        <!-- construction: bounding box + guide arc + tangent -->
+        <svg id="s03-box" viewBox="0 0 860 360">
+          <g fill="none" stroke="#f5f1ea" stroke-opacity="0.28" stroke-width="1.5">
+            <rect id="s03-bb" x="1" y="1" width="858" height="358" stroke-dasharray="2434" stroke-dashoffset="2434" />
+            <line id="s03-g1" x1="-60" y1="300" x2="920" y2="300" stroke-dasharray="980" stroke-dashoffset="980" />
+          </g>
+          <line id="s03-tan" x1="96" y1="320" x2="860" y2="14" stroke="#ff4d1a" stroke-width="2" stroke-dasharray="823" stroke-dashoffset="823" />
+          <circle id="s03-tip" cx="860" cy="14" r="10" fill="none" stroke="#ff4d1a" stroke-width="2.5" />
+        </svg>
+        <!-- ghost "extra details" that get removed -->
+        <svg id="s03-ghost" viewBox="0 7.4 24 9.2">
+          <path id="s03-gh1" fill="none" stroke="#f5f1ea" stroke-opacity="0.5" stroke-width="0.07" transform="translate(-0.5 0.55)" d="M24 7.8L6.442 15.276c-1.456.616-2.679.925-3.668.925-1.12 0-1.933-.392-2.437-1.177-.317-.504-.41-1.143-.28-1.918.13-.775.476-1.6 1.036-2.478.467-.71 1.232-1.643 2.297-2.8a6.122 6.122 0 00-.784 1.848c-.28 1.195-.028 2.072.756 2.632.373.261.886.392 1.54.392.522 0 1.11-.084 1.764-.252L24 7.8z"/>
+          <g id="s03-gh2" stroke="#ff4d1a" stroke-width="0.12" stroke-linecap="round" stroke-opacity="0.8">
+            <line x1="-1.6" y1="12.2" x2="-0.4" y2="12.2" /><line x1="-2.2" y1="13.2" x2="-0.6" y2="13.2" /><line x1="-1.4" y1="14.2" x2="-0.3" y2="14.2" />
+          </g>
+          <g id="s03-gh3" fill="#ffb000" fill-opacity="0.85">
+            <circle cx="20.6" cy="9.9" r="0.28" /><circle cx="19.3" cy="10.6" r="0.18" /><circle cx="21.8" cy="10.9" r="0.16" />
+          </g>
+        </svg>
+        <svg id="s03-sw" viewBox="0 7.4 24 9.2">
+          <path fill="#f5f1ea" d="M24 7.8L6.442 15.276c-1.456.616-2.679.925-3.668.925-1.12 0-1.933-.392-2.437-1.177-.317-.504-.41-1.143-.28-1.918.13-.775.476-1.6 1.036-2.478.467-.71 1.232-1.643 2.297-2.8a6.122 6.122 0 00-.784 1.848c-.28 1.195-.028 2.072.756 2.632.373.261.886.392 1.54.392.522 0 1.11-.084 1.764-.252L24 7.8z"/>
+        </svg>
+        <div class="s03-dim" id="s03-d1" style="left: 0; top: -40px">24 × 9</div>
+        <div class="s03-dim" id="s03-d2" style="right: 0; top: -40px">1 PATH</div>
+      </div>
+
+      <div id="s03-one"><div id="s03-1">1</div><div id="s03-shape">SHAPE</div></div>
+      <div id="s03-one-ar" class="s03-ar"><span class="s03-w" id="s03-o1">شكل</span> <span class="s03-w or" id="s03-o2">واحد.</span></div>
+
+      <div id="s03-chips">
+        <div class="s03-chip" id="s03-c1"><i>✕</i>تفاصيل معقدة</div>
+        <div class="s03-chip" id="s03-c2"><i>✕</i>عناصر زيادة</div>
+      </div>
+      <div id="s03-traits">
+        <div class="s03-tr" id="s03-t3"><span></span>MEMORABLE</div>
+        <div class="s03-tr" id="s03-t2"><span></span>DISTINCTIVE</div>
+        <div class="s03-tr" id="s03-t1"><span></span>SIMPLE</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const V = 0.2;
+      const tl = gsap.timeline({ paused: true });
+      const word = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, t);
+
+      tl.fromTo("#s03-tag", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.05);
+      word("#s03-h1", V + 0.82); word("#s03-h2", V + 1.18);
+
+      // the swoosh is drawn from its tail to its tip, guides first
+      tl.to("#s03-bb", { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 0.1);
+      tl.to("#s03-g1", { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 0.3);
+      tl.fromTo("#s03-sw", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "expo.inOut" }, V + 0.55);
+      tl.to("#s03-tan", { strokeDashoffset: 0, duration: 0.8, ease: "power3.inOut" }, V + 1.2);
+      tl.fromTo("#s03-tip", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, V + 1.85);
+      tl.fromTo(["#s03-d1", "#s03-d2"], { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.12 }, V + 1.4);
+
+      // "مجرد شكل واحد."
+      tl.fromTo("#s03-1", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, ease: "expo.out" }, V + 2.07);
+      tl.fromTo("#s03-shape", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, V + 2.3);
+      word("#s03-o1", V + 2.54); word("#s03-o2", V + 2.86);
+
+      // extra details appear… and get rejected
+      tl.fromTo("#s03-gh1", { opacity: 0 }, { opacity: 1, duration: 0.3 }, V + 3.72);
+      tl.fromTo("#s03-gh2", { opacity: 0, x: 0.8 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, V + 3.9);
+      tl.fromTo("#s03-gh3", { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, V + 4.05);
+      tl.fromTo("#s03-c1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, V + 3.72);
+      tl.to(["#s03-gh1", "#s03-gh3"], { opacity: 0, duration: 0.35, ease: "power2.in", stagger: 0.1 }, V + 4.85);
+      tl.fromTo("#s03-c2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, V + 5.61);
+      tl.to("#s03-gh2", { opacity: 0, x: -0.6, duration: 0.35, ease: "power2.in" }, V + 6.45);
+
+      // "بس بتشوفه… بتعرفه." — guides go, the one shape stays
+      tl.to(["#s03-c1", "#s03-c2"], { opacity: 0, y: -14, duration: 0.3, ease: "power2.in", stagger: 0.06 }, V + 6.95);
+      tl.to(["#s03-box", "#s03-d1", "#s03-d2"], { opacity: 0, duration: 0.5, ease: "power2.out" }, V + 7.1);
+      tl.to("#s03-sw", { scale: 0.86, duration: 1.2, ease: "expo.out", transformOrigin: "50% 50%" }, V + 7.1);
+      [["#s03-t1", 7.11], ["#s03-t2", 7.6], ["#s03-t3", 8.23]].forEach(([s, t]) => {
+        tl.fromTo(s, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, V + t);
+      });
+
+      window.__timelines["s03-nike"] = tl;
+    })();
+  </script>
+</template>

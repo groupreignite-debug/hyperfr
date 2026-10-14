@@ -1,0 +1,60 @@
+<template>
+  <style>
+    @font-face { font-family: "Noto Kufi Arabic"; font-weight: 800; src: url("assets/fonts/noto-kufi-arabic-arabic-800-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Kufi Arabic"; font-weight: 900; src: url("assets/fonts/noto-kufi-arabic-arabic-900-normal.woff2") format("woff2"); }
+    @font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 600; src: url("assets/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; color: #f5f1ea; font-family: "IBM Plex Sans Arabic", sans-serif; }
+    #s08-stage { position: absolute; inset: 0; }
+    .s08-ar { font-family: "Noto Kufi Arabic", sans-serif; direction: rtl; white-space: nowrap; }
+    .s08-w { display: inline-block; }
+    .or { color: #ff4d1a; }
+    .s08-tag { position: absolute; right: 90px; top: 318px; font-family: "Inter", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.24em; color: rgba(245,241,234,0.6); white-space: nowrap; }
+    .s08-tag b { color: #ff4d1a; font-weight: 800; margin-left: 14px; }
+    #s08-h { position: absolute; left: 60px; right: 90px; top: 372px; text-align: right; font-weight: 900; font-size: 104px; line-height: 1.4; }
+    #s08-k { position: absolute; right: 90px; top: 525px; font-family: "IBM Plex Sans Arabic", sans-serif; font-weight: 600; font-size: 52px; color: rgba(245,241,234,0.68); direction: rtl; white-space: nowrap; }
+    #s08-box { position: absolute; left: 330px; top: 680px; width: 420px; height: 420px; border: 3px dashed rgba(245,241,234,0.45); border-radius: 28px; }
+    #s08-box .t { position: absolute; left: 0; right: 0; top: 100px; text-align: center; font-family: "Noto Kufi Arabic", sans-serif; font-weight: 800; font-size: 76px; color: rgba(245,241,234,0.75); direction: rtl; }
+    #s08-box .e { position: absolute; left: 0; right: 0; top: 300px; text-align: center; font-family: "Inter", sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.24em; color: rgba(245,241,234,0.4); }
+    #s08-px { position: absolute; left: 330px; right: 330px; top: 1130px; height: 40px; font-family: "Inter", sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 0.2em; white-space: nowrap; }
+    #s08-px1 { position: absolute; left: 0; right: 0; text-align: center; color: rgba(245,241,234,0.6); }
+    #s08-px2 { position: absolute; left: 0; right: 0; text-align: center; color: #ff4d1a; }
+    #s08-end { position: absolute; left: 40px; right: 40px; top: 1300px; text-align: center; font-weight: 900; font-size: 116px; line-height: 1.35; }
+  </style>
+
+  <div id="root" data-composition-id="s08-try" data-width="1080" data-height="1920">
+    <div id="s08-stage" class="clip" data-start="0" data-duration="4.8" data-track-index="0">
+      <div class="s08-tag" id="s08-tag">TRY IT<b>05</b></div>
+      <div id="s08-h" class="s08-ar"><span data-layout-allow-overlap class="s08-w" id="s08-h1">جرّب</span> <span data-layout-allow-overlap class="s08-w or" id="s08-h2">هلّق:</span></div>
+      <div id="s08-k">صغّر شعارك لقدّ أيقونة.</div>
+      <div id="s08-box"><div class="t">شعارك</div><div class="e">YOUR LOGO</div></div>
+      <div id="s08-px"><span id="s08-px1">420 PX</span><span id="s08-px2">48 PX</span></div>
+      <div id="s08-end" class="s08-ar"><span data-layout-allow-overlap class="s08-w" id="s08-e1">بعدك</span> <span data-layout-allow-overlap class="s08-w or" id="s08-e2">بتعرفو؟</span></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const V = 0.3;
+      const tl = gsap.timeline({ paused: true });
+      const word = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, t);
+      const pop = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.8)" }, t);
+      const seq = (pre, times) => times.forEach((t, i) => word(pre + (i + 1), V + t));
+      tl.fromTo("#s08-tag", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.05);
+      word("#s08-h1", V + 0);
+      pop("#s08-h2", V + 0.453);
+      tl.fromTo("#s08-box", { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" }, 0.1);
+      tl.fromTo("#s08-px1", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.4);
+      // "صغّر شعارك لقدّ أيقونة."
+      tl.fromTo("#s08-k", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, V + 1.16);
+      tl.to("#s08-box", { scale: 0.115, borderRadius: "120px", duration: 1.0, ease: "expo.inOut" }, V + 1.6);
+      tl.to("#s08-px1", { opacity: 0, duration: 0.2 }, V + 2.1);
+      tl.fromTo("#s08-px2", { opacity: 0 }, { opacity: 1, duration: 0.25 }, V + 2.25);
+      // "بعدك بتعرفو؟"
+      word("#s08-e1", V + 2.926);
+      tl.fromTo("#s08-e2", { opacity: 0, y: 50, scale: 0.86 }, { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: "back.out(1.7)" }, V + 3.26);
+      window.__timelines["s08-try"] = tl;
+    })();
+  </script>
+</template>

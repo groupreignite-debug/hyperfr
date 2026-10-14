@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ar" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Reignite Group — ليش أشهر الشعارات بسيطة؟</title>
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #1a1a1a; }
+      #root {
+        position: relative; width: 100%; height: 100%; overflow: hidden;
+        background: #1a1a1a; color: #f5f1ea; font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .clip { position: absolute; inset: 0; }
+
+      /* ---- ground: designer's workspace ---- */
+      #bg { background: #1a1a1a; overflow: hidden; }
+      #bg-grid {
+        position: absolute; left: 0; top: -180px; width: 1080px; height: 2280px;
+        background-image:
+          linear-gradient(to right, rgba(245,241,234,0.035) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(245,241,234,0.035) 1px, transparent 1px);
+        background-size: 90px 90px;
+        background-position: 0 0;
+      }
+      #bg-vignette {
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse 80% 60% at 50% 48%, rgba(26,26,26,0) 40%, rgba(16,16,16,0.85) 100%);
+      }
+      .crop { position: absolute; width: 34px; height: 34px; border-color: rgba(245,241,234,0.22); border-style: solid; border-width: 0; }
+      .crop.tl { left: 60px; top: 300px; border-left-width: 1.5px; border-top-width: 1.5px; }
+      .crop.tr { right: 60px; top: 300px; border-right-width: 1.5px; border-top-width: 1.5px; }
+      .crop.bl { left: 60px; bottom: 380px; border-left-width: 1.5px; border-bottom-width: 1.5px; }
+      .crop.br { right: 60px; bottom: 380px; border-right-width: 1.5px; border-bottom-width: 1.5px; }
+      .bg-dot { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: #ff4d1a; opacity: 0.55; }
+
+      /* ---- header row ---- */
+      #hdr-wrap { position: absolute; left: 90px; right: 90px; top: 222px; height: 40px; }
+      .hdr-lab {
+        position: absolute; top: 0; font-weight: 700; font-size: 21px; letter-spacing: 0.24em;
+        text-transform: uppercase; color: rgba(245,241,234,0.62); white-space: nowrap;
+      }
+      #hdr-l { left: 0; }
+      #hdr-r { right: 0; color: rgba(245,241,234,0.56); font-weight: 500; }
+      #hdr-sq { display: inline-block; width: 11px; height: 11px; background: #ff4d1a; margin-right: 14px; vertical-align: 1px; }
+      #hdr-line { position: absolute; left: 0; right: 0; top: 46px; height: 2px; background: rgba(245,241,234,0.1); }
+      #hdr-prog { position: absolute; left: 0; top: 46px; height: 2px; width: 900px; background: #ff4d1a; transform-origin: 0 50%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="106.5" data-width="1080" data-height="1920">
+      <!-- ground -->
+      <div id="bg" data-layout-allow-overflow class="clip" data-start="0" data-duration="106.5" data-track-index="0">
+        <div id="bg-grid"></div>
+        <div id="bg-vignette"></div>
+        <div class="crop tl"></div><div class="crop tr"></div>
+        <div class="crop bl"></div><div class="crop br"></div>
+        <div class="bg-dot" id="bg-dot-a" style="left: 177px; top: 447px"></div>
+        <div class="bg-dot" id="bg-dot-b" style="left: 897px; top: 1437px"></div>
+      </div>
+
+      <!-- header + progress (hidden for the final statement + end card) -->
+      <div id="hdr" class="clip" data-start="0" data-duration="96.1" data-track-index="1">
+        <div id="hdr-wrap">
+          <div class="hdr-lab" id="hdr-l"><span id="hdr-sq"></span>Reignite Group</div>
+          <div class="hdr-lab" id="hdr-r">Brand Notes · Logo</div>
+          <div id="hdr-line"></div>
+          <div id="hdr-prog"></div>
+        </div>
+      </div>
+
+      <!-- scenes -->
+      <div id="s01" data-composition-id="s01-hook" data-composition-src="compositions/frames/s01-hook.html" data-start="0" data-duration="9.2" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s02" data-composition-id="s02-setup" data-composition-src="compositions/frames/s02-setup.html" data-start="9.2" data-duration="6.55" data-track-index="3" data-width="1080" data-height="1920"></div>
+      <div id="s03" data-composition-id="s03-nike" data-composition-src="compositions/frames/s03-nike.html" data-start="15.75" data-duration="9.55" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s04" data-composition-id="s04-apple" data-composition-src="compositions/frames/s04-apple.html" data-start="25.3" data-duration="7" data-track-index="3" data-width="1080" data-height="1920"></div>
+      <div id="s05" data-composition-id="s05-recognition" data-composition-src="compositions/frames/s05-recognition.html" data-start="32.3" data-duration="9.95" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s06" data-composition-id="s06-scale" data-composition-src="compositions/frames/s06-scale.html" data-start="42.25" data-duration="10.65" data-track-index="3" data-width="1080" data-height="1920"></div>
+      <div id="s07" data-composition-id="s07-mcdonalds" data-composition-src="compositions/frames/s07-mcdonalds.html" data-start="52.9" data-duration="12.85" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s08" data-composition-id="s08-lesson" data-composition-src="compositions/frames/s08-lesson.html" data-start="65.75" data-duration="11.35" data-track-index="3" data-width="1080" data-height="1920"></div>
+      <div id="s09" data-composition-id="s09-process" data-composition-src="compositions/frames/s09-process.html" data-start="77.1" data-duration="12.35" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s10" data-composition-id="s10-reignite" data-composition-src="compositions/frames/s10-reignite.html" data-start="89.45" data-duration="6.65" data-track-index="3" data-width="1080" data-height="1920"></div>
+      <div id="s11" data-composition-id="s11-statement" data-composition-src="compositions/frames/s11-statement.html" data-start="96.1" data-duration="6.1" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s12" data-composition-id="s12-endcard" data-composition-src="compositions/frames/s12-endcard.html" data-start="102.2" data-duration="4.3" data-track-index="3" data-width="1080" data-height="1920"></div>
+
+      <!-- voiceover (ElevenLabs, Fadi — Lebanese) -->
+      <audio id="vo01" src="audio/vo/vo_01.mp3" data-start="0.2" data-duration="8.78" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo02" src="audio/vo/vo_02.mp3" data-start="9.4" data-duration="6.11" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo03" src="audio/vo/vo_03.mp3" data-start="15.95" data-duration="9.09" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo04" src="audio/vo/vo_04.mp3" data-start="25.5" data-duration="6.58" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo05" src="audio/vo/vo_05.mp3" data-start="32.5" data-duration="9.51" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo06" src="audio/vo/vo_06.mp3" data-start="42.45" data-duration="10.21" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo07" src="audio/vo/vo_07.mp3" data-start="53.1" data-duration="12.31" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo08" src="audio/vo/vo_08.mp3" data-start="65.95" data-duration="10.76" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo09" src="audio/vo/vo_09.mp3" data-start="77.4" data-duration="11.78" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo10" src="audio/vo/vo_10.mp3" data-start="89.7" data-duration="6.03" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo11" src="audio/vo/vo_11.mp3" data-start="96.4" data-duration="5.25" data-track-index="10" data-volume="1"></audio>
+
+      <!-- score + sound design (scripts/build_audio.py) -->
+      <audio id="music" src="audio/music.wav" data-start="0" data-duration="106.5" data-track-index="11" data-volume="1"></audio>
+      <audio id="sfx" src="audio/sfx.wav" data-start="0" data-duration="106.5" data-track-index="12" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // slow grid drift + header progress — the persistent "workspace" layer
+      tl.fromTo("#bg-grid", { y: 0 }, { y: 180, duration: 106.5, ease: "none" }, 0);
+      tl.fromTo("#bg-dot-a", { y: 0 }, { y: 120, duration: 106.5, ease: "none" }, 0);
+      tl.fromTo("#bg-dot-b", { y: 0 }, { y: -140, duration: 106.5, ease: "none" }, 0);
+      tl.fromTo("#hdr-wrap", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.05);
+      tl.fromTo("#hdr-prog", { scaleX: 0 }, { scaleX: 1, duration: 96.1, ease: "none" }, 0);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

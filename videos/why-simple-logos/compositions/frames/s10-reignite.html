@@ -1,0 +1,80 @@
+<template>
+  <style>
+    @font-face { font-family: "Noto Kufi Arabic"; font-weight: 800; src: url("assets/fonts/noto-kufi-arabic-arabic-800-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; color: #f5f1ea; font-family: "Noto Kufi Arabic", sans-serif; }
+    #s10-stage { position: absolute; inset: 0; }
+    .s10-ar { font-family: "Noto Kufi Arabic", sans-serif; direction: rtl; white-space: nowrap; text-align: center; }
+    .s10-w { display: inline-block; }
+    .or { color: #ff4d1a; }
+    #s10-top { position: absolute; left: 40px; right: 40px; top: 380px; font-weight: 800; font-size: 80px; line-height: 1.4; }
+
+    /* the supplied logo, untouched: framed only; its black field blends into the charcoal */
+    #s10-logo { position: absolute; left: 90px; top: 640px; width: 900px; height: 507px; }
+    /* charcoal + grid patch matching the root ground, so the logo's black field can blend into it */
+    #s10-patch { position: absolute; left: 90px; top: 640px; width: 900px; height: 507px; background-color: #1a1a1a; background-image: linear-gradient(to right, rgba(245,241,234,0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(245,241,234,0.035) 1px, transparent 1px); background-size: 90px 90px; background-position: 0px 51.18px; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 90px, #000 810px, transparent 900px), linear-gradient(to bottom, transparent 0, #000 70px, #000 437px, transparent 507px); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 90px, #000 810px, transparent 900px), linear-gradient(to bottom, transparent 0, #000 70px, #000 437px, transparent 507px); mask-composite: intersect; }
+    #s10-img { display: block; width: 900px; height: auto; mix-blend-mode: lighten; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 90px, #000 810px, transparent 900px), linear-gradient(to bottom, transparent 0, #000 70px, #000 437px, transparent 507px); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 90px, #000 810px, transparent 900px), linear-gradient(to bottom, transparent 0, #000 70px, #000 437px, transparent 507px); mask-composite: intersect; }
+    #s10-cons { position: absolute; left: 90px; top: 640px; width: 900px; height: 506px; overflow: visible; }
+    .s10-dim { position: absolute; font-family: "Inter", sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.2em; color: rgba(245,241,234,0.45); white-space: nowrap; }
+
+    #s10-a { position: absolute; left: 40px; right: 40px; top: 1215px; font-weight: 800; font-size: 60px; line-height: 1.4; color: rgba(245,241,234,0.7); }
+    #s10-b { position: absolute; left: 40px; right: 40px; top: 1320px; font-weight: 800; font-size: 92px; line-height: 1.4; }
+  </style>
+
+  <div id="root" data-composition-id="s10-reignite" data-width="1080" data-height="1920">
+    <div id="s10-stage" class="clip" data-start="0" data-duration="6.65" data-track-index="0">
+      <div id="s10-top" class="s10-ar"><span class="s10-w" id="s10-t1">لأن</span> <span class="s10-w" id="s10-t2">البراند</span> <span class="s10-w or" id="s10-t3">القوي…</span></div>
+
+      <div id="s10-patch"></div>
+      <div id="s10-logo"><img id="s10-img" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" /></div>
+
+      <!-- construction guides around (never on) the mark; removed afterwards -->
+      <svg id="s10-cons" viewBox="0 0 900 506">
+        <g fill="none" stroke="#f5f1ea" stroke-opacity="0.3" stroke-width="1.2">
+          <line class="s10-ln" x1="-60" y1="263" x2="960" y2="263" stroke-dasharray="1020" stroke-dashoffset="1020" />
+          <line class="s10-ln" x1="-60" y1="336" x2="960" y2="336" stroke-dasharray="1020" stroke-dashoffset="1020" />
+          <line class="s10-ln" x1="-60" y1="380" x2="960" y2="380" stroke-dasharray="1020" stroke-dashoffset="1020" />
+          <line class="s10-ln" x1="450" y1="70" x2="450" y2="440" stroke-dasharray="370" stroke-dashoffset="370" />
+          <rect class="s10-ln" x="212" y="258" width="478" height="84" stroke-dasharray="1124" stroke-dashoffset="1124" />
+        </g>
+        <circle id="s10-ring" cx="450" cy="180" r="96" fill="none" stroke="#ff4d1a" stroke-width="2" stroke-dasharray="604" stroke-dashoffset="604" />
+        <circle id="s10-ring2" cx="450" cy="180" r="128" fill="none" stroke="#ff4d1a" stroke-opacity="0.45" stroke-width="1.2" stroke-dasharray="4 8" />
+      </svg>
+      <div class="s10-dim" id="s10-d1" style="left: 90px; top: 1160px">ONE MARK · ONE NAME</div>
+      <div class="s10-dim" id="s10-d2" style="right: 90px; top: 600px">CONSTRUCTION</div>
+
+      <div id="s10-a" class="s10-ar">مش بس كيف بيطلع.</div>
+      <div id="s10-b" class="s10-ar"><span class="s10-w" id="s10-b1">كيف</span> <span class="s10-w" id="s10-b2">الناس</span> <span class="s10-w or" id="s10-b3">بتتذكره.</span></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const V = 0.25;
+      const tl = gsap.timeline({ paused: true });
+      const word = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, t);
+
+      word("#s10-t1", V + 0.0); word("#s10-t2", V + 0.38); word("#s10-t3", V + 0.86);
+
+      // logo: opacity + 98% → 100% only
+      tl.fromTo("#s10-patch", { backgroundPosition: "0px 51.18px" }, { backgroundPosition: "0px 62.42px", duration: 6.65, ease: "none" }, 0);
+      tl.fromTo("#s10-img", { opacity: 0, scale: 0.98 }, { opacity: 1, scale: 1, duration: 1.6, ease: "power2.out" }, 0.15);
+
+      // construction lines draw around it…
+      tl.to(".s10-ln", { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut", stagger: 0.12 }, 0.5);
+      tl.to("#s10-ring", { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 0.9);
+      tl.fromTo("#s10-ring2", { opacity: 0, scale: 0.9, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.8, ease: "expo.out" }, 1.2);
+      tl.fromTo(["#s10-d1", "#s10-d2"], { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.15 }, 1.3);
+      // …then leave the logo alone
+      tl.to(["#s10-cons", "#s10-d1", "#s10-d2"], { opacity: 0, duration: 0.8, ease: "power2.out" }, V + 3.0);
+
+      // "مش بس كيف بيطلع." → "البراند القوي… كيف الناس بتتذكره."
+      tl.fromTo("#s10-a", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, V + 1.79);
+      tl.to("#s10-a", { opacity: 0.28, duration: 0.5 }, V + 2.98);
+      word("#s10-b1", V + 4.45); word("#s10-b2", V + 4.69);
+      tl.fromTo("#s10-b3", { opacity: 0, y: 40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, V + 5.0);
+
+      window.__timelines["s10-reignite"] = tl;
+    })();
+  </script>
+</template>

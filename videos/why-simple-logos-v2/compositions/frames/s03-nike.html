@@ -1,0 +1,73 @@
+<template>
+  <style>
+    @font-face { font-family: "Noto Kufi Arabic"; font-weight: 800; src: url("assets/fonts/noto-kufi-arabic-arabic-800-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2"); }
+    @font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 600; src: url("assets/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; color: #f5f1ea; font-family: "IBM Plex Sans Arabic", sans-serif; }
+    #s03-stage { position: absolute; inset: 0; }
+    .s03-ar { font-family: "Noto Kufi Arabic", sans-serif; direction: rtl; white-space: nowrap; }
+    .s03-w { display: inline-block; }
+    .or { color: #ff4d1a; }
+    .s03-tag { position: absolute; right: 90px; top: 318px; font-family: "Inter", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.24em; color: rgba(245,241,234,0.6); white-space: nowrap; }
+    .s03-tag b { color: #ff4d1a; font-weight: 800; margin-left: 14px; }
+    #s03-h { position: absolute; left: 60px; right: 90px; top: 372px; text-align: right; font-weight: 800; font-size: 96px; line-height: 1.4; }
+    #s03-art { position: absolute; left: 110px; top: 650px; width: 860px; height: 336px; }
+    #s03-box { position: absolute; inset: 0; overflow: visible; }
+    #s03-sw { position: absolute; left: 0; top: 0; width: 860px; height: 336px; overflow: visible; }
+    #s03-meter { position: absolute; left: 110px; top: 1080px; width: 860px; height: 60px; }
+    #s03-bar { position: absolute; left: 0; top: 0; width: 860px; height: 6px; background: rgba(245,241,234,0.14); }
+    #s03-fill { position: absolute; left: 0; top: 0; width: 860px; height: 6px; background: #ff4d1a; transform-origin: 0% 50%; }
+    #s03-sec { position: absolute; left: 0; top: 24px; font-family: "Inter", sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 0.2em; color: #ff4d1a; }
+    #s03-one { position: absolute; right: 0; top: 24px; font-family: "Inter", sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 0.2em; color: rgba(245,241,234,0.6); }
+    #s03-end { position: absolute; left: 40px; right: 40px; top: 1260px; text-align: center; font-weight: 800; font-size: 110px; line-height: 1.4; }
+    #s03-ok { display: inline-block; width: 92px; height: 92px; border-radius: 50%; background: #ff4d1a; vertical-align: 6px; margin-right: 26px; position: relative; }
+    #s03-ok svg { position: absolute; left: 21px; top: 23px; width: 50px; height: 46px; }
+  </style>
+
+  <div id="root" data-composition-id="s03-nike" data-width="1080" data-height="1920">
+    <div id="s03-stage" class="clip" data-start="0" data-duration="3.8" data-track-index="0">
+      <div class="s03-tag" id="s03-tag">SIMPLICITY<b>01</b></div>
+      <div id="s03-h" class="s03-ar"><span data-layout-allow-overlap class="s03-w or" id="s03-h1">نايك:</span> <span data-layout-allow-overlap class="s03-w" id="s03-h2">شكل</span> <span data-layout-allow-overlap class="s03-w" id="s03-h3">واحد.</span></div>
+      <div id="s03-art">
+        <svg id="s03-box" viewBox="0 0 860 336">
+          <g fill="none" stroke="#f5f1ea" stroke-opacity="0.28" stroke-width="1.5">
+            <rect id="s03-bb" x="1" y="1" width="858" height="334" stroke-dasharray="2386" stroke-dashoffset="2386" />
+          </g>
+          <line id="s03-tan" x1="96" y1="300" x2="860" y2="12" stroke="#ff4d1a" stroke-width="2" stroke-dasharray="817" stroke-dashoffset="817" />
+        </svg>
+        <svg id="s03-sw" viewBox="0 7.4 24 9.2"><path fill="#f5f1ea" d="M24 7.8L6.442 15.276c-1.456.616-2.679.925-3.668.925-1.12 0-1.933-.392-2.437-1.177-.317-.504-.41-1.143-.28-1.918.13-.775.476-1.6 1.036-2.478.467-.71 1.232-1.643 2.297-2.8a6.122 6.122 0 00-.784 1.848c-.28 1.195-.028 2.072.756 2.632.373.261.886.392 1.54.392.522 0 1.11-.084 1.764-.252L24 7.8z"/></svg>
+      </div>
+      <div id="s03-meter"><div id="s03-bar"></div><div id="s03-fill"></div><div id="s03-sec">1 SEC</div><div id="s03-one">1 SHAPE</div></div>
+      <div id="s03-end" class="s03-ar"><span data-layout-allow-overlap class="s03-w or" id="s03-e1">وبتعرفو.</span><span id="s03-ok"><svg viewBox="0 0 32 30"><path d="M3 16 L12 25 L29 5" fill="none" stroke="#1a1a1a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const V = 0.2;
+      const tl = gsap.timeline({ paused: true });
+      const word = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, t);
+      const pop = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.8)" }, t);
+      const seq = (pre, times) => times.forEach((t, i) => word(pre + (i + 1), V + t));
+      tl.fromTo("#s03-tag", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.05);
+      seq("#s03-h", [0, 0.708, 1.033]);
+      tl.to("#s03-bb", { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, 0.05);
+      tl.fromTo("#s03-sw", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "expo.inOut" }, 0.15);
+      tl.to("#s03-tan", { strokeDashoffset: 0, duration: 0.6, ease: "power3.inOut" }, V + 0.7);
+      tl.fromTo("#s03-one", { opacity: 0 }, { opacity: 1, duration: 0.3 }, V + 0.75);
+      // "بتشوفو لثانية…" — a one-second glance
+      tl.fromTo("#s03-meter", { opacity: 0 }, { opacity: 1, duration: 0.25 }, V + 1.45);
+      tl.fromTo("#s03-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "none" }, V + 1.59);
+      tl.to(["#s03-box"], { opacity: 0, duration: 0.3 }, V + 1.55);
+      tl.set("#s03-sw", { opacity: 0 }, V + 1.6);
+      tl.set("#s03-sw", { opacity: 1 }, V + 1.82);
+      tl.set("#s03-sw", { opacity: 0 }, V + 2.1);
+      // "وبتعرفو."
+      tl.set("#s03-sw", { opacity: 1 }, V + 2.42);
+      pop("#s03-e1", V + 2.46);
+      tl.fromTo("#s03-ok", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.2)" }, V + 2.7);
+      window.__timelines["s03-nike"] = tl;
+    })();
+  </script>
+</template>

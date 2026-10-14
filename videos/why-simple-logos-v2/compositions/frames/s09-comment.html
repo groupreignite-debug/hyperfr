@@ -1,0 +1,65 @@
+<template>
+  <style>
+    @font-face { font-family: "Noto Kufi Arabic"; font-weight: 800; src: url("assets/fonts/noto-kufi-arabic-arabic-800-normal.woff2") format("woff2"); }
+    @font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 600; src: url("assets/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; color: #f5f1ea; font-family: "IBM Plex Sans Arabic", sans-serif; }
+    #s09-stage { position: absolute; inset: 0; }
+    .s09-ar { font-family: "Noto Kufi Arabic", sans-serif; direction: rtl; white-space: nowrap; }
+    .s09-w { display: inline-block; }
+    .or { color: #ff4d1a; }
+    .s09-tag { position: absolute; right: 90px; top: 318px; font-family: "Inter", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.24em; color: rgba(245,241,234,0.6); white-space: nowrap; }
+    .s09-tag b { color: #ff4d1a; font-weight: 800; margin-left: 14px; }
+    #s09-h { position: absolute; left: 40px; right: 40px; top: 400px; text-align: center; font-weight: 800; font-size: 92px; line-height: 1.4; }
+    #s09-card { position: absolute; left: 110px; top: 690px; width: 860px; height: 300px; border: 1.5px solid rgba(245,241,234,0.22); border-radius: 30px; background: rgba(245,241,234,0.04); }
+    #s09-av { position: absolute; right: 40px; top: 48px; width: 76px; height: 76px; border-radius: 50%; border: 3px solid #ff4d1a; }
+    #s09-n1 { position: absolute; right: 140px; top: 58px; width: 220px; height: 18px; border-radius: 9px; background: rgba(245,241,234,0.3); }
+    #s09-n2 { position: absolute; right: 140px; top: 94px; width: 140px; height: 14px; border-radius: 7px; background: rgba(245,241,234,0.14); }
+    #s09-in { position: absolute; left: 40px; right: 40px; top: 170px; height: 86px; border-radius: 43px; border: 1.5px solid rgba(245,241,234,0.3); }
+    #s09-ph { position: absolute; right: 36px; top: 0; line-height: 84px; direction: rtl; font-family: "IBM Plex Sans Arabic", sans-serif; font-weight: 600; font-size: 38px; color: rgba(245,241,234,0.45); white-space: nowrap; }
+    #s09-caret { position: absolute; right: 30px; top: 22px; width: 3px; height: 42px; background: #ff4d1a; }
+    #s09-send { position: absolute; left: 12px; top: 10px; width: 64px; height: 64px; border-radius: 50%; background: #ff4d1a; }
+    #s09-send svg { position: absolute; left: 16px; top: 16px; width: 32px; height: 32px; }
+    #s09-opts { position: absolute; left: 110px; right: 110px; top: 1090px; height: 140px; }
+    .s09-o { position: absolute; top: 0; width: 400px; height: 130px; border-radius: 65px; text-align: center; direction: rtl; font-family: "Noto Kufi Arabic", sans-serif; font-weight: 800; font-size: 60px; line-height: 126px; white-space: nowrap; }
+    #s09-o1 { right: 0; background: #ff4d1a; color: #1a1a1a; }
+    #s09-o2 { left: 0; border: 3px solid rgba(245,241,234,0.4); color: #f5f1ea; }
+    .s09-o b { font-family: "Inter", sans-serif; font-weight: 700; margin-left: 18px; }
+  </style>
+
+  <div id="root" data-composition-id="s09-comment" data-width="1080" data-height="1920">
+    <div id="s09-stage" class="clip" data-start="0" data-duration="4.0" data-track-index="0">
+      <div id="s09-h" class="s09-ar"><span data-layout-allow-overlap class="s09-w" id="s09-h1">اكتبلنا</span> <span data-layout-allow-overlap class="s09-w or" id="s09-h2">بالكومنتات:</span></div>
+      <div id="s09-card">
+        <div id="s09-av"></div><div id="s09-n1"></div><div id="s09-n2"></div>
+        <div id="s09-in"><span id="s09-ph">اكتب تعليقك…</span><i id="s09-caret"></i>
+          <div id="s09-send"><svg viewBox="0 0 32 32"><path d="M4 16 L28 4 L20 28 L16 18 Z" fill="#1a1a1a" /></svg></div>
+        </div>
+      </div>
+      <div id="s09-opts">
+        <div class="s09-o" id="s09-o1"><b>✓</b>نجح</div>
+        <div class="s09-o" id="s09-o2"><b>✕</b>لأ</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const V = 0.2;
+      const tl = gsap.timeline({ paused: true });
+      const word = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, t);
+      const pop = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.8)" }, t);
+      const seq = (pre, times) => times.forEach((t, i) => word(pre + (i + 1), V + t));
+      word("#s09-h1", V + 0); pop("#s09-h2", V + 0.534);
+      tl.fromTo("#s09-card", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "expo.out" }, V + 0.6);
+      [1.2, 1.7, 2.2, 2.7, 3.2].forEach((t) => {
+        tl.set("#s09-caret", { opacity: 0 }, V + t);
+        tl.set("#s09-caret", { opacity: 1 }, V + t + 0.25);
+      });
+      // "نجح ولا لأ؟"
+      pop("#s09-o1", V + 2.1);
+      pop("#s09-o2", V + 2.79);
+      window.__timelines["s09-comment"] = tl;
+    })();
+  </script>
+</template>

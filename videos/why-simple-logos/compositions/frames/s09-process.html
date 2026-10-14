@@ -1,0 +1,76 @@
+<template>
+  <style>
+    @font-face { font-family: "Noto Kufi Arabic"; font-weight: 800; src: url("assets/fonts/noto-kufi-arabic-arabic-800-normal.woff2") format("woff2"); }
+    @font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 600; src: url("assets/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; color: #f5f1ea; font-family: "IBM Plex Sans Arabic", sans-serif; }
+    #s09-stage { position: absolute; inset: 0; }
+    .s09-ar { font-family: "Noto Kufi Arabic", sans-serif; direction: rtl; white-space: nowrap; }
+    .s09-w { display: inline-block; }
+    .or { color: #ff4d1a; }
+    .s09-tag { position: absolute; right: 90px; top: 318px; font-family: "Inter", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.24em; color: rgba(245,241,234,0.6); white-space: nowrap; }
+    .s09-tag b { display: inline-block; width: 12px; height: 12px; background: #ff4d1a; margin-left: 14px; vertical-align: 1px; }
+    #s09-k { position: absolute; right: 90px; top: 380px; font-family: "IBM Plex Sans Arabic", sans-serif; font-weight: 600; font-size: 50px; color: rgba(245,241,234,0.6); direction: rtl; white-space: nowrap; }
+
+    #s09-qa { position: absolute; right: 90px; top: 460px; }
+    #s09-qa .s09-in { position: relative; display: inline-block; font-weight: 800; font-size: 74px; line-height: 1.4; color: rgba(245,241,234,0.85); }
+    #s09-qax { position: absolute; left: -12px; right: -12px; top: 52%; height: 6px; background: #ff4d1a; transform-origin: 100% 50%; }
+    #s09-qb { position: absolute; right: 90px; top: 580px; font-weight: 800; font-size: 74px; line-height: 1.4; }
+
+    #s09-list { position: absolute; left: 90px; right: 90px; top: 760px; height: 720px; }
+    .s09-row { position: absolute; left: 0; right: 0; height: 170px; }
+    .s09-rule { position: absolute; left: 0; right: 0; top: 0; height: 1.5px; background: rgba(245,241,234,0.2); transform-origin: 100% 50%; }
+    .s09-n { position: absolute; right: 0; top: 50px; font-family: "Inter", sans-serif; font-weight: 800; font-size: 30px; letter-spacing: 0.12em; color: #ff4d1a; }
+    .s09-t { position: absolute; right: 90px; top: 22px; font-family: "Noto Kufi Arabic", sans-serif; font-weight: 800; font-size: 72px; line-height: 1.4; direction: rtl; white-space: nowrap; }
+    .s09-dot { position: absolute; left: 0; top: 66px; width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(245,241,234,0.4); }
+  </style>
+
+  <div id="root" data-composition-id="s09-process" data-width="1080" data-height="1920">
+    <div id="s09-stage" class="clip" data-start="0" data-duration="12.35" data-track-index="0">
+      <div class="s09-tag" id="s09-tag">HOW WE THINK<b></b></div>
+      <div id="s09-k">لما نصمم هوية…</div>
+
+      <div id="s09-qa" class="s09-ar"><span class="s09-in" id="s09-qain">كيف نخليها حلوة؟<i id="s09-qax"></i></span></div>
+      <div id="s09-qb" class="s09-ar"><span class="s09-w or" id="s09-b1">منسأل:</span> <span class="s09-w" id="s09-b2">كيف</span> <span class="s09-w" id="s09-b3">نخليها…</span></div>
+
+      <div id="s09-list">
+        <div class="s09-row" id="s09-r1" style="top: 0"><i class="s09-rule"></i><div class="s09-n">01</div><div class="s09-t">تنحفظ</div><i class="s09-dot"></i></div>
+        <div class="s09-row" id="s09-r2" style="top: 175px"><i class="s09-rule"></i><div class="s09-n">02</div><div class="s09-t">تنعرف</div><i class="s09-dot"></i></div>
+        <div class="s09-row" id="s09-r3" style="top: 350px"><i class="s09-rule"></i><div class="s09-n">03</div><div class="s09-t">تشتغل بأي مكان</div><i class="s09-dot"></i></div>
+        <div class="s09-row" id="s09-r4" style="top: 525px"><i class="s09-rule"></i><div class="s09-n">04</div><div class="s09-t">تضل واضحة بعد سنين</div><i class="s09-dot"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const V = 0.3;
+      const tl = gsap.timeline({ paused: true });
+      const word = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, t);
+
+      tl.fromTo("#s09-tag", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.05);
+      tl.fromTo("#s09-k", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, V + 0.65);
+      tl.fromTo(".s09-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "expo.inOut", stagger: 0.1 }, 0.2);
+      tl.fromTo(".s09-n", { opacity: 0 }, { opacity: 0.3, duration: 0.5, stagger: 0.1 }, 0.5);
+
+      // "ما منسأل بس: كيف نخليها حلوة؟" — asked, then struck
+      tl.fromTo("#s09-qain", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, V + 3.12);
+      tl.fromTo("#s09-qax", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power3.inOut" }, V + 4.3);
+      tl.to("#s09-qain", { opacity: 0.3, duration: 0.4 }, V + 4.6);
+
+      // "منسأل: كيف نخليها…"
+      word("#s09-b1", V + 4.42); word("#s09-b2", V + 5.02); word("#s09-b3", V + 5.25);
+
+      // the four answers, each on the voice
+      [["#s09-r1", 5.65], ["#s09-r2", 7.25], ["#s09-r3", 7.93], ["#s09-r4", 9.76]].forEach(([r, t]) => {
+        tl.fromTo(r + " .s09-t", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.55, ease: "expo.out" }, V + t);
+        tl.to(r + " .s09-n", { opacity: 1, duration: 0.3 }, V + t);
+        tl.to(r + " .s09-rule", { backgroundColor: "#ff4d1a", duration: 0.4 }, V + t);
+        tl.to(r + " .s09-dot", { backgroundColor: "#ff4d1a", borderColor: "#ff4d1a", duration: 0.3 }, V + t + 0.15);
+      });
+
+      window.__timelines["s09-process"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,107 @@
+<template>
+  <style>
+    @font-face { font-family: "Noto Kufi Arabic"; font-weight: 800; src: url("assets/fonts/noto-kufi-arabic-arabic-800-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Noto Kufi Arabic"; font-weight: 900; src: url("assets/fonts/noto-kufi-arabic-arabic-900-normal.woff2") format("woff2"); }
+    @font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 500; src: url("assets/fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; color: #f5f1ea; font-family: "IBM Plex Sans Arabic", sans-serif; }
+    #s01-stage { position: absolute; inset: 0; }
+    .s01-ar { font-family: "Noto Kufi Arabic", sans-serif; direction: rtl; text-align: center; white-space: nowrap; }
+    .s01-w { display: inline-block; }
+    .or { color: #ff4d1a; }
+
+    #s01-q { position: absolute; left: 60px; right: 60px; top: 360px; font-weight: 900; font-size: 98px; line-height: 1.38; }
+    #s01-q .s01-line { display: block; }
+    #s01-q .s01-big { font-size: 168px; line-height: 1.5; }
+    #s01-w5 { position: relative; }
+    #s01-ul { position: absolute; left: 6%; right: 6%; bottom: 4px; height: 12px; background: #ff4d1a; transform-origin: 100% 50%; }
+
+    #s01-row { position: absolute; left: 90px; top: 1000px; width: 900px; height: 360px; }
+    .s01-card { position: absolute; top: 0; width: 270px; height: 270px; border: 1.5px solid rgba(245,241,234,0.16); background: rgba(245,241,234,0.025); }
+    .s01-card .s01-tk { position: absolute; width: 18px; height: 18px; border-color: #ff4d1a; border-style: solid; border-width: 0; }
+    .s01-tk.a { left: -2px; top: -2px; border-left-width: 3px; border-top-width: 3px; }
+    .s01-tk.b { right: -2px; bottom: -2px; border-right-width: 3px; border-bottom-width: 3px; }
+    .s01-card svg { position: absolute; left: 50%; top: 50%; margin-left: -85px; margin-top: -85px; width: 170px; height: 170px; overflow: visible; }
+    .s01-name { position: absolute; top: 300px; width: 270px; text-align: center; font-family: "Inter", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.24em; color: rgba(245,241,234,0.6); }
+    .s01-strike { position: absolute; top: 314px; height: 3px; background: #ff4d1a; transform-origin: 100% 50%; }
+
+    #s01-sub { position: absolute; left: 60px; right: 60px; top: 1385px; font-family: "IBM Plex Sans Arabic", sans-serif; font-weight: 500; font-size: 50px; color: rgba(245,241,234,0.62); direction: rtl; text-align: center; white-space: nowrap; }
+    #s01-end { position: absolute; left: 60px; right: 60px; top: 1355px; font-weight: 800; font-size: 88px; line-height: 1.4; }
+  </style>
+
+  <div id="root" data-composition-id="s01-hook" data-width="1080" data-height="1920">
+    <div id="s01-stage" class="clip" data-start="0" data-duration="9.2" data-track-index="0">
+      <div id="s01-q" class="s01-ar" data-layout-allow-overlap>
+        <span class="s01-line"><span data-layout-allow-overlap class="s01-w" id="s01-w1">ليش</span> <span data-layout-allow-overlap class="s01-w" id="s01-w2">أشهر</span></span>
+        <span class="s01-line"><span data-layout-allow-overlap class="s01-w" id="s01-w3">الشعارات</span> <span data-layout-allow-overlap class="s01-w" id="s01-w4">بالعالم</span></span>
+        <span class="s01-line s01-big"><span data-layout-allow-overlap class="s01-w or" id="s01-w5">بسيطة؟<i id="s01-ul"></i></span></span>
+      </div>
+
+      <div id="s01-row">
+        <!-- RTL order: Nike (spoken first) on the right -->
+        <div class="s01-card" id="s01-c1" style="left: 630px">
+          <i class="s01-tk a"></i><i class="s01-tk b"></i>
+          <svg viewBox="0 0 24 24"><path fill="#f5f1ea" d="M24 7.8L6.442 15.276c-1.456.616-2.679.925-3.668.925-1.12 0-1.933-.392-2.437-1.177-.317-.504-.41-1.143-.28-1.918.13-.775.476-1.6 1.036-2.478.467-.71 1.232-1.643 2.297-2.8a6.122 6.122 0 00-.784 1.848c-.28 1.195-.028 2.072.756 2.632.373.261.886.392 1.54.392.522 0 1.11-.084 1.764-.252L24 7.8z"/></svg>
+        </div>
+        <div class="s01-card" id="s01-c2" style="left: 315px">
+          <i class="s01-tk a"></i><i class="s01-tk b"></i>
+          <svg viewBox="0 0 24 24"><path fill="#f5f1ea" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.040-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.830-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
+        </div>
+        <div class="s01-card" id="s01-c3" style="left: 0px">
+          <i class="s01-tk a"></i><i class="s01-tk b"></i>
+          <svg viewBox="0 0 24 24"><path fill="#ffb000" d="M17.243 3.006c2.066 0 3.742 8.714 3.742 19.478H24c0-11.588-3.042-20.968-6.766-20.968-2.127 0-4.007 2.81-5.248 7.227-1.241-4.416-3.121-7.227-5.231-7.227C3.031 1.516 0 10.888 0 22.476h3.014c0-10.763 1.658-19.470 3.724-19.470 2.066 0 3.741 8.05 3.741 17.98h2.997c0-9.930 1.684-17.980 3.750-17.980Z"/></svg>
+        </div>
+        <div class="s01-name" id="s01-n1" style="left: 630px">NIKE</div>
+        <div class="s01-name" id="s01-n2" style="left: 315px">APPLE</div>
+        <div class="s01-name" id="s01-n3" style="left: 0px">McDONALD'S</div>
+        <div class="s01-strike" id="s01-x1" style="left: 695px; width: 140px"></div>
+        <div class="s01-strike" id="s01-x2" style="left: 370px; width: 160px"></div>
+        <div class="s01-strike" id="s01-x3" style="left: 20px; width: 230px"></div>
+      </div>
+
+      <div id="s01-sub">بتعرفهم قبل ما تقرأ اسم الشركة</div>
+      <div id="s01-end" class="s01-ar"><span data-layout-allow-overlap class="s01-w" id="s01-e1">الموضوع</span> <span data-layout-allow-overlap class="s01-w or" id="s01-e2">مش صدفة.</span></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const V = 0.2; // VO offset inside this scene
+      const tl = gsap.timeline({ paused: true });
+      const word = (sel, t) =>
+        tl.fromTo(sel, { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.55, ease: "expo.out" }, t);
+
+      // the question, one word at a time, on the voice
+      word("#s01-w1", V + 0.0);
+      word("#s01-w2", V + 0.29);
+      word("#s01-w3", V + 0.63);
+      word("#s01-w4", V + 1.13);
+      tl.fromTo("#s01-w5", { opacity: 0, y: 46, scale: 0.86 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(2)" }, V + 1.54);
+      tl.fromTo("#s01-ul", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "expo.inOut" }, V + 1.85);
+
+      // three marks snap in on their names
+      [["#s01-c1", "#s01-n1", 2.37], ["#s01-c2", "#s01-n2", 2.81], ["#s01-c3", "#s01-n3", 3.63]].forEach(([c, n, t]) => {
+        tl.fromTo(c, { opacity: 0, scale: 0.7, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(1.6)" }, V + t);
+        tl.fromTo(c + " svg", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "expo.out" }, V + t + 0.08);
+        tl.fromTo(n, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, V + t + 0.15);
+      });
+
+      // names get struck out — only the marks remain
+      ["#s01-x1", "#s01-x2", "#s01-x3"].forEach((x, i) => {
+        tl.fromTo(x, { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.inOut" }, V + 4.85 + i * 0.12);
+      });
+      tl.to(["#s01-n1", "#s01-n2", "#s01-n3", "#s01-x1", "#s01-x2", "#s01-x3"], { opacity: 0, y: -10, duration: 0.4, ease: "power2.in", stagger: 0.06 }, V + 5.55);
+      tl.to(["#s01-c1 svg", "#s01-c2 svg", "#s01-c3 svg"], { scale: 1.16, duration: 0.8, ease: "expo.out", stagger: 0.08 }, V + 5.7);
+      tl.to(["#s01-c1", "#s01-c2", "#s01-c3"], { borderColor: "rgba(245,241,234,0.32)", duration: 0.5 }, V + 5.7);
+      tl.fromTo("#s01-sub", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, V + 4.81);
+
+      // "بس الموضوع مش صدفة."
+      tl.to("#s01-sub", { opacity: 0, y: -24, duration: 0.35, ease: "power2.in" }, V + 6.9);
+      tl.to("#s01-q", { opacity: 0.32, duration: 0.6, ease: "power2.out" }, V + 7.1);
+      word("#s01-e1", V + 7.35);
+      tl.fromTo("#s01-e2", { opacity: 0, y: 46, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, V + 7.85);
+
+      window.__timelines["s01-hook"] = tl;
+    })();
+  </script>
+</template>
