@@ -146,13 +146,18 @@
         direction: rtl; unicode-bidi: isolate; white-space: normal; text-wrap: balance;
       }
       .sub b { font-weight: 700; color: var(--orange); direction: ltr; unicode-bidi: isolate; }
+
+      /* scene 01: falling coins and the hook cards */
+      .coin { position: absolute; width: 70px; height: 70px; border-radius: 50%; border: 6px solid var(--paper); background: var(--charcoal); }
+      .coin::after { content: ""; position: absolute; left: 15px; top: 15px; width: 28px; height: 28px; border-radius: 50%; border: 3px solid var(--paper-55); }
+      .sad .lt.big { top: 25px; font-size: 200px; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0.0" data-duration="65.096" data-width="1080" data-height="1920">
+    <div id="root" data-composition-id="main" data-start="0.0" data-duration="50.88" data-width="1080" data-height="1920">
 
       <!-- ================= GROUND (grid, marks, travelling glow, progress) ================= -->
-      <div id="ground" class="clip" data-start="0.0" data-duration="65.096" data-track-index="0">
+      <div id="ground" class="clip" data-start="0.0" data-duration="50.88" data-track-index="0">
         <div id="grid" data-layout-allow-overflow></div>
         <svg id="marks" viewBox="0 0 1080 1920">
           <path d="M138 432h20M148 422v20 M922 432h20M932 422v20 M138 1380h20M148 1370v20 M922 1380h20M932 1370v20" />
@@ -163,63 +168,53 @@
         <div id="prog"><div id="progfill"></div></div>
       </div>
 
-      <!-- ================= 01 HOOK: one ad fails, another does a bit better, why? ================= -->
-      <section id="s1" class="clip" data-start="0.0" data-duration="4.704" data-track-index="1">
-        <div id="ad1" class="adc" style="left: 340px; top: 600px; width: 400px; height: 500px" data-layout-allow-overflow>
-          <i class="av"></i><i class="hb"></i><i class="im"></i><i class="t1"></i><i class="t2"></i><i class="bt"></i>
-          <div id="x1" class="badge" style="left: 300px; top: -50px; width: 120px; height: 120px; border: 5px solid var(--orange); color: var(--orange)" data-layout-allow-overflow><i data-ic="x" style="width: 70px; height: 70px"></i></div>
-        </div>
-        <div id="ad2" class="adc" style="left: 340px; top: 600px; width: 400px; height: 500px" data-layout-allow-overflow>
-          <i class="av"></i><i class="hb"></i><i class="im" style="background: rgba(245, 241, 234, 0.12)"></i><i class="t1"></i><i class="t2"></i><i class="bt"></i>
-          <div id="up1" class="badge" style="left: 300px; top: -50px; width: 120px; height: 120px; border: 5px solid var(--paper-55); color: var(--paper)" data-layout-allow-overflow><i data-ic="trend" style="width: 64px; height: 64px"></i></div>
-        </div>
-        <div id="q1" class="q" style="left: 440px; top: 740px; width: 200px; font-size: 230px">؟</div>
-      </section>
-
-      <!-- hook watermark: the supplied logo, composited with lighten so its black field sits on the charcoal -->
-      <section id="s1l" class="clip logo-clip" data-start="0.0" data-duration="5.012" data-track-index="4">
-        <div class="logo-frame" style="left: 405px; top: 262px; width: 270px; height: 152px">
-          <img id="s1logo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
+      <!-- ================= THE TWO AD CARDS (persistent, scenes 01-03) — full at frame 0 ================= -->
+      <section id="cards" class="clip" data-start="0.0" data-duration="11.58" data-track-index="3">
+        <div id="coins" class="abs" style="left: 0; top: 0; width: 1080px; height: 1400px; overflow: hidden; -webkit-mask-image: linear-gradient(#000 78%, transparent 100%); mask-image: linear-gradient(#000 78%, transparent 100%)"></div>
+        <div id="cardsBox" class="abs" style="left: 0; top: 0; width: 1080px; height: 1920px" data-layout-allow-overflow>
+          <div id="hA" class="sad vA" style="left: 580px; top: 380px; width: 400px; height: 580px">
+            <i class="av"></i><i class="hb"></i><div class="im" style="height: 270px"><div class="lt big">A</div></div><i class="h1b" style="top: 392px"></i><i class="h2b" style="top: 432px"></i><i class="bt"></i>
+          </div>
+          <div id="hB" class="sad vB" style="left: 100px; top: 380px; width: 400px; height: 580px">
+            <i class="av"></i><i class="hb"></i><div class="im" style="height: 270px"><div class="lt big">B</div></div><i class="h1b" style="top: 392px"></i><i class="h2b" style="top: 432px"></i><i class="bt"></i>
+          </div>
         </div>
       </section>
 
-      <!-- ================= 02 GUESSING: blindfolded, the dart misses ================= -->
-      <section id="s2" class="clip" data-start="4.704" data-duration="1.932" data-track-index="1">
-        <svg id="board2" class="abs draw" style="left: 0; top: 0; width: 1080px; height: 1920px" viewBox="0 0 1080 1920">
-          <circle class="dp" pathLength="1" cx="700" cy="820" r="200" />
-          <circle class="dp" pathLength="1" cx="700" cy="820" r="140" />
-          <circle class="dp" pathLength="1" cx="700" cy="820" r="80" />
-          <circle class="dp" pathLength="1" cx="700" cy="820" r="22" />
-          <path class="dp" pathLength="1" d="M700 620 V1020 M500 820 H900" />
-          <!-- the thrower: a head with a blindfold, shoulders -->
-          <circle class="dp" pathLength="1" cx="230" cy="800" r="62" />
-          <path class="dp" pathLength="1" d="M120 1010 Q120 900 230 900 Q340 900 340 1010" />
-        </svg>
-        <div id="fold2" class="abs" style="left: 160px; top: 778px; width: 150px; height: 30px; border-radius: 8px; background: var(--orange)"></div>
-        <svg id="dart2" class="abs" style="left: 320px; top: 770px; width: 150px; height: 40px" viewBox="0 0 150 40" data-layout-allow-overflow>
+      <!-- ================= 01 HOOK: one of these is wasting your money … which one? ================= -->
+      <section id="s1" class="clip" data-start="0.0" data-duration="3.49" data-track-index="1">
+        <div class="chips" style="top: 1010px; height: 92px">
+          <div id="c1" class="chip ico" style="color: var(--orange)"><i data-ic="cash" style="width: 58px; height: 58px"></i></div>
+        </div>
+        <div id="q1" class="q" style="left: 380px; top: 470px; width: 320px; font-size: 340px; -webkit-text-stroke: 16px var(--charcoal)">؟</div>
+      </section>
+
+      <!-- ================= 02 GUT: your feeling points at A, the dart misses ================= -->
+      <section id="s2" class="clip" data-start="3.49" data-duration="2.41" data-track-index="1">
+        <div id="heart2" class="badge" style="left: 725px; top: 268px; width: 110px; height: 110px; border: 4px solid var(--orange); color: var(--orange)"><i data-ic="heart" style="width: 62px; height: 62px"></i></div>
+        <svg id="dart2" class="abs" style="left: 80px; top: 1150px; width: 150px; height: 40px" viewBox="0 0 150 40" data-layout-allow-overflow>
           <path d="M8 20 H120 M120 20 L104 10 M120 20 L104 30 M8 20 L-2 10 M8 20 L-2 30 M20 20 L10 10 M20 20 L10 30" fill="none" stroke="#F5F1EA" stroke-width="5" stroke-linecap="round" />
           <path d="M120 20 L146 20" stroke="#FF4D1A" stroke-width="6" stroke-linecap="round" />
         </svg>
-        <div class="chips" style="top: 1130px; height: 92px">
-          <div id="c2" class="chip"><i data-ic="target" class="or"></i><span>تخمين</span></div>
+        <div class="chips" style="top: 1090px; height: 92px">
+          <div id="c2a" class="chip"><i data-ic="heart" class="or"></i><span>شعورك</span></div>
+          <span id="d2" class="dot">·</span>
+          <div id="c2b" class="chip"><i data-ic="target" class="or"></i><span>تخمين</span></div>
         </div>
       </section>
 
-      <!-- ================= 03 TERM: A/B Testing, two versions, people decide ================= -->
-      <section id="s3" class="clip" data-start="6.636" data-duration="7.183" data-track-index="1">
-        <div id="t3" class="row en or" style="top: 380px; font-size: 140px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.15">A/B Testing</div>
-        <i id="div3" class="abs" style="left: 538px; top: 640px; width: 0; height: 420px; border-left: 4px dashed var(--paper-14); transform-origin: 50% 0"></i>
-        <div id="cA3" class="fly vA" style="left: 600px; top: 640px; width: 320px; height: 400px"><div class="lt" style="top: 110px; font-size: 190px">A</div></div>
-        <div id="cB3" class="fly vB" style="left: 160px; top: 640px; width: 320px; height: 400px"><div class="lt" style="top: 110px; font-size: 190px">B</div></div>
-        <div id="ok3" class="badge" style="left: 275px; top: 548px; width: 90px; height: 90px; border: 4px solid var(--paper); color: var(--paper)"><i data-ic="check" style="width: 54px; height: 54px"></i></div>
-        <div id="crowd3" class="abs" style="left: 0; top: 1090px; width: 1080px; height: 90px"></div>
-        <div class="chips" style="top: 1240px; height: 92px">
-          <div id="c3" class="chip ico" style="gap: 12px"><i data-ic="users" class="or"></i><i data-ic="arrowL" style="color: var(--paper-55)"></i><i data-ic="check" class="or"></i></div>
+      <!-- ================= 03 TERM: A/B Testing, people decide ================= -->
+      <section id="s3" class="clip" data-start="5.9" data-duration="5.68" data-track-index="1">
+        <div id="t3" class="row en or" style="top: 270px; font-size: 140px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.15">A/B Testing</div>
+        <div id="ok3" class="badge" style="left: 150px; top: 436px; width: 96px; height: 96px; border: 4px solid var(--paper); color: var(--paper)"><i data-ic="check" style="width: 58px; height: 58px"></i></div>
+        <div id="crowd3" class="abs" style="left: 0; top: 975px; width: 1080px; height: 90px"></div>
+        <div class="chips" style="top: 1100px; height: 92px">
+          <div id="c3" class="chip ico"><i data-ic="users" class="or"></i></div>
         </div>
       </section>
 
-      <!-- ================= THE JUICE SHOP (persistent set, scenes 04-07) ================= -->
-      <section id="shop" class="clip" data-start="13.819" data-duration="14.293" data-track-index="3">
+      <!-- ================= THE JUICE SHOP (persistent set, scenes 04-06) ================= -->
+      <section id="shop" class="clip" data-start="11.58" data-duration="14.06" data-track-index="3">
         <svg id="shopDraw" class="abs draw" style="left: 0; top: 0; width: 1080px; height: 1920px" viewBox="0 0 1080 1920">
           <path class="sp" pathLength="1" d="M80 1180 H1000" />
           <path class="sp" pathLength="1" d="M230 1180 V660 M850 1180 V660" />
@@ -248,7 +243,7 @@
           <i class="mini vA" style="left: 6px; top: 10px; width: 90px; height: 16px; border-radius: 4px"></i>
           <i class="mini vB" style="left: 3px; top: 0; width: 90px; height: 16px; border-radius: 4px"></i>
         </div>
-        <!-- scene 07: the two piles grow on the counter (no numbers) -->
+        <!-- scene 06: the two piles grow on the counter (no numbers) -->
         <div id="pileA" class="abs" style="left: 470px; top: 760px; width: 100px; height: 200px"></div>
         <div id="pileB" class="abs" style="left: 300px; top: 760px; width: 100px; height: 200px"></div>
         <div id="lbA7" class="lb vA" style="left: 474px; top: 1022px; background: var(--charcoal)">A</div>
@@ -257,14 +252,14 @@
       </section>
 
       <!-- ================= 04 SHOP ================= -->
-      <section id="s4" class="clip" data-start="13.819" data-duration="3.732" data-track-index="1">
+      <section id="s4" class="clip" data-start="11.58" data-duration="2.72" data-track-index="1">
         <div class="chips" style="top: 1240px; height: 104px">
           <div id="c4" class="chip ico" style="height: 104px; color: var(--orange)"><i data-ic="orange" style="width: 58px; height: 58px"></i></div>
         </div>
       </section>
 
       <!-- ================= 05 THE FLYERS ================= -->
-      <section id="s5" class="clip" data-start="17.551" data-duration="5.926" data-track-index="2">
+      <section id="s5" class="clip" data-start="14.3" data-duration="5.26" data-track-index="2">
         <div id="flyA" class="fly vA" style="left: 570px; top: 480px; width: 400px; height: 580px" data-layout-allow-overflow>
           <div class="lt" style="top: 50px; font-size: 170px">A</div>
           <div id="txA" class="tx" style="top: 330px; font-size: 64px">عصير طازة</div>
@@ -278,7 +273,7 @@
       </section>
 
       <!-- ================= 06 SPLIT: half get A, half get B ================= -->
-      <section id="s6" class="clip" data-start="23.477" data-duration="2.648" data-track-index="1">
+      <section id="s6" class="clip" data-start="19.56" data-duration="3.72" data-track-index="1">
         <svg class="abs draw" style="left: 0; top: 0; width: 1080px; height: 1920px" viewBox="0 0 1080 1920"><path id="street6" pathLength="1" d="M80 1180 H1000" /></svg>
         <i id="split6" class="abs" style="left: 538px; top: 700px; width: 0; height: 500px; border-left: 4px dashed var(--orange); transform-origin: 50% 0"></i>
         <div id="crowd6" class="abs" style="left: 0; top: 0; width: 1080px; height: 1920px" data-layout-allow-overflow></div>
@@ -286,15 +281,15 @@
         <div id="hB6" class="half abs" style="left: 230px; top: 760px"><span>½</span><i class="lb vB">B</i></div>
       </section>
 
-      <!-- ================= 07 COUNT ================= -->
-      <section id="s7" class="clip" data-start="26.125" data-duration="1.987" data-track-index="1">
+      <!-- ================= 06 (second half) COUNT ================= -->
+      <section id="s6b" class="clip" data-start="23.28" data-duration="2.36" data-track-index="1">
         <div class="chips" style="top: 1240px; height: 92px">
           <div id="c7" class="chip ico"><i data-ic="chart" class="or"></i></div>
         </div>
       </section>
 
-      <!-- ================= 08 NUMBERS TALK: the full line, big (subtitle hidden) ================= -->
-      <section id="s8" class="clip" data-start="28.112" data-duration="2.524" data-track-index="1">
+      <!-- ================= 07 NUMBERS TALK: the full line, big (subtitle hidden) ================= -->
+      <section id="s7" class="clip" data-start="25.64" data-duration="2.72" data-track-index="1">
         <div class="row ar" style="top: 750px; font-size: 96px; font-weight: 800; line-height: 1.35">
           <span class="w n1">هيك</span> <span class="w n1">ما</span> <span class="w n1">عم</span> <span class="w n1">تخمّن.</span>
         </div>
@@ -303,8 +298,8 @@
         </div>
       </section>
 
-      <!-- ================= 09 ONE THING: change one thing only ================= -->
-      <section id="s9" class="clip" data-start="30.636" data-duration="7.334" data-track-index="1">
+      <!-- ================= 08 ONE THING: change one thing only ================= -->
+      <section id="s8" class="clip" data-start="28.36" data-duration="5.17" data-track-index="1">
         <div id="r9" class="abs" style="left: 440px; top: 520px; width: 200px; height: 200px; border-radius: 40px; border: 8px solid var(--orange); background: var(--charcoal); display: flex; align-items: center; justify-content: center; font-size: 160px; font-weight: 900; color: var(--paper); direction: ltr" data-layout-allow-overflow>1</div>
         <div id="ad9" class="adc" style="left: 300px; top: 560px; width: 480px; height: 640px; background: #1f1f1f">
           <div id="pI" class="part" style="top: 30px; height: 300px; background: var(--paper-08)">
@@ -322,15 +317,15 @@
           <div id="qI" class="q" style="left: 330px; top: 60px; width: 120px; font-size: 130px">؟</div>
           <div id="qH" class="q" style="left: 180px; top: 345px; width: 120px; font-size: 130px">؟</div>
           <div id="qP" class="q" style="left: 180px; top: 485px; width: 120px; font-size: 130px">؟</div>
+          <div id="ok9" class="badge" style="left: 300px; top: 50px; width: 130px; height: 130px; border: 5px solid var(--orange); color: var(--orange)"><i data-ic="check" style="width: 80px; height: 80px; stroke-width: 2.6"></i></div>
         </div>
-        <div id="ok9" class="badge" style="left: 250px; top: 510px; width: 100px; height: 100px; border: 4px solid var(--paper); color: var(--paper)"><i data-ic="check" style="width: 60px; height: 60px"></i></div>
         <div id="lI" class="plabel" style="top: 652px"><i data-ic="check" class="lck"></i><span>صورة</span></div>
         <div id="lH" class="plabel" style="top: 882px"><span>عنوان</span></div>
         <div id="lP" class="plabel" style="top: 1022px"><span>سعر</span></div>
       </section>
 
-      <!-- ================= 10 TIME: don't judge on day one ================= -->
-      <section id="s10" class="clip" data-start="37.97" data-duration="4.485" data-track-index="1">
+      <!-- ================= 09 TIME: don't judge on day one ================= -->
+      <section id="s9" class="clip" data-start="33.53" data-duration="2.67" data-track-index="1">
         <div id="cal10" class="abs" style="left: 380px; top: 470px; width: 320px; height: 320px; border-radius: 36px; border: 3px solid var(--paper-14); background: #202020; overflow: hidden">
           <div class="abs" style="left: 0; right: 0; top: 0; height: 70px; background: var(--orange)"></div>
           <div class="calp abs" data-n="1"></div>
@@ -350,8 +345,8 @@
         <div id="crowd10" class="abs" style="left: 0; top: 0; width: 1080px; height: 1920px"></div>
       </section>
 
-      <!-- ================= THE TWO AD CARDS (persistent, scenes 11-12) ================= -->
-      <section id="pair" class="clip" data-start="42.455" data-duration="11.414" data-track-index="3">
+      <!-- ================= 10 THE WINNER: the flyers turn back into the two ad cards ================= -->
+      <section id="s10" class="clip" data-start="36.2" data-duration="5.48" data-track-index="2">
         <div id="win12" class="abs" style="left: 104px; top: 504px; width: 412px; height: 592px; border-radius: 42px; border: 8px solid var(--gold); box-shadow: 0 0 46px rgba(255, 176, 0, 0.35)"></div>
         <div id="sA" class="sad vA" style="left: 580px; top: 520px; width: 380px; height: 560px">
           <div class="adin"><i class="av"></i><i class="hb"></i><div class="im"><i data-ic="cup" style="width: 140px; height: 140px"></i></div><i class="h1b"></i><i class="h2b"></i><i class="bt"></i></div>
@@ -366,63 +361,46 @@
         <i id="base12" class="abs" style="left: 120px; top: 1300px; width: 840px; height: 4px; border-radius: 2px; background: var(--paper-14)"></i>
         <div id="barA" class="abs" style="left: 735px; top: 1130px; width: 70px; height: 170px; border-radius: 12px 12px 0 0; background: var(--paper-55); transform-origin: 50% 100%"></div>
         <div id="barB" class="abs" style="left: 275px; top: 1130px; width: 70px; height: 170px; border-radius: 12px 12px 0 0; background: var(--orange); transform-origin: 50% 100%"></div>
-        <div id="aud11" class="abs" style="left: 0; top: 0; width: 1080px; height: 1920px"></div>
-      </section>
-
-      <!-- ================= 11 IN ADS ================= -->
-      <section id="s11" class="clip" data-start="42.455" data-duration="6.162" data-track-index="1">
-        <div class="chips" style="top: 380px; height: 92px">
-          <div id="c11a" class="chip"><span>نفس الإعلان</span></div>
-          <span id="d11" class="dot">·</span>
-          <div id="c11b" class="chip"><i data-ic="image" class="or"></i><span>صورتين</span></div>
-        </div>
-        <div class="chips" style="top: 1250px; height: 92px">
-          <div id="c11c" class="chip"><i data-ic="users" class="or"></i><span>نفس الجمهور</span></div>
-        </div>
-      </section>
-
-      <!-- ================= 12 THE WINNER ================= -->
-      <section id="s12" class="clip" data-start="48.617" data-duration="5.252" data-track-index="1">
         <div id="c12a" class="chip abs" style="left: 640px; top: 340px"><i data-ic="heart" class="or"></i><span>إنت</span></div>
         <div id="c12b" class="chip abs" style="left: 150px; top: 340px"><i data-ic="chart" class="or"></i><span>الأرقام</span></div>
       </section>
 
-      <!-- ================= 13 CTA: what would you test first? ================= -->
-      <section id="s13" class="clip" data-start="53.869" data-duration="8.227" data-track-index="1">
+      <!-- ================= 11 CTA: what would you test first? ================= -->
+      <section id="s11" class="clip" data-start="41.68" data-duration="6.2" data-track-index="1">
         <svg id="bub13" class="abs" style="left: 110px; top: 470px; width: 860px; height: 560px" viewBox="0 0 860 560">
           <path d="M60 14 H800 Q846 14 846 60 V410 Q846 456 800 456 H250 L150 540 L170 456 H60 Q14 456 14 410 V60 Q14 14 60 14 Z" fill="none" stroke="#FF4D1A" stroke-width="10" stroke-linejoin="round" />
         </svg>
-        <div class="chips" style="top: 640px; height: 110px; gap: 24px">
-          <div id="k1" class="chip" style="height: 110px; font-size: 52px">الصورة</div>
-          <div id="k2" class="chip" style="height: 110px; font-size: 52px">العنوان</div>
-          <div id="k3" class="chip" style="height: 110px; font-size: 52px">العرض</div>
+        <div class="chips" style="top: 640px; height: 104px; gap: 18px">
+          <div id="k1" class="chip" style="height: 104px; font-size: 48px; padding: 0 30px">الصورة</div>
+          <div id="k2" class="chip" style="height: 104px; font-size: 48px; padding: 0 30px">العنوان</div>
+          <div id="k3" class="chip" style="height: 104px; font-size: 48px; padding: 0 30px">العرض</div>
         </div>
         <svg id="arr13" class="abs" style="left: 500px; top: 1090px; width: 80px; height: 110px" viewBox="0 0 64 90">
           <path d="M32 6 V78 M8 56 L32 80 L56 56" fill="none" stroke="#FF4D1A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </section>
 
-      <!-- ================= 14 END CARD — supplied logo, unmodified ================= -->
-      <section id="s14" class="clip logo-clip" data-start="62.096" data-duration="3.0" data-track-index="4">
+      <!-- ================= 12 END CARD — supplied logo, unmodified (the only place the logo appears) ================= -->
+      <section id="s12" class="clip logo-clip" data-start="47.88" data-duration="3.0" data-track-index="4">
         <div class="logo-frame" style="left: 150px; top: 741px; width: 780px; height: 439px">
           <img id="s14logo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
         </div>
       </section>
 
-      <div id="vig" class="clip" data-start="0.0" data-duration="65.096" data-track-index="6"></div>
+      <div id="vig" class="clip" data-start="0.0" data-duration="50.88" data-track-index="6"></div>
 
       <!-- ================= SUBTITLES (built from SUBS below) ================= -->
-      <section id="subs" class="clip" data-start="0.0" data-duration="62.096" data-track-index="5"></section>
+      <section id="subs" class="clip" data-start="0.0" data-duration="47.88" data-track-index="5"></section>
 
       <!-- ================= AUDIO ================= -->
-      <audio id="a-vo" src="audio/vo/vo_track.wav" data-start="0.0" data-duration="65.096" data-track-index="10" data-volume="1"></audio>
-      <audio id="a-music" src="audio/music.wav" data-start="0.0" data-duration="65.096" data-track-index="20" data-volume="1"></audio>
-      <audio id="a-sfx" src="audio/sfx.wav" data-start="0.0" data-duration="65.096" data-track-index="21" data-volume="1"></audio>
+      <audio id="a-vo" src="audio/vo/vo_track.wav" data-start="0.0" data-duration="50.88" data-track-index="10" data-volume="1"></audio>
+      <audio id="a-music" src="audio/music.wav" data-start="0.0" data-duration="50.88" data-track-index="20" data-volume="1"></audio>
+      <audio id="a-sfx" src="audio/sfx.wav" data-start="0.0" data-duration="50.88" data-track-index="21" data-volume="1"></audio>
     </div>
 
     <script>
       (function () {
-        /*CUES*/ const CUES = {"duration":65.096,"endcard":62.096,"scenes":{"s1":[0.0,4.704],"s1l":[0.0,5.012],"s2":[4.704,6.636],"s3":[6.636,13.819],"shop":[13.819,28.112],"s4":[13.819,17.551],"s5":[17.551,23.477],"s6":[23.477,26.125],"s7":[26.125,28.112],"s8":[28.112,30.636],"s9":[30.636,37.97],"s10":[37.97,42.455],"pair":[42.455,53.869],"s11":[42.455,48.617],"s12":[48.617,53.869],"s13":[53.869,62.096],"s14":[62.096,65.096],"subs":[0.0,62.096]},"words":[[0.375,0.636],[0.655,1.01],[1.328,1.478],[1.515,1.814],[2.3,2.599],[2.636,2.992],[3.066,3.291],[3.328,3.534],[3.552,3.87],[4.132,4.263],[4.319,4.562],[4.954,5.029],[5.066,5.44],[5.814,6.094],[6.132,6.207],[6.263,6.618],[6.936,7.197],[7.235,7.571],[8.02,8.786],[8.823,9.197],[9.627,9.795],[9.833,10.094],[10.132,10.487],[10.524,10.618],[10.655,10.823],[10.861,11.085],[11.309,11.683],[11.683,12.02],[12.057,12.412],[12.45,12.786],[12.823,12.954],[12.973,13.328],[14.169,14.431],[14.468,14.711],[14.73,14.973],[14.992,15.403],[15.59,15.87],[15.889,16.263],[16.281,16.562],[16.636,16.879],[16.917,17.328],[17.851,18.169],[18.188,18.263],[18.431,18.711],[18.749,18.992],[19.291,19.627],[19.702,19.982],[20.58,20.879],[20.917,21.066],[21.721,22.244],[22.375,22.693],[22.73,23.235],[23.777,24.076],[24.113,24.207],[24.244,24.599],[24.618,25.16],[25.197,25.421],[25.459,25.758],[25.795,26.225],[26.375,26.786],[26.823,26.973],[27.01,27.16],[27.179,27.291],[27.328,27.627],[27.664,28.076],[28.412,28.562],[28.674,28.767],[28.842,28.917],[28.936,29.01],[29.066,29.421],[29.59,29.964],[30.001,30.076],[30.113,30.393],[30.936,31.066],[31.104,31.179],[31.197,31.421],[31.459,31.814],[32.132,32.375],[32.468,32.58],[32.618,32.842],[32.879,33.085],[33.552,33.683],[33.721,34.02],[34.038,34.412],[34.45,34.898],[34.936,35.253],[35.328,35.534],[35.945,36.3],[36.375,36.45],[36.468,36.562],[36.618,36.842],[36.879,36.954],[36.973,37.066],[37.104,37.459],[37.814,37.964],[38.02,38.356],[38.393,38.487],[38.506,38.73],[38.767,38.954],[39.534,39.646],[39.683,40.132],[40.15,40.468],[40.58,40.879],[40.917,41.122],[41.16,41.365],[41.384,41.459],[41.478,41.739],[41.777,42.263],[42.805,43.552],[43.721,43.907],[43.926,44.3],[44.992,45.197],[45.216,45.889],[46.431,46.805],[46.842,47.459],[47.59,47.889],[47.907,48.375],[48.917,49.496],[49.515,50.15],[50.188,50.281],[50.337,50.45],[50.487,50.767],[50.823,51.048],[51.552,51.702],[51.833,52.02],[52.038,52.45],[52.468,52.805],[52.861,53.048],[53.085,53.459],[54.169,54.3],[54.337,54.618],[54.711,55.048],[55.085,55.179],[55.216,55.702],[55.87,56.636],[56.786,56.879],[56.936,57.459],[57.795,58.281],[58.58,59.197],[59.365,59.571],[59.59,59.926],[60.336,60.58],[60.655,60.786],[60.823,61.496]],"lines":{"01":{"s":0.375,"e":4.562,"w":[0,10]},"02":{"s":4.954,"e":6.618,"w":[11,15]},"03":{"s":6.936,"e":9.197,"w":[16,19]},"04":{"s":9.627,"e":13.328,"w":[20,31]},"05":{"s":14.169,"e":17.328,"w":[32,40]},"06":{"s":17.851,"e":23.235,"w":[41,51]},"07":{"s":23.777,"e":28.076,"w":[52,64]},"08":{"s":28.412,"e":30.393,"w":[65,72]},"09":{"s":30.936,"e":33.085,"w":[73,80]},"10":{"s":33.552,"e":37.459,"w":[81,93]},"11":{"s":37.814,"e":42.263,"w":[94,107]},"12":{"s":42.805,"e":48.375,"w":[108,116]},"13":{"s":48.917,"e":53.459,"w":[117,128]},"14":{"s":54.169,"e":61.496,"w":[129,143]}}}; /*END CUES*/
+        /*CUES*/ const CUES = {"duration":50.88,"endcard":47.88,"scenes":{"cards":[0.0,11.58],"s1":[0.0,3.49],"s2":[3.49,5.9],"s3":[5.9,11.58],"shop":[11.58,25.64],"s4":[11.58,14.3],"s5":[14.3,19.56],"s6":[19.56,23.28],"s6b":[23.28,25.64],"s7":[25.64,28.36],"s8":[28.36,33.53],"s9":[33.53,36.2],"s10":[36.2,41.68],"s11":[41.68,47.88],"s12":[47.88,50.88],"subs":[0.0,47.88]},"words":[[0.1,0.34],[0.36,0.46],[0.5,1.22],[1.3,1.4],[1.44,1.78],[1.8,1.94],[1.96,2.32],[2.58,2.88],[2.92,3.24],[3.74,3.9],[3.94,4.3],[4.32,4.48],[4.52,4.62],[4.66,5.04],[5.12,5.2],[5.3,5.68],[6.2,6.52],[6.56,7.0],[7.04,7.22],[7.28,7.56],[7.62,7.86],[8.0,8.14],[8.2,8.64],[8.92,9.32],[9.36,9.46],[9.5,9.72],[9.74,10.14],[10.56,10.86],[10.9,11.3],[11.88,12.2],[12.24,12.52],[12.56,12.8],[12.84,12.92],[12.94,13.32],[13.34,13.66],[13.7,14.06],[14.6,14.98],[15.08,15.16],[15.44,15.76],[15.86,16.1],[16.76,17.04],[17.14,17.26],[17.56,17.84],[17.88,18.3],[18.34,18.82],[18.84,19.34],[19.86,20.08],[20.12,20.44],[20.48,20.96],[21.16,21.34],[21.6,21.94],[22.0,22.52],[22.6,22.84],[23.48,23.96],[24.0,24.14],[24.18,24.32],[24.36,24.5],[24.54,24.82],[24.92,25.38],[25.94,26.1],[26.12,26.2],[26.2,26.28],[26.36,26.72],[27.02,27.62],[27.66,27.76],[27.78,28.08],[28.66,28.8],[28.84,28.92],[28.94,29.42],[29.92,30.22],[30.26,30.38],[30.4,30.66],[30.7,30.92],[31.38,31.58],[31.62,31.7],[31.7,31.78],[31.82,32.08],[32.1,32.2],[32.22,32.32],[32.38,32.759],[33.4,33.54],[33.58,33.92],[33.92,34.0],[34.02,34.28],[34.32,34.56],[34.98,35.2],[35.22,35.68],[35.7,36.0],[36.5,36.96],[37.0,37.5],[37.54,37.64],[37.7,37.8],[37.84,38.14],[38.18,38.42],[38.96,39.16],[39.28,39.42],[39.46,39.94],[40.0,40.5],[40.56,40.76],[40.8,41.26],[41.98,42.08],[42.1,42.38],[42.48,42.82],[42.86,43.0],[43.04,43.52],[43.72,44.2],[44.4,45.04],[45.22,45.48],[45.5,45.94],[46.36,46.62],[46.68,46.84],[46.86,47.28]],"lines":{"01":{"s":0.1,"e":3.24,"w":[0,8]},"02":{"s":3.74,"e":5.68,"w":[9,15]},"03":{"s":6.2,"e":11.3,"w":[16,28]},"04":{"s":11.88,"e":14.06,"w":[29,35]},"05":{"s":14.6,"e":19.34,"w":[36,45]},"06":{"s":19.86,"e":25.38,"w":[46,58]},"07":{"s":25.94,"e":28.08,"w":[59,65]},"08":{"s":28.66,"e":32.759,"w":[66,79]},"09":{"s":33.4,"e":36.0,"w":[80,87]},"10":{"s":36.5,"e":41.26,"w":[88,99]},"11":{"s":41.98,"e":47.28,"w":[100,111]}}}; /*END CUES*/
         const $ = (s) => document.querySelector(s);
         const $$ = (s) => Array.from(document.querySelectorAll(s));
         const ORANGE = "#FF4D1A";
@@ -434,55 +412,46 @@
 
         // subtitles: exactly the brief's spoken line, split at the speaker's own pauses.
         // [first Scribe word index, html]. <b> = English key term (Latin, orange).
-        // Line 08 is not here: scene 08 shows it big in the centre, so the subtitle is hidden.
+        // Line 07 is not here: scene 07 shows it big in the centre, so the subtitle is hidden.
         const SUBS = [
-          [0, "عملت إعلان، وما زبط."],
-          [4, "عملت غيرو، زبط شوي أحسن."],
-          [9, "بس ليش؟"],
-          [11, "ما بتعرف. لأنك عم تخمّن."],
-          [16, "الحل اسمو <b>A/B Testing</b>."],
-          [20, "يعني تعمل نسختين من نفس الشي،"],
-          [26, "وتخلّي الناس هنّي يقرروا مين الأحسن."],
-          [32, "تخيّل عندك محل عصير،"],
-          [36, "وبدك توزّع أوراق إعلان بالشارع."],
-          [41, "ورقة <b>A</b> مكتوب عليها: \"عصير طازة\"."],
-          [47, "وورقة <b>B</b>: \"برتقال معصور قدّامك\"."],
-          [52, "بتعطي <b>A</b> لنص الناس، و<b>B</b> للنص التاني،"],
-          [59, "وبتعدّ مين جاب أي ورقة عالمحل."],
-          [73, "بس في قاعدة مهمة: غيّر شي واحد بس."],
-          [81, "إذا غيّرت الصورة والعنوان والسعر سوا، وزبط،"],
-          [88, "ما رح تعرف شو اللي زبّطو."],
-          [94, "وما تحكم من أول يوم."],
-          [99, "عطي التجربة وقت،"],
-          [102, "وخلّي عدد كافي من الناس يشوفوها."],
-          [108, "وبالإعلانات؟ نفس الفكرة."],
-          [111, "نفس الإعلان، صورتين مختلفتين، ونفس الجمهور."],
-          [117, "الإعلان الربحان مش اللي عجبك إنت."],
-          [123, "هوي اللي الأرقام قالت إنو ربحان."],
-          [129, "لو بدك تجرّب شي واحد بإعلانك،"],
-          [135, "شو بتختار: الصورة، العنوان، ولا العرض؟"],
-          [141, "اكتبلنا بالكومنتات."],
+          [0, "واحد من هالإعلانين عم يضيّعلك مصاري…"],
+          [7, "أيّا واحد؟"],
+          [9, "إذا جاوبت بس من شعورك، عم تخمّن."],
+          [16, "الحل اسمو <b>A/B Testing</b>:"],
+          [23, "نسختين من نفس الإعلان، والناس بيقرروا."],
+          [29, "تخيّل محل عصير عم يوزّع أوراق إعلان."],
+          [36, "ورقة <b>A</b>: \"عصير طازة\"."],
+          [40, "ورقة <b>B</b>: \"برتقال معصور قدّامك\"."],
+          [46, "نص الناس بياخدو <b>A</b>، والنص التاني <b>B</b>…"],
+          [53, "وبتعدّ مين جاب أي ورقة عالمحل."],
+          [66, "بس في قاعدتين: غيّر شي واحد بس،"],
+          [73, "وإلّا ما رح تعرف شو اللي زبّط."],
+          [80, "وما تحكم من أول يوم."],
+          [85, "عطي التجربة وقت."],
+          [88, "الإعلان الربحان مش اللي عجبك إنت."],
+          [94, "هوّي اللي الأرقام قالت إنو ربحان."],
+          [100, "لو بدك تجرّب شي واحد:"],
+          [105, "الصورة، العنوان، ولا العرض؟"],
+          [109, "اكتبلنا بالكومنتات."],
         ];
         const LINE_END = Object.values(CUES.lines).map((l) => [l.w[0], l.w[1], l.e]);
         const lineEndFor = (wi) => LINE_END.find(([a, b]) => wi >= a && wi <= b)[2];
 
         // line icons (24-unit grid, stroke = currentColor) — used instead of colour emoji
         const ICON = {
-          x: '<path d="M5 5 19 19M19 5 5 19"/>',
           check: '<path d="M4 12.5 9.5 18 20 6"/>',
-          trend: '<path d="M5 19 19 5"/><path d="M9 5h10v10"/>',
           target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
           orange: '<circle cx="12" cy="14" r="7.5"/><path d="M12 6.5c0-2 1-3.3 2.8-3.8"/><path d="M12 6.5C10.4 4.8 8.2 4.6 6.8 5.4c1.2 1.7 3.3 2 5.2 1.1Z"/>',
           users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20v-1a6.5 6.5 0 0 1 13 0v1"/><circle cx="17" cy="9" r="2.8"/><path d="M17.5 14.2a5 5 0 0 1 4.5 5v.8"/>',
           user: '<circle cx="12" cy="7.5" r="4"/><path d="M4.5 21v-1.5a7.5 7.5 0 0 1 15 0V21"/>',
-          arrowL: '<path d="M20 12H5"/><path d="M11 6l-6 6 6 6"/>',
           cup: '<path d="M4 10h12v4a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6Z"/><path d="M16 11.5h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 7c-.7-1 .7-1.8 0-2.8M12 7c-.7-1 .7-1.8 0-2.8"/><path d="M3 22.5h14"/>',
           tag: '<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9Z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
           hand: '<path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12"/><path d="M11 11.5V4a1.5 1.5 0 0 1 3 0v7.5"/><path d="M14 11.5V5.5a1.5 1.5 0 0 1 3 0V13"/><path d="M17 10a1.5 1.5 0 0 1 3 0v5a7 7 0 0 1-7 7h-1.2a7 7 0 0 1-5.4-2.6L3.3 15.6a1.6 1.6 0 0 1 2.4-2.1L8 15.6"/>',
           hourglass: '<path d="M6 2.5h12M6 21.5h12"/><path d="M7.5 2.5v3a4.5 4.5 0 0 0 2.2 3.9L12 12l2.3-2.6a4.5 4.5 0 0 0 2.2-3.9v-3"/><path d="M7.5 21.5v-3a4.5 4.5 0 0 1 2.2-3.9L12 12l2.3 2.6a4.5 4.5 0 0 1 2.2 3.9v3"/>',
           heart: '<path d="M12 20.5s-8-4.7-8-11a4.5 4.5 0 0 1 8-2.8 4.5 4.5 0 0 1 8 2.8c0 6.3-8 11-8 11Z"/>',
           chart: '<path d="M3 21h18"/><path d="M6.5 21v-7M11 21V9M15.5 21v-5M20 21V5"/>',
-          image: '<rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>',
+          // 💸: a banknote with wings of motion
+          cash: '<rect x="5" y="7" width="14" height="10" rx="1.5"/><circle cx="12" cy="12" r="2.3"/><path d="M1.5 9.5h2M1 12h2.5M1.5 14.5h2M20.5 9.5h2M20.5 12h2.5M20.5 14.5h2"/>',
         };
         const PERSON = '<svg viewBox="0 0 60 100"><circle cx="30" cy="16" r="14"/><path d="M5 98 V64 Q5 38 30 38 Q55 38 55 64 V98 Z"/></svg>';
         const mk = (host, cls, css, html = "") => {
@@ -493,13 +462,20 @@
           host.appendChild(d);
           return d;
         };
+        // deterministic pseudo-random (fixed seed) for the coin stream — no Math.random
+        let seed = 7;
+        const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
 
         function build() {
           // ---------- generated pieces (deterministic) ----------
-          // scene 03: a crowd row under the two cards
+          const coins = $("#coins");
+          const COINS = [];
+          for (let k = 0; k < 24; k++) {
+            const c = mk(coins, "coin", `left:${Math.round(200 + rnd() * 640)}px;top:880px`);
+            COINS.push({ el: c, dur: 0.8 + rnd() * 0.5, phase: rnd(), dx: (rnd() - 0.5) * 140 });
+          }
           const crowd3 = $("#crowd3");
           for (let k = 0; k < 9; k++) mk(crowd3, "person p3", `left:${238 + k * 68}px;top:0;width:52px;height:86px;color:rgba(245,241,234,0.7)`, PERSON);
-          // scene 06: a crowd on the street, each person gets a mini flyer (right half A, left half B)
           const crowd6 = $("#crowd6");
           for (let k = 0; k < 10; k++) {
             const x = 128 + k * 86 + (k >= 5 ? 24 : 0);
@@ -507,9 +483,8 @@
             mk(g, "person", "left:2px;top:112px;width:60px;height:106px;color:rgba(245,241,234,0.7)", PERSON);
             mk(g, `mini ${x > 540 ? "vA m6a" : "vB m6b"}`, "left:12px;top:40px;width:40px;height:54px");
           }
-          // scene 07: walkers into the shop, each carrying a flyer; the two piles of returned flyers
           const walk7 = $("#walk7");
-          ["vB", "vA", "vB", "vB", "vA", "vB"].forEach((v, k) => {
+          ["vB", "vA", "vB", "vB", "vA", "vB", "vB"].forEach((v) => {
             const g = mk(walk7, "abs w7", "left:900px;top:960px;width:64px;height:220px");
             mk(g, "person", "left:2px;top:112px;width:60px;height:106px;color:rgba(245,241,234,0.7)", PERSON);
             mk(g, `mini ${v}`, "left:12px;top:40px;width:40px;height:54px");
@@ -517,16 +492,12 @@
           const sheets = (host, v, n) => { for (let k = 0; k < n; k++) mk(host, `mini ${v} sh`, `left:${(k % 2) * 4}px;top:${184 - k * 20}px;width:92px;height:16px;border-radius:4px`); };
           sheets($("#pileA"), "vA", 3);
           sheets($("#pileB"), "vB", 8);
-          // scene 10: calendar pages (dots, no numbers) and the growing crowd
           $$(".calp").forEach((p) => {
             p.style.cssText = "left:0;right:0;top:70px;bottom:0;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:0 40px;background:#202020";
             for (let k = 0; k < +p.dataset.n; k++) mk(p, "", "width:26px;height:26px;border-radius:50%;background:#F5F1EA");
           });
           const crowd10 = $("#crowd10");
           for (let r = 0; r < 3; r++) for (let k = 0; k < 11; k++) mk(crowd10, `person c10r${r}`, `left:${112 + k * 78 + (r % 2) * 20}px;top:${1000 + r * 104}px;width:46px;height:78px;color:rgba(245,241,234,${0.7 - r * 0.15})`, PERSON);
-          // scene 11: one audience group under both cards
-          const aud = $("#aud11");
-          for (let k = 0; k < 11; k++) mk(aud, "person a11", `left:${150 + k * 74}px;top:1110px;width:50px;height:84px;color:rgba(245,241,234,0.7)`, PERSON);
 
           $$("[data-ic]").forEach((el) => { el.innerHTML = `<svg class="ic" viewBox="0 0 24 24" style="width:100%;height:100%">${ICON[el.dataset.ic]}</svg>`; });
 
@@ -540,10 +511,9 @@
           const chipIn = (el, t) => tl.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, t);
           const bob = (el, t, d) => tl.fromTo(el, { y: 0 }, { y: -8, duration: 0.14, yoyo: true, repeat: Math.max(1, Math.round(d / 0.14) - 1), ease: "sine.inOut" }, t);
 
-          // ---------- ground ----------
+          // ---------- ground (already on at frame 0: no build-up) ----------
           tl.fromTo("#grid", { x: 0, y: 0 }, { x: 72, y: 144, duration: DUR, ease: "none" }, 0);
-          tl.fromTo("#marks", { opacity: 0 }, { opacity: 1, duration: 1.2 }, 0.2);
-          tl.fromTo("#progfill", { scaleX: 0 }, { scaleX: 1, duration: END - 0.4, ease: "none" }, 0.4);
+          tl.fromTo("#progfill", { scaleX: 0 }, { scaleX: 1, duration: END, ease: "none" }, 0);
           tl.to(["#grid", "#marks", "#prog"], { opacity: 0, duration: 0.8, ease: "power1.inOut" }, END - 0.4);
 
           // ---------- subtitles ----------
@@ -554,83 +524,96 @@
             const next = i + 1 < SUBS.length ? W(SUBS[i + 1][0]) : END;
             const sameLine = i + 1 < SUBS.length && lineEndFor(SUBS[i + 1][0]) === lineEndFor(wi);
             const hide = sameLine ? next - 0.18 : Math.min(lineEndFor(wi) + 0.45, next - 0.18);
-            tl.fromTo(d, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none" }, t - 0.06);
+            if (t < 0.2) tl.set(d, { opacity: 1 }, 0); // line 01 starts with the picture
+            else tl.fromTo(d, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none" }, t - 0.06);
             tl.to(d, { opacity: 0, duration: 0.12, ease: "none" }, hide);
           });
 
-          // ---------- 01 HOOK ----------
-          tl.fromTo("#s1logo", { opacity: 0 }, { opacity: 0.9, duration: 0.8, ease: "power1.out" }, 0.05);
-          tl.to("#s1logo", { opacity: 0, duration: 0.4, ease: "power2.inOut" }, We(10) + 0.05);
-          tl.set(["#x1", "#up1", "#ad2", "#q1"], { opacity: 0 }, 0);
-          rise("#ad1", 0.1, 0.7, 60);
-          // the first ad: ✗ (didn't work)
-          tl.fromTo("#x1", { opacity: 0, scale: 1.8, rotation: -12 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.3, ease: "expo.out" }, W(3) - 0.05);
-          pulse("#ad1", W(3) + 0.1, 0.97);
-          // a second ad replaces it: ↗ (a bit better)
-          tl.to("#ad1", { x: 240, scale: 0.72, opacity: 0.45, duration: 0.6, ease: "power3.inOut" }, W(4) - 0.15);
-          tl.fromTo("#ad2", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, W(4) - 0.05);
-          pop("#up1", W(7) - 0.05, 0.4);
-          // both freeze side by side, a big ؟ lands between them
-          tl.to("#ad2", { x: -240, scale: 0.72, duration: 0.55, ease: "power3.inOut" }, W(9) - 0.2);
-          tl.to("#ad1", { opacity: 1, duration: 0.4 }, W(9) - 0.2);
-          tl.fromTo("#q1", { opacity: 0, scale: 1.7, y: -30 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(2)" }, W(10) - 0.05);
-          glow(W(10), 540, 860, 0.5, 0.6, 0.4);
-          tl.to("#glow", { opacity: 0, duration: 0.4 }, SC("s1")[1] - 0.4);
-          out(["#ad1", "#ad2", "#q1"], SC("s1")[1] - 0.3, 0.25);
+          // ---------- 01 HOOK: frame 0 is already full ----------
+          const T2 = SC("s2")[0];
+          // coins are already mid-fall at frame 0 and keep pouring until scene 02
+          COINS.forEach(({ el, dur, phase, dx }) => {
+            const Y0 = 0, Y1 = 560; // from under the cards to below the frame
+            const first = (1 - phase) * dur;
+            tl.fromTo(el, { y: Y0 + phase * Y1, x: phase * dx }, { y: Y1, x: dx, duration: first, ease: "none" }, 0);
+            const reps = Math.ceil((T2 + 0.4 - first) / dur);
+            tl.fromTo(el, { y: Y0, x: 0 }, { y: Y1, x: dx, duration: dur, ease: "none", repeat: reps - 1, immediateRender: false }, first);
+          });
+          tl.to("#coins", { opacity: 0, duration: 0.3 }, T2 - 0.1);
+          // both cards wobble inside the first 0.3s
+          tl.fromTo("#hA", { rotation: 0 }, { rotation: 3, duration: 0.09, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0);
+          tl.fromTo("#hB", { rotation: 0 }, { rotation: -3, duration: 0.09, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0.03);
+          tl.fromTo("#c1", { scale: 1 }, { scale: 1.08, duration: 0.2, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.1);
+          // ؟ lands big between them at ~1s with a short shake; the letters pulse
+          const Q = 0.95;
+          tl.fromTo("#q1", { opacity: 0, scale: 1.8, y: -40 }, { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: "back.out(2)" }, Q);
+          tl.fromTo("#cardsBox", { x: 0 }, { x: 9, duration: 0.05, yoyo: true, repeat: 3, ease: "none" }, Q + 0.28);
+          tl.set("#cardsBox", { x: 0 }, Q + 0.5);
+          glow(Q, 540, 680, 0.55, 0.7, 0.35);
+          pulse("#hA .lt", Q + 0.45, 1.12);
+          pulse("#hB .lt", Q + 0.65, 1.12);
+          // "which one?": the letters pulse again, one after the other
+          pulse("#hA .lt", W(7), 1.12);
+          pulse("#hB .lt", W(8), 1.12);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, T2 - 0.3);
+          out(["#q1", "#c1"], T2 - 0.25, 0.2);
 
-          // ---------- 02 GUESSING ----------
-          tl.set(["#fold2", "#dart2", "#c2"], { opacity: 0 }, 0);
-          tl.fromTo("#board2 .dp", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut", stagger: 0.06 }, SC("s2")[0] + 0.05);
-          tl.fromTo("#fold2", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.35, ease: E }, W(12) - 0.1);
-          // the dart flies … and misses the board (lands off it, upper right)
-          const DART = W(13) - 0.05;
-          tl.set("#dart2", { opacity: 1, rotation: -18, transformOrigin: "100% 50%" }, DART);
-          tl.fromTo("#dart2", { x: 0, y: 0 }, { x: 470, y: -170, duration: 0.42, ease: "power1.in" }, DART);
-          tl.fromTo("#dart2", { rotation: -18 }, { rotation: -12, duration: 0.08, yoyo: true, repeat: 3, ease: "sine.inOut" }, DART + 0.42);
-          chipIn("#c2", W(15) - 0.1);
-          out(["#board2", "#fold2", "#dart2", "#c2"], SC("s2")[1] - 0.3, 0.25);
+          // ---------- 02 GUT: the feeling points at A, the dart misses ----------
+          tl.set(["#heart2", "#dart2", "#c2a", "#c2b", "#d2"], { opacity: 0 }, 0);
+          tl.to("#cardsBox", { y: 40, duration: 0.5, ease: "power3.inOut" }, T2);
+          pop("#heart2", W(12) - 0.15, 0.45);
+          tl.to("#heart2", { y: 18, duration: 0.25, yoyo: true, repeat: 3, ease: "sine.inOut" }, W(12) + 0.3);
+          chipIn("#c2a", W(13) - 0.1);
+          pulse("#hA", W(13), 1.03);
+          const DART = W(14) - 0.15;
+          tl.set("#dart2", { opacity: 1, rotation: -45.4, transformOrigin: "100% 50%" }, DART);
+          tl.fromTo("#dart2", { x: 0, y: 0 }, { x: 809, y: -820, duration: 0.42, ease: "power1.in" }, DART);
+          tl.fromTo("#dart2", { rotation: -45.4 }, { rotation: -39, duration: 0.08, yoyo: true, repeat: 3, ease: "sine.inOut" }, DART + 0.42);
+          tl.to("#d2", { opacity: 1, duration: 0.3 }, W(15) - 0.1);
+          chipIn("#c2b", W(15) - 0.1);
+          out(["#heart2", "#dart2", "#c2a", "#c2b", "#d2"], SC("s2")[1] - 0.25, 0.2);
 
           // ---------- 03 TERM ----------
-          tl.set(["#t3", "#cA3", "#cB3", "#ok3", ".p3", "#c3"], { opacity: 0 }, 0);
-          tl.set("#div3", { scaleY: 0 }, 0);
-          tl.fromTo("#t3", { opacity: 0, scale: 0.9, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "expo.out" }, W(18) - 0.08);
-          glow(W(18), 540, 450, 0.55, 0.8, 0.6);
-          tl.to("#glow", { opacity: 0, duration: 0.5 }, W(20));
-          // the screen splits: A slides in on the right, B on the left
-          tl.to("#div3", { scaleY: 1, duration: 0.5, ease: "power2.inOut" }, W(21) - 0.15);
-          tl.fromTo("#cA3", { opacity: 0, x: 260 }, { opacity: 1, x: 0, duration: 0.6, ease: E }, W(22) - 0.1);
-          tl.fromTo("#cB3", { opacity: 0, x: -260 }, { opacity: 1, x: 0, duration: 0.6, ease: E }, W(22) + 0.05);
-          // people drop in under them … and pick one
-          tl.fromTo(".p3", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)", stagger: 0.08 }, W(27) - 0.1);
-          chipIn("#c3", W(29) - 0.1);
-          pop("#ok3", W(31) - 0.05, 0.45);
-          pulse("#cB3", W(31) + 0.1, 1.04);
-          out(["#t3", "#div3", "#cA3", "#cB3", "#ok3", ".p3", "#c3"], SC("s3")[1] - 0.35, 0.3);
+          const T3 = SC("s3")[0];
+          tl.set(["#t3", "#ok3", ".p3", "#c3"], { opacity: 0 }, 0);
+          tl.to("#cardsBox", { scale: 0.78, y: 40, transformOrigin: "540px 690px", duration: 0.6, ease: "power3.inOut" }, T3);
+          tl.fromTo("#t3", { opacity: 0, scale: 0.9, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "expo.out" }, W(18) - 0.1);
+          glow(W(18), 540, 350, 0.55, 0.8, 0.6);
+          tl.to("#glow", { opacity: 0, duration: 0.5 }, W(23));
+          pulse("#hA", W(23), 1.04);
+          pulse("#hB", W(24), 1.04);
+          tl.fromTo(".p3", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)", stagger: 0.07 }, W(27) - 0.15);
+          chipIn("#c3", W(27) + 0.1);
+          pop("#ok3", W(28) + 0.05, 0.45);
+          pulse("#hB", W(28) + 0.2, 1.04);
+          out(["#t3", "#ok3", ".p3", "#c3"], SC("s3")[1] - 0.3, 0.25);
+          // the cards fly off
+          tl.to("#cardsBox", { y: -1200, opacity: 0, duration: 0.55, ease: "power3.in" }, SC("s3")[1] - 0.35);
 
-          // ---------- the juice shop (04-07) ----------
+          // ---------- the juice shop (04-06) ----------
           const T4 = SC("shop")[0];
           tl.set(["#sign4", "#juicer", "#oranges", "#stack", "#c4", "#pileA", "#pileB", "#lbA7", "#lbB7", ".sh"], { opacity: 0 }, 0);
-          tl.fromTo("#shopDraw .sp", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut", stagger: 0.09 }, T4 + 0.1);
-          tl.to("#sign4", { opacity: 1, duration: 0.4 }, W(33));
-          chipIn("#c4", W(34) - 0.05);
-          rise("#juicer", W(35) - 0.1, 0.45, 16);
-          rise("#oranges", W(35) + 0.05, 0.45, 16);
-          tl.fromTo("#stack", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.8)" }, W(38) - 0.05);
-          out("#c4", SC("s4")[1] - 0.3, 0.25);
+          tl.fromTo("#shopDraw .sp", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut", stagger: 0.07 }, T4 + 0.05);
+          tl.to("#sign4", { opacity: 1, duration: 0.4 }, W(31));
+          chipIn("#c4", W(31) - 0.05);
+          rise("#juicer", W(32) - 0.1, 0.45, 16);
+          rise("#oranges", W(33) - 0.05, 0.45, 16);
+          tl.fromTo("#stack", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.8)" }, W(34) - 0.05);
+          out("#c4", SC("s4")[1] - 0.25, 0.2);
 
           // ---------- 05 THE FLYERS: two flyers fly out of the stack ----------
           tl.set(["#flyA", "#flyB", "#txA", "#txB", "#icB"], { opacity: 0 }, 0);
-          tl.to("#shopDraw, #sign4, #juicer, #oranges", { opacity: 0.12, duration: 0.5 }, W(42) - 0.2);
+          tl.to("#shopDraw, #sign4, #juicer, #oranges", { opacity: 0.12, duration: 0.5 }, W(36) - 0.2);
           const FLY = (el, t, x, rot) => {
             tl.set(el, { opacity: 1 }, t);
             tl.fromTo(el, { x, y: 180, scale: 0.12, rotation: rot }, { x: 0, y: 0, scale: 1, rotation: 0, duration: 0.7, ease: "power3.out" }, t);
           };
-          FLY("#flyA", W(42) - 0.2, -185, 25);
-          tl.to("#txA", { opacity: 1, duration: 0.4 }, W(45) - 0.1);
-          FLY("#flyB", W(47) - 0.1, 275, -25);
-          tl.to("#icB", { opacity: 1, duration: 0.4 }, W(48));
-          tl.to("#txB", { opacity: 1, duration: 0.4 }, W(49) - 0.1);
-          tl.to("#stack", { opacity: 0, duration: 0.3 }, W(47));
+          FLY("#flyA", W(37) - 0.3, -185, 25);
+          tl.to("#txA", { opacity: 1, duration: 0.4 }, W(38) - 0.1);
+          FLY("#flyB", W(41) - 0.3, 275, -25);
+          tl.to("#icB", { opacity: 1, duration: 0.4 }, W(42));
+          tl.to("#txB", { opacity: 1, duration: 0.4 }, W(43) - 0.1);
+          tl.to("#stack", { opacity: 0, duration: 0.3 }, W(41));
           out(["#flyA", "#flyB"], SC("s5")[1] - 0.3, 0.25);
           tl.to("#shopDraw, #sign4, #juicer, #oranges", { opacity: 0, duration: 0.3 }, SC("s5")[1] - 0.3);
 
@@ -641,15 +624,15 @@
           tl.fromTo("#street6", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut" }, T6);
           tl.fromTo(".g6", { opacity: 0, x: 380 }, { opacity: 1, x: 0, duration: 0.75, ease: "power2.out", stagger: 0.03 }, T6);
           bob(".g6 .person", T6, 0.75);
-          tl.to("#split6", { scaleY: 1, duration: 0.4, ease: "power2.inOut" }, W(52) + 0.05);
-          tl.fromTo(".m6a", { opacity: 0, y: 30, rotation: -20 }, { opacity: 1, y: 0, rotation: 0, duration: 0.35, ease: "back.out(2)", stagger: 0.07 }, W(53) - 0.05);
-          pop("#hA6", W(54), 0.4);
-          tl.fromTo(".m6b", { opacity: 0, y: 30, rotation: 20 }, { opacity: 1, y: 0, rotation: 0, duration: 0.35, ease: "back.out(2)", stagger: 0.07 }, W(56) - 0.05);
-          pop("#hB6", W(57), 0.4);
+          tl.to("#split6", { scaleY: 1, duration: 0.4, ease: "power2.inOut" }, W(47));
+          tl.fromTo(".m6a", { opacity: 0, y: 30, rotation: -20 }, { opacity: 1, y: 0, rotation: 0, duration: 0.35, ease: "back.out(2)", stagger: 0.07 }, W(49) - 0.1);
+          pop("#hA6", W(49), 0.4);
+          tl.fromTo(".m6b", { opacity: 0, y: 30, rotation: 20 }, { opacity: 1, y: 0, rotation: 0, duration: 0.35, ease: "back.out(2)", stagger: 0.07 }, W(52) - 0.1);
+          pop("#hB6", W(52), 0.4);
           out(["#street6", "#split6", "#crowd6", "#hA6", "#hB6"], SC("s6")[1] - 0.25, 0.2);
 
-          // ---------- 07 COUNT: people bring their flyers back, two piles grow (no numbers) ----------
-          const T7 = SC("s7")[0];
+          // ---------- 06 COUNT: people bring their flyers back, two piles grow (no numbers) ----------
+          const T7 = SC("s6b")[0];
           tl.set("#c7", { opacity: 0 }, 0);
           tl.to("#shopDraw, #sign4", { opacity: 1, duration: 0.3 }, T7 - 0.1);
           tl.set(["#pileA", "#pileB", "#lbA7", "#lbB7"], { opacity: 1 }, T7);
@@ -657,139 +640,124 @@
           const walkers = $$(".w7");
           tl.set(walkers, { opacity: 0 }, 0);
           walkers.forEach((g, k) => {
-            const t = T7 + 0.05 + k * 0.24;
+            const t = T7 + 0.05 + k * 0.26;
             tl.fromTo(g, { opacity: 0, x: 120 }, { opacity: 1, x: -150, duration: 0.45, ease: "power1.out" }, t);
             tl.to(g, { opacity: 0, duration: 0.12 }, t + 0.42);
           });
           const shA = $$("#pileA .sh"), shB = $$("#pileB .sh");
-          shB.forEach((s, k) => tl.fromTo(s, { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }, T7 + 0.35 + k * 0.17));
-          shA.forEach((s, k) => tl.fromTo(s, { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }, T7 + 0.6 + k * 0.4));
-          chipIn("#c7", W(62) - 0.1);
-          out(["#shopDraw", "#sign4", "#pileA", "#pileB", "#lbA7", "#lbB7", "#c7"], SC("s7")[1] - 0.25, 0.25);
+          shB.forEach((s, k) => tl.fromTo(s, { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }, T7 + 0.4 + k * 0.2));
+          shA.forEach((s, k) => tl.fromTo(s, { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }, T7 + 0.6 + k * 0.5));
+          chipIn("#c7", W(56) - 0.1);
+          out(["#shopDraw", "#sign4", "#pileA", "#pileB", "#lbA7", "#lbB7", "#c7"], SC("s6b")[1] - 0.25, 0.25);
 
-          // ---------- 08 NUMBERS TALK ----------
+          // ---------- 07 NUMBERS TALK ----------
           const n1 = $$(".n1"), n2 = $$(".n2");
-          [W(65), W(67), W(68), W(69)].forEach((t, i) => rise(n1[i], t - 0.08, 0.5, 30));
-          [W(70), W(71), W(72)].forEach((t, i) => rise(n2[i], t - 0.08, 0.5, 30));
-          glow(W(70), 540, 960, 0.55, 0.9, 0.5);
-          tl.to("#glow", { opacity: 0, duration: 0.4 }, SC("s8")[1] - 0.4);
-          out("#s8 .row", SC("s8")[1] - 0.3, 0.25);
+          [W(59), W(60), W(61), W(62)].forEach((t, i) => rise(n1[i], t - 0.08, 0.5, 30));
+          [W(63), W(64), W(65)].forEach((t, i) => rise(n2[i], t - 0.08, 0.5, 30));
+          glow(W(63), 540, 960, 0.55, 0.9, 0.5);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, SC("s7")[1] - 0.4);
+          out("#s7 .row", SC("s7")[1] - 0.3, 0.25);
 
-          // ---------- 09 ONE THING ----------
+          // ---------- 08 ONE THING ----------
           tl.set(["#ad9", "#ok9", "#i2", "#h2", "#p2", "#qI", "#qH", "#qP", ".plabel", ".lck"], { opacity: 0 }, 0);
-          tl.fromTo("#r9", { opacity: 0 }, { opacity: 0.25, duration: 0.3 }, W(75) - 0.1);
+          tl.fromTo("#r9", { opacity: 0 }, { opacity: 0.25, duration: 0.3 }, W(68) - 0.1);
           // the rule stamps in
-          tl.fromTo("#r9", { opacity: 0.25, scale: 2.2, rotation: 0 }, { opacity: 1, scale: 1, rotation: -6, duration: 0.28, ease: "power4.in" }, W(79) - 0.28);
-          tl.fromTo("#r9", { x: 0 }, { x: 6, duration: 0.05, yoyo: true, repeat: 3, ease: "none" }, W(79));
-          glow(W(79), 540, 620, 0.55, 0.6, 0.3);
-          tl.to("#glow", { opacity: 0, duration: 0.5 }, W(80) + 0.3);
+          tl.fromTo("#r9", { opacity: 0.25, scale: 2.2, rotation: 0 }, { opacity: 1, scale: 1, rotation: -6, duration: 0.28, ease: "power4.in" }, W(69) - 0.28);
+          tl.fromTo("#r9", { x: 0 }, { x: 6, duration: 0.05, yoyo: true, repeat: 3, ease: "none" }, W(69));
+          glow(W(69), 540, 620, 0.55, 0.6, 0.3);
+          tl.to("#glow", { opacity: 0, duration: 0.5 }, W(70) + 0.2);
           // it moves up out of the way; the ad with its three parts appears
-          tl.to("#r9", { y: -200, scale: 0.5, duration: 0.6, ease: "power3.inOut" }, W(81) - 0.25);
-          rise("#ad9", W(81) - 0.1, 0.55, 40);
-          [["#lI", "#pI", W(83)], ["#lH", "#pH", W(84)], ["#lP", "#pP", W(85)]].forEach(([l, p, t]) => {
-            tl.fromTo(l, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.35, ease: E }, t - 0.1);
-            pulse(p, t, 1.04);
+          tl.to("#r9", { y: -200, scale: 0.5, duration: 0.5, ease: "power3.inOut" }, W(71) - 0.15);
+          rise("#ad9", W(71) - 0.05, 0.45, 40);
+          [["#lI", "#pI"], ["#lH", "#pH"], ["#lP", "#pP"]].forEach(([l, p], k) => {
+            const t = W(71) + 0.15 + k * 0.17;
+            tl.fromTo(l, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: E }, t);
+            pulse(p, t + 0.05, 1.04);
           });
-          // all three swap at once (fast blur) … it worked … but which one?
-          const SW = W(86) - 0.05;
-          const swap = (a, b, t, on) => {
-            tl.to(a, { opacity: on ? 0 : 1, filter: "blur(14px)", duration: 0.14, ease: "power1.in" }, t);
-            tl.fromTo(b, { opacity: on ? 0 : 1, filter: "blur(14px)" }, { opacity: on ? 1 : 0, filter: "blur(0px)", duration: 0.22, ease: "power1.out" }, t + 0.1);
+          // all three swap at once (fast blur) … which one worked? ؟ ؟ ؟
+          const SW = W(73) - 0.05;
+          const swap = (a, b, t) => {
+            tl.to(a, { opacity: 0, filter: "blur(14px)", duration: 0.14, ease: "power1.in" }, t);
+            tl.fromTo(b, { opacity: 0, filter: "blur(14px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.22, ease: "power1.out" }, t + 0.1);
             tl.set(a, { filter: "blur(0px)" }, t + 0.32);
           };
-          [["#i1", "#i2"], ["#h1", "#h2"], ["#p1", "#p2"]].forEach(([a, b]) => swap(a, b, SW, true));
+          [["#i1", "#i2"], ["#h1", "#h2"], ["#p1", "#p2"]].forEach(([a, b]) => swap(a, b, SW));
           tl.fromTo("#ad9", { x: 0 }, { x: 10, duration: 0.05, yoyo: true, repeat: 3, ease: "none" }, SW);
-          pop("#ok9", W(87) - 0.05, 0.4);
-          ["#qI", "#qH", "#qP"].forEach((q, k) => pop(q, W(88) - 0.1 + k * 0.12, 0.35));
-          // reset … then only the image swaps: one clear arrow at it
-          const RS = W(92) - 0.1;
-          out(["#qI", "#qH", "#qP", "#ok9"], RS, 0.2);
+          ["#qI", "#qH", "#qP"].forEach((q, k) => pop(q, W(76) - 0.1 + k * 0.12, 0.35));
+          // reset … then only the image swaps, and one clear check lands on it
+          const RS = W(79) - 0.15;
+          out(["#qI", "#qH", "#qP"], RS, 0.2);
           [["#i2", "#i1"], ["#h2", "#h1"], ["#p2", "#p1"]].forEach(([a, b]) => {
             tl.to(a, { opacity: 0, duration: 0.2 }, RS);
             tl.to(b, { opacity: 1, duration: 0.2 }, RS);
           });
-          swap("#i1", "#i2", RS + 0.3, true);
-          tl.to(["#lH", "#lP"], { opacity: 0.35, duration: 0.3 }, RS + 0.3);
-          tl.to("#lI", { borderColor: ORANGE, backgroundColor: "rgba(255,77,26,0.12)", duration: 0.3 }, RS + 0.35);
-          tl.fromTo(".lck", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.2)" }, RS + 0.35);
-          tl.fromTo("#lI", { x: 0 }, { x: -12, duration: 0.18, yoyo: true, repeat: 3, ease: "sine.inOut" }, RS + 0.45);
-          out(["#r9", "#ad9", ".plabel"], SC("s9")[1] - 0.3, 0.25);
+          swap("#i1", "#i2", RS + 0.3);
+          tl.fromTo("#ok9", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, RS + 0.55);
+          tl.to(["#lH", "#lP"], { opacity: 0.35, duration: 0.3 }, RS + 0.5);
+          tl.to("#lI", { borderColor: ORANGE, backgroundColor: "rgba(255,77,26,0.12)", duration: 0.3 }, RS + 0.55);
+          tl.fromTo(".lck", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.2)" }, RS + 0.55);
+          out(["#r9", "#ad9", ".plabel"], SC("s8")[1] - 0.25, 0.2);
 
-          // ---------- 10 TIME ----------
-          const T10 = SC("s10")[0];
+          // ---------- 09 TIME ----------
+          const T10 = SC("s9")[0];
           const calp = $$(".calp");
           tl.set(["#hand10", "#c10a", "#c10b", "#c10c", "#d10a", "#d10b", "#crowd10 .person"], { opacity: 0 }, 0);
           tl.set(calp, { opacity: 0 }, 0);
-          rise("#cal10", T10 + 0.05, 0.5, 30);
+          rise("#cal10", T10 + 0.02, 0.4, 30);
           tl.set(calp[0], { opacity: 1 }, T10);
           // ✋ don't judge on day one
-          tl.fromTo("#hand10", { opacity: 0, scale: 0.4, rotation: -20 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2)" }, W(95) - 0.05);
-          tl.fromTo("#hand10", { rotation: 0 }, { rotation: 8, duration: 0.12, yoyo: true, repeat: 3, ease: "sine.inOut" }, W(95) + 0.45);
-          chipIn("#c10a", W(97) - 0.1);
-          // the pages flip forward a few days
-          tl.to("#hand10", { opacity: 0, scale: 0.8, duration: 0.3 }, W(99) - 0.15);
-          [1, 2, 3, 4].forEach((k) => tl.fromTo(calp[k], { opacity: 0, scaleY: 0.2, transformOrigin: "50% 0%" }, { opacity: 1, scaleY: 1, duration: 0.22, ease: "power2.out" }, W(99) + (k - 1) * 0.3));
-          tl.to("#d10a", { opacity: 1, duration: 0.3 }, W(100) - 0.1);
-          chipIn("#c10b", W(100) - 0.05);
-          // … while the crowd grows
-          tl.fromTo(".c10r0", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: E, stagger: 0.03 }, W(103) - 0.1);
-          tl.fromTo(".c10r1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: E, stagger: 0.03 }, W(105) - 0.1);
-          tl.fromTo(".c10r2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: E, stagger: 0.03 }, W(107) - 0.1);
-          tl.to("#d10b", { opacity: 1, duration: 0.3 }, W(103) - 0.1);
-          chipIn("#c10c", W(103) - 0.05);
-          out(["#cal10", "#c10a", "#c10b", "#c10c", "#d10a", "#d10b", "#crowd10"], SC("s10")[1] - 0.3, 0.25);
+          tl.fromTo("#hand10", { opacity: 0, scale: 0.4, rotation: -20 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2)" }, W(81) - 0.05);
+          tl.fromTo("#hand10", { rotation: 0 }, { rotation: 8, duration: 0.1, yoyo: true, repeat: 3, ease: "sine.inOut" }, W(81) + 0.35);
+          chipIn("#c10a", W(83) - 0.1);
+          // the pages flip forward a few days while the crowd grows
+          tl.to("#hand10", { opacity: 0, scale: 0.8, duration: 0.25 }, W(85) - 0.15);
+          [1, 2, 3, 4].forEach((k) => tl.fromTo(calp[k], { opacity: 0, scaleY: 0.2, transformOrigin: "50% 0%" }, { opacity: 1, scaleY: 1, duration: 0.18, ease: "power2.out" }, W(85) + (k - 1) * 0.24));
+          tl.to("#d10a", { opacity: 1, duration: 0.3 }, W(86) - 0.1);
+          chipIn("#c10b", W(86) - 0.05);
+          [".c10r0", ".c10r1", ".c10r2"].forEach((r, k) => tl.fromTo(r, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: E, stagger: 0.02 }, W(85) + k * 0.3));
+          tl.to("#d10b", { opacity: 1, duration: 0.3 }, W(87) - 0.15);
+          chipIn("#c10c", W(87) - 0.1);
+          out(["#cal10", "#c10a", "#c10b", "#c10c", "#d10a", "#d10b", "#crowd10"], SC("s9")[1] - 0.25, 0.2);
 
-          // ---------- 11 IN ADS: the flyers become two ad cards ----------
-          const T11 = SC("pair")[0];
-          tl.set(["#win12", "#heart12", "#gok12", "#barA", "#barB", "#base12", ".a11", "#c11a", "#c11b", "#c11c", "#d11", ".adin"], { opacity: 0 }, 0);
-          tl.fromTo(["#sA", "#sB"], { opacity: 0, scale: 0.6, y: 60 }, { opacity: 1, scale: 0.78, y: 0, duration: 0.6, ease: E, stagger: 0.12 }, T11 + 0.05);
-          // morph: the letter goes, the ad's parts come in, the card grows to an ad
-          const MO = W(109) - 0.1;
+          // ---------- 10 THE WINNER: the flyers turn back into the ad cards ----------
+          const T11 = SC("s10")[0];
+          tl.set(["#win12", "#heart12", "#gok12", "#barA", "#barB", "#base12", ".adin", "#c12a", "#c12b"], { opacity: 0 }, 0);
+          tl.fromTo(["#sA", "#sB"], { opacity: 0, scale: 0.6, y: 60 }, { opacity: 1, scale: 0.78, y: 0, duration: 0.45, ease: E, stagger: 0.08 }, T11 + 0.02);
+          const MO = W(89) - 0.2;
           tl.to(".flt", { opacity: 0, scale: 0.6, duration: 0.3, ease: "power2.in" }, MO);
-          tl.to(["#sA", "#sB"], { scale: 1, duration: 0.6, ease: "power3.inOut" }, MO);
-          tl.fromTo(".adin", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, MO + 0.25);
-          chipIn("#c11a", W(111) - 0.05);
-          tl.to("#d11", { opacity: 1, duration: 0.3 }, W(113) - 0.1);
-          chipIn("#c11b", W(113) - 0.05);
-          pulse("#sA .im", W(113) + 0.1, 1.06);
-          pulse("#sB .im", W(114), 1.06);
-          tl.fromTo(".a11", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)", stagger: 0.05 }, W(115) - 0.1);
-          chipIn("#c11c", W(116) - 0.05);
-          out(["#c11a", "#c11b", "#c11c", "#d11", ".a11"], SC("s11")[1] - 0.3, 0.25);
-
-          // ---------- 12 THE WINNER ----------
-          tl.set(["#c12a", "#c12b"], { opacity: 0 }, 0);
-          pop("#heart12", W(121) - 0.1, 0.45);
-          chipIn("#c12a", W(122) - 0.1);
-          tl.to("#base12", { opacity: 1, duration: 0.3 }, W(124));
-          tl.set(["#barA", "#barB"], { opacity: 1 }, W(125) - 0.1);
-          tl.fromTo("#barA", { scaleY: 0 }, { scaleY: 0.3, duration: 0.6, ease: "power2.out" }, W(125) - 0.1);
-          tl.fromTo("#barB", { scaleY: 0 }, { scaleY: 1, duration: 1.1, ease: "power2.out" }, W(125) - 0.1);
-          chipIn("#c12b", W(125) - 0.05);
+          tl.to(["#sA", "#sB"], { scale: 1, duration: 0.55, ease: "power3.inOut" }, MO);
+          tl.fromTo(".adin", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, MO + 0.2);
+          pop("#heart12", W(92) - 0.1, 0.45);
+          chipIn("#c12a", W(93) - 0.1);
+          tl.to("#base12", { opacity: 1, duration: 0.3 }, W(95));
+          tl.set(["#barA", "#barB"], { opacity: 1 }, W(96) - 0.1);
+          tl.fromTo("#barA", { scaleY: 0 }, { scaleY: 0.3, duration: 0.6, ease: "power2.out" }, W(96) - 0.1);
+          tl.fromTo("#barB", { scaleY: 0 }, { scaleY: 1, duration: 1.1, ease: "power2.out" }, W(96) - 0.1);
+          chipIn("#c12b", W(96) - 0.05);
           // B wins: gold outline + check; the heart fades
-          tl.fromTo("#win12", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.45, ease: E }, W(128) - 0.05);
-          pop("#gok12", W(128), 0.45);
-          tl.to(["#heart12", "#c12a"], { opacity: 0.25, duration: 0.5 }, W(128) + 0.2);
-          tl.to("#sA", { opacity: 0.5, duration: 0.5 }, W(128) + 0.2);
-          glow(W(128), 310, 800, 0.5, 0.7, 0.5);
-          tl.to("#glow", { opacity: 0, duration: 0.4 }, SC("s12")[1] - 0.4);
-          out(["#pair > *", "#c12a", "#c12b"], SC("s12")[1] - 0.35, 0.3);
+          tl.fromTo("#win12", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.45, ease: E }, W(99) - 0.05);
+          pop("#gok12", W(99), 0.45);
+          tl.to(["#heart12", "#c12a"], { opacity: 0.25, duration: 0.5 }, W(99) + 0.2);
+          tl.to("#sA", { opacity: 0.5, duration: 0.5 }, W(99) + 0.2);
+          glow(W(99), 310, 800, 0.5, 0.7, 0.5);
+          tl.to("#glow", { opacity: 0, duration: 0.4 }, SC("s10")[1] - 0.4);
+          out("#s10 > *", SC("s10")[1] - 0.35, 0.3);
 
-          // ---------- 13 CTA ----------
-          const T13 = SC("s13")[0];
+          // ---------- 11 CTA ----------
+          const T13 = SC("s11")[0];
           const K = ["#k1", "#k2", "#k3"];
           tl.set([...K, "#arr13"], { opacity: 0 }, 0);
           tl.fromTo("#bub13", { opacity: 0, scale: 0.85, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.6)", transformOrigin: "20% 90%" }, T13 + 0.15);
-          K.forEach((k, i) => tl.fromTo(k, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, W(131) + i * 0.15));
+          K.forEach((k, i) => tl.fromTo(k, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, W(102) + i * 0.15));
           // the chips light up as they're named, like a tap
-          [W(137), W(138), W(140)].forEach((t, i) => tl.to(K[i], { borderColor: ORANGE, backgroundColor: "rgba(255,77,26,0.14)", duration: 0.2, yoyo: true, repeat: 1, repeatDelay: 0.25, ease: "power1.inOut" }, t - 0.05));
-          tl.fromTo("#arr13", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, W(141) - 0.05);
-          tl.to("#arr13", { y: 18, duration: 0.45, yoyo: true, repeat: 3, ease: "sine.inOut" }, W(141) + 0.35);
-          glow(W(131), 540, 760, 0.5, 0.9, 0.7);
+          [W(105), W(106), W(108)].forEach((t, i) => tl.to(K[i], { borderColor: ORANGE, backgroundColor: "rgba(255,77,26,0.14)", duration: 0.2, yoyo: true, repeat: 1, repeatDelay: 0.25, ease: "power1.inOut" }, t - 0.05));
+          tl.fromTo("#arr13", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, W(109) - 0.05);
+          tl.to("#arr13", { y: 18, duration: 0.45, yoyo: true, repeat: 1, ease: "sine.inOut" }, W(109) + 0.35);
+          glow(W(102), 540, 760, 0.5, 0.9, 0.7);
           tl.to("#glow", { opacity: 0, duration: 0.5 }, END - 0.6);
-          out("#s13 > *", END - 0.5, 0.4);
+          out("#s11 > *", END - 0.5, 0.4);
 
-          // ---------- 14 END CARD ----------
+          // ---------- 12 END CARD ----------
           tl.fromTo("#s14logo", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, END + 0.1);
 
           window.__timelines = window.__timelines || {};

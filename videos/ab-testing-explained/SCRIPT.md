@@ -1,39 +1,37 @@
-# SCRIPT: A/B Testing (ElevenLabs "Fadi" VO, take 2)
+# SCRIPT: A/B Testing v2 (ElevenLabs "Fadi" VO, v2 take 1)
 
 Voice: ElevenLabs "Fadi - Lebanese Conversational Voice" (`oJQlz7pz2yWd7MRmDUXm`), `eleven_multilingual_v2`.
-The full script was generated as 3 takes on ElevenLabs flow `zhPIN6mX7STxlNgjxbbw`; **take 2** is used
-(`audio/vo/vo_full.mp3`, untouched, 65.9s). `scripts/build_vo.py` plays it at 1.07× (pitch kept) from 0.3s, with no
-cuts or re-spacing. Word timings come from ElevenLabs Scribe (`scripts/vo_words.json`, raw take seconds; Scribe flow
-`ezIgDHkMyfgVkxUDchRK`), mapped linearly into film time in `scripts/cues.json`. Times below are film seconds.
+The v2 script (Oct 14) was generated as 3 takes on ElevenLabs flow `75QgovXYrXfkaqwk48P9`; **v2 take 1** is used.
+It was supplied as `abtest-v2-take1.mp4` (audio-only AAC, 47.8s) and is kept byte-for-byte as `audio/vo/vo_full.m4a`
+so it isn't re-encoded to MP3. `scripts/build_vo.py` plays it from frame 0 with no speed-up, trim or re-spacing.
+Word timings come from ElevenLabs Scribe (`scripts/vo_words.json`; Scribe flow `ezIgDHkMyfgVkxUDchRK`), so film
+time = take time. Times below are film seconds.
 
 | # | start | end | line (as written in the brief = subtitle text) |
 |---|-------|-----|------------------------------------------------|
-| 01 | 0.38 | 4.56 | عملت إعلان، وما زبط. عملت غيرو، زبط شوي أحسن. بس ليش؟ |
-| 02 | 4.95 | 6.62 | ما بتعرف. لأنك عم تخمّن. |
-| 03 | 6.94 | 9.20 | الحل اسمو A/B Testing. |
-| 04 | 9.63 | 13.33 | يعني تعمل نسختين من نفس الشي، وتخلّي الناس هنّي يقرروا مين الأحسن. |
-| 05 | 14.17 | 17.33 | تخيّل عندك محل عصير، وبدك توزّع أوراق إعلان بالشارع. |
-| 06 | 17.85 | 23.23 | ورقة A مكتوب عليها: "عصير طازة". وورقة B: "برتقال معصور قدّامك". |
-| 07 | 23.78 | 28.08 | بتعطي A لنص الناس، وB للنص التاني، وبتعدّ مين جاب أي ورقة عالمحل. |
-| 08 | 28.41 | 30.39 | هيك ما عم تخمّن. الأرقام عم تحكي. *(shown big in scene 08; subtitle hidden)* |
-| 09 | 30.94 | 33.09 | بس في قاعدة مهمة: غيّر شي واحد بس. |
-| 10 | 33.55 | 37.46 | إذا غيّرت الصورة والعنوان والسعر سوا، وزبط، ما رح تعرف شو اللي زبّطو. |
-| 11 | 37.81 | 42.26 | وما تحكم من أول يوم. عطي التجربة وقت، وخلّي عدد كافي من الناس يشوفوها. |
-| 12 | 42.80 | 48.38 | وبالإعلانات؟ نفس الفكرة. نفس الإعلان، صورتين مختلفتين، ونفس الجمهور. |
-| 13 | 48.92 | 53.46 | الإعلان الربحان مش اللي عجبك إنت. هوي اللي الأرقام قالت إنو ربحان. |
-| 14 | 54.17 | 61.50 | لو بدك تجرّب شي واحد بإعلانك، شو بتختار: الصورة، العنوان، ولا العرض؟ اكتبلنا بالكومنتات. |
+| 01 | 0.10 | 3.24 | واحد من هالإعلانين عم يضيّعلك مصاري… أيّا واحد؟ |
+| 02 | 3.74 | 5.68 | إذا جاوبت بس من شعورك، عم تخمّن. |
+| 03 | 6.20 | 11.30 | الحل اسمو A/B Testing: نسختين من نفس الإعلان، والناس بيقرروا. |
+| 04 | 11.88 | 14.06 | تخيّل محل عصير عم يوزّع أوراق إعلان. |
+| 05 | 14.60 | 19.34 | ورقة A: "عصير طازة". ورقة B: "برتقال معصور قدّامك". |
+| 06 | 19.86 | 25.38 | نص الناس بياخدو A، والنص التاني B… وبتعدّ مين جاب أي ورقة عالمحل. |
+| 07 | 25.94 | 28.08 | هيك ما عم تخمّن. الأرقام عم تحكي. *(shown big in scene 07; subtitle hidden)* |
+| 08 | 28.66 | 32.76 | بس في قاعدتين: غيّر شي واحد بس، وإلّا ما رح تعرف شو اللي زبّط. |
+| 09 | 33.40 | 36.00 | وما تحكم من أول يوم. عطي التجربة وقت. |
+| 10 | 36.50 | 41.26 | الإعلان الربحان مش اللي عجبك إنت. هوّي اللي الأرقام قالت إنو ربحان. |
+| 11 | 41.98 | 47.28 | لو بدك تجرّب شي واحد: الصورة، العنوان، ولا العرض؟ اكتبلنا بالكومنتات. |
 
-End card: 62.10–65.10s.
+End card: 47.88–50.88s.
 
 ## Notes from the Scribe pass (for Salem)
-- **`A/B Testing`:** Scribe returned `A/B Testing` in Latin script (0.8s on "A/B"), and `A` / `B` / `وB` in lines 06–07
-  as Latin letters. That suggests they were spoken as English letters, but it still needs a listen.
-- **Possible repeat in line 08:** Scribe hears `هيك ما، ما عم تتخمّن` (an extra "ما", ~0.1s at 30.36s raw / ~28.7s film)
-  where the script has `هيك ما عم تخمّن`. It may be a small stumble in the take. If it's audible, re-generate line 08
-  only. The on-screen text shows the script text.
-- **`تتخمّن` vs `تخمّن`:** in lines 02 and 08 Scribe hears an extra "ت" (`تتخمّن`). This may be a mishearing or the
-  take's pronunciation. Worth a listen.
-- **`الرابحان` vs `الربحان`:** in line 13 Scribe hears `الإعلان الرابحان`. This may be a transcription spelling, or the
-  voice may have added a long "ا".
-- Scribe also wrote MSA spellings (`اسمه`, `هنّا`, `غيره`, `راح`, `زبطه`, `أعط`, `هو`, `إنه`, `اكتب لنا`) and
-  `بالcommentات`. These are transcription spellings. The subtitles always use the brief's text.
+- **⚠ `A/B Testing` (line 03):** Scribe hears **`A شرطة مقلة B testing`**: the voice seems to read the slash out loud in
+  Arabic ("A slash B testing", ~7.0–8.6s), not "A B testing" as the brief asks. Please listen. If it does, line 03 needs
+  a re-generation (e.g. with the script written as `A B Testing` or `A-B Testing`). I haven't re-generated anything.
+- **`A` and `B` in lines 05–06** were heard as Latin letters, which is a good sign they were spoken in English.
+- **Extra word in line 05:** Scribe hears `ورقة B، بتجيب برتقال معصور قدامك` (an extra `بتجيب`, ~17.6s). The subtitle
+  shows the script text.
+- **Small differences to listen for:** `هالإعلانات` (script: `هالإعلانين`, line 01), `تتخمّن` (script: `تخمّن`,
+  lines 02 and 07), `تتحكم` (script: `تحكم`, line 09), `أعطيه التجربة` (script: `عطي التجربة`, line 09). These may be
+  transcription spellings or the take's pronunciation.
+- Scribe also wrote MSA spellings (`اسمه`, `جاوبته`, `الثاني`, `راح`, `ظبّط`, `هو`, `إنه`, `اكتب لنا`) and
+  `بالcomments`. The subtitles always use the brief's text.

@@ -1,12 +1,13 @@
 """Procedural score + SFX for the Reignite "A/B Testing" reel (series شو يعني؟).
 
 Same dark, minimal bed as the earlier episodes: detuned D-minor drone, soft sub pulse, muted hats and
-a quiet pluck arpeggio. It opens up on "the numbers are talking" (scene 08), thins out for the calm
-"give it time" beat (scene 10), lifts on the winner (scene 12), then resolves under the end card.
+a quiet pluck arpeggio. It starts at frame 0 with no fade-in (hook rule), opens up on "the numbers are
+talking" (scene 07), thins out for the calm "give it time" beat (scene 09), lifts on the winner
+(scene 10), then resolves under the end card.
 The music is pre-ducked ~-7 dB under every VO line and sits low so a trending sound can still be added
 inside Instagram.
 
-SFX are subtle (brief section 5): a dull buzz for the ✗, a dart whoosh and a miss, paper flutter for the
+SFX are subtle (brief section 5): coins clinking from frame 0 and a dry thud when ؟ lands, a dart whoosh and a miss, paper flutter for the
 flyers, a shop-door bell as the first people walk in, soft paper-stacking ticks as the piles grow, a
 rubber-stamp thump for "1", calendar page flips, a soft positive chime when B wins, and the Reignite chime
 on the end card. Very low street ambience sits under the juice-shop scenes.
@@ -43,12 +44,13 @@ def We(i):
 
 
 # scene starts — keep in step with scripts/apply_cues.py
-SC = {"s2": W(11) - 0.25, "s3": W(16) - 0.3, "s4": W(32) - 0.35, "s5": W(41) - 0.3, "s6": W(52) - 0.3,
-      "s7": W(59) - 0.25, "s8": W(65) - 0.3, "s9": W(73) - 0.3, "s10": W(95) - 0.05, "s11": W(108) - 0.35,
-      "s12": W(117) - 0.3, "s13": W(129) - 0.3}
-HIT = W(79)                                     # the "1" stamp (index.html: W(79))
-WIN = W(128) - 0.05                             # B wins
-C0, C1 = SC["s10"], SC["s11"]                   # the calm "give it time" beat
+SC = {"s2": W(9) - 0.25, "s3": W(16) - 0.3, "s4": W(29) - 0.3, "s5": W(36) - 0.3, "s6": W(46) - 0.3,
+      "s6b": W(53) - 0.2, "s7": W(59) - 0.3, "s8": W(66) - 0.3, "s9": W(81) - 0.05, "s10": W(88) - 0.3,
+      "s11": W(100) - 0.3}
+Q = 0.95                                        # the ؟ lands (index.html: Q)
+HIT = W(69)                                     # the "1" stamp (index.html: W(69))
+WIN = W(99) - 0.05                              # B wins
+C0, C1 = SC["s9"], SC["s10"]                    # the calm "give it time" beat
 
 
 def lp(x, hz, order=2):
@@ -92,8 +94,8 @@ def drone():
         g = 0.9 if i < 2 else 0.4
         l += saw(f - d) * g
         r += saw(f + d) * g
-    cut = env([(0, 260), (SC["s3"], 520), (SC["s4"], 600), (SC["s6"], 680), (SC["s8"], 800), (SC["s9"], 700),
-               (C0, 320), (C1, 650), (WIN, 850), (SC["s13"], 700), (END, 380), (DUR, 200)])
+    cut = env([(0, 260), (SC["s3"], 520), (SC["s4"], 600), (SC["s6"], 680), (SC["s7"], 800), (SC["s8"], 700),
+               (C0, 320), (C1, 650), (WIN, 850), (SC["s11"], 700), (END, 380), (DUR, 200)])
     outs = []
     for ch in (l, r):
         y = np.zeros(N)
@@ -122,8 +124,8 @@ def sub_pulse():
     while t < DUR:
         place(buf, kick, t)
         t += BEAT
-    gate = env([(0, 0), (0.3, 0.6), (SC["s3"], 0.6), (SC["s4"], 0.65), (SC["s6"], 0.7), (SC["s8"] - 0.05, 0.8),
-                (SC["s9"], 0.75), (HIT - 0.05, 0.75), (HIT, 0), (HIT + 0.6, 0), (HIT + 0.9, 0.7), (C0 - 0.1, 0.5),
+    gate = env([(0, 0.6), (SC["s3"], 0.6), (SC["s4"], 0.65), (SC["s6"], 0.7), (SC["s7"] - 0.05, 0.8),
+                (SC["s8"], 0.75), (HIT - 0.05, 0.75), (HIT, 0), (HIT + 0.6, 0), (HIT + 0.9, 0.7), (C0 - 0.1, 0.5),
                 (C0, 0), (C1, 0), (C1 + 0.1, 0.7), (END - 0.1, 0.2), (END, 0), (DUR, 0)])
     return np.stack([buf * gate] * 2, 1) * 0.45
 
@@ -138,7 +140,7 @@ def hats():
         place(buf, hat, t, 0.6 if k % 2 else 0.22)
         t += step
         k += 1
-    gate = env([(0, 0), (1.0, 0.5), (SC["s4"], 0.5), (SC["s6"], 0.7), (SC["s8"], 0.8), (HIT, 0), (HIT + 0.7, 0.7),
+    gate = env([(0, 0.5), (SC["s4"], 0.5), (SC["s6"], 0.7), (SC["s7"], 0.8), (HIT, 0), (HIT + 0.7, 0.7),
                 (C0, 0), (C1, 0), (C1 + 0.1, 0.6), (END, 0), (DUR, 0)])
     l = buf * gate
     r = np.roll(buf, int(0.011 * SR)) * gate
@@ -161,7 +163,7 @@ def plucks():
         place(buf_r, s * pan, t)
         t += BEAT / 2
         k += 1
-    gate = env([(0, 0), (SC["s3"], 0), (SC["s3"] + 0.6, 0.5), (SC["s5"], 0.6), (SC["s6"], 0.7), (SC["s9"], 0.65),
+    gate = env([(0, 0), (SC["s3"], 0), (SC["s3"] + 0.6, 0.5), (SC["s5"], 0.6), (SC["s6"], 0.7), (SC["s8"], 0.65),
                 (C0, 0.4), (C1 - 0.5, 0.3), (C1, 0.5), (WIN, 0.7), (END, 0), (DUR, 0)])
     return np.stack([lp(buf_l, 2800) * gate, lp(buf_r, 2800) * gate], 1) * 0.05
 
@@ -169,7 +171,7 @@ def plucks():
 def air():
     n = rng.standard_normal((N, 2))
     n = np.stack([bp(n[:, 0], 1800, 5600), bp(n[:, 1], 1800, 5600)], 1)
-    g = env([(0, 0.15), (SC["s4"], 0.25), (SC["s9"], 0.3), (C0, 0.45), (C1, 0.3), (END, 0.45), (DUR, 0)])
+    g = env([(0, 0.15), (SC["s4"], 0.25), (SC["s8"], 0.3), (C0, 0.45), (C1, 0.3), (END, 0.45), (DUR, 0)])
     return n * g[:, None] * 0.012
 
 
@@ -183,8 +185,8 @@ def end_pad():
 
 
 music = drone() + sub_pulse() + hats() + plucks() + air() + end_pad()
-# the "1" stamp dips the bed for a beat; "give it time" is calm
-master = env([(0, 0), (0.25, 0.75), (SC["s4"], 0.8), (SC["s8"], 0.9), (HIT - 0.05, 0.9), (HIT + 0.05, 0.4),
+# starts at frame 0 (no fade-in); the "1" stamp dips the bed for a beat; "give it time" is calm
+master = env([(0, 0.8), (SC["s4"], 0.8), (SC["s7"], 0.9), (HIT - 0.05, 0.9), (HIT + 0.05, 0.4),
               (HIT + 0.8, 0.85), (C0 - 0.1, 0.7), (C0 + 0.3, 0.45), (C1 - 0.1, 0.45), (C1 + 0.2, 0.85), (END, 0.7),
               (DUR - 0.4, 0.25), (DUR, 0)])
 music *= master[:, None]
@@ -382,6 +384,27 @@ def stamp():
     return stereo(np.tanh((body + slap) * 1.5)) * 0.8
 
 
+def coin():
+    """A coin clink: two short inharmonic metallic pings."""
+    L = int(0.25 * SR)
+    t = np.arange(L) / SR
+    f = 2600 + rng.random() * 1400
+    s = (np.sin(2 * np.pi * f * t) + 0.6 * np.sin(2 * np.pi * f * 1.48 * t) + 0.3 * np.sin(2 * np.pi * f * 2.33 * t)) * np.exp(-t * 26)
+    s = s * (1 - np.exp(-t * 3000))
+    pan = rng.random() * 0.8 - 0.4
+    return np.stack([s * (1 - pan) / 2, s * (1 + pan) / 2], 1) * 0.9
+
+
+def dry_thud():
+    """A dry, short thud for the ؟ landing (no tail)."""
+    L = int(0.3 * SR)
+    t = np.arange(L) / SR
+    f = 60 + 60 * np.exp(-t * 35)
+    body = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 18)
+    knock_ = lp(rng.standard_normal(L), 1200) * np.exp(-t * 80) * 0.5
+    return stereo(np.tanh((body + knock_) * 1.6)) * 0.8
+
+
 def win_chime():
     """Soft positive chime: a rising major third, light and short."""
     L = int(1.4 * SR)
@@ -397,53 +420,55 @@ GEN = {"deep": lambda: impact(True), "click": click, "tap": tap, "tick": tick,
        "whoosh": lambda: whoosh(0.55), "whoosh_short": lambda: whoosh(0.35), "whoosh_long": lambda: whoosh(0.9),
        "pop": notif_pop, "bell": bell, "chime": chime, "pen": lambda: pen(1.6), "pen_long": lambda: pen(2.2),
        "fill": fill, "buzz": buzz, "flutter": lambda: flutter(0.55), "flutter_s": lambda: flutter(0.3),
-       "flip": flip, "ptick": paper_tick, "knock": knock, "stamp": stamp, "win": win_chime}
+       "flip": flip, "ptick": paper_tick, "knock": knock, "stamp": stamp, "win": win_chime, "coin": coin,
+       "dthud": dry_thud}
 
 # keep in step with the GSAP times in index.html
 SFX = []
-# 01 hook: dull buzz on the ✗, the second ad slides in, a light pop for ↗, the ؟ lands
-SFX += [(0.1, "whoosh_short", 0.2), (W(3) - 0.05, "buzz", 0.6), (W(4) - 0.15, "whoosh", 0.3), (W(7) - 0.05, "pop", 0.3),
-        (W(9) - 0.2, "whoosh_short", 0.2), (W(10) - 0.05, "click", 0.4)]
-# 02 guessing: the board draws, the dart whooshes and misses (knock on the wall)
-SFX += [(SC["s2"] + 0.05, "pen", 0.35), (W(13) - 0.05, "whoosh_short", 0.5), (W(13) + 0.37, "knock", 0.6), (W(15) - 0.1, "pop", 0.25)]
-# 03 term: the word lands, the cards slide in, people drop in, the check
-SFX += [(W(18) - 0.08, "whoosh", 0.25), (W(22) - 0.1, "whoosh", 0.25), (W(22) + 0.05, "whoosh", 0.2)]
-SFX += [(W(27) - 0.05 + k * 0.08, "tick", 0.18) for k in range(9)] + [(W(31) - 0.05, "pop", 0.4)]
+# 01 hook: coins clinking from frame 0 (the first sound is at frame 0), a dry thud when ؟ lands, letter pulses
+t, k = 0.0, 0
+while t < SC["s2"] - 0.1:
+    SFX.append((t, "coin", 0.32 if k % 3 else 0.42))
+    t += 0.09 + 0.07 * ((k * 7) % 5) / 4
+    k += 1
+SFX += [(Q + 0.1, "dthud", 0.75), (Q + 0.45, "tick", 0.2), (Q + 0.65, "tick", 0.2), (W(7), "tick", 0.2), (W(8), "tick", 0.2)]
+# 02 gut: heart pop, the dart whooshes and misses (knock on the wall)
+SFX += [(W(12) - 0.15, "pop", 0.3), (W(14) - 0.15, "whoosh_short", 0.5), (W(14) + 0.27, "knock", 0.6), (W(15) - 0.1, "pop", 0.25)]
+# 03 term: the cards shrink, the word lands, people drop in, the check, the cards fly off
+SFX += [(SC["s3"], "whoosh_short", 0.2), (W(18) - 0.1, "whoosh", 0.25)]
+SFX += [(W(27) - 0.15 + k * 0.07, "tick", 0.18) for k in range(9)] + [(W(28) + 0.05, "pop", 0.4), (SC["s4"] - 0.35, "whoosh", 0.3)]
 # 04 shop: the shop draws on, the flyer stack lands
-SFX += [(SC["s4"] + 0.1, "pen_long", 0.45), (W(38) - 0.05, "ptick", 0.5)]
+SFX += [(SC["s4"] + 0.05, "pen_long", 0.45), (W(34) - 0.05, "ptick", 0.5)]
 # 05 the flyers fly out of the stack (paper flutter)
-SFX += [(W(42) - 0.2, "flutter", 0.6), (W(47) - 0.1, "flutter", 0.6)]
-# 06 split: crowd walks in, the line splits it, mini flyers are handed out
-SFX += [(SC["s6"], "whoosh", 0.15), (W(52) + 0.05, "whoosh_short", 0.15), (W(53) - 0.05, "flutter_s", 0.35), (W(56) - 0.05, "flutter_s", 0.35)]
-# 07 count: shop-door bell on the first walk-in, paper stacking ticks as the piles grow
-SFX += [(SC["s7"] + 0.4, "bell", 0.55)]
-SFX += [(SC["s7"] + 0.35 + k * 0.17, "ptick", 0.4) for k in range(8)] + [(SC["s7"] + 0.6 + k * 0.4, "ptick", 0.3) for k in range(3)]
-# 08 numbers talk: soft air under the words
-SFX += [(W(70) - 0.1, "whoosh_long", 0.15)]
-# 09 one thing: rubber-stamp thump for "1", the three parts, the blur-swap, check, ؟ ؟ ؟, reset, one swap
-SFX += [(W(79) - 0.02, "stamp", 0.8), (W(81) - 0.25, "whoosh_short", 0.2)]
-SFX += [(t - 0.1, "tick", 0.25) for t in (W(83), W(84), W(85))]
-SFX += [(W(86) - 0.05, "whoosh_short", 0.45), (W(87) - 0.05, "pop", 0.35)]
-SFX += [(W(88) - 0.1 + k * 0.12, "pop", 0.25) for k in range(3)]
-SFX += [(W(92) - 0.1, "whoosh_short", 0.2), (W(92) + 0.2, "whoosh_short", 0.3), (W(92) + 0.25, "pop", 0.35)]
-# 10 time: the stop hand, calendar page flips, the crowd grows
-SFX += [(W(95) - 0.05, "pop", 0.35)] + [(W(99) + k * 0.3, "flip", 0.55) for k in range(4)]
-SFX += [(t, "tick", 0.15) for t in (W(103) - 0.1, W(105) - 0.1, W(107) - 0.1)]
-# 11 in ads: the flyers come in, morph to ads, chips
-SFX += [(SC["s11"] + 0.05, "flutter", 0.45), (W(109) - 0.1, "whoosh", 0.3), (W(111) - 0.05, "pop", 0.25),
-        (W(113) - 0.05, "pop", 0.25), (W(115) - 0.1, "whoosh_short", 0.15), (W(116) - 0.05, "pop", 0.25)]
-# 12 the winner: heart pop, the bars rise, soft positive chime when B wins
-SFX += [(W(121) - 0.1, "pop", 0.35), (W(125) - 0.1, "fill", 0.6), (WIN, "win", 0.6)]
-# 13 CTA
-SFX += [(SC["s13"] + 0.15, "pop", 0.45)] + [(t - 0.05, "tick", 0.25) for t in (W(137), W(138), W(140))]
-# 14 end card: the Reignite chime
+SFX += [(W(37) - 0.3, "flutter", 0.6), (W(41) - 0.3, "flutter", 0.6)]
+# 06 split: crowd walks in, the line splits it, mini flyers are handed out (flutter)
+SFX += [(SC["s6"], "whoosh", 0.15), (W(47), "whoosh_short", 0.15), (W(49) - 0.1, "flutter_s", 0.35), (W(52) - 0.1, "flutter_s", 0.35)]
+# 06 count: shop-door bell when the first icons walk in, soft paper stacking ticks as the piles grow
+SFX += [(SC["s6b"] + 0.4, "bell", 0.55)]
+SFX += [(SC["s6b"] + 0.4 + k * 0.2, "ptick", 0.4) for k in range(8)] + [(SC["s6b"] + 0.6 + k * 0.5, "ptick", 0.3) for k in range(3)]
+# 07 numbers talk: soft air under the words
+SFX += [(W(63) - 0.1, "whoosh_long", 0.15)]
+# 08 one thing: rubber-stamp thump for "1", the parts, the blur-swap, ؟ ؟ ؟, reset, one swap + check
+SFX += [(W(69) - 0.02, "stamp", 0.8), (W(71) - 0.15, "whoosh_short", 0.2)]
+SFX += [(W(71) + 0.15 + k * 0.17, "tick", 0.22) for k in range(3)]
+SFX += [(W(73) - 0.05, "whoosh_short", 0.45)] + [(W(76) - 0.1 + k * 0.12, "pop", 0.25) for k in range(3)]
+SFX += [(W(79) - 0.15, "whoosh_short", 0.2), (W(79) + 0.15, "whoosh_short", 0.3), (W(79) + 0.4, "pop", 0.4)]
+# 09 time: the stop hand, calendar page flips, the crowd grows
+SFX += [(W(81) - 0.05, "pop", 0.35)] + [(W(85) + k * 0.24, "flip", 0.55) for k in range(4)]
+SFX += [(W(85) + k * 0.3, "tick", 0.15) for k in range(3)]
+# 10 the winner: the flyers come back and morph, heart pop, the bars rise, soft positive chime when B wins
+SFX += [(SC["s10"] + 0.02, "flutter", 0.45), (W(89) - 0.2, "whoosh", 0.3), (W(92) - 0.1, "pop", 0.35),
+        (W(96) - 0.1, "fill", 0.6), (WIN, "win", 0.6)]
+# 11 CTA
+SFX += [(SC["s11"] + 0.15, "pop", 0.45)] + [(t - 0.05, "tick", 0.25) for t in (W(105), W(106), W(108))]
+# 12 end card: the Reignite chime
 SFX += [(END - 0.5, "whoosh_long", 0.3), (END + 0.1, "chime", 0.55), (END + 0.1, "deep", 0.3)]
 
 sfx = np.zeros((N, 2))
 for t, kind, gain in SFX:
     place(sfx, GEN[kind](), t, gain)
-# very low street ambience under the juice-shop scenes (04-07)
-place(sfx, street(SC["s8"] - SC["s4"]), SC["s4"], 0.05)
+# very low street ambience under the juice-shop scenes (04-06)
+place(sfx, street(SC["s7"] - SC["s4"]), SC["s4"], 0.05)
 
 
 # stem peaks are set so the VO stays the loudest element
@@ -453,6 +478,6 @@ def finish(x, peak_db):
     return x / pk * (10 ** (peak_db / 20))
 
 
-sf.write(str(ROOT / "audio" / "music.wav"), finish(music, -11.0).astype(np.float32), SR, subtype="PCM_16")
+sf.write(str(ROOT / "audio" / "music.wav"), finish(music, -13.0).astype(np.float32), SR, subtype="PCM_16")
 sf.write(str(ROOT / "audio" / "sfx.wav"), finish(sfx, -12.0).astype(np.float32), SR, subtype="PCM_16")
 print("wrote audio/music.wav, audio/sfx.wav", DUR, "s,", len(SFX), "sfx events")

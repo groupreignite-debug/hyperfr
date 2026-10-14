@@ -19,23 +19,21 @@ END, DUR = cues["endcard"], cues["duration"]
 
 # scene windows (each opens a little before its first word). Keep in step with scripts/build_audio.py (SC).
 SCENES = {
-    "s1": (0.0, w(11) - 0.25),             # hook: two ads, one fails, one does a bit better, why?
-    "s1l": (0.0, we(10) + 0.45),           # logo watermark
-    "s2": (w(11) - 0.25, w(16) - 0.3),     # guessing: the dart misses
-    "s3": (w(16) - 0.3, w(32) - 0.35),     # term: A/B Testing, two versions, people decide
-    "shop": (w(32) - 0.35, w(65) - 0.3),   # the juice shop (persistent set, scenes 04-07)
-    "s4": (w(32) - 0.35, w(41) - 0.3),     # shop
-    "s5": (w(41) - 0.3, w(52) - 0.3),      # the two flyers
-    "s6": (w(52) - 0.3, w(59) - 0.25),     # split the crowd
-    "s7": (w(59) - 0.25, w(65) - 0.3),     # count: two piles
-    "s8": (w(65) - 0.3, w(73) - 0.3),      # numbers talk (subtitle hidden)
-    "s9": (w(73) - 0.3, w(95) - 0.05),     # change one thing
-    "s10": (w(95) - 0.05, w(108) - 0.35),  # give it time
-    "pair": (w(108) - 0.35, w(129) - 0.3), # the two ad cards (persistent, scenes 11-12)
-    "s11": (w(108) - 0.35, w(117) - 0.3),  # in ads
-    "s12": (w(117) - 0.3, w(129) - 0.3),   # the winner
-    "s13": (w(129) - 0.3, END),            # CTA
-    "s14": (END, DUR),                     # end card
+    "cards": (0.0, w(29) - 0.3),           # the two ad cards (persistent, scenes 01-03); on screen at frame 0
+    "s1": (0.0, w(9) - 0.25),              # hook: coins pouring, which one?
+    "s2": (w(9) - 0.25, w(16) - 0.3),      # gut: heart points at A, the dart misses
+    "s3": (w(16) - 0.3, w(29) - 0.3),      # term: A/B Testing, people decide
+    "shop": (w(29) - 0.3, w(59) - 0.3),    # the juice shop (persistent set, scenes 04-06)
+    "s4": (w(29) - 0.3, w(36) - 0.3),      # shop
+    "s5": (w(36) - 0.3, w(46) - 0.3),      # the two flyers
+    "s6": (w(46) - 0.3, w(53) - 0.2),      # split the crowd
+    "s6b": (w(53) - 0.2, w(59) - 0.3),     # count: two piles
+    "s7": (w(59) - 0.3, w(66) - 0.3),      # numbers talk (subtitle hidden)
+    "s8": (w(66) - 0.3, w(81) - 0.05),     # change one thing
+    "s9": (w(81) - 0.05, w(88) - 0.3),     # give it time
+    "s10": (w(88) - 0.3, w(100) - 0.3),    # the winner (cards again)
+    "s11": (w(100) - 0.3, END),            # CTA
+    "s12": (END, DUR),                     # end card
     "subs": (0.0, END),
 }
 FULL = ["root", "ground", "vig", "a-vo", "a-music", "a-sfx"]
