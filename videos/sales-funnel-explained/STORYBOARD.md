@@ -20,7 +20,7 @@ episode (Nov 7).
 
 | # | window (s) | lines | scene | on-screen text |
 |---|------------|-------|-------|----------------|
-| 01 HOOK | 0–2.81 | 01 | The spoken line rises word by word, big in the centre (**subtitle hidden**). Below it, a phone shows an ad card ("اشتري هلق") with a person icon in front. The person shrugs (two orange shrug marks) and the feed scrolls straight past the ad (swipe). Logo watermark small at the top | `ليش ما حدا بيشتري منك` / `من أول مرة؟` |
+| 01 HOOK | 0–3.02 | 01 | **Frame 0 is already full (Salem's hook rules, Oct 14):** a phone fills the centre and the first "اشتري هلق" ad card is already mid-swipe under an abstract thumb. Three fast swipes (0.0 / 0.5 / 0.95s); after each, an orange `✗` stamps where the card was (dry tick). At 1.45s the phone dims and `0` + cart lands big in orange with a short shake (low thud), before the voice reaches "من أول مرة". It holds until line 02 starts. Line 01 has its normal bottom subtitle. No logo | `اشتري هلق` (on the ad cards) · `✗` · `0` + cart icon |
 | 02 STRANGER | 2.81–5.18 | 02 | Two person icons: an orange one on the right with a small ad card (you), and a grey stranger on the left. An orange arrow fires from the ad, bounces off the stranger and falls away. A big orange `؟` pops over the stranger | `؟` · `ما بيعرفك` |
 | 03 TERM | 5.18–10.97 | 03–04 | `Sales Funnel` lands huge. The empty funnel outline draws itself band by band (pen sound). A small person sits above the funnel mouth; a dotted path runs down through the funnel to an orange cart under it | `Sales Funnel` · person → dotted path → cart (drawn, top to bottom) |
 | 04 CAFÉ | 10.97–12.95 | 05 | The funnel slides small to the left (RTL "one side"). On the right, a line-drawn café front draws itself on a street line; the cup appears on the counter | cup icon |
@@ -35,13 +35,13 @@ episode (Nov 7).
 | 13 END CARD | 52.66–55.66 | — | The supplied logo fades in 0.97 → 1 with the Reignite chime. No text | (logo only) |
 
 Notes
-- **One text layer:** the bottom subtitles carry every spoken sentence; the centre shows only visuals and short labels.
-  Scene 01 shows its full line big in the centre, so its subtitle is not shown.
+- **One text layer:** the bottom subtitles carry every spoken sentence (line 01 included); the centre shows only visuals
+  and short labels.
+- **Hook (Oct 14 rules):** no empty or black first frame, no fade-in on the grid or music, movement from frame 0, the
+  payoff `0 🛒` on screen by 1.45s, and the logo only on the end card.
 - Emoji (☕ 👀 👃 👥 ⭐ 🔁 📖 🛒 🔍 👇 🧍) are drawn as line icons in brand colours. Alexandria has no emoji, and a
   fallback emoji font would look different from scene to scene (brief §4 allows this). `👃` is drawn as rising aroma
   lines, since a nose doesn't read well as a line icon.
 - Gold is used only for the Loyalty stage (its band and its label in scene 08); the gold band stays part of the funnel
   afterwards.
-- The scene 01 line is shown as the brief's short on-screen form `ليش ما حدا بيشتري منك من أول مرة؟`; the
-  subtitle track does not repeat it.
 - The scene 11 magnifier stops on Consideration. It's an example, not a claim that most people drop there.

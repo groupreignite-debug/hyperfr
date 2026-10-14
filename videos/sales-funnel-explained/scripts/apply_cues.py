@@ -19,9 +19,8 @@ END, DUR = cues["endcard"], cues["duration"]
 
 # scene windows (each opens a little before its first word)
 SCENES = {
-    "s1": (0.0, w(9) - 0.25),            # hook: the ad nobody buys from
-    "s1l": (0.0, we(8) + 0.5),           # logo watermark
-    "s2": (w(9) - 0.25, w(17) - 0.3),    # stranger
+    "s1": (0.0, w(9) - 0.05),            # hook: swiped ads, then "0 cart" holds until line 02 starts
+    "s2": (w(9) - 0.05, w(17) - 0.3),    # stranger
     "s3": (w(17) - 0.3, w(34) - 0.35),   # term: Sales Funnel + the path
     "fn": (w(17) - 0.3, w(123) - 0.3),   # the funnel itself (persistent object, scenes 03-11)
     "cafe": (w(34) - 0.35, w(78) - 0.3), # the cafe street (persistent set, scenes 04-08)

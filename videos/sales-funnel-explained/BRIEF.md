@@ -74,7 +74,14 @@ Same visual system as the earlier episodes, so the series looks consistent:
   - **Only these key terms are written in English (Latin letters) and highlighted in orange:** `Sales Funnel`, `Awareness`, `Consideration`, `Decision`, `Loyalty`. Everything else stays Arabic.
   - There is no English translation track.
   - Keep subtitles clear of the Instagram UI: above the bottom ~300px and away from the right-edge icons.
-- **Logo:** the official Reignite Group logo, used exactly as supplied: no redraw, recolor, crop or a different flame. Copy it from `videos/incrementality-explained/assets/reignite/reignite-group-logo.png` (branch `ccr-65fff1ea-12hlnt`). Show it as a small watermark at the top in scene 01 and full-size on the end card.
+- **Logo:** the official Reignite Group logo, used exactly as supplied: no redraw, recolor, crop or a different flame. Copy it from `videos/incrementality-explained/assets/reignite/reignite-group-logo.png` (branch `ccr-65fff1ea-12hlnt`). Show it only full-size on the end card. No watermark in the opening.
+
+### Hook rules (first 2 seconds, Salem, Oct 14)
+
+Instagram retention on our reels drops 50-65% in the first 3 seconds, then stays flat. So:
+- **Frame 0 is already full.** The hook visual is on screen at the first frame, with movement inside the first 0.3s. Nothing builds up from empty, and there's no fade-in from black.
+- **The twist is on screen inside 1.5 seconds, before the voice gets to it.** A big 1-3 word label in the center shows the payoff early, while the bottom subtitle carries the spoken line (the one-text-layer rule still holds). The VO stays as recorded.
+- **No logo in the opening.** The logo appears only on the end card. That keeps the first seconds from reading as an ad.
 
 ---
 
@@ -82,7 +89,7 @@ Same visual system as the earlier episodes, so the series looks consistent:
 
 | # | Lines | Scene | On-screen text (exact) |
 |---|---|---|---|
-| 01 HOOK | 01 | **Full spoken line shown big in the center; the bottom subtitle is hidden.** A phone with a simple ad card ("اشتري هلق") appears in front of a person icon. The person icon shrugs and scrolls past. The logo watermark sits small at the top. | `ليش ما حدا بيشتري منك من أول مرة؟` (subtitle hidden) |
+| 01 HOOK | 01 | **Frame 0 (no build-up, no fade-in):** a phone fills the center with an ad card reading "اشتري هلق", and a thumb is already swiping it away. Three fast swipes in about 1.5s: each new "اشتري هلق" card gets swiped off, and a small orange `✗` stamps where it was. At about 1.5s, while Fadi is still asking the question, `0 🛒` lands big in orange in the center with a short shake. It stays until line 02 starts. The bottom subtitle shows line 01 as usual. No logo. | `اشتري هلق` (on the ad cards) · `✗` · `0 🛒` |
 | 02 STRANGER | 02 | Two person icons. The left one has a question mark over its head, labeled as a stranger. An arrow from the ad bounces off it. | `؟` · `ما بيعرفك` |
 | 03 TERM | 03–04 | `Sales Funnel` lands huge. Then an empty funnel outline draws itself under it, and a dotted path runs from the top of the funnel to a small cart icon at the bottom. | `Sales Funnel` · `🧍 ← … ← 🛒` |
 | 04 CAFÉ | 05 | The funnel slides to one side (the left in RTL) and stays small. On the other side, a line-drawn café front draws itself on a street line. | `☕` |
@@ -105,7 +112,7 @@ If an emoji doesn't render in the brand font, replace it with a simple line icon
 - **VO:** the chosen Fadi take, the loudest element. Normalize the full mix to about −14 LUFS integrated.
 - **Music:** the same dark minimal electronic bed as the earlier episodes, ducked well under the VO.
 - **SFX (subtle):**
-  - a soft swipe as the ad is scrolled past (scene 01)
+  - three quick swipes, one per ad card, with a dry tick on each `✗`, then a low thud when `0 🛒` lands (scene 01). The first swipe sounds at frame 0
   - a light pen-draw sound as the funnel outline draws (scene 03)
   - soft street ambience under the café scenes (05–08), very low
   - a shop door bell on Decision (scene 07)
@@ -162,7 +169,8 @@ Keep all text inside the center 1080×1350 so it survives the grid crop. Export 
 - [ ] Composition is **1080×1920 at 30fps**
 - [ ] Every on-screen string matches section 4 exactly, with Arabic shaped correctly in RTL
 - [ ] Arabic subtitles synced, only the listed key terms in English and orange, inside the safe area
-- [ ] No sentence appears twice on screen (subtitle hidden in scene 01; elsewhere the center shows labels only)
+- [ ] No sentence appears twice on screen (the center shows visuals and short labels only; the subtitles carry the speech)
+- [ ] Hook: frame 0 already shows the phone and ad mid-swipe (no empty or black first frame); `0 🛒` is on screen by about 1.5s; no logo before the end card
 - [ ] Only brand colors; no real café branding, people or screenshots; no numbers on the funnel; logo untouched
 - [ ] `npm run check` passes in the composition folder
 - [ ] Rendered `sales-funnel-explained.mp4` (1080×1920, 30fps) + `cover.png`

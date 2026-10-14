@@ -182,7 +182,7 @@ def end_pad():
 
 music = drone() + sub_pulse() + hats() + plucks() + air() + end_pad()
 # the hit in THE MISTAKE dips the bed for a beat; the drop-off beat is calm
-master = env([(0, 0), (0.25, 0.75), (SC["s4"], 0.8), (SC["s9"], 0.9), (HIT - 0.05, 0.9), (HIT + 0.05, 0.35),
+master = env([(0, 0.6), (0.25, 0.75), (SC["s4"], 0.8), (SC["s9"], 0.9), (HIT - 0.05, 0.9), (HIT + 0.05, 0.35),
               (SC["s10"] - 0.2, 0.4), (SC["s10"] + 0.3, 0.85), (C0 - 0.1, 0.7), (C0 + 0.3, 0.45),
               (C1 - 0.1, 0.45), (C1 + 0.2, 0.85), (END, 0.7), (DUR - 0.4, 0.25), (DUR, 0)])
 music *= master[:, None]
@@ -298,6 +298,15 @@ def street(length):
     return np.stack([s, np.roll(s, int(0.023 * SR))], 1) * 0.6
 
 
+def swipe():
+    """Quick dry swipe: a short bright air burst that starts instantly (usable at frame 0)."""
+    L = int(0.24 * SR)
+    t = np.arange(L) / SR
+    s = bp(rng.standard_normal(L), 1500, 7000) * np.exp(-t * 14) * (1 - np.exp(-t * 4000))
+    pan = np.linspace(0.5, -0.6, L)
+    return np.stack([s * (1 - pan) / 2, s * (1 + pan) / 2], 1) * 0.8
+
+
 def fill():
     """Gentle rising fill tick: a soft sine sweep that settles on a note."""
     L = int(0.32 * SR)
@@ -329,12 +338,14 @@ def thud():
 GEN = {"deep": lambda: impact(True), "click": click, "tap": tap, "tick": tick,
        "whoosh": lambda: whoosh(0.55), "whoosh_long": lambda: whoosh(0.9), "pop": notif_pop, "bell": bell,
        "blip": blip, "chime": chime, "pen": lambda: pen(1.6), "fill": fill,
-       "cupset": cupset, "thud": thud}
+       "cupset": cupset, "thud": thud, "swipe": swipe}
 
 # keep in step with the GSAP times in index.html
 SFX = []
-# 01 hook: the swipe as the ad is scrolled past
-SFX += [(0.2, "whoosh", 0.2), (W(7), "tap", 0.35), (W(8) + 0.05, "whoosh", 0.5)]
+# 01 hook (index.html: SWIPES, ZERO): three quick swipes (the first at frame 0), a dry tick on each ✗,
+# a low thud when "0 cart" lands
+SFX += [(t, "swipe", 0.6) for t in (0.0, 0.5, 0.95)] + [(t + 0.3, "tick", 0.5) for t in (0.0, 0.5, 0.95)]
+SFX += [(1.45, "thud", 0.6)]
 # 02 stranger: the arrow bounces off
 SFX += [(W(11) - 0.1, "pop", 0.4), (W(13) + 0.25, "click", 0.45), (W(14), "pop", 0.35)]
 # 03 term: the word lands, the pen draws the funnel outline, the cart

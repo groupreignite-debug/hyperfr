@@ -3,10 +3,10 @@
 HyperFrames composition: `index.html` (1080×1920, 30fps). Brief: `BRIEF.md` · VO script + timings: `SCRIPT.md` ·
 scene plan: `STORYBOARD.md` · Instagram caption: `CAPTION.md`.
 
-Deliverables: `renders/sales-funnel-explained.mp4` (H.264 1080×1920 30fps, AAC, −13.9 LUFS, true peak −1.3 dBFS)
+Deliverables: `renders/sales-funnel-explained.mp4` (H.264 1080×1920 30fps, AAC, −14 LUFS, true peak < −1 dBFS)
 and `cover.png`.
 
-Arc: HOOK (an ad, a shrug, a scroll) → the stranger (the ad bounces off) → `Sales Funnel` (the path from first sight to
+Arc: HOOK (three "buy now" ads swiped away, `0 🛒` by 1.5s; frame 0 already full, no logo) → the stranger (the ad bounces off) → `Sales Funnel` (the path from first sight to
 the cart) → the café → Awareness → Consideration → Decision → Loyalty (the funnel fills band by band) → THE MISTAKE (the
 "buy now" ad hits the top band and breaks) → one message per stage → drop-off + "where?" → comment your stage → logo.
 
@@ -28,7 +28,7 @@ python3 scripts/build_audio.py   # procedural music bed (pre-ducked under the VO
   (`build_vo.py`, see `SCRIPT.md`).
   Line → word-index ranges are `LINES` in `build_vo_human.py`; every animation and subtitle time in `index.html` is `W(i)`,
   the start of Scribe word *i*. So a different take only needs a new Scribe pass, an index check, and the three scripts.
-- SFX: swipe as the ad is scrolled past, pen-draw as the funnel outlines, very low street ambience under the café
+- SFX: three quick swipes from frame 0 with a dry tick on each ✗ and a low thud when `0 🛒` lands, pen-draw as the funnel outlines, very low street ambience under the café
   scenes, shop-door bell + cup set on Decision, a rising fill tick per band, a dull thud when the ad hits the funnel,
   three soft pops for the message tags, Reignite chime. The music is kept low so a trending sound can be added in
   Instagram.
