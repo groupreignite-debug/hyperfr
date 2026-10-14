@@ -1,13 +1,14 @@
-"""Procedural score + SFX for the Reignite "Vanity Metrics" reel (series شو يعني؟ #2).
+"""Procedural score + SFX for the Reignite "Vanity Metrics" reel (series شو يعني؟ #2, v2 script).
 
 Dark, minimal, tech-leaning bed: detuned D-minor drone, soft sub pulse, muted hats and a
-quiet pluck arpeggio (same palette as the Incrementality reel). It drops to near-silence at the
-FREEZE (شو صار؟) and before the real question, then resolves under the end card. The music is pre-ducked
-~-7 dB under every VO line. All times come from scripts/cues.json (build_vo.py), so a re-recorded VO
+quiet pluck arpeggio (same palette as the Incrementality reel). It is already playing at frame 0 (no fade-in),
+hushes around the strike-through before the real question, and resolves under the end card. The music is
+pre-ducked ~-7 dB under the VO phrases. All times come from scripts/cues.json (build_vo.py), so another take
 only needs build_vo.py -> apply_cues.py -> this script.
 
-SFX are subtle and only mark visual state changes: counter ticks, balloon pops, a whoosh as the 10 dots
-enter the shop, a short scratch on the strike-through, and the Reignite chime on the end card.
+SFX are subtle and only mark visual state changes: fast like-pops under the hearts from frame 0, a low thud
+when 0 زبون lands, a stamp on the rent bill, balloon pops, counter ticks, a whoosh as the 10 dots enter the
+shop, a short scratch on the strike-through, and the Reignite chime on the end card.
 
 Outputs (48 kHz stereo, 16-bit): audio/music.wav, audio/sfx.wav
 """
@@ -21,7 +22,8 @@ from scipy.signal import butter, sosfilt
 SR = 48000
 ROOT = Path(__file__).resolve().parent.parent
 CUES = json.loads((ROOT / "scripts" / "cues.json").read_text())
-LINES = CUES["lines"]
+PH = CUES["phrases"]
+AN = CUES["anchors"]
 DUR = CUES["duration"]
 END = CUES["endcard"]
 N = int(SR * DUR)
@@ -55,24 +57,19 @@ def place(buf, sig, t, gain=1.0):
 
 
 # ------------------------------------------------------------------ cues ---
-def S(n):
-    return LINES[n]["start"]
+def PS(k):
+    return PH[k][0]
 
 
-def E_(n):
-    return LINES[n]["end"]
+def PE(k):
+    return PH[k][1]
 
 
-def P(n, i):
-    return LINES[n]["pauses"][i]
-
-
-SC = {  # scene windows — keep in step with scripts/apply_cues.py
-    "s2": E_("02") + 0.6, "s3": S("04") - 0.3, "s4": S("06") - 0.45, "s5": S("08") - 0.5,
-    "s6": S("11") - 0.45, "s7": S("13") - 0.45, "s8": S("15") - 0.5,
+SC = {  # scene starts — keep in step with scripts/apply_cues.py
+    "term": PS("02a") - 0.25, "balloons": PS("03a") - 0.35, "shop": PS("05") - 0.35,
+    "split": PS("08a") - 0.35, "realq": PS("09a") - 0.3, "viewer": PS("10a") - 0.3,
 }
-F0, F1 = SC["s2"], SC["s3"]              # freeze: شو صار؟
-Q0, Q1 = E_("13"), P("14", 0)[1]         # hush around the strike-through, back in on "قدّيش رسالة إجت؟"
+Q0, Q1 = PE("09a"), PS("09c")            # hush around the strike-through, back in on "قدّيش رسالة إجت"
 
 
 # ---------------------------------------------------------------- music ---
@@ -91,8 +88,8 @@ def drone():
         g = 0.9 if i < 2 else 0.4
         l += saw(f - d) * g
         r += saw(f + d) * g
-    cut = env([(0, 260), (F0 - 0.5, 700), (F0, 160), (F1, 300), (SC["s4"], 600), (SC["s5"], 480), (SC["s6"], 760),
-               (SC["s7"], 850), (Q0, 180), (Q1, 700), (SC["s8"], 500), (END, 380), (DUR, 200)])
+    cut = env([(0, 520), (SC["term"], 380), (SC["balloons"], 600), (SC["shop"], 480), (SC["split"], 760),
+               (SC["realq"], 850), (Q0, 180), (Q1, 700), (SC["viewer"], 500), (END, 380), (DUR, 200)])
     outs = []
     for ch in (l, r):
         y = np.zeros(N)
@@ -121,9 +118,9 @@ def sub_pulse():
     while t < DUR:
         place(buf, kick, t)
         t += BEAT
-    gate = env([(0, 0), (0.3, 0.6), (F0 - 0.1, 0.8), (F0, 0), (F1, 0), (F1 + 0.2, 0.6), (SC["s4"], 0.65),
-                (SC["s5"], 0.7), (SC["s7"], 0.8), (Q0 - 0.1, 0.3), (Q0, 0), (Q1, 0), (Q1 + 0.1, 0.85),
-                (SC["s8"], 0.5), (END - 0.1, 0.2), (END, 0), (DUR, 0)])
+    gate = env([(0, 0.7), (SC["term"], 0.6), (SC["balloons"], 0.65), (SC["shop"], 0.7), (SC["realq"], 0.8),
+                (Q0 - 0.1, 0.3), (Q0, 0), (Q1, 0), (Q1 + 0.1, 0.85), (SC["viewer"], 0.5), (END - 0.1, 0.2),
+                (END, 0), (DUR, 0)])
     return np.stack([buf * gate] * 2, 1) * 0.45
 
 
@@ -137,9 +134,8 @@ def hats():
         place(buf, hat, t, 0.6 if k % 2 else 0.22)
         t += step
         k += 1
-    gate = env([(0, 0), (1.0, 0.5), (F0 - 0.1, 0.6), (F0, 0), (SC["s4"], 0), (SC["s4"] + 0.2, 0.6),
-                (SC["s5"], 0.6), (SC["s6"], 0.75), (SC["s7"], 0.8), (Q0, 0), (Q1, 0), (Q1 + 0.1, 0.7),
-                (SC["s8"], 0.4), (END, 0), (DUR, 0)])
+    gate = env([(0, 0.6), (SC["balloons"], 0.6), (SC["shop"], 0.6), (SC["split"], 0.75), (SC["realq"], 0.8),
+                (Q0, 0), (Q1, 0), (Q1 + 0.1, 0.7), (SC["viewer"], 0.4), (END, 0), (DUR, 0)])
     l = buf * gate
     r = np.roll(buf, int(0.011 * SR)) * gate
     return np.stack([l, r], 1) * 0.045
@@ -161,16 +157,16 @@ def plucks():
         place(buf_r, s * pan, t)
         t += BEAT / 2
         k += 1
-    gate = env([(0, 0), (F1, 0), (F1 + 0.6, 0.5), (SC["s4"], 0.6), (SC["s5"], 0.65), (SC["s6"], 0.7),
-                (SC["s7"], 0.6), (Q0 - 0.2, 0.5), (Q0, 0), (SC["s8"], 0), (SC["s8"] + 0.5, 0.4), (END, 0), (DUR, 0)])
+    gate = env([(0, 0), (SC["term"], 0), (SC["term"] + 0.6, 0.5), (SC["balloons"], 0.6), (SC["shop"], 0.65),
+                (SC["split"], 0.7), (SC["realq"], 0.6), (Q0 - 0.2, 0.5), (Q0, 0), (SC["viewer"], 0),
+                (SC["viewer"] + 0.5, 0.4), (END, 0), (DUR, 0)])
     return np.stack([lp(buf_l, 2800) * gate, lp(buf_r, 2800) * gate], 1) * 0.05
 
 
 def air():
     n = rng.standard_normal((N, 2))
     n = np.stack([bp(n[:, 0], 1800, 5600), bp(n[:, 1], 1800, 5600)], 1)
-    g = env([(0, 0.15), (F0, 0.25), (F1, 0.1), (SC["s4"], 0.3), (SC["s7"], 0.3), (Q0, 0.55), (Q1, 0.35),
-             (END, 0.45), (DUR, 0)])
+    g = env([(0, 0.15), (SC["balloons"], 0.3), (SC["realq"], 0.3), (Q0, 0.55), (Q1, 0.35), (END, 0.45), (DUR, 0)])
     return n * g[:, None] * 0.012
 
 
@@ -184,14 +180,14 @@ def end_pad():
 
 
 music = drone() + sub_pulse() + hats() + plucks() + air() + end_pad()
-master = env([(0, 0), (0.25, 0.75), (F0 - 0.1, 0.85), (F0 + 0.05, 0.18), (F1 - 0.1, 0.2), (F1 + 0.2, 0.75),
-              (SC["s4"], 0.8), (SC["s6"], 0.85), (SC["s7"], 0.9), (Q0 - 0.1, 0.5), (Q0 + 0.2, 0.12),
-              (Q1 - 0.1, 0.15), (Q1 + 0.1, 0.95), (SC["s8"], 0.6), (END, 0.7), (DUR - 0.4, 0.25), (DUR, 0)])
+master = env([(0, 0.8), (SC["term"], 0.8), (SC["balloons"], 0.8), (SC["split"], 0.85), (SC["realq"], 0.9),
+              (Q0 - 0.1, 0.5), (Q0 + 0.2, 0.12), (Q1 - 0.1, 0.15), (Q1 + 0.1, 0.95), (SC["viewer"], 0.6),
+              (END, 0.7), (DUR - 0.4, 0.25), (DUR, 0)])
 music *= master[:, None]
 
 duck = np.ones(N)
-for ln in LINES.values():
-    a, b = ln["start"] - 0.12, ln["end"] + 0.15
+for ps, pe in PH.values():
+    a, b = ps - 0.12, pe + 0.15
     duck = np.minimum(duck, env([(0, 1), (max(a - 0.15, 0), 1), (a, 0.45), (b, 0.45), (b + 0.35, 1), (DUR, 1)]))
 music *= duck[:, None]
 
@@ -276,9 +272,26 @@ def scratch():
     return np.stack([s * (1 - pan) / 2, s * (1 + pan) / 2], 1) * 0.7
 
 
+def likepop():
+    """Tiny bright tap — the 'like' counter firing."""
+    L = int(0.05 * SR)
+    t = np.arange(L) / SR
+    s = np.sin(2 * np.pi * (1500 + 900 * np.exp(-t * 60)) * t) * np.exp(-t * 110)
+    return stereo(s) * 0.4
+
+
+def stamp():
+    """Rubber stamp: a dull thump plus a short paper slap."""
+    L = int(0.35 * SR)
+    t = np.arange(L) / SR
+    thump = np.sin(2 * np.pi * (70 + 90 * np.exp(-t * 40)) * t) * np.exp(-t * 18)
+    slap = bp(rng.standard_normal(L), 600, 3500) * np.exp(-t * 45) * 0.7
+    return stereo(np.tanh((thump + slap) * 1.8)) * 0.6
+
+
 GEN = {"impact": lambda: impact(False), "deep": lambda: impact(True), "click": click, "tick": tick,
        "whoosh": lambda: whoosh(0.55), "whoosh_long": lambda: whoosh(0.9), "chime": chime, "pop": pop,
-       "scratch": scratch}
+       "scratch": scratch, "likepop": likepop, "stamp": stamp}
 
 SFX = []
 
@@ -291,43 +304,41 @@ def ticks(t0, t1, every, gain=0.35):
 
 
 # keep in step with the GSAP times in index.html
-like0 = P("01", 0)[1]
-# 01 hook: 10,000 likes, then 0 customers
-SFX += [(0.28, "whoosh", 0.3)]
-ticks(like0 - 0.1, E_("01") + 0.1, 0.07)
-SFX += [(E_("01") + 0.05, "click", 0.4), (S("02") + 0.55, "impact", 0.7)]
-# 02 freeze
-SFX += [(F0, "whoosh_long", 0.35), (S("03") - 0.1, "click", 0.35)]
-# 03 term
-SFX += [(F1, "whoosh", 0.3)]
-ticks(S("04") + 0.5, S("04") + 0.5 + 13 * 0.035, 0.035, 0.3)
-SFX += [(E_("04") - 0.1, "click", 0.35), (E_("05") - 0.1, "click", 0.45)]
-# 04 balloons pop
-t4 = S("06")
-for t in (t4 - 0.1, t4 + 0.76, t4 + 1.44):
-    SFX.append((t, "whoosh", 0.22))
-    ticks(t + 0.05, t + 0.85, 0.08, 0.22)
-tPop = S("07") + 0.25
+tz = AN["zboun"]
+# 01 hook: like-pops under the hearts from frame 0, a low thud when 0 زبون lands
+lp_r = np.random.default_rng(5)
+t = 0.0
+while t < tz - 0.05:
+    SFX.append((t, "likepop", 0.22 + 0.18 * lp_r.random()))
+    t += 0.07 + 0.06 * lp_r.random()
+SFX += [(tz, "deep", 0.85), (tz, "click", 0.4)]
+# 02 term + rent-bill stamp
+SFX += [(SC["term"] + 0.05, "whoosh", 0.3)]
+ticks(AN["vanity"] - 0.25, AN["vanity"] - 0.25 + 12 * 0.035, 0.035, 0.28)
+SFX += [(PE("02a") - 0.1, "click", 0.3), (AN["rent"] - 0.4, "whoosh", 0.2), (AN["rent"] + 0.2, "stamp", 0.8)]
+# 03 balloons
+for k in ("likes", "views", "followers"):
+    SFX.append((AN[k] - 0.1, "whoosh", 0.22))
+    ticks(AN[k] - 0.05, AN[k] + 0.75, 0.08, 0.22)
+tPop = AN["pop"]
 SFX += [(tPop - 0.35, "click", 0.3)]
 SFX += [(tPop + 0.195 + i * 0.375, "pop", 0.7) for i in range(3)]
-SFX += [(P("07", 0)[1], "click", 0.3)]
-# 05 shop: crowd, 10 enter, 2 buy, labels
-t5 = S("08")
-SFX += [(SC["s5"], "whoosh", 0.35)]
-ticks(t5 + 1.7, t5 + 2.9, 0.07, 0.28)
-SFX += [(S("09") + 0.1, "whoosh_long", 0.5), (S("09") + 0.3, "click", 0.35)]
-tBuy = P("09", 1)[1]
-SFX += [(tBuy, "click", 0.5), (tBuy + 0.15, "click", 0.45), (tBuy + 0.1, "impact", 0.45)]
-SFX += [(P("10", 0)[1], "click", 0.35), (P("10", 1)[1] + 0.35, "impact", 0.6)]
-# 06 split
-SFX += [(SC["s6"], "whoosh", 0.35), (S("11") + 1.6, "click", 0.45)]
-SFX += [(S("12") + d - 0.05, "click", 0.35) for d in (0, 0.9, 1.95, 2.62)]
-# 07 the real question
-SFX += [(SC["s7"], "whoosh", 0.3), (S("13") + 0.55, "click", 0.3), (E_("13") + 0.05, "scratch", 0.6),
-        (Q1, "riser:1.0", 0.35), (Q1, "deep", 0.6), (P("14", 1)[1], "click", 0.4)]
-# 08 question to the viewer
-SFX += [(SC["s8"], "whoosh", 0.3), (SC["s8"] + 0.2, "click", 0.35), (P("15", 1)[1] + 0.2, "click", 0.3)]
-# 09 end card
+SFX += [(AN["zboun2"] - 0.15, "impact", 0.5)]
+# 04 shop
+SFX += [(SC["shop"], "whoosh", 0.35)]
+ticks(AN["alf"] - 0.25, AN["alf"] + 0.75, 0.07, 0.28)
+SFX += [(AN["ten"] + 0.05, "whoosh_long", 0.5), (AN["ten"] + 0.25, "click", 0.35)]
+SFX += [(AN["two"], "click", 0.5), (AN["two"] + 0.12, "click", 0.45), (AN["two"] + 0.1, "impact", 0.45)]
+SFX += [(AN["reach"] - 0.2, "click", 0.35), (AN["biz"] - 0.1, "impact", 0.6)]
+# 05 split
+SFX += [(SC["split"], "whoosh", 0.35), (AN["actionable"] - 0.1, "click", 0.45)]
+SFX += [(AN[k] - 0.05, "click", 0.35) for k in ("item1", "item2", "item3", "item4")]
+# 06 the real question
+SFX += [(SC["realq"], "whoosh", 0.3), (AN["likesq"] - 0.35, "click", 0.3), (PE("09a") + 0.05, "scratch", 0.6),
+        (AN["msg"] - 0.1, "click", 0.35), (AN["msg"] + 0.55, "whoosh", 0.3), (AN["sale"] - 0.12, "impact", 0.6)]
+# 07 question to the viewer
+SFX += [(SC["viewer"], "whoosh", 0.3), (SC["viewer"] + 0.15, "click", 0.35), (AN["comments"] - 0.1, "click", 0.3)]
+# 08 end card
 SFX += [(END - 0.5, "whoosh_long", 0.3), (END + 0.1, "chime", 0.55), (END + 0.1, "deep", 0.3)]
 
 sfx = np.zeros((N, 2))

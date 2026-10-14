@@ -1,30 +1,26 @@
 ---
 format: 1080x1920
 fps: 30
-duration: 56.07
-music: dark minimal electronic bed (procedural, scripts/build_audio.py), same palette as Incrementality
-captions: Arabic, burned in, one line at a time, key terms in orange Latin
+duration: 45.877
+music: dark minimal electronic bed (procedural, scripts/build_audio.py), playing from frame 0
+captions: Arabic, burned in, every spoken sentence; centre never repeats it
 ---
 
-# STORYBOARD: Vanity Metrics
+# STORYBOARD: Vanity Metrics v2
 
-Same world as episode 1: charcoal canvas, barely visible 72px grid drifting slowly, Alexandria 300–900,
-orange for meaning, a progress hairline at the top. All scene windows are derived from the VO line starts
-(`scripts/apply_cues.py`), so they move with the voice.
+Scene windows come from the VO phrase starts (`scripts/apply_cues.py`); word-level cues from `scripts/cues.json` anchors.
 
-| # | window (s) | lines | scene | on-screen text |
-|---|------------|-------|-------|----------------|
-| 01 HOOK | 0–7.1 | 01–02 | Heart card counts 0 → `10,000` (off-white) as "عشر آلاف لايك" is said, small hearts float up. Second card lands `0 زبون` in orange. Logo watermark at top | `10,000 ❤` · `0 زبون` |
-| 02 FREEZE | 5.65–7.1 | 03 | Hook dims and blurs; the question rises | `شو صار؟` |
-| 03 TERM | 7.1–12.6 | 04–05 | Caret blinks, `VANITY METRICS` lands letter by letter, gloss slides in, then the line types in word by word with `الإيجار` in orange | `VANITY METRICS` · `أرقام الغرور` · `بتبيّن حلوة… بس ما بتدفع الإيجار` |
-| 04 BALLOONS | 12.6–22.1 | 06–07 | `LIKES 10,000`, `VIEWS 50,000`, `FOLLOWERS 2,500` puff up (elastic) on each spoken word and bob. On line 07 a thin orange line sweeps down and pops them one by one into small dots. The question rises | `LIKES` `VIEWS` `FOLLOWERS` · `قدّيش واحد صار زبون؟` |
-| 05 SHOP | 22.1–33.2 | 08–10 | A line-drawn shop front draws on; a dense crowd of dots streams past (`1,000 مرقوا` counts up). 10 dots peel into the door (`10 فاتوا`), 2 turn orange and glow (`2 اشتروا`). `REACH` brackets the crowd; the shop sign lights `BUSINESS` in orange | `1,000 مرقوا` · `10 فاتوا` · `2 اشتروا` · `REACH` / `BUSINESS` |
-| 06 SPLIT | 33.2–41.2 | 11–12 | Divider draws. Left (dim): `VANITY` — LIKES · VIEWS · FOLLOWERS. Right: orange `ACTIONABLE`, items appear as spoken | `VANITY` / `ACTIONABLE` · `رسائل` `طلبات أسعار` `مبيعات` `زبون رجع` |
-| 07 THE REAL QUESTION | 41.2–48.4 | 13–14 | `قدّيش لايك جبنا؟` is struck through in orange and greys out; the two real questions land, `بيعة` in orange, slow push-in | ~~`قدّيش لايك جبنا؟`~~ · `قدّيش رسالة إجت؟` · `قدّيش منها صار بيعة؟` |
-| 08 QUESTION TO VIEWER | 48.4–53.1 | 15 | Calm. Large comment bubble (typing dots), the question, then the comments prompt with a bobbing arrow | `شو أول رقم بتتطلّع عليه؟` · `قلّي بالكومنتات` ↓ |
-| 09 END CARD | 53.1–56.1 | — | Logo fades in 0.97 → 1 with the chime. No text | (logo only) |
+| # | window (s) | lines | scene | on-screen (centre) |
+|---|------------|-------|-------|--------------------|
+| 01 HOOK | 0–7.4 | 01 | Frame 0: `10,000 ❤` card already on screen, hearts already rising fast. On "زبون" (1.35s) `0 زبون` slams in with a short shake; the hearts stop mid-air. No logo | `10,000 ❤` · `0 زبون` |
+| 02 TERM | 2.3–7.4 | 02 | The hook shrinks to the top. `VANITY METRICS` lands letter by letter, gloss slides in. On "الإيجار" a receipt appears and gets an orange ✗ stamp | `VANITY METRICS` · `أرقام الغرور` · 🧾 ✗ |
+| 03 BALLOONS | 7.4–16.1 | 03–04 | `LIKES 10,000`, `VIEWS 50,000`, `FOLLOWERS 2,500` puff up on each word. On line 04 an orange line pops them into dots. `زبون؟` slams in | `LIKES` `VIEWS` `FOLLOWERS` · `زبون؟` |
+| 04 SHOP | 16.1–25.1 | 05–07 | Line-drawn shop; a crowd of dots streams past (`1,000 مرقوا`), 10 peel into the door (`10 فاتوا`), 2 turn orange (`2 اشتروا`). `REACH` brackets the crowd; the sign lights `BUSINESS` | `1,000` `مرقوا` · `10` `فاتوا` · `2` `اشتروا` · `REACH` / `BUSINESS` |
+| 05 SPLIT | 25.1–32.5 | 08 | Right (dim): `VANITY` — LIKES · VIEWS · FOLLOWERS. Left (orange header): `ACTIONABLE`, items appear as spoken | `VANITY` / `ACTIONABLE` · `رسائل` `طلبات أسعار` `مبيعات` `زبون رجع` |
+| 06 THE REAL QUESTION | 32.5–38.2 | 09 | `❤ ?` struck through in orange. A message icon lands, an arrow draws, a cart slams in (RTL flow: message → sale), slow push-in | ~~`❤ ?`~~ · 💬 → 🛒 |
+| 07 QUESTION TO VIEWER | 38.2–42.9 | 10 | Large comment bubble with typing dots; down arrow on "اكتبلنا بالكومنتات" | 👇 |
+| 08 END CARD | 42.9–45.9 | — | Logo fades in 0.97 → 1 with the chime | (logo only) |
 
 Notes
-- `❤` and `👇` are drawn as brand-colour SVG icons (off-white heart, orange down-arrow) instead of colour emoji,
-  which would bring in non-brand yellow/red and render inconsistently across fonts.
-- The metric values (10,000 / 50,000 / 2,500 / 1,000 → 10 → 2) are hypothetical, framed by "تخيّل".
+- ❤ 🧾 ✗ 💬 🛒 👇 are drawn as brand-colour SVG icons, not colour emoji (no off-palette colours).
+- Metric values are hypothetical examples.
