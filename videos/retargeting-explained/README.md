@@ -1,4 +1,4 @@
-# Reignite Group — "Retargeting" (شو يعني؟, 9:16 Arabic reel, 62.2s = 2.0s intro + 60.2s film)
+# Reignite Group — "Retargeting" (شو يعني؟, 9:16 Arabic reel, 61.6s = 1.4s intro + 60.2s film)
 
 HyperFrames composition: `index.html` (1080×1920, 30fps). Brief: `BRIEF.md` · VO script + timings: `SCRIPT.md` ·
 scene plan: `STORYBOARD.md` · Instagram caption: `CAPTION.md`.
@@ -6,7 +6,7 @@ scene plan: `STORYBOARD.md` · Instagram caption: `CAPTION.md`.
 Deliverables: `renders/retargeting-explained.mp4` (H.264 1080×1920 30fps, AAC, −14 LUFS, true peak ≈ −1.2 dBFS)
 and `cover.png`.
 
-Arc: INTRO (2.0s signature: `Retargeting` ignites, holds ~1s, burns away) → HOOK (teaser: the jacket in every feed, `لاحقك؟` → rewind → visited, saw the jacket, left) → the jacket follows (Instagram · YouTube · everywhere) → FREEZE (صدفة؟ لأ.)
+Arc: INTRO (1.4s signature: `Retargeting` ignites, holds ~0.55s, burns away) → HOOK (teaser: the jacket in every feed, `لاحقك؟` → rewind → visited, saw the jacket, left) → the jacket follows (Instagram · YouTube · everywhere) → FREEZE (صدفة؟ لأ.)
 → `Retargeting` (out and back) → the clothes shop (came in, tried, didn't buy; the salesperson remembers) → the Pixel
 is the salesperson → warm vs stranger → don't repeat the same ad → the 3 rules → the line → comment PIXEL → logo.
 
@@ -17,8 +17,8 @@ is the salesperson → warm vs stranger → don't repeat the same ad → the 3 r
   Incrementality copy). Its clip uses `mix-blend-mode: lighten` so the PNG's black field sits on the charcoal.
 
 ## Signature intro (scene 00) and the film offset
-The first 2.0s are a purely additive intro: `Retargeting` ignites left→right with an ember edge, a soft glow and a
-light heat shimmer (SVG displacement, only while a front moves), holds crisp ~1s, then burns away with a few embers.
+The first 1.4s are a purely additive intro: `Retargeting` ignites left→right with an ember edge, a soft glow and a
+light heat shimmer (SVG displacement, only while a front moves), holds crisp ~0.55s, then burns away with a few embers.
 Everything after it is the film, unchanged:
 - The film's GSAP timeline is authored in film time and nested into a master timeline at `INTRO` (1ms early so its
   time-0 states are applied on its first frame). `CUES` stays in film time.
@@ -26,7 +26,7 @@ Everything after it is the film, unchanged:
   (VO, music, SFX) by `INTRO`; the root, ground and vignette span intro + film.
 - The intro has its own sound (`scripts/build_intro_audio.py` → `audio/intro.wav`, `<audio id="a-intro">` at 0s);
   `audio/music.wav`, `audio/sfx.wav` and the VO are not touched by it.
-- Verified on the render: every film frame (n+60) matches the pre-intro render (n), and the film audio is offset by
+- Verified on the render: every film frame (n+42) matches the pre-intro render (n), and the film audio is offset by
   exactly 0 samples, except the two bug fixes below.
 
 Fixes found in the frame-by-frame check (they were in the pre-intro render too): the scene-08 ad stack now slides away
@@ -40,7 +40,7 @@ python3 scripts/build_vo_human.py  # clean the recording, first word at 0.12s �
                                    # align its Scribe words to the 139 animation slots → scripts/cues.json
 python3 scripts/apply_cues.py      # scene windows + CUES (word times) into index.html
 python3 scripts/build_audio.py     # procedural music bed (pre-ducked under the VO) + SFX on the same cues
-python3 scripts/build_intro_audio.py  # the 2.0s intro's ember sound → audio/intro.wav
+python3 scripts/build_intro_audio.py  # the 1.4s intro's ember sound → audio/intro.wav
 ```
 - Every animation and subtitle time in `index.html` is `W(i)`, the start of word slot *i* (the word-index space of the
   first TTS take's Scribe pass, `scripts/vo_words.json`). `build_vo_human.py` maps any new recording onto those

@@ -16,7 +16,7 @@ cues = json.loads((ROOT / "scripts" / "cues.json").read_text())
 w = lambda i: cues["words"][i][0]
 we = lambda i: cues["words"][i][1]
 END, DUR = cues["endcard"], cues["duration"]
-INTRO = 2.0  # signature intro (scene 00) in front of the film; everything below is offset by it
+INTRO = 1.4  # signature intro (scene 00) in front of the film; everything below is offset by it
 
 # scene windows (each opens a little before its first word)
 SCENES = {

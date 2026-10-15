@@ -1,7 +1,7 @@
 ---
 format: 1080x1920
 fps: 30
-duration: 62.24  # 2.0s intro + 60.24s film
+duration: 61.64  # 1.4s intro + 60.24s film
 music: dark minimal electronic bed (procedural, scripts/build_audio.py), same palette as the earlier episodes
 captions: Arabic, burned in, one line at a time, key terms in orange Latin
 ---
@@ -18,7 +18,7 @@ and reveal is keyed to a Scribe word time (`scripts/apply_cues.py`, `W(i)` in `i
 
 | # | window (s) | lines | scene | on-screen text |
 |---|------------|-------|-------|----------------|
-| 00 INTRO | master 0–2.0 | — | Signature intro, purely additive. `Retargeting` (off-white, Alexandria 900) ignites left→right: a gold-orange ember edge, a soft orange glow, a light heat shimmer and a few embers; holds crisp ~1s; burns away left→right the same way; every ember is out before 2.0s. Its own soft ember sound. **All windows below are film time; add 2.0s for master time.** | `Retargeting` |
+| 00 INTRO | master 0–1.4 | — | Signature intro, purely additive. `Retargeting` (off-white, Alexandria 900) ignites left→right: a gold-orange ember edge, a soft orange glow, a light heat shimmer and a few embers; holds crisp ~0.55s; burns away left→right the same way; every ember is out before 1.4s. Its own soft ember sound. **All windows below are film time; add 1.4s for master time.** | `Retargeting` |
 | 01 HOOK | 0–3.07 | 01 | **0–1.2s, twist teaser (frame 0 already full):** the jacket card is big in the centre with three empty feed phones under it; inside 0.3s the same card pops into each feed (notification pops). At 0.8s the card lunges at the camera, the feeds dim and `لاحقك؟` stamps in big orange with a short shake (whoosh-thud). **1.2s, rewind:** `⏪` appears (tape-rewind zip), the feeds fly back the way they came, the card settles and a phone with an abstract shop page appears around it. As line 01 is spoken a cursor taps the jacket, the phone slides down, and the jacket is left floating. **No logo** | `لاحقك؟` · `⏪` (drawn icon) · `شفت` (eye icon) · `فلّيت` (hand icon) |
 | 02 FOLLOW | 3.07–8.54 | 02 | The floating card hops on "الجاكيت", then three feed phones slide in from the right (RTL order). The card flies into the first feed; the same card pops into the second and third; on the third it drifts toward the viewer | `Instagram` · `YouTube` · `بكل مكان` |
 | 03 FREEZE | 6.89–8.54 | 03 | The feeds dim and blur; the question rises; `لأ.` stamps in orange. The music stops dead on "لأ" | `صدفة؟` · `لأ.` (bottom subtitle hidden) |
