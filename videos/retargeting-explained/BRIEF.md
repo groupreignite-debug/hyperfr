@@ -3,11 +3,11 @@ workflow: faceless-explainer
 flow: autonomous
 storyboard: skip
 angle: concept
-length: 60.5s (56.9s VO + 0.6s tail + 3s end card)
+length: 60.2s (56.6s VO + 0.6s tail + 3s end card)
 destination: instagram-reels (@reignitegroup, Sat Nov 7 2026)
 format: 1080x1920 @ 30fps
 language: ar (Lebanese conversational) + English key terms
-voice: client recording (audio/vo-human, Oct 13), replacing the ElevenLabs "Fadi" take 4 used for the first cut
+voice: client recording (audio/vo-human, Oct 13), first word trimmed to 0.12s (Oct 15 hook update)
 vo_mode: verbatim (client script)
 series: شو يعني؟ (after incrementality-explained, vanity-metrics)
 brand: Reignite Group
@@ -49,11 +49,14 @@ It should teach, not sell. The viewer should leave knowing three practical rules
 
 ## 2. Voiceover
 
-**Voice: ElevenLabs "Fadi - Lebanese Conversational Voice"** (`oJQlz7pz2yWd7MRmDUXm`, `eleven_multilingual_v2`), same as the SEO reel. The full script below has already been generated as **4 takes** on ElevenLabs flow `Qg1hMGdSYOnkuNoOVpwO`, saved as `/mnt/project-files/content/reel-10-vo/retargeting-vo-take1.mp3` … `take4.mp3`. Salem picks the take. If it feels slow, speed it up slightly (~1.05×) without changing pitch.
+**Hook update (Oct 15): this reel is already built.** Salem recorded the script in his own voice and gave it to Claude Code when the video was made. **Keep that recording and the script exactly as they are.** Only the opening changes: scene 01, its sounds, and the first-second rules below. If you are the session that built it, edit the existing composition and render again. If you are a new session, find the existing `videos/retargeting-explained/` build on its branch in hyperfr and work from it.
 
-Put the chosen take at `videos/retargeting-explained/audio/vo/vo_full.mp3`. Get word timings with ElevenLabs transcription (Scribe), as the Incrementality build did, and map scenes and subtitles to them (`scripts/apply_timemap.py` → `scripts/build_audio.py`). The timings below are targets. The real timings come from the audio.
+- **Trim the start of Salem's recording** so his first word lands within the first ~0.15s. Cut any silence, breath or room noise before it. Don't change anything else in the audio, and keep all later timings synced to it.
+- The Fadi takes in `/mnt/project-files/content/reel-10-vo/` are no longer used.
 
-**Pronunciation check:** `Retargeting`, `Pixel`, `Instagram` and `YouTube` should sound English. If one is badly pronounced in the chosen take, tell Salem; don't silently re-generate.
+Scene and subtitle timings come from the existing word timings of Salem's recording. If you trim the start, shift every timing by the same amount.
+
+**Pronunciation check:** `Retargeting`, `Pixel`, `Instagram` and `YouTube` should sound English. (Already checked in the existing build.)
 
 ### Script (spoken exactly like this)
 
@@ -86,7 +89,15 @@ Same visual system as the earlier episodes, so the series looks consistent:
 - **Motion:** soft masked rises, line draws, slides and gentle follows (`power3.out` / `expo.out`). No glitch, fire FX, flashy transitions, stock footage, real people, real screenshots or AI imagery.
 - **One world:** the **jacket card** is the recurring object: a simple line-drawn jacket on an off-white rounded card. It is the item left behind in scene 01, it "follows" across screens in scene 02, hangs in the shop in scene 04, and is the product the Pixel remembers in scene 05. The **Pixel** is one small glowing orange dot, always the same size and style.
 - **Subtitles: Arabic**, exactly the spoken line, RTL, bottom safe area, off-white on a subtle charcoal pill, one line at a time, synced to the VO. **Only these key terms are written in English (Latin letters) and highlighted in orange:** `Retargeting`, `Pixel`, `PIXEL`, `Instagram`, `YouTube`. Everything else stays Arabic. No English translation track. Keep subtitles clear of the Instagram UI (above the bottom ~300px and away from the right-edge icons).
-- **Logo:** the official Reignite Group logo, used exactly as supplied: no redraw, recolor, crop or a different flame. Copy it from `videos/incrementality-explained/assets/reignite/reignite-group-logo.png` (branch `ccr-65fff1ea-12hlnt`). Small watermark at the top in scene 01, and full on the end card.
+- **One text layer rule (Salem, Oct 11): never show the same sentence twice.** The bottom subtitles carry every spoken sentence. The center graphics never repeat that sentence. They show visuals plus short labels only (the term, a stage name, 1–3 words). When a scene shows a full spoken line big in the center (the "LINE" beats), **hide the bottom subtitle for that line**, so the text appears only once.
+- **Logo:** the official Reignite Group logo, used exactly as supplied: no redraw, recolor, crop or a different flame. Copy it from `videos/incrementality-explained/assets/reignite/reignite-group-logo.png` (branch `ccr-65fff1ea-12hlnt`). Only full-size on the end card. No watermark in the opening.
+
+### Hook rules (first 2 seconds, Salem, Oct 14)
+
+Instagram retention on our reels drops 50-65% in the first 3 seconds, then stays flat. So:
+- **Frame 0 is already full.** The hook visual is on screen at the first frame, with movement inside the first 0.3s. Nothing builds up from empty, and there's no fade-in from black.
+- **The twist is on screen inside 1.5 seconds, before the voice gets to it.** The spoken line 01 is only the setup ("you visited a site once… and left"); the twist (the jacket following you) comes in line 02 at ~3.5s. So the picture shows the twist first, as a short teaser, while the bottom subtitle carries line 01.
+- **No logo in the opening.** The logo appears only on the end card. That keeps the first seconds from reading as an ad.
 
 ---
 
@@ -94,16 +105,16 @@ Same visual system as the earlier episodes, so the series looks consistent:
 
 | # | Lines | Scene | On-screen text (exact) |
 |---|---|---|---|
-| 01 HOOK | 01 | A phone frame with an abstract shop page (no brand). The jacket card sits on it. A small cursor taps the jacket, the page holds a beat, then the phone "closes" (slides down) and the jacket card is left floating alone. Logo watermark small at top. | `👀 شفت` · `👋 فلّيت` |
+| 01 HOOK | 01 | **0–1.2s, a teaser of the twist (no build-up, no fade-in):** at frame 0 the jacket card is already big in the center, and in the first 0.3s it pops into three feed screens around it, one after another, each with a notification pop. At about 0.8s the jacket card lunges toward the camera and `لاحقك؟` stamps in big, orange, with a short shake. **1.2s, rewind:** a quick reverse-scrub (the screens fly back the way they came, with a small `⏪`) lands on a phone with an abstract shop page (no brand). As Salem says line 01, a cursor taps the jacket, the phone slides down, and the jacket card is left floating alone. No logo. | `لاحقك؟` · `⏪` · `👀 شفت` · `👋 فلّيت` |
 | 02 FOLLOW | 02 | Three phone screens slide in one after another, each a simple feed layout labeled with a plain word. On each one the same jacket card pops into the feed. On the third, the card drifts slightly toward the camera, like it's following the viewer. | `Instagram` · `YouTube` · `بكل مكان` |
-| 03 FREEZE | 03 | Everything dims and blurs. The question rises in the center, then `لأ` stamps in orange under it. | `صدفة؟` · `لأ.` |
-| 04 TERM | 04–05 | `Retargeting` lands huge. Under it, a simple loop arrow draws itself from a person icon back to the person icon (out and back). Then the definition line appears. | `Retargeting` · `توصل مرة تانية للي شافوك… وما اشتروا` |
-| 05 SHOP | 06–07 | Line-drawn shop front with a door. A simple person icon walks in, stands by the jacket on a rail, then walks out. Later the person icon passes the door again; a speech bubble from the shop pops up with the line. | `فات ✓` · `جرّب ✓` · `اشترى ✗` · bubble: `بعدها القطعة ناطرتك` |
+| 03 FREEZE | 03 | Everything dims and blurs. The question rises in the center, then `لأ` stamps in orange under it. | `صدفة؟` · `لأ.` (**bottom subtitle hidden** for this line) |
+| 04 TERM | 04–05 | `Retargeting` lands huge. Under it, a simple loop arrow draws itself from a person icon back to the person icon (out and back). Then the definition line appears. | `Retargeting` · `👁 ← ✗ ← 🔁` (icons only, no sentence) |
+| 05 SHOP | 06–07 | Line-drawn shop front with a door. A simple person icon walks in, stands by the jacket on a rail, then walks out. Later the person icon passes the door again; a speech bubble from the shop pops up with the line. | `فات ✓` · `جرّب ✓` · `اشترى ✗` · bubble: `👋` (the line itself stays in the subtitle) |
 | 06 PIXEL | 08 | The shop dissolves into a website outline. The salesperson becomes the orange Pixel dot in the corner of the page. As a cursor visits two pages (the product page, then the cart), the dot pulses and draws a small line to a mini "memory" list. | `PIXEL = البيّاع` · list: `فات ✓` · `صفحة الجاكيت ✓` |
 | 07 WARM | 09 | Two person icons side by side. The left one is grey, labeled as a stranger, with a long dotted path to the shop. The right one is orange, labeled as someone who knows you, with a short path. | `ما بيعرفك` · `بيعرفك` · `مش من الصفر` |
-| 08 DON'T REPEAT | 10 | The same jacket ad stacks on itself 5 times, quickly, like a deck of cards, each slightly more faded. A tired emoji face appears and the stack slides away. | `نفس الإعلان كل يوم = 😴` |
-| 09 THE RULES | 11–12 | The strongest beat. Three rows build down the screen, one per spoken rule, each with an icon on the right (RTL) and the message on the left: eye → "show it again", cart → "it's still waiting", check mark → ad switches off (row turns gold, the ad thumbnail fades out). | `👁 شاف المنتج ← فرجيه ياه مرة تانية` · `🛒 حطّو بالسلة ← ذكّرو` · `✓ اشترى ← وقّف الإعلان` |
-| 10 LINE | 13 | Calm type beat. First line appears, then a pause, then the second line with `فات وفلّ` in orange. Slow push-in. | `مش كل إعلان لازم يحكي مع ناس جداد.` · `أقرب زبون… هوي اللي فات وفلّ.` |
+| 08 DON'T REPEAT | 10 | The same jacket ad stacks on itself 5 times, quickly, like a deck of cards, each slightly more faded. A tired emoji face appears and the stack slides away. | `×5 = 😴` |
+| 09 THE RULES | 11–12 | The strongest beat. Three rows build down the screen, one per spoken rule, each with an icon on the right (RTL) and the message on the left: eye → "show it again", cart → "it's still waiting", check mark → ad switches off (row turns gold, the ad thumbnail fades out). | `👁 شاف ← 🔁` · `🛒 بالسلة ← 🔔` · `✓ اشترى ← ⛔` (short labels and icons) |
+| 10 LINE | 13 | Calm type beat. First line appears, then a pause, then the second line with `فات وفلّ` in orange. Slow push-in. | `مش كل إعلان لازم يحكي مع ناس جداد.` · `أقرب زبون… هوي اللي فات وفلّ.` (**bottom subtitle hidden** for this line) |
 | 11 CTA | 14 | A large comment bubble with the word, and the Pixel dot pulsing next to it. | `اكتب PIXEL 👇` · `ومنقلّك كيف تتأكد` |
 | 12 END CARD | none | The logo fades in with a 0.97→1 scale on charcoal, with the Reignite chime. About 3s. No extra text. | (logo only) |
 
@@ -113,9 +124,9 @@ If an emoji doesn't render in the brand font, replace it with a simple line icon
 
 ## 5. Audio
 
-- **VO:** the chosen Fadi take, the loudest element. Normalize the full mix to about −14 LUFS integrated.
-- **Music:** the same dark minimal electronic bed as the earlier episodes, ducked well under the VO.
-- **SFX (subtle):** a soft tap when the cursor clicks the jacket (scene 01), three light "pop" notification sounds as the jacket appears in each feed (scene 02), a short stop/silence beat on `لأ` (scene 03), a shop door bell when the person enters (scene 05), a tiny digital blip each time the Pixel pulses (scene 06), quick card-flick sounds for the stacked ads (scene 08), a soft positive click when the row turns gold (scene 09), and the Reignite chime on the end card.
+- **VO:** Salem's recording, the loudest element. Normalize the full mix to about −14 LUFS integrated.
+- **Music:** the same dark minimal electronic bed as the earlier episodes, ducked well under the VO. It starts at frame 0, with no fade-in.
+- **SFX (subtle):** three quick notification pops from frame 0, a whoosh-thud when `لاحقك؟` stamps, a short tape-rewind zip on `⏪`, then a soft tap when the cursor clicks the jacket (scene 01), three light "pop" notification sounds as the jacket appears in each feed (scene 02), a short stop/silence beat on `لأ` (scene 03), a shop door bell when the person enters (scene 05), a tiny digital blip each time the Pixel pulses (scene 06), quick card-flick sounds for the stacked ads (scene 08), a soft positive click when the row turns gold (scene 09), and the Reignite chime on the end card.
 - Salem may add a trending sound inside Instagram, so keep the music low enough that this still works.
 
 ---
@@ -151,10 +162,12 @@ Same template every episode: charcoal background, small `شو يعني؟` at the
 
 ## 8. Done checklist for Claude Code
 
-- [ ] Chosen Fadi take in place; timings mapped from the audio (Scribe)
+- [ ] Salem's own recording kept; script unchanged; first word within ~0.15s of the start; all timings still synced
+- [ ] Hook: frame 0 already shows the jacket card (no empty or black first frame); `لاحقك؟` on screen by about 1s; no logo before the end card
 - [ ] Composition is **1080×1920 at 30fps**
 - [ ] Every on-screen string matches section 4 exactly, with Arabic shaped correctly in RTL
 - [ ] Arabic subtitles synced, only the listed key terms in English and orange, inside the safe area
+- [ ] No sentence appears twice on screen (subtitle hidden on the LINE beat; center shows labels only)
 - [ ] Only brand colors; no platform logos or colors; no real brands, people or screenshots; logo untouched
 - [ ] `npm run check` passes in the composition folder
 - [ ] Rendered `retargeting-explained.mp4` (1080×1920, 30fps) + `cover.png`

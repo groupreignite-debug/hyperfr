@@ -41,7 +41,7 @@ def We(i):
 
 
 # scene starts — keep in step with scripts/apply_cues.py
-SC = {"s2": W(8) - 0.25, "s3": W(19) - 0.15, "s4": W(21) - 0.3, "s5": W(34) - 0.4, "s6": W(56) - 0.4,
+SC = {"s2": W(8) - 0.25, "s3": W(19) - 0.15, "s4": W(21) - 0.3, "s5": W(34) - 0.15, "s6": W(56) - 0.4,
       "s7": W(71) - 0.35, "s8": W(84) - 0.35, "s9": W(94) - 0.35, "s10": W(113) - 0.4, "s11": W(129) - 0.35}
 F0, NO, F1 = SC["s3"], W(20), SC["s4"]          # freeze: صدفة؟ … لأ. (stop) … back in on Retargeting
 C0, C1 = SC["s10"], SC["s11"]                   # the calm line
@@ -118,7 +118,7 @@ def sub_pulse():
     while t < DUR:
         place(buf, kick, t)
         t += BEAT
-    gate = env([(0, 0), (0.3, 0.6), (F0 - 0.1, 0.8), (F0, 0), (F1, 0), (F1 + 0.2, 0.6), (SC["s5"], 0.65),
+    gate = env([(0, 0.6), (F0 - 0.1, 0.8), (F0, 0), (F1, 0), (F1 + 0.2, 0.6), (SC["s5"], 0.65),
                 (SC["s6"], 0.7), (SC["s9"], 0.8), (C0 - 0.1, 0.5), (C0, 0), (C1, 0), (C1 + 0.1, 0.7),
                 (END - 0.1, 0.2), (END, 0), (DUR, 0)])
     return np.stack([buf * gate] * 2, 1) * 0.45
@@ -134,7 +134,7 @@ def hats():
         place(buf, hat, t, 0.6 if k % 2 else 0.22)
         t += step
         k += 1
-    gate = env([(0, 0), (1.0, 0.5), (F0 - 0.1, 0.6), (F0, 0), (F1, 0), (F1 + 0.2, 0.6), (SC["s6"], 0.7),
+    gate = env([(0, 0.5), (F0 - 0.1, 0.6), (F0, 0), (F1, 0), (F1 + 0.2, 0.6), (SC["s6"], 0.7),
                 (SC["s9"], 0.8), (C0, 0), (C1, 0), (C1 + 0.1, 0.6), (END, 0), (DUR, 0)])
     l = buf * gate
     r = np.roll(buf, int(0.011 * SR)) * gate
@@ -180,8 +180,8 @@ def end_pad():
 
 
 music = drone() + sub_pulse() + hats() + plucks() + air() + end_pad()
-# FREEZE dims the bed; "لأ." is a hard stop (silence) until Retargeting lands
-master = env([(0, 0), (0.25, 0.75), (F0 - 0.1, 0.85), (F0 + 0.05, 0.2), (NO - 0.05, 0.2), (NO, 0.0),
+# starts at frame 0 with no fade-in (brief, Oct 14). FREEZE dims the bed; "لأ." is a hard stop (silence) until Retargeting lands
+master = env([(0, 0.75), (F0 - 0.1, 0.85), (F0 + 0.05, 0.2), (NO - 0.05, 0.2), (NO, 0.0),
               (F1 - 0.05, 0.0), (F1 + 0.3, 0.75), (SC["s6"], 0.8), (SC["s9"], 0.9), (C0 - 0.1, 0.7),
               (C0 + 0.3, 0.45), (C1 - 0.1, 0.45), (C1 + 0.2, 0.85), (END, 0.7), (DUR - 0.4, 0.25), (DUR, 0)])
 music *= master[:, None]
@@ -287,6 +287,17 @@ def positive():
     return stereo((a * 0.6 + b) * (1 - np.exp(-t * 800))) * 0.35
 
 
+def rewind():
+    """Tape-rewind zip: a fast falling squeal over scrubby noise, ~0.38s."""
+    L = int(0.38 * SR)
+    t = np.arange(L) / SR
+    f = 2600 * np.exp(-t * 4.5) + 300
+    squeal = np.sin(2 * np.pi * np.cumsum(f) / SR) * 0.35
+    scrub = bp(rng.standard_normal(L), 1500, 6000) * (0.6 + 0.4 * np.sin(2 * np.pi * 38 * t))
+    s = (squeal + scrub * 0.5) * np.sin(np.pi * t / 0.38) ** 0.7
+    return stereo(s) * 0.55
+
+
 def chime():
     L = int(2.6 * SR)
     t = np.arange(L) / SR
@@ -297,12 +308,15 @@ def chime():
 
 GEN = {"impact": lambda: impact(False), "deep": lambda: impact(True), "click": click, "tap": tap, "tick": tick,
        "whoosh": lambda: whoosh(0.55), "whoosh_long": lambda: whoosh(0.9), "pop": notif_pop, "bell": bell,
-       "blip": blip, "flick": flick, "positive": positive, "chime": chime}
+       "blip": blip, "flick": flick, "positive": positive, "rewind": rewind, "chime": chime}
 
 # keep in step with the GSAP times in index.html
 SFX = []
-# 01 hook: tap on the jacket, the page closes
-SFX += [(0.2, "whoosh", 0.25), (W(5), "tap", 0.7), (W(7) - 0.1, "whoosh", 0.3)]
+# 01 hook: three notification pops from frame 0, whoosh-thud on لاحقك؟, tape-rewind zip on ⏪,
+# then the tap on the jacket and the page closing
+TAP = max(W(5), 1.9)
+SFX += [(0.05, "pop", 0.6), (0.17, "pop", 0.6), (0.29, "pop", 0.65), (0.68, "whoosh", 0.35), (0.82, "impact", 0.6),
+        (1.18, "rewind", 0.6), (TAP, "tap", 0.7), (W(7) - 0.1, "whoosh", 0.3)]
 # 02 follow: three feed pops
 SFX += [(W(13) - 0.25, "whoosh", 0.2), (W(14) + 0.42, "pop", 0.6), (W(16) + 0.02, "pop", 0.6), (W(17) + 0.07, "pop", 0.65)]
 # 03 freeze: the stop on "لأ."

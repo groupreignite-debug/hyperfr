@@ -96,9 +96,11 @@
       .rule { position: absolute; left: 90px; width: 900px; height: 240px; border-radius: 30px; border: 2px solid var(--paper-14); background: rgba(245, 241, 234, 0.03); }
       .rule .ico { position: absolute; right: 34px; top: 56px; width: 128px; height: 128px; border-radius: 50%; border: 3px solid var(--paper-14); color: var(--orange); display: flex; align-items: center; justify-content: center; }
       .rule .ico [data-ic] { width: 62px; height: 62px; }
-      .rule .cond { position: absolute; right: 196px; top: 48px; font-size: 54px; font-weight: 800; white-space: nowrap; }
-      .rule .cons { position: absolute; right: 196px; top: 134px; height: 64px; display: flex; align-items: center; gap: 16px; font-size: 46px; font-weight: 700; color: var(--orange); white-space: nowrap; }
-      .rule .cons [data-ic] { width: 44px; height: 44px; }
+      .rule .rline { position: absolute; right: 196px; top: 0; height: 240px; display: flex; align-items: center; gap: 30px; white-space: nowrap; }
+      .rule .cond { font-size: 64px; font-weight: 800; }
+      .rule .rc { display: flex; align-items: center; gap: 26px; color: var(--orange); }
+      .rule .rarr { width: 52px; height: 52px; color: var(--paper-55); }
+      .rule .rres { width: 80px; height: 80px; }
 
       /* subtitles: one line at a time, bottom safe area (above the bottom 300px, clear of the right-edge icons) */
       #subs { pointer-events: none; }
@@ -113,10 +115,10 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0.0" data-duration="60.52" data-width="1080" data-height="1920">
+    <div id="root" data-composition-id="main" data-start="0.0" data-duration="60.24" data-width="1080" data-height="1920">
 
       <!-- ================= GROUND (grid, marks, travelling glow, progress) ================= -->
-      <div id="ground" class="clip" data-start="0.0" data-duration="60.52" data-track-index="0">
+      <div id="ground" class="clip" data-start="0.0" data-duration="60.24" data-track-index="0">
         <div id="grid" data-layout-allow-overflow></div>
         <svg id="marks" viewBox="0 0 1080 1920">
           <path d="M138 432h20M148 422v20 M922 432h20M932 422v20 M138 1380h20M148 1370v20 M922 1380h20M932 1370v20" />
@@ -127,8 +129,8 @@
         <div id="prog"><div id="progfill"></div></div>
       </div>
 
-      <!-- ================= 01 HOOK: the shop page, the tap, the jacket left behind ================= -->
-      <section id="s1" class="clip" data-start="0.0" data-duration="3.35" data-track-index="1">
+      <!-- ================= 01 HOOK: twist teaser (frame 0 full) → rewind → the shop page, the tap, the jacket left behind ================= -->
+      <section id="s1" class="clip" data-start="0.0" data-duration="3.07" data-track-index="1">
         <div id="ph1" class="phone" style="left: 330px; top: 430px; width: 420px; height: 820px" data-layout-allow-overflow>
           <div class="bar" style="left: 150px; top: 22px; width: 120px; height: 10px"></div>
           <div class="bar" style="left: 40px; top: 70px; width: 120px"></div>
@@ -139,7 +141,22 @@
           <div class="abs" style="left: 40px; top: 610px; width: 340px; height: 80px; border-radius: 40px; border: 2px solid var(--paper-14)"></div>
           <div class="bar" style="left: 40px; top: 730px; width: 340px; height: 10px"></div>
         </div>
+        <!-- teaser: the jacket is already in every feed before the voice gets there -->
+        <div id="tf1" class="abs" style="left: 720px; top: 950px; width: 270px; height: 430px" data-layout-allow-overflow>
+          <div class="phone feed" style="left: 0; top: 0; width: 270px; height: 430px; border-radius: 40px"></div>
+          <div id="tj1" class="jc sm" data-jacket style="left: 25px; top: 131px; width: 220px; height: 220px"></div>
+        </div>
+        <div id="tf2" class="abs" style="left: 405px; top: 950px; width: 270px; height: 430px" data-layout-allow-overflow>
+          <div class="phone feed" style="left: 0; top: 0; width: 270px; height: 430px; border-radius: 40px"></div>
+          <div id="tj2" class="jc sm" data-jacket style="left: 25px; top: 131px; width: 220px; height: 220px"></div>
+        </div>
+        <div id="tf3" class="abs" style="left: 90px; top: 950px; width: 270px; height: 430px" data-layout-allow-overflow>
+          <div class="phone feed" style="left: 0; top: 0; width: 270px; height: 430px; border-radius: 40px"></div>
+          <div id="tj3" class="jc sm" data-jacket style="left: 25px; top: 131px; width: 220px; height: 220px"></div>
+        </div>
         <div id="j1" class="jc" data-jacket style="left: 370px; top: 560px; width: 340px; height: 340px" data-layout-allow-overflow></div>
+        <div id="hk" class="row ar or" data-layout-allow-overflow style="top: 1050px; font-size: 210px; font-weight: 900; line-height: 1.3">لاحقك؟</div>
+        <svg id="rew" class="abs" style="left: 480px; top: 330px; width: 120px; height: 120px" viewBox="0 0 24 24"><path d="M11 19 2 12l9-7v14Z M22 19l-9-7 9-7v14Z" fill="#FF4D1A" /></svg>
         <i id="r1" class="ring" style="left: 560px; top: 740px"></i>
         <div id="cur1" class="cursor" data-cursor style="left: 0; top: 0" data-layout-allow-overflow></div>
         <div class="row ar" style="top: 1300px; height: 92px; display: flex; justify-content: center; gap: 40px">
@@ -148,15 +165,8 @@
         </div>
       </section>
 
-      <!-- hook watermark: the supplied logo, composited with lighten so its black field sits on the charcoal -->
-      <section id="s1l" class="clip logo-clip" data-start="0.0" data-duration="3.8" data-track-index="4">
-        <div class="logo-frame" style="left: 405px; top: 262px; width: 270px; height: 152px">
-          <img id="s1logo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
-        </div>
-      </section>
-
       <!-- ================= 02 FOLLOW: the jacket pops into every feed (dimmed behind 03) ================= -->
-      <section id="s2" class="clip" data-start="3.35" data-duration="5.47" data-track-index="1">
+      <section id="s2" class="clip" data-start="3.07" data-duration="5.47" data-track-index="1">
         <div id="s2in" class="abs" style="inset: 0">
           <div id="lb3" class="row ar" style="top: 470px; left: 90px; right: auto; width: 300px; font-size: 42px; font-weight: 700">بكل مكان</div>
           <div id="lb2" class="row en" style="top: 470px; left: 390px; right: auto; width: 300px; font-size: 42px; font-weight: 700">YouTube</div>
@@ -171,13 +181,13 @@
       </section>
 
       <!-- ================= 03 FREEZE: صدفة؟ لأ. ================= -->
-      <section id="s3" class="clip" data-start="7.17" data-duration="1.65" data-track-index="2">
+      <section id="s3" class="clip" data-start="6.89" data-duration="1.65" data-track-index="2">
         <div id="s3q" class="row ar" style="top: 640px; font-size: 150px; font-weight: 800; line-height: 1.4">صدفة؟</div>
         <div id="s3n" data-layout-allow-overflow class="row ar or" style="top: 880px; font-size: 230px; font-weight: 900; line-height: 1.3">لأ.</div>
       </section>
 
       <!-- ================= 04 TERM: Retargeting + the loop out and back ================= -->
-      <section id="s4" class="clip" data-start="8.82" data-duration="5.2" data-track-index="1">
+      <section id="s4" class="clip" data-start="8.54" data-duration="5.45" data-track-index="1">
         <div id="s4caret" class="abs" style="left: 536px; top: 470px; width: 8px; height: 150px; background: var(--orange)"></div>
         <div id="s4word" class="row en or" style="top: 440px; font-size: 168px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.2"></div>
         <div id="s4p" class="person" data-person style="left: 196px; top: 760px; width: 100px; height: 166px; color: var(--paper)"></div>
@@ -188,16 +198,17 @@
           <path id="s4back" d="M790 240 C 680 350, 470 350, 330 250" fill="none" stroke="#FF4D1A" stroke-width="6" stroke-linecap="round" />
           <path id="s4head" d="M352 222 L326 248 L362 258" fill="none" stroke="#FF4D1A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-        <div class="row ar" style="top: 1110px; font-size: 60px; font-weight: 600; line-height: 1.4">
-          <span class="w s4d">توصل</span> <span class="w s4d">مرة</span> <span class="w s4d">تانية</span> <span class="w s4d">للي</span> <span class="w s4d">شافوك…</span>
-        </div>
-        <div class="row ar or" style="top: 1220px; font-size: 68px; font-weight: 800; line-height: 1.4">
-          <span class="w s4e">وما</span> <span class="w s4e">اشتروا</span>
+        <div class="row ar" style="top: 1120px; height: 140px; display: flex; justify-content: center; align-items: center; gap: 30px">
+          <i id="s4i1" data-ic="eye" style="width: 104px; height: 104px; color: var(--paper)"></i>
+          <i id="s4a1" data-ic="arrow" style="width: 60px; height: 60px; color: var(--paper-55)"></i>
+          <i id="s4i2" data-ic="x" style="width: 96px; height: 96px; color: var(--paper)"></i>
+          <i id="s4a2" data-ic="arrow" style="width: 60px; height: 60px; color: var(--paper-55)"></i>
+          <i id="s4i3" data-ic="repeat" style="width: 104px; height: 104px; color: var(--orange)"></i>
         </div>
       </section>
 
       <!-- ================= 05 SHOP: came in, tried, left — then the salesperson remembers ================= -->
-      <section id="s5" class="clip" data-start="14.02" data-duration="9.06" data-track-index="1">
+      <section id="s5" class="clip" data-start="13.99" data-duration="8.81" data-track-index="1">
         <svg id="shop" class="abs draw" style="left: 0; top: 0; width: 1080px; height: 1920px" viewBox="0 0 1080 1920">
           <path class="sp" pathLength="1" d="M90 1150 H990" />
           <path class="sp" pathLength="1" d="M230 1150 V700 M850 1150 V700" />
@@ -213,10 +224,10 @@
         <div id="sales5" class="person" data-person style="left: 700px; top: 1006px; width: 74px; height: 124px; color: var(--orange)"></div>
         <div id="p5in" class="person" data-person style="left: 530px; top: 920px; width: 62px; height: 104px; color: var(--paper)"></div>
         <div id="p5" class="person" data-person style="left: 0; top: 1018px; width: 80px; height: 132px; color: var(--paper)" data-layout-allow-overflow></div>
-        <svg id="bub5" class="abs" style="left: 160px; top: 380px; width: 760px; height: 220px" viewBox="0 0 760 220">
-          <path d="M40 10 H720 Q750 10 750 40 V140 Q750 170 720 170 H600 L585 212 L555 170 H40 Q10 170 10 140 V40 Q10 10 40 10 Z" fill="#1A1A1A" stroke="#FF4D1A" stroke-width="5" stroke-linejoin="round" />
+        <svg id="bub5" class="abs" style="left: 610px; top: 400px; width: 260px; height: 200px" viewBox="0 0 260 200">
+          <path d="M36 10 H224 Q250 10 250 36 V124 Q250 150 224 150 H150 L128 192 L112 150 H36 Q10 150 10 124 V36 Q10 10 36 10 Z" fill="#1A1A1A" stroke="#FF4D1A" stroke-width="5" stroke-linejoin="round" />
         </svg>
-        <div id="bub5t" class="row ar" style="top: 410px; left: 170px; right: auto; width: 740px; height: 150px; display: flex; align-items: center; justify-content: center; font-size: 56px; font-weight: 700">بعدها القطعة&nbsp;<span class="or">ناطرتك</span></div>
+        <div id="bub5t" class="abs" style="left: 610px; top: 410px; width: 260px; height: 140px; display: flex; align-items: center; justify-content: center"><i data-ic="hand" class="or" style="width: 84px; height: 84px"></i></div>
         <div class="row ar" style="top: 1210px; height: 92px; display: flex; justify-content: center; gap: 30px">
           <div id="c5a" class="chip"><span>فات</span><i data-ic="check" class="or"></i></div>
           <div id="c5b" class="chip"><span>جرّب</span><i data-ic="check" class="or"></i></div>
@@ -225,7 +236,7 @@
       </section>
 
       <!-- ================= 06 PIXEL: the salesperson becomes the dot ================= -->
-      <section id="s6" class="clip" data-start="23.08" data-duration="6.41" data-track-index="1">
+      <section id="s6" class="clip" data-start="22.8" data-duration="6.41" data-track-index="1">
         <div id="s6lab" class="row en" style="top: 330px; height: 110px; display: flex; justify-content: center; align-items: center; gap: 28px">
           <span class="or" style="font-size: 92px; font-weight: 900; letter-spacing: 0.02em">PIXEL</span>
           <span style="font-size: 80px; font-weight: 400; color: var(--paper-55)">=</span>
@@ -272,7 +283,7 @@
       </section>
 
       <!-- ================= 07 WARM: stranger vs someone who knows you ================= -->
-      <section id="s7" class="clip" data-start="29.49" data-duration="5.08" data-track-index="1">
+      <section id="s7" class="clip" data-start="29.21" data-duration="5.08" data-track-index="1">
         <svg class="abs draw s7shop" style="left: 190px; top: 400px; width: 160px; height: 140px" viewBox="0 0 160 140">
           <path pathLength="1" d="M10 40 L30 6 H130 L150 40 Z M22 40 V134 H138 V40 M66 134 V84 H94 V134" />
         </svg>
@@ -289,40 +300,37 @@
       </section>
 
       <!-- ================= 08 DON'T REPEAT: the same ad, five times ================= -->
-      <section id="s8" class="clip" data-start="34.57" data-duration="4.0" data-track-index="1">
+      <section id="s8" class="clip" data-start="34.29" data-duration="4.0" data-track-index="1">
         <div id="deck" class="abs" style="inset: 0" data-layout-allow-overflow></div>
-        <div class="row ar" style="top: 1130px; height: 120px; display: flex; justify-content: center; align-items: center; gap: 28px">
-          <span id="s8t" style="font-size: 66px; font-weight: 700">نفس الإعلان كل يوم</span>
+        <div class="row en" style="top: 1130px; height: 120px; display: flex; justify-content: center; align-items: center; gap: 28px">
+          <span id="s8t" style="font-size: 104px; font-weight: 900; letter-spacing: -0.02em">×5</span>
           <span id="s8eq" style="font-size: 70px; font-weight: 400; color: var(--paper-55)">=</span>
           <i id="s8face" data-ic="sleepy" style="width: 112px; height: 112px; color: var(--paper)"></i>
         </div>
       </section>
 
       <!-- ================= 09 THE RULES ================= -->
-      <section id="s9" class="clip" data-start="38.57" data-duration="8.19" data-track-index="1">
+      <section id="s9" class="clip" data-start="38.29" data-duration="8.19" data-track-index="1">
         <div id="rw1" class="rule ar" style="top: 450px">
           <div class="ico"><i data-ic="eye"></i></div>
-          <div class="cond">شاف المنتج</div>
-          <div class="cons rc"><i data-ic="arrow"></i><span>فرجيه ياه مرة تانية</span></div>
+          <div class="rline"><span class="cond">شاف</span><span class="rc"><i data-ic="arrow" class="rarr"></i><i data-ic="repeat" class="rres"></i></span></div>
           <div class="jc sm th" data-jacket style="left: 40px; top: 50px; width: 140px; height: 140px"></div>
         </div>
         <div id="rw2" class="rule ar" style="top: 730px">
           <div class="ico"><i data-ic="cart"></i></div>
-          <div class="cond">حطّو بالسلة</div>
-          <div class="cons rc"><i data-ic="arrow"></i><span>ذكّرو</span></div>
+          <div class="rline"><span class="cond">بالسلة</span><span class="rc"><i data-ic="arrow" class="rarr"></i><i data-ic="bell" class="rres"></i></span></div>
           <div class="jc sm th" data-jacket style="left: 40px; top: 50px; width: 140px; height: 140px"></div>
           <i id="rw2px" class="px" style="left: 162px; top: 34px"></i>
         </div>
         <div id="rw3" class="rule ar" style="top: 1010px">
           <div class="ico"><i data-ic="check"></i></div>
-          <div class="cond">اشترى</div>
-          <div class="cons rc"><i data-ic="arrow"></i><span>وقّف الإعلان</span></div>
+          <div class="rline"><span class="cond">اشترى</span><span class="rc"><i data-ic="arrow" class="rarr"></i><i data-ic="stop" class="rres"></i></span></div>
           <div class="jc sm th" data-jacket style="left: 40px; top: 50px; width: 140px; height: 140px"></div>
         </div>
       </section>
 
       <!-- ================= 10 THE LINE ================= -->
-      <section id="s10" class="clip" data-start="46.76" data-duration="5.59" data-track-index="1">
+      <section id="s10" class="clip" data-start="46.48" data-duration="5.59" data-track-index="1">
         <div id="s10in" class="abs" style="inset: 0">
           <div class="row ar" style="top: 560px; font-size: 64px; font-weight: 600; line-height: 1.4; color: var(--paper-70)">
             <span class="w a10">مش</span> <span class="w a10">كل</span> <span class="w a10">إعلان</span> <span class="w a10">لازم</span> <span class="w a10">يحكي</span>
@@ -340,7 +348,7 @@
       </section>
 
       <!-- ================= 11 CTA: comment PIXEL ================= -->
-      <section id="s11" class="clip" data-start="52.35" data-duration="5.17" data-track-index="1">
+      <section id="s11" class="clip" data-start="52.07" data-duration="5.17" data-track-index="1">
         <svg id="bub11" class="abs" style="left: 170px; top: 400px; width: 740px; height: 380px" viewBox="0 0 740 380">
           <path d="M60 14 H680 Q726 14 726 60 V250 Q726 296 680 296 H200 L120 364 L132 296 H60 Q14 296 14 250 V60 Q14 14 60 14 Z" fill="none" stroke="#FF4D1A" stroke-width="10" stroke-linejoin="round" />
         </svg>
@@ -356,26 +364,26 @@
       </section>
 
       <!-- ================= 12 END CARD — supplied logo, unmodified ================= -->
-      <section id="s12" class="clip logo-clip" data-start="57.52" data-duration="3.0" data-track-index="4">
+      <section id="s12" class="clip logo-clip" data-start="57.24" data-duration="3.0" data-track-index="4">
         <div class="logo-frame" style="left: 150px; top: 741px; width: 780px; height: 439px">
           <img id="s12logo" src="assets/reignite/reignite-group-logo.png" alt="Reignite Group" />
         </div>
       </section>
 
-      <div id="vig" class="clip" data-start="0.0" data-duration="60.52" data-track-index="3"></div>
+      <div id="vig" class="clip" data-start="0.0" data-duration="60.24" data-track-index="3"></div>
 
       <!-- ================= SUBTITLES (built from SUBS below) ================= -->
-      <section id="subs" class="clip" data-start="0.0" data-duration="57.52" data-track-index="5"></section>
+      <section id="subs" class="clip" data-start="0.0" data-duration="57.24" data-track-index="5"></section>
 
       <!-- ================= AUDIO ================= -->
-      <audio id="a-vo" src="audio/vo-human/vo_track.wav" data-start="0.0" data-duration="60.52" data-track-index="10" data-volume="1"></audio>
-      <audio id="a-music" src="audio/music.wav" data-start="0.0" data-duration="60.52" data-track-index="20" data-volume="1"></audio>
-      <audio id="a-sfx" src="audio/sfx.wav" data-start="0.0" data-duration="60.52" data-track-index="21" data-volume="1"></audio>
+      <audio id="a-vo" src="audio/vo-human/vo_track.wav" data-start="0.0" data-duration="60.24" data-track-index="10" data-volume="1"></audio>
+      <audio id="a-music" src="audio/music.wav" data-start="0.0" data-duration="60.24" data-track-index="20" data-volume="1"></audio>
+      <audio id="a-sfx" src="audio/sfx.wav" data-start="0.0" data-duration="60.24" data-track-index="21" data-volume="1"></audio>
     </div>
 
     <script>
       (function () {
-        /*CUES*/ const CUES = {"duration":60.52,"endcard":57.52,"scenes":{"s1":[0.0,3.35],"s1l":[0.0,3.8],"s2":[3.35,8.82],"s3":[7.17,8.82],"s4":[8.82,14.02],"s5":[14.02,23.08],"s6":[23.08,29.49],"s7":[29.49,34.57],"s8":[34.57,38.57],"s9":[38.57,46.76],"s10":[46.76,52.35],"s11":[52.35,57.52],"s12":[57.52,60.52],"subs":[0.0,57.52]},"words":[[0.4,0.68],[0.72,0.9],[0.94,1.1],[1.14,1.44],[1.5,1.76],[1.8,2.12],[2.18,2.4],[2.66,3.2],[3.6,3.76],[3.8,3.96],[4.0,4.12],[4.14,4.56],[4.6,4.98],[5.02,5.06],[5.1,5.62],[5.68,5.74],[5.78,6.14],[6.22,6.48],[6.52,6.88],[7.32,7.66],[8.24,8.42],[9.12,9.3],[9.32,9.58],[9.62,10.3],[10.84,10.98],[11.02,11.32],[11.34,11.62],[11.66,11.96],[12.04,12.18],[12.24,12.58],[12.6,12.88],[13.24,13.42],[13.46,13.54],[13.54,13.94],[14.42,14.72],[14.76,15.0],[15.16,15.54],[15.6,15.86],[15.92,16.24],[16.3,16.78],[16.8,17.18],[17.22,17.4],[17.44,17.5],[17.54,17.84],[18.36,18.72],[18.78,19.16],[19.2,19.28],[19.32,19.68],[20.12,20.26],[20.32,20.58],[20.62,20.8],[20.92,21.12],[21.16,21.28],[21.8,22.08],[22.04,22.32],[22.36,22.9],[23.48,23.62],[23.64,24.24],[24.36,24.48],[24.5,24.8],[24.86,25.02],[25.04,25.42],[26.04,26.2],[26.28,26.5],[26.54,27.06],[27.1,27.64],[27.68,27.8],[27.9,28.22],[28.46,28.62],[28.64,28.76],[28.84,29.22],[29.84,30.1],[30.14,30.42],[30.46,30.7],[31.159,31.3],[31.339,31.52],[31.54,31.88],[31.98,32.44],[32.52,32.6],[32.64,32.74],[32.78,33.16],[33.22,33.36],[33.38,33.44],[33.48,33.86],[34.92,35.08],[35.12,35.48],[36.02,36.08],[36.12,36.42],[36.46,36.68],[36.7,37.0],[37.06,37.18],[37.22,37.42],[37.7,37.9],[37.92,38.22],[38.92,39.1],[39.16,39.32],[39.38,39.92],[39.96,40.34],[40.38,40.38],[40.38,40.6],[40.66,40.92],[41.5,41.72],[41.78,42.06],[42.1,42.6],[43.02,43.32],[43.36,43.46],[43.5,43.74],[43.78,44.12],[44.76,44.96],[44.96,45.6],[45.66,45.9],[45.92,46.26],[46.32,46.52],[47.16,47.34],[47.38,47.58],[47.64,47.9],[47.94,48.22],[48.28,48.56],[48.6,48.72],[48.76,48.9],[49.02,49.36],[49.7,50.08],[50.1,50.34],[50.4,50.74],[51.02,51.02],[51.02,51.2],[51.22,51.4],[51.46,51.64],[51.7,51.98],[52.7,53.12],[53.16,53.32],[53.36,53.72],[54.12,54.42],[54.46,54.72],[54.76,54.9],[54.94,55.38],[55.78,56.24],[56.24,56.34],[56.38,56.92]],"lines":{"01":{"s":0.4,"e":3.2,"w":[0,7]},"02":{"s":3.6,"e":6.88,"w":[8,18]},"03":{"s":7.32,"e":8.42,"w":[19,20]},"04":{"s":9.12,"e":10.3,"w":[21,23]},"05":{"s":10.84,"e":13.94,"w":[24,33]},"06":{"s":14.42,"e":17.84,"w":[34,43]},"07":{"s":18.36,"e":22.9,"w":[44,55]},"08":{"s":23.48,"e":29.22,"w":[56,70]},"09":{"s":29.84,"e":33.86,"w":[71,83]},"10":{"s":34.92,"e":38.22,"w":[84,93]},"11":{"s":38.92,"e":44.12,"w":[94,107]},"12":{"s":44.76,"e":46.52,"w":[108,112]},"13":{"s":47.16,"e":51.98,"w":[113,128]},"14":{"s":52.7,"e":56.92,"w":[129,138]}}}; /*END CUES*/
+        /*CUES*/ const CUES = {"duration":60.24,"endcard":57.24,"scenes":{"s1":[0.0,3.07],"s2":[3.07,8.54],"s3":[6.89,8.54],"s4":[8.54,13.99],"s5":[13.99,22.8],"s6":[22.8,29.21],"s7":[29.21,34.29],"s8":[34.29,38.29],"s9":[38.29,46.48],"s10":[46.48,52.07],"s11":[52.07,57.24],"s12":[57.24,60.24],"subs":[0.0,57.24]},"words":[[0.12,0.4],[0.44,0.62],[0.66,0.82],[0.86,1.16],[1.22,1.48],[1.52,1.84],[1.9,2.12],[2.38,2.92],[3.32,3.48],[3.52,3.68],[3.72,3.84],[3.86,4.28],[4.32,4.7],[4.74,4.78],[4.82,5.34],[5.4,5.46],[5.5,5.86],[5.94,6.2],[6.24,6.6],[7.04,7.38],[7.96,8.14],[8.84,9.02],[9.04,9.3],[9.34,10.02],[10.56,10.7],[10.74,11.04],[11.06,11.34],[11.38,11.68],[11.76,11.9],[11.96,12.3],[12.32,12.6],[12.96,13.14],[13.18,13.26],[13.26,13.66],[14.14,14.44],[14.48,14.72],[14.88,15.26],[15.32,15.58],[15.64,15.96],[16.02,16.5],[16.52,16.9],[16.94,17.12],[17.16,17.22],[17.26,17.56],[18.08,18.44],[18.5,18.88],[18.92,19.0],[19.04,19.4],[19.84,19.98],[20.04,20.3],[20.34,20.52],[20.64,20.84],[20.88,21.0],[21.52,21.8],[21.76,22.04],[22.08,22.62],[23.2,23.34],[23.36,23.96],[24.08,24.2],[24.22,24.52],[24.58,24.74],[24.76,25.14],[25.76,25.92],[26.0,26.22],[26.26,26.78],[26.82,27.36],[27.4,27.52],[27.62,27.94],[28.18,28.34],[28.36,28.48],[28.56,28.94],[29.56,29.82],[29.86,30.14],[30.18,30.42],[30.879,31.02],[31.059,31.24],[31.26,31.6],[31.7,32.16],[32.24,32.32],[32.36,32.46],[32.5,32.88],[32.94,33.08],[33.1,33.16],[33.2,33.58],[34.64,34.8],[34.84,35.2],[35.74,35.8],[35.84,36.14],[36.18,36.4],[36.42,36.72],[36.78,36.9],[36.94,37.14],[37.42,37.62],[37.64,37.94],[38.64,38.82],[38.88,39.04],[39.1,39.64],[39.68,40.06],[40.1,40.1],[40.1,40.32],[40.38,40.64],[41.22,41.44],[41.5,41.78],[41.82,42.32],[42.74,43.04],[43.08,43.18],[43.22,43.46],[43.5,43.84],[44.48,44.68],[44.68,45.32],[45.38,45.62],[45.64,45.98],[46.04,46.24],[46.88,47.06],[47.1,47.3],[47.36,47.62],[47.66,47.94],[48.0,48.28],[48.32,48.44],[48.48,48.62],[48.74,49.08],[49.42,49.8],[49.82,50.06],[50.12,50.46],[50.74,50.74],[50.74,50.92],[50.94,51.12],[51.18,51.36],[51.42,51.7],[52.42,52.84],[52.88,53.04],[53.08,53.44],[53.84,54.14],[54.18,54.44],[54.48,54.62],[54.66,55.1],[55.5,55.96],[55.96,56.06],[56.1,56.64]],"lines":{"01":{"s":0.12,"e":2.92,"w":[0,7]},"02":{"s":3.32,"e":6.6,"w":[8,18]},"03":{"s":7.04,"e":8.14,"w":[19,20]},"04":{"s":8.84,"e":10.02,"w":[21,23]},"05":{"s":10.56,"e":13.66,"w":[24,33]},"06":{"s":14.14,"e":17.56,"w":[34,43]},"07":{"s":18.08,"e":22.62,"w":[44,55]},"08":{"s":23.2,"e":28.94,"w":[56,70]},"09":{"s":29.56,"e":33.58,"w":[71,83]},"10":{"s":34.64,"e":37.94,"w":[84,93]},"11":{"s":38.64,"e":43.84,"w":[94,107]},"12":{"s":44.48,"e":46.24,"w":[108,112]},"13":{"s":46.88,"e":51.7,"w":[113,128]},"14":{"s":52.42,"e":56.64,"w":[129,138]}}}; /*END CUES*/
         const $ = (s) => document.querySelector(s);
         const $$ = (s) => Array.from(document.querySelectorAll(s));
         const ORANGE = "#FF4D1A", GOLD = "#FFB000";
@@ -393,7 +401,7 @@
           [4, "شفت جاكيت حلو… وفلّيت."],
           [8, "تاني يوم، صار الجاكيت لاحقك:"],
           [13, "عـ <b>Instagram</b>، عـ <b>YouTube</b>، بكل مكان."],
-          [19, "صدفة؟ لأ."],
+          // [19] صدفة؟ لأ. — hidden: the FREEZE shows it big in the centre (one text layer rule)
           [21, "هيدا اسمو <b>Retargeting</b>."],
           [24, "يعني ترجع توصل للناس اللي شافوك قبل،"],
           [31, "بس ما اشتروا."],
@@ -413,10 +421,9 @@
           [94, "اللي شاف المنتج، فرجيه مرة تانية."],
           [101, "واللي حطّو بالسلة، ذكّرو إنو بعدو ناطرو."],
           [108, "وإذا اشترى؟ وقّف الإعلان عنو."],
-          [113, "مش كل إعلان لازم يحكي مع ناس جداد."],
-          [121, "أحياناً أقرب زبون… هوي اللي فات وفلّ."],
+          // [113], [121] line 13 — hidden: the LINE beat shows it big in the centre
           [129, "موقعك فيه <b>Pixel</b>؟"],
-          [132, "اكتب <b>PIXEL</b> بالكومنت، ومنقلّك كيف تتأكد."],
+          // [132] اكتب PIXEL… — hidden: the CTA shows it big in the centre
         ];
         const LINE_END = Object.values(CUES.lines).map((l) => [l.w[0], l.w[1], l.e]);
         const lineEndFor = (wi) => LINE_END.find(([a, b]) => wi >= a && wi <= b)[2];
@@ -429,6 +436,9 @@
           check: '<path d="M20 6 9 17l-5-5"/>',
           x: '<path d="M18 6 6 18M6 6l12 12"/>',
           arrow: '<path d="M20 12H4M10 6l-6 6 6 6"/>',
+          repeat: '<path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>',
+          bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+          stop: '<circle cx="12" cy="12" r="10"/><path d="M7 12h10"/>',
           sleepy: '<circle cx="11" cy="13.5" r="9"/><path d="M6.5 12q1.6 1.4 3.2 0M12.3 12q1.6 1.4 3.2 0"/><circle cx="11" cy="17.3" r="1.2"/><path d="M17.6 1.6h3.6l-3.6 3.6h3.6"/>',
         };
         const JACKET = '<svg viewBox="0 0 100 100"><path d="M38 14 L50 30 L62 14 M38 14 L22 20 L10 46 L22 52 L26 44 L26 88 L74 88 L74 44 L78 52 L90 46 L78 20 L62 14 M50 30 V88 M33 66 H43 M57 66 H67" fill="none" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="40" r="3.5" fill="#FF4D1A"/></svg>';
@@ -449,7 +459,7 @@
           const out = (el, t, d = 0.35) => tl.to(el, { opacity: 0, duration: d, ease: "power2.in" }, t);
           const pop = (el, t, d = 0.5) => tl.fromTo(el, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: d, ease: "back.out(2.2)" }, t);
           const pulse = (el, t, s = 1.08) => tl.fromTo(el, { scale: 1 }, { scale: s, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out" }, t);
-          const ring = (el, t) => tl.fromTo(el, { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 1.6, duration: 0.6, ease: "power2.out" }, t);
+          const ring = (el, t) => tl.fromTo(el, { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 1.6, duration: 0.6, ease: "power2.out", immediateRender: false }, t);
           const glow = (t, x, y, op, s = 1, d = 0.8) => tl.to("#glow", { x: x - 540, y: y - 960, opacity: op, scale: s, duration: d, ease: "power2.inOut" }, t);
           const words = (els, t, gap = 0.12, y = 34) => els.forEach((el, i) => rise(el, t + i * gap, 0.55, y));
 
@@ -466,7 +476,7 @@
             d.className = "sub";
             d.innerHTML = `<span>${html}</span>`;
             host.appendChild(d);
-            const t = W(wi);
+            const t = Math.max(0.06, W(wi));
             const next = i + 1 < SUBS.length ? W(SUBS[i + 1][0]) : END;
             const sameLine = i + 1 < SUBS.length && lineEndFor(SUBS[i + 1][0]) === lineEndFor(wi);
             const hide = sameLine ? next - 0.18 : Math.min(lineEndFor(wi) + 0.45, next - 0.18);
@@ -475,25 +485,41 @@
           });
 
           // ---------- 01 HOOK ----------
-          tl.fromTo("#s1logo", { opacity: 0 }, { opacity: 0.9, duration: 0.8, ease: "power1.out" }, 0.1);
-          tl.to("#s1logo", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, We(7) + 0.1);
-          rise("#ph1", 0.15, 0.7, 60);
-          tl.fromTo("#j1", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, 0.3);
-          tl.set(["#c1a", "#c1b"], { opacity: 0 }, 0);
-          tl.fromTo("#cur1", { x: 840, y: 1250, opacity: 0 }, { opacity: 1, duration: 0.3 }, W(3));
-          tl.to("#cur1", { x: 552, y: 742, duration: 0.6, ease: "power2.inOut" }, W(3));
-          tl.to("#cur1", { scale: 0.82, duration: 0.09, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "10% 10%" }, W(5));
-          ring("#r1", W(5));
-          pulse("#j1", W(5), 1.05);
-          tl.fromTo("#c1a", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, W(4));
-          // he leaves: the page closes, the jacket stays behind
-          tl.to("#cur1", { opacity: 0, duration: 0.3 }, We(6));
-          tl.to("#ph1", { y: 700, opacity: 0, duration: 0.7, ease: "power3.in" }, W(7) - 0.15);
-          tl.fromTo("#c1b", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, W(7));
-          tl.to("#j1", { y: 100, duration: 0.9, ease: "power2.inOut" }, W(7) + 0.1);
-          tl.to("#j1", { rotation: -3, duration: 0.6, yoyo: true, repeat: 1, ease: "sine.inOut" }, We(7));
-          glow(We(7), 540, 830, 0.55, 0.7, 0.6);
-          out(["#c1a", "#c1b"], SC("s1")[1] - 0.4, 0.3);
+          // 0–1.2s teaser of the twist: frame 0 is already full (jacket + three feeds), the jacket pops into
+          // each feed inside 0.3s, lunges at the camera and لاحقك؟ stamps at ~0.8s. Then a rewind to the setup.
+          const TAP = Math.max(W(5), 1.9);
+          tl.set(["#hk", "#rew", "#ph1", "#c1a", "#c1b"], { opacity: 0 }, 0);
+          tl.fromTo("#j1", { scale: 1, rotation: 0 }, { scale: 1.04, rotation: -2, duration: 0.3, ease: "sine.out" }, 0);
+          ["#tj1", "#tj2", "#tj3"].forEach((j, i) => tl.fromTo(j, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.6)" }, 0.05 + i * 0.12));
+          tl.to("#j1", { scale: 1.3, y: 30, rotation: 0, boxShadow: "0 50px 90px rgba(0,0,0,0.65)", duration: 0.24, ease: "power3.out" }, 0.78);
+          tl.to(["#tf1", "#tf2", "#tf3"], { opacity: 0.2, duration: 0.2 }, 0.8);
+          tl.fromTo("#hk", { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 0.22, ease: "expo.out", transformOrigin: "50% 55%" }, 0.82);
+          tl.to("#hk", { keyframes: { x: [0, -16, 13, -9, 6, 0] }, duration: 0.24, ease: "none" }, 1.0);
+          glow(0.8, 540, 1100, 0.85, 0.7, 0.25);
+          // rewind: everything flies back the way it came
+          tl.to("#rew", { opacity: 1, duration: 0.06 }, 1.18);
+          tl.to("#rew", { keyframes: { x: [0, -12, 0, -12, 0] }, duration: 0.36, ease: "none" }, 1.18);
+          tl.to("#rew", { opacity: 0, duration: 0.15 }, 1.55);
+          tl.to("#hk", { opacity: 0, scale: 0.8, duration: 0.15, ease: "power2.in" }, 1.2);
+          tl.to("#glow", { opacity: 0, duration: 0.25 }, 1.2);
+          tl.to("#tf1", { x: 640, opacity: 0, duration: 0.3, ease: "power2.in" }, 1.22);
+          tl.to("#tf2", { y: 820, opacity: 0, duration: 0.3, ease: "power2.in" }, 1.25);
+          tl.to("#tf3", { x: -640, opacity: 0, duration: 0.3, ease: "power2.in" }, 1.28);
+          tl.to("#j1", { scale: 1, y: 0, boxShadow: "0 18px 40px rgba(0,0,0,0.35)", duration: 0.32, ease: "power3.inOut" }, 1.22);
+          tl.fromTo("#ph1", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 1.38);
+          // the setup, as the voice tells it: saw it, tapped it, left
+          tl.fromTo("#c1a", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, Math.max(W(4), 1.6));
+          tl.fromTo("#cur1", { x: 840, y: 1250, opacity: 0 }, { opacity: 1, duration: 0.2 }, TAP - 0.5);
+          tl.to("#cur1", { x: 552, y: 742, duration: 0.45, ease: "power2.inOut" }, TAP - 0.5);
+          tl.to("#cur1", { scale: 0.82, duration: 0.09, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "10% 10%" }, TAP);
+          ring("#r1", TAP);
+          pulse("#j1", TAP, 1.05);
+          tl.to("#cur1", { opacity: 0, duration: 0.2 }, TAP + 0.25);
+          tl.to("#ph1", { y: 700, opacity: 0, duration: 0.6, ease: "power3.in" }, W(7) - 0.15);
+          tl.fromTo("#c1b", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, W(7));
+          tl.to("#j1", { y: 100, duration: 0.8, ease: "power2.inOut" }, W(7) + 0.05);
+          tl.to("#j1", { rotation: -3, duration: 0.5, yoyo: true, repeat: 1, ease: "sine.inOut" }, We(7) - 0.2);
+          out(["#c1a", "#c1b"], SC("s1")[1] - 0.35, 0.3);
 
           // ---------- 02 FOLLOW ----------
           const FOLLOW = SC("s2")[0];
@@ -533,7 +559,7 @@
           const cw = chs.reduce((a, c) => a + c.offsetWidth, 0);
           if (cw > 880) wch.style.fontSize = parseFloat(getComputedStyle(wch).fontSize) * (880 / cw) + "px";
           const T4 = SC("s4")[0];
-          tl.set([chs, "#s4p", "#s4j", ".s4d", ".s4e"], { opacity: 0 }, 0);
+          tl.set([chs, "#s4p", "#s4j", "#s4i1", "#s4a1", "#s4i2", "#s4a2", "#s4i3"], { opacity: 0 }, 0);
           tl.fromTo("#s4caret", { opacity: 0 }, { opacity: 1, duration: 0.15 }, T4 + 0.05);
           tl.to("#s4caret", { opacity: 0, duration: 0.08 }, T4 + 0.35);
           tl.to("#s4caret", { opacity: 1, duration: 0.08 }, T4 + 0.55);
@@ -549,8 +575,11 @@
           tl.fromTo("#s4head", { opacity: 0 }, { opacity: 1, duration: 0.15 }, W(25) + 0.75);
           pulse("#s4p", W(25) + 0.8, 1.1);
           tl.to("#glow", { opacity: 0, duration: 0.5 }, W(25));
-          words($$(".s4d"), W(26) - 0.1, 0.11, 28);
-          words($$(".s4e"), W(31) - 0.05, 0.14, 28);
+          // saw you → didn't buy → reach them again (icons only; the sentence stays in the subtitle)
+          pop("#s4i1", W(28) - 0.1, 0.4);
+          tl.fromTo(["#s4a1", "#s4i2"], { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.35, ease: E, stagger: 0.08 }, W(31) - 0.1);
+          tl.fromTo(["#s4a2", "#s4i3"], { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.35, ease: E, stagger: 0.08 }, W(32) - 0.05);
+          tl.to("#s4i3", { rotation: 180, duration: 0.5, ease: "power2.inOut" }, W(32) + 0.2);
           out("#s4 > *", SC("s4")[1] - 0.35, 0.3);
 
           // ---------- 05 SHOP ----------
@@ -655,7 +684,7 @@
             const rot = k === 0 ? 0 : (k % 2 ? -1 : 1) * (2 + k);
             tl.fromTo(c, { opacity: 0, x: 520, y: -k * 26, rotation: 16 }, { opacity: 1 - k * 0.15, x: 0, rotation: rot, duration: 0.35, ease: "power3.out" }, dealt[k]);
           });
-          rise("#s8t", W(88) - 0.05, 0.5, 24);
+          tl.fromTo("#s8t", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, W(91) + 0.1);
           tl.fromTo(["#s8eq", "#s8face"], { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)", stagger: 0.1 }, W(92));
           tl.to("#s8face", { rotation: -8, duration: 0.4, yoyo: true, repeat: 1, ease: "sine.inOut" }, W(93) + 0.2);
           tl.to(deck, { x: -900, rotation: -18, opacity: 0, duration: 0.5, ease: "power3.in", stagger: 0.03 }, We(93) + 0.05);

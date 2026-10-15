@@ -19,12 +19,11 @@ END, DUR = cues["endcard"], cues["duration"]
 
 # scene windows (each opens a little before its first word)
 SCENES = {
-    "s1": (0.0, w(8) - 0.25),            # hook: shop page, tap, the jacket left behind
-    "s1l": (0.0, we(7) + 0.6),           # logo watermark
+    "s1": (0.0, w(8) - 0.25),            # hook: twist teaser, rewind, shop page, tap, the jacket left behind
     "s2": (w(8) - 0.25, w(21) - 0.3),    # follow (dimmed behind the freeze)
     "s3": (w(19) - 0.15, w(21) - 0.3),   # freeze
-    "s4": (w(21) - 0.3, w(34) - 0.4),    # term
-    "s5": (w(34) - 0.4, w(56) - 0.4),    # shop
+    "s4": (w(21) - 0.3, w(34) - 0.15),   # term
+    "s5": (w(34) - 0.15, w(56) - 0.4),   # shop
     "s6": (w(56) - 0.4, w(71) - 0.35),   # pixel
     "s7": (w(71) - 0.35, w(84) - 0.35),  # warm
     "s8": (w(84) - 0.35, w(94) - 0.35),  # don't repeat

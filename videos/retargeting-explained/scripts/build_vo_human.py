@@ -21,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 VOH = ROOT / "audio" / "vo-human"
-LEAD = 0.4        # first spoken word lands here
+LEAD = 0.12       # first spoken word lands here (brief, Oct 15: within ~0.15s of the start)
 TAIL = 0.6        # after the last word, before the end card
 END_CARD = 3.0
 # first/last word slot of each script line (same as build_vo.py)

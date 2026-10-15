@@ -1,4 +1,4 @@
-# Reignite Group — "Retargeting" (شو يعني؟, 9:16 Arabic reel, 60.5s)
+# Reignite Group — "Retargeting" (شو يعني؟, 9:16 Arabic reel, 60.2s)
 
 HyperFrames composition: `index.html` (1080×1920, 30fps). Brief: `BRIEF.md` · VO script + timings: `SCRIPT.md` ·
 scene plan: `STORYBOARD.md` · Instagram caption: `CAPTION.md`.
@@ -6,7 +6,7 @@ scene plan: `STORYBOARD.md` · Instagram caption: `CAPTION.md`.
 Deliverables: `renders/retargeting-explained.mp4` (H.264 1080×1920 30fps, AAC, −14 LUFS, true peak ≈ −1.2 dBFS)
 and `cover.png`.
 
-Arc: HOOK (visited, saw the jacket, left) → the jacket follows (Instagram · YouTube · everywhere) → FREEZE (صدفة؟ لأ.)
+Arc: HOOK (teaser: the jacket in every feed, `لاحقك؟` → rewind → visited, saw the jacket, left) → the jacket follows (Instagram · YouTube · everywhere) → FREEZE (صدفة؟ لأ.)
 → `Retargeting` (out and back) → the clothes shop (came in, tried, didn't buy; the salesperson remembers) → the Pixel
 is the salesperson → warm vs stranger → don't repeat the same ad → the 3 rules → the line → comment PIXEL → logo.
 
@@ -19,7 +19,7 @@ is the salesperson → warm vs stranger → don't repeat the same ad → the 3 r
 ## Audio pipeline
 **Voiceover in use: the client's recording** (`audio/vo-human/`). See SCRIPT.md for the scan and wording notes.
 ```bash
-python3 scripts/build_vo_human.py  # clean the recording, first word at 0.4s → audio/vo-human/vo_track.wav;
+python3 scripts/build_vo_human.py  # clean the recording, first word at 0.12s → audio/vo-human/vo_track.wav;
                                    # align its Scribe words to the 139 animation slots → scripts/cues.json
 python3 scripts/apply_cues.py      # scene windows + CUES (word times) into index.html
 python3 scripts/build_audio.py     # procedural music bed (pre-ducked under the VO) + SFX on the same cues
@@ -29,7 +29,8 @@ python3 scripts/build_audio.py     # procedural music bed (pre-ducked under the 
   slots with difflib, so a re-recorded VO only needs a new Scribe pass (`scripts/vo_human_words.json`) and the three
   scripts.
 - Reference only (not used): the ElevenLabs "Fadi" TTS take 4 in `audio/vo/` and `scripts/build_vo.py`.
-- SFX: tap on the jacket, three feed pops, a stop on "لأ", door bell, Pixel blips, card flicks, the gold-row
+- Music starts at frame 0 with no fade-in.
+- SFX: three notification pops from frame 0, whoosh-thud on `لاحقك؟`, tape-rewind zip on `⏪`, tap on the jacket, three feed pops, a stop on "لأ", door bell, Pixel blips, card flicks, the gold-row
   positive click, Reignite chime. The music is kept low so a trending sound can be added in Instagram.
 - Python deps: numpy, scipy, soundfile.
 
