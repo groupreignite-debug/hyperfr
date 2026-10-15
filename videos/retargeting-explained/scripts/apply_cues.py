@@ -16,6 +16,7 @@ cues = json.loads((ROOT / "scripts" / "cues.json").read_text())
 w = lambda i: cues["words"][i][0]
 we = lambda i: cues["words"][i][1]
 END, DUR = cues["endcard"], cues["duration"]
+INTRO = 2.0  # signature intro (scene 00) in front of the film; everything below is offset by it
 
 # scene windows (each opens a little before its first word)
 SCENES = {
@@ -33,7 +34,8 @@ SCENES = {
     "s12": (END, DUR),                   # end card
     "subs": (0.0, END),
 }
-FULL = ["root", "ground", "vig", "a-vo", "a-music", "a-sfx"]
+FULL = ["root", "ground", "vig"]          # span intro + film
+FILM_AUDIO = ["a-vo", "a-music", "a-sfx"]  # the film's own tracks: start after the intro, same length as before
 
 html = HTML.read_text()
 
@@ -46,16 +48,20 @@ def set_window(html, el_id, start, dur):
 
 
 for sid, (a, b) in SCENES.items():
-    html = set_window(html, sid, a, b - a)
+    html = set_window(html, sid, a + INTRO, b - a)
 for fid in FULL:
-    html = set_window(html, fid, 0.0, DUR)
+    html = set_window(html, fid, 0.0, DUR + INTRO)
+for fid in FILM_AUDIO:
+    html = set_window(html, fid, INTRO, DUR)
+html = set_window(html, "s0", 0.0, INTRO)
+html = set_window(html, "a-intro", 0.0, INTRO)
 
-data = {"duration": DUR, "endcard": END, "scenes": {k: [round(a, 3), round(b, 3)] for k, (a, b) in SCENES.items()},
+data = {"intro": INTRO, "duration": DUR, "endcard": END, "scenes": {k: [round(a, 3), round(b, 3)] for k, (a, b) in SCENES.items()},
         "words": cues["words"], "lines": cues["lines"]}
 html, k = re.subn(r"/\*CUES\*/.*?/\*END CUES\*/",
                   lambda m: "/*CUES*/ const CUES = " + json.dumps(data, separators=(",", ":")) + "; /*END CUES*/", html, flags=re.S)
 assert k == 1, "CUES markers not found"
 HTML.write_text(html)
-print("applied cues: duration", DUR, "end card", END)
+print("applied cues: intro", INTRO, "+ film", DUR, "=", round(INTRO + DUR, 3), "| end card at", round(INTRO + END, 3))
 for k, (a, b) in SCENES.items():
     print(f"  {k:5s} {a:7.3f} -> {b:7.3f}")

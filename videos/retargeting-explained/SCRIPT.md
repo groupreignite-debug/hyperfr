@@ -5,7 +5,7 @@ mono, 59.2s, received Oct 13). `scripts/build_vo_human.py` cleans it (80 Hz HPF,
 3.2 kHz, air, de-ess, 3:1 compression, limiter), trims everything before the first word so it lands at 0.12s (Oct 15 hook update: first word within ~0.15s), and plays it as one
 continuous take at its own pace: no cuts, no tempo change. ElevenLabs Scribe word timings (`scripts/vo_human_words.json`)
 are aligned onto the animation's 139 word slots, so every scene, subtitle and SFX cue follows the recording.
-Times below are film seconds. The subtitle text is the brief's line, except where the recording clearly differs (11, 14).
+Times below are film seconds (the film starts at 2.0s in the final video, after the signature intro). The subtitle text is the brief's line, except where the recording clearly differs (11, 14).
 **One text layer rule:** the bottom subtitle is hidden for line 03 (FREEZE), line 13 (LINE beat) and the second half of
 line 14 (CTA), because the centre shows those words big.
 
